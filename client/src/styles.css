@@ -1,0 +1,137 @@
+/* 1. Global Reset - Make everything look clean */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f6; /* Light grey background */
+  color: #333;
+}
+
+/* 2. Main Container - Centers everything on screen */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Soft shadow */
+}
+
+/* 3. Headers */
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #34495e;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* 4. The Form Styling */
+.form-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 20px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding doesn't break layout */
+  font-size: 14px;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus {
+  border-color: #3498db;
+  outline: none;
+  background-color: #fbfdff;
+}
+
+/* 5. Buttons - Make them pop! */
+button {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: opacity 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Specific Button Colors */
+.btn-save { background-color: #2ecc71; color: white; } /* Green */
+.btn-update { background-color: #f39c12; color: white; } /* Orange */
+.btn-edit { background-color: #3498db; color: white; width: auto; margin-right: 10px; } /* Blue */
+.btn-delete { background-color: #e74c3c; color: white; width: auto; } /* Red */
+.btn-cancel { background-color: #95a5a6; color: white; } /* Grey */
+
+/* 6. The Project List Cards */
+.card {
+  background-color: white;
+  border-left: 5px solid #3498db; /* Blue accent line on left */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px); /* Moves up slightly when hovered */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #2980b9;
+}
+/* --- NEW ADDITIONS FOR LAYOUT --- */
+
+/* 7. The Navigation Bar */
+.navbar {
+  background-color: #2c3e50; /* Dark Blue */
+  color: white;
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.nav-content {
+  max-width: 900px; /* Matches your main container width */
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* 8. The Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+  color: #7f8c8d;
+  font-size: 14px;
+  border-top: 1px solid #e0e0e0;
+}
