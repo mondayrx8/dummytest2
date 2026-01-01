@@ -1,106 +1,87 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import PortfolioForm from './components/PortfolioForm';
-import PortfolioList from './components/PortfolioList';
+
+// Import Components
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Login from './components/Login'; // <--- Import Login
+import PortfolioList from './components/PortfolioList';
+import PortfolioForm from './components/PortfolioForm';
+import Login from './components/Login';
 
-function App() {
-  const [portfolios, setPortfolios] = useState([]);
-  const [currentPortfolio, setCurrentPortfolio] = useState(null); 
-  const [searchTerm, setSearchTerm] = useState(""); 
-  
-  // SECURITY STATE: Do we have a token?
+const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [portfolios, setPortfolios] = useState([]);
+  const [currentPortfolio, setCurrentPortfolio] = useState(null); // For Editing
 
-  // If we have a token, we attach it to every request (we will need this later)
+  // This ensures the token stays valid if you refresh the page
   useEffect(() => {
-    if (token) {
-       // MAGIC LINE: Attach token to every future request
-       axios.defaults.headers.common['auth-token'] = token; 
-       fetchPortfolios();
-    } else {
-       // If no token, remove the header
-       delete axios.defaults.headers.common['auth-token'];
-    }
-  }, [token]);
+    const savedToken = localStorage.getItem('token');
+    if (savedToken) setToken(savedToken);
+  }, []);
 
+  // Function to refresh the list (Passed to children)
   const fetchPortfolios = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/portfolio/all');
-      setPortfolios(response.data);
+      const res = await axios.get('http://localhost:5000/api/portfolio/all');
+      setPortfolios(res.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token'); // Destroy the ID card
-    setToken(null); // Update state to hide dashboard
-  };
-
-  // LOGIC: If no token, SHOW LOGIN PAGE ONLY
-  if (!token) {
-    return (
-      <>
-        <Navbar />
-        <Login onLogin={setToken} />
-        <Footer />
-      </>
-    );
-  }
-
-  // LOGIC: If token exists, SHOW DASHBOARD
-  const filteredPortfolios = portfolios.filter((item) => {
-    const term = searchTerm.toLowerCase();
-    return (
-        item.projectTitle.toLowerCase().includes(term) || 
-        item.problemStatement.toLowerCase().includes(term) ||
-        item.solution.toLowerCase().includes(term)
-    );
-  });
+  useEffect(() => {
+      fetchPortfolios();
+  }, []);
 
   return (
-    <>
-      <Navbar />
-
-      <div className="container">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px" }}>
-            <h1>My Dashboard</h1>
-            <button onClick={handleLogout} style={{ width: "auto", backgroundColor: "#e74c3c", padding: "10px 20px" }}>
-                Logout
-            </button>
-        </div>
+    <BrowserRouter>
+      <div className="app-container">
         
-        <PortfolioForm 
-          onSave={fetchPortfolios} 
-          currentPortfolio={currentPortfolio} 
-          setCurrentPortfolio={setCurrentPortfolio} 
-        />
+        {/* ROUTES CONFIGURATION */}
+        <Routes>
+          
+          {/* PAGE 1: LOGIN (If logged in, go to dashboard) */}
+          <Route path="/" element={
+            !token ? <Login setToken={setToken} /> : <Navigate to="/dashboard" />
+          } />
 
-        <hr style={{ borderTop: "1px solid #eee", margin: "30px 0" }} />
+          {/* PAGE 2: DASHBOARD (The List) */}
+          <Route path="/dashboard" element={
+            token ? (
+              <>
+                <Navbar />
+                <div style={{ padding: "20px" }}>
+                  <PortfolioList 
+                    portfolios={portfolios} 
+                    onDelete={fetchPortfolios} 
+                    // When clicking edit, we save the item to state and go to /create
+                    setCurrentPortfolio={setCurrentPortfolio} 
+                  />
+                </div>
+              </>
+            ) : <Navigate to="/" />
+          } />
 
-        <div style={{ marginBottom: "20px" }}>
-            <input 
-                type="text" 
-                placeholder="🔍 Search projects..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ width: "100%", padding: "15px", fontSize: "16px", borderRadius: "8px", border: "2px solid #3498db" }}
-            />
-        </div>
+          {/* PAGE 3: BUILDER (The Form) */}
+          <Route path="/create" element={
+            token ? (
+              <>
+                <Navbar />
+                <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
+                  <PortfolioForm 
+                    onSave={() => { fetchPortfolios(); }} 
+                    currentPortfolio={currentPortfolio} 
+                    setCurrentPortfolio={setCurrentPortfolio}
+                  />
+                </div>
+              </>
+            ) : <Navigate to="/" />
+          } />
 
-        <PortfolioList 
-          portfolios={filteredPortfolios} 
-          onDelete={fetchPortfolios} 
-          onEdit={setCurrentPortfolio} 
-        />
+        </Routes>
       </div>
-
-      <Footer />
-    </>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

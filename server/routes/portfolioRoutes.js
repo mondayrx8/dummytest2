@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Portfolio = require('../models/Portfolio');
-const auth = require('../middleware/authMiddleware'); // <--- Import the Bouncer
+const auth = require('../middleware/authMiddleware');
 
-// Public Route (Everyone can read)
+// Public Route (Read All)
 router.get('/all', async (req, res) => {
     try {
         const portfolios = await Portfolio.find();
@@ -13,44 +13,45 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// Protected Route (Only logged in users can Add)
+// Protected Route (Create)
 router.post('/add', auth, async (req, res) => {
     try {
-        // We added 'image' to this line 👇
-        const { projectTitle, problemStatement, solution, targetMarket, image } = req.body;
+        // 1. Destructure the NEW fields
+        const { studentName, businessName, description, marketSize, image } = req.body;
         
+        // 2. Create the object with NEW fields
         const newPortfolio = new Portfolio({
-            projectTitle,
-            problemStatement,
-            solution,
-            targetMarket,
-            image // <--- Save it here!
+            studentName,
+            businessName,
+            description,
+            marketSize,
+            image
         });
         
         const savedPortfolio = await newPortfolio.save();
         res.status(201).json(savedPortfolio);
     } catch (error) {
-        res.status(500).json({ error: "Failed to save" });
+        // 3. LOG THE REAL ERROR to the terminal so we can see it
+        console.error("Error Saving Portfolio:", error.message); 
+        res.status(400).json({ error: error.message }); // Send 400 with the specific error message
     }
 });
 
-// Protected Route (Only logged in users can Delete)
-router.delete('/delete/:id', auth, async (req, res) => { // <--- Added 'auth'
+// Protected Route (Delete)
+router.delete('/delete/:id', auth, async (req, res) => {
     try {
-        const { id } = req.params;
-        await Portfolio.findByIdAndDelete(id);
+        await Portfolio.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: "Deleted successfully" });
     } catch (error) {
         res.status(500).json({ error: "Failed to delete" });
     }
 });
 
-// Protected Route (Only logged in users can Update)
+// Protected Route (Update)
 router.put('/update/:id', auth, async (req, res) => {
     try {
-        const { id } = req.params;
-        // The req.body now contains the image, so MongoDB will update it automatically
-        const updatedPortfolio = await Portfolio.findByIdAndUpdate(id, req.body, { new: true });
+        // The req.body automatically contains the new fields, so this should work
+        const updatedPortfolio = await Portfolio.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.status(200).json(updatedPortfolio);
     } catch (error) {
         res.status(500).json({ error: "Failed to update" });
