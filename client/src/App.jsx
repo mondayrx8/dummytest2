@@ -30,16 +30,16 @@ const App = () => {
   };
 
   useEffect(() => {
-      fetchPortfolios();
+    fetchPortfolios();
   }, []);
 
   return (
     <BrowserRouter>
       <div className="app-container">
-        
+
         {/* ROUTES CONFIGURATION */}
         <Routes>
-          
+
           {/* PAGE 1: LOGIN (If logged in, go to dashboard) */}
           <Route path="/" element={
             !token ? <Login setToken={setToken} /> : <Navigate to="/dashboard" />
@@ -49,13 +49,12 @@ const App = () => {
           <Route path="/dashboard" element={
             token ? (
               <>
-                <Navbar />
+                <Navbar setToken={setToken} />
                 <div style={{ padding: "20px" }}>
-                  <PortfolioList 
-                    portfolios={portfolios} 
-                    onDelete={fetchPortfolios} 
-                    // When clicking edit, we save the item to state and go to /create
-                    setCurrentPortfolio={setCurrentPortfolio} 
+                  <PortfolioList
+                    portfolios={portfolios}
+                    onDelete={fetchPortfolios}
+                    setCurrentPortfolio={setCurrentPortfolio}
                   />
                 </div>
               </>
@@ -66,11 +65,11 @@ const App = () => {
           <Route path="/create" element={
             token ? (
               <>
-                <Navbar />
+                <Navbar setToken={setToken} />
                 <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-                  <PortfolioForm 
-                    onSave={() => { fetchPortfolios(); }} 
-                    currentPortfolio={currentPortfolio} 
+                  <PortfolioForm
+                    onSave={() => { fetchPortfolios(); }}
+                    currentPortfolio={currentPortfolio}
                     setCurrentPortfolio={setCurrentPortfolio}
                   />
                 </div>

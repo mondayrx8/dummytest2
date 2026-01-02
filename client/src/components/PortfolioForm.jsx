@@ -39,21 +39,21 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token'); // Get token
+    const token = localStorage.getItem('token');
 
     try {
-      const config = { headers: { 'auth-token': token } }; // Attach token
+      const config = { headers: { 'auth-token': token } };
 
       if (currentPortfolio) {
         await axios.put(`http://localhost:5000/api/portfolio/update/${currentPortfolio._id}`, formData, config);
-        setCurrentPortfolio(null); 
+        setCurrentPortfolio(null);
       } else {
         await axios.post('http://localhost:5000/api/portfolio/add', formData, config);
       }
-      
-      onSave(); // Refresh the list
-      navigate('/dashboard'); // <--- CRITICAL: Go back to list page!
-      
+
+      onSave();
+      navigate('/dashboard');
+
     } catch (error) {
       console.error(error);
       setMessage('❌ Error Saving Data');
@@ -61,54 +61,85 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   };
 
   const handleCancel = () => {
-      setCurrentPortfolio(null); 
-      setFormData({ studentName: '', businessName: '', description: '', marketSize: '', image: '' });
+    setCurrentPortfolio(null);
+    setFormData({ studentName: '', businessName: '', description: '', marketSize: '', image: '' });
   };
 
   return (
-    <div className="form-container">
-      <h2>{currentPortfolio ? "Edit Portfolio" : "Build Your Entrepreneur Portfolio"}</h2>
-      {message && <p style={{ color: "green", fontWeight: "bold" }}>{message}</p>}
-      
-      <form onSubmit={handleSubmit}>
-        {/* NEW FIELD: Student Name */}
-        <div style={{ marginBottom: "10px" }}>
-            <label>Entrepreneur Name:</label><br/>
-            <input type="text" name="studentName" value={formData.studentName} onChange={handleChange} placeholder="e.g. Khairul Aming" required />
+    <div className="builder-container">
+      <h2 className="builder-title">{currentPortfolio ? "Edit Portfolio" : "Build Your Entrepreneur Portfolio"}</h2>
+      {message && <p className="info-message">{message}</p>}
+
+      <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
+          <label className="form-label">Entrepreneur Name:</label>
+          <input
+            type="text"
+            name="studentName"
+            value={formData.studentName}
+            onChange={handleChange}
+            placeholder="e.g. Khairul Aming"
+            className="form-input"
+            required
+          />
         </div>
 
-        {/* RENAMED FIELD: Business Name */}
-        <div style={{ marginBottom: "10px" }}>
-            <label>Business / Startup Name:</label><br/>
-            <input type="text" name="businessName" value={formData.businessName} onChange={handleChange} placeholder="e.g. Rembayung" required />
-        </div>
-        
-        <div style={{ marginBottom: "10px" }}>
-            <label>Product Image / Logo:</label><br/>
-            <input type="file" accept="image/*" onChange={handleFileChange} style={{ border: "none", padding: "10px 0" }} />
-            {formData.image && (
-              <img src={formData.image} alt="Preview" style={{ width: "100px", height: "100px", objectFit: "cover", marginTop: "10px", borderRadius: "5px" }} />
-            )}
-        </div>
-
-        {/* NEW FIELD: Description */}
-        <div style={{ marginBottom: "10px" }}>
-            <label>Business Description (Pitch):</label><br/>
-            <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Describe your business idea..." required />
+        <div className="form-group">
+          <label className="form-label">Business / Startup Name:</label>
+          <input
+            type="text"
+            name="businessName"
+            value={formData.businessName}
+            onChange={handleChange}
+            placeholder="e.g. Rembayung"
+            className="form-input"
+            required
+          />
         </div>
 
-        {/* NEW FIELD: Market Size */}
-        <div style={{ marginBottom: "10px" }}>
-            <label>Market Size:</label><br/>
-            <input type="text" name="marketSize" value={formData.marketSize} onChange={handleChange} placeholder="e.g. 50,000 students in Kedah" />
+        <div className="form-group">
+          <label className="form-label">Product Image / Logo:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="form-file-input"
+          />
+          {formData.image && (
+            <img src={formData.image} alt="Preview" className="image-preview" />
+          )}
         </div>
-        
+
+        <div className="form-group">
+          <label className="form-label">Business Description (Pitch):</label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Describe your business idea..."
+            className="form-input form-textarea"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Market Size:</label>
+          <input
+            type="text"
+            name="marketSize"
+            value={formData.marketSize}
+            onChange={handleChange}
+            placeholder="e.g. 50,000 students in Kedah"
+            className="form-input"
+          />
+        </div>
+
         <button type="submit" className={currentPortfolio ? "btn-update" : "btn-save"}>
           {currentPortfolio ? "Update Portfolio" : "Create Portfolio"}
         </button>
-        
+
         {currentPortfolio && (
-            <button type="button" onClick={handleCancel} className="btn-cancel">Cancel</button>
+          <button type="button" onClick={handleCancel} className="btn-cancel">Cancel</button>
         )}
       </form>
     </div>
