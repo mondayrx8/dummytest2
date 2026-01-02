@@ -1,0 +1,439 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ========== Dashboard Container ========== */
+.dashboard-list-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #f7fafc 0%, #edf2f7 100%);
+}
+
+/* ========== Hero Section ========== */
+.dashboard-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.dashboard-hero-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.dashboard-hero-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 16px 0;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ========== Main Content ========== */
+.dashboard-main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+    transform: translateY(-40px);
+    position: relative;
+    z-index: 5;
+}
+
+/* ========== Stats Section ========== */
+.dashboard-stats {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 48px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.stat-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ========== Portfolio Grid ========== */
+.dashboard-portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 32px;
+    padding-bottom: 40px;
+}
+
+/* ========== Portfolio Card ========== */
+.dashboard-portfolio-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 300ms ease-in-out;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', sans-serif;
+}
+
+.dashboard-portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-portfolio-card:hover .dashboard-card-overlay {
+    opacity: 0;
+}
+
+.dashboard-portfolio-card:hover .dashboard-card-image {
+    transform: scale(1.05);
+}
+
+/* ========== Card Image ========== */
+.dashboard-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background: #edf2f7;
+}
+
+.dashboard-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms ease-in-out;
+}
+
+.dashboard-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    transition: opacity 300ms ease-in-out;
+}
+
+.dashboard-card-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+}
+
+.dashboard-placeholder-icon {
+    font-size: 48px;
+    opacity: 0.6;
+}
+
+.dashboard-placeholder-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ========== Card Content ========== */
+.dashboard-card-content {
+    padding: 28px;
+}
+
+.dashboard-card-header {
+    margin-bottom: 24px;
+}
+
+.dashboard-business-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+}
+
+.dashboard-student-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dashboard-student-icon {
+    font-size: 16px;
+}
+
+.dashboard-student-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    padding: 4px 12px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 8px;
+}
+
+/* ========== Card Body ========== */
+.dashboard-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.dashboard-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dashboard-section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: fit-content;
+}
+
+.dashboard-section-badge.pitch {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    color: #6c5ce7;
+}
+
+.dashboard-section-badge.market {
+    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+    color: white;
+}
+
+.dashboard-section-content {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4a5568;
+}
+
+.dashboard-section-content.market-size {
+    font-weight: 600;
+    color: #1a202c;
+    font-size: 16px;
+}
+
+/* ========== Card Actions ========== */
+.dashboard-card-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 2px solid #edf2f7;
+}
+
+.dashboard-btn-edit,
+.dashboard-btn-delete {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    color: white;
+}
+
+.dashboard-btn-edit {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+}
+
+.dashboard-btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+}
+
+.dashboard-btn-delete {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
+}
+
+.dashboard-btn-delete:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 112, 154, 0.5);
+}
+
+.dashboard-btn-delete:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+/* ========== Empty State ========== */
+.dashboard-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    gap: 20px;
+    text-align: center;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-empty-state .empty-icon {
+    font-size: 80px;
+    opacity: 0.5;
+}
+
+.dashboard-empty-state h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0;
+}
+
+.dashboard-empty-state p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #4a5568;
+    max-width: 400px;
+    margin: 0;
+}
+
+.btn-create-first {
+    margin-top: 16px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-create-first:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+    .dashboard-hero {
+        padding: 40px 24px;
+    }
+
+    .dashboard-hero-title {
+        font-size: 36px;
+    }
+
+    .dashboard-hero-subtitle {
+        font-size: 16px;
+    }
+
+    .dashboard-main-content {
+        padding: 20px;
+    }
+
+    .dashboard-portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .stat-card {
+        padding: 20px 40px;
+    }
+
+    .stat-value {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-hero-title {
+        font-size: 28px;
+    }
+
+    .dashboard-hero-subtitle {
+        font-size: 14px;
+    }
+
+    .dashboard-business-name {
+        font-size: 20px;
+    }
+
+    .dashboard-card-content {
+        padding: 20px;
+    }
+
+    .dashboard-card-actions {
+        flex-direction: column;
+    }
+
+    .dashboard-btn-edit,
+    .dashboard-btn-delete {
+        width: 100%;
+    }
+}

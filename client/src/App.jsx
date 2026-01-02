@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import PortfolioList from './components/PortfolioList';
 import PortfolioForm from './components/PortfolioForm';
 import Login from './components/Login';
+import GuestList from './components/GuestList';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -39,7 +40,9 @@ const App = () => {
 
         {/* ROUTES CONFIGURATION */}
         <Routes>
-
+          {/* PAGE 0: PUBLIC INVESTOR VIEW (No Token Required!) */}
+          <Route path="/investors" element={<GuestList />} /> {/*
+          
           {/* PAGE 1: LOGIN (If logged in, go to dashboard) */}
           <Route path="/" element={
             !token ? <Login setToken={setToken} /> : <Navigate to="/dashboard" />

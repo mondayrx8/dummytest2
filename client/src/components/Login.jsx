@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import './Login.css';
 
 const Login = ({ setToken }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     const endpoint = isRegistering ? '/register' : '/login';
 
@@ -20,70 +24,108 @@ const Login = ({ setToken }) => {
       });
 
       if (isRegistering) {
-        // If registered successfully, switch to login mode automatically
-        alert("Registration Successful! Please Login.");
+        alert("✅ Registration Successful! Please Login.");
         setIsRegistering(false);
+        setPassword('');
       } else {
-        // If login successful, save token and tell App.jsx
         localStorage.setItem('token', response.data.token);
         setToken(response.data.token);
       }
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="landing-page">
-      <div className="landing-content">
+    <div className="login-page">
+      <div className="login-content">
         {/* Hero Section */}
-        <div className="hero-section">
-          <h1 className="hero-title">Portfolio Builder</h1>
-          <p className="hero-subtitle">Create, manage, and showcase your work in one beautiful place</p>
+        <div className="login-hero-section">
+          <div className="hero-icon">🚀</div>
+          <h1 className="login-hero-title">Entrepreneur Portfolio</h1>
+          <p className="login-hero-subtitle">
+            Create, manage, and showcase your entrepreneurial ventures in one beautiful platform
+          </p>
         </div>
 
         {/* Auth Card */}
-        <div className="auth-card">
-          <h2 className="auth-title">
-            {isRegistering ? "Create Account" : "Welcome Back"}
+        <div className="login-auth-card">
+          <h2 className="login-auth-title">
+            {isRegistering ? "Create Your Account" : "Welcome Back"}
           </h2>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && (
+            <div className="login-error-message">
+              <span className="error-icon">⚠️</span>
+              {error}
+            </div>
+          )}
 
-          <form onSubmit={handleSubmit} className="auth-form">
-            <div className="form-group">
-              <label className="form-label">Username</label>
+          <form onSubmit={handleSubmit} className="login-auth-form">
+            <div className="login-form-group">
+              <label className="login-form-label">
+                <span className="label-icon">👤</span>
+                Username
+              </label>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="form-input"
+                className="login-form-input"
                 placeholder="Enter your username"
                 required
               />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Password</label>
+            <div className="login-form-group">
+              <label className="login-form-label">
+                <span className="label-icon">🔒</span>
+                Password
+              </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="form-input"
+                className="login-form-input"
                 placeholder="Enter your password"
                 required
               />
             </div>
 
-            <button type="submit" className="btn-primary">
-              {isRegistering ? "Register" : "Login"}
+            <button type="submit" className="login-btn-primary" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="btn-spinner"></span>
+                  {isRegistering ? "Registering..." : "Logging in..."}
+                </>
+              ) : (
+                <>
+                  {isRegistering ? "Create Account" : "Sign In"}
+                </>
+              )}
             </button>
           </form>
 
-          <p className="auth-toggle" onClick={() => setIsRegistering(!isRegistering)}>
-            {isRegistering ? "Already have an account? Login" : "Need an account? Register"}
+          <p className="login-auth-toggle" onClick={() => setIsRegistering(!isRegistering)}>
+            {isRegistering ? "Already have an account? Sign In" : "Need an account? Create One"}
           </p>
+
+          <div className="login-divider">
+            <span>or</span>
+          </div>
+
+          <Link to="/investors" className="login-guest-link">
+            <span className="guest-icon">👀</span>
+            View as Guest (Investor View)
+          </Link>
         </div>
+
+        {/* Footer */}
+        <footer className="login-footer">
+          <p>© 2026 Entrepreneur Portfolio | Empowering Student Innovation</p>
+        </footer>
       </div>
     </div>
   );
