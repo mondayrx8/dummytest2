@@ -17,22 +17,23 @@ router.get('/all', async (req, res) => {
 router.post('/add', auth, async (req, res) => {
     try {
         // 1. Destructure the NEW fields
-        const { studentName, businessName, description, marketSize, image } = req.body;
-        
+        const { studentName, teamMembers, businessName, description, marketSize, image } = req.body;
+
         // 2. Create the object with NEW fields
         const newPortfolio = new Portfolio({
             studentName,
+            teamMembers,
             businessName,
             description,
             marketSize,
             image
         });
-        
+
         const savedPortfolio = await newPortfolio.save();
         res.status(201).json(savedPortfolio);
     } catch (error) {
         // 3. LOG THE REAL ERROR to the terminal so we can see it
-        console.error("Error Saving Portfolio:", error.message); 
+        console.error("Error Saving Portfolio:", error.message);
         res.status(400).json({ error: error.message }); // Send 400 with the specific error message
     }
 });

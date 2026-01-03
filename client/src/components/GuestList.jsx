@@ -92,6 +92,16 @@ const GuestList = () => {
                                                 <span className="student-label">👨‍🎓 Founder:</span>
                                                 <span className="student-name">{item.studentName}</span>
                                             </div>
+                                            {/* Show Team Members if they exist */}
+                                            {item.teamMembers && (
+                                                <div className="team-info">
+                                                    <span className="team-icon">🤝</span>
+                                                    <div className="team-content">
+                                                        <span className="team-label">Team Members</span>
+                                                        <span className="team-members">{item.teamMembers}</span>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
 
                                         <div className="card-body">

@@ -1,24 +1,30 @@
 const mongoose = require('mongoose');
 
 const portfolioSchema = new mongoose.Schema({
-    studentName: { // <--- NEW: The Entrepreneur's Name
+    studentName: { 
         type: String,
         required: true
     },
-    businessName: { // <--- NEW: The Startup's Name
+    // --- NEW FIELD: TEAM MEMBERS ---
+    teamMembers: { 
+        type: String, // e.g., "Ali (Marketing), Sarah (Tech)"
+        required: false // Optional, because some students are solo
+    },
+    // -------------------------------
+    businessName: { 
         type: String,
         required: true
     },
-    description: { // <--- NEW: Replaces "Problem/Solution" for a cleaner pitch
+    description: { 
         type: String,
         required: true
     },
-    marketSize: { // <--- NEW: From your Design Doc Table 1
+    marketSize: { 
         type: String,
         required: true
     },
     image: {
-        type: String // Base64 String
+        type: String 
     },
     createdAt: {
         type: Date,

@@ -8,6 +8,7 @@ import PortfolioList from './components/PortfolioList';
 import PortfolioForm from './components/PortfolioForm';
 import Login from './components/Login';
 import GuestList from './components/GuestList';
+import LandingPage from './components/LandingPage';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -40,11 +41,14 @@ const App = () => {
 
         {/* ROUTES CONFIGURATION */}
         <Routes>
-          {/* PAGE 0: PUBLIC INVESTOR VIEW (No Token Required!) */}
+          {/* PAGE 0: LANDING PAGE (Default Homepage) */}
+          <Route path="/" element={<LandingPage />} />
+
+          {/* PAGE 1: PUBLIC INVESTOR VIEW (No Token Required!) */}
           <Route path="/investors" element={<GuestList />} /> {/*
           
-          {/* PAGE 1: LOGIN (If logged in, go to dashboard) */}
-          <Route path="/" element={
+          {/* PAGE 2: LOGIN (If logged in, go to dashboard) */}
+          <Route path="/login" element={
             !token ? <Login setToken={setToken} /> : <Navigate to="/dashboard" />
           } />
 

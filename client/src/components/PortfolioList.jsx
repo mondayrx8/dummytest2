@@ -87,6 +87,16 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
                                                 <span className="dashboard-student-icon">👨‍💼</span>
                                                 <span className="dashboard-student-name">{item.studentName}</span>
                                             </div>
+                                            {/* Show Team Members if they exist */}
+                                            {item.teamMembers && (
+                                                <div className="dashboard-team-info">
+                                                    <span className="dashboard-team-icon">🤝</span>
+                                                    <div className="dashboard-team-content">
+                                                        <span className="dashboard-team-label">Team Members</span>
+                                                        <span className="dashboard-team-members">{item.teamMembers}</span>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
 
                                         <div className="dashboard-card-body">

@@ -7,6 +7,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     studentName: '',
+    teamMembers: '',
     businessName: '',
     description: '',
     marketSize: '',
@@ -21,7 +22,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       setFormData(currentPortfolio);
       setMessage('✏️ Edit Mode: Update your business details');
     } else {
-      setFormData({ studentName: '', businessName: '', description: '', marketSize: '', image: '' });
+      setFormData({ studentName: '', teamMembers: '', businessName: '', description: '', marketSize: '', image: '' });
       setMessage('');
     }
   }, [currentPortfolio]);
@@ -99,6 +100,21 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               placeholder="e.g. Khairul Aming"
               className="builder-form-input"
               required
+            />
+          </div>
+
+          <div className="builder-form-group">
+            <label className="builder-form-label">
+              <span className="label-icon">👥</span>
+              Team Members / Co-Founders
+            </label>
+            <input
+              type="text"
+              name="teamMembers"
+              value={formData.teamMembers}
+              onChange={handleChange}
+              placeholder="e.g. Ali (CEO), Sarah (Marketing)"
+              className="builder-form-input"
             />
           </div>
 
