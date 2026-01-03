@@ -57,13 +57,11 @@ const App = () => {
             token ? (
               <>
                 <Navbar setToken={setToken} />
-                <div style={{ padding: "20px" }}>
-                  <PortfolioList
-                    portfolios={portfolios}
-                    onDelete={fetchPortfolios}
-                    setCurrentPortfolio={setCurrentPortfolio}
-                  />
-                </div>
+                <PortfolioList
+                  portfolios={portfolios}
+                  onDelete={fetchPortfolios}
+                  setCurrentPortfolio={setCurrentPortfolio}
+                />
               </>
             ) : <Navigate to="/" />
           } />
@@ -73,13 +71,11 @@ const App = () => {
             token ? (
               <>
                 <Navbar setToken={setToken} />
-                <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-                  <PortfolioForm
-                    onSave={() => { fetchPortfolios(); }}
-                    currentPortfolio={currentPortfolio}
-                    setCurrentPortfolio={setCurrentPortfolio}
-                  />
-                </div>
+                <PortfolioForm
+                  onSave={() => { fetchPortfolios(); }}
+                  currentPortfolio={currentPortfolio}
+                  setCurrentPortfolio={setCurrentPortfolio}
+                />
               </>
             ) : <Navigate to="/" />
           } />

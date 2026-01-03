@@ -336,26 +336,66 @@
 
 /* ========== Responsive Design ========== */
 @media (max-width: 768px) {
+    .login-page {
+        padding: 24px 16px;
+    }
+
+    .login-content {
+        padding: 0;
+    }
+
+    .login-hero-section {
+        padding: 40px 24px;
+    }
+
+    .hero-icon {
+        font-size: 56px;
+    }
+
     .login-hero-title {
         font-size: 32px;
     }
 
     .login-hero-subtitle {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .login-auth-card {
         padding: 32px 24px;
+        margin: 0;
+        border-radius: 20px;
     }
 
-    .login-content {
-        gap: 24px;
+    .login-auth-title {
+        font-size: 24px;
+    }
+
+    .login-form-label {
+        font-size: 14px;
+    }
+
+    .login-form-input {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+
+    .login-btn-primary {
+        padding: 14px 28px;
+        font-size: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .login-page {
-        padding: 16px;
+        padding: 16px 12px;
+    }
+
+    .login-hero-section {
+        padding: 32px 20px;
+    }
+
+    .hero-icon {
+        font-size: 48px;
     }
 
     .login-hero-title {
@@ -363,7 +403,8 @@
     }
 
     .login-hero-subtitle {
-        font-size: 13px;
+        font-size: 14px;
+        padding: 0 10px;
     }
 
     .login-auth-card {
@@ -371,10 +412,40 @@
     }
 
     .login-auth-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .login-form-group {
+        margin-bottom: 18px;
+    }
+
+    .login-auth-toggle {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .login-guest-link {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .login-footer p {
+        font-size: 12px;
+    }
+}
+
+/* ========== Additional Enhancements ========== */
+@media (max-width: 380px) {
+    .login-hero-title {
         font-size: 24px;
     }
 
-    .hero-icon {
-        font-size: 48px;
+    .login-auth-card {
+        padding: 24px 16px;
+    }
+
+    .login-btn-primary {
+        padding: 12px 24px;
     }
 }
