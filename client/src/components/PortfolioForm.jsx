@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Footer from './Footer';
 import './PortfolioForm.css';
 
 const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
@@ -217,6 +218,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           </div>
         </form>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

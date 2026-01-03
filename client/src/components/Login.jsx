@@ -40,6 +40,9 @@ const Login = ({ setToken }) => {
 
   return (
     <div className="login-page">
+      {/* Third Gradient Blob */}
+      <div className="gradient-blob-3"></div>
+
       <div className="login-content">
         {/* Hero Section */}
         <div className="login-hero-section">

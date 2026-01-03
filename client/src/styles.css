@@ -3,8 +3,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7f6;
-  /* Light grey background */
+  background-color: #0a0e27;
+  /* Dark background to match sidebar */
   color: #333;
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 import './GuestList.css';
 
 const GuestList = () => {
@@ -133,10 +134,8 @@ const GuestList = () => {
                 )}
             </main>
 
-            {/* Footer */}
-            <footer className="public-footer">
-                <p>© 2026 Entrepreneur Showcase | Empowering Student Innovation</p>
-            </footer>
+            {/* Professional Footer */}
+            <Footer />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
 import './PortfolioList.css';
 
 const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
@@ -31,6 +32,9 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
 
     return (
         <div className="dashboard-list-container">
+            {/* Third Gradient Blob */}
+            <div className="dashboard-gradient-blob-3"></div>
+
             {/* Hero Section */}
             <header className="dashboard-hero">
                 <div className="dashboard-hero-content">
@@ -142,6 +146,9 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
                     </>
                 )}
             </main>
+
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };

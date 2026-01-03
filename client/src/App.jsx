@@ -3,12 +3,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Import Components
-import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 import PortfolioList from './components/PortfolioList';
 import PortfolioForm from './components/PortfolioForm';
 import Login from './components/Login';
 import GuestList from './components/GuestList';
 import LandingPage from './components/LandingPage';
+import ScrollLanding from './components/ScrollLanding';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -41,12 +42,15 @@ const App = () => {
 
         {/* ROUTES CONFIGURATION */}
         <Routes>
-          {/* PAGE 0: LANDING PAGE (Default Homepage) */}
-          <Route path="/" element={<LandingPage />} />
+          {/* PAGE 0: LANDING PAGE (Default Homepage - Immersive Scroll) */}
+          <Route path="/" element={<ScrollLanding />} />
+
+          {/* OLD LANDING PAGE (Backup - Entrepreneurial Portfolio) */}
+          <Route path="/old-landing" element={<LandingPage />} />
 
           {/* PAGE 1: PUBLIC INVESTOR VIEW (No Token Required!) */}
           <Route path="/investors" element={<GuestList />} /> {/*
-          
+
           {/* PAGE 2: LOGIN (If logged in, go to dashboard) */}
           <Route path="/login" element={
             !token ? <Login setToken={setToken} /> : <Navigate to="/dashboard" />
@@ -56,7 +60,7 @@ const App = () => {
           <Route path="/dashboard" element={
             token ? (
               <>
-                <Navbar setToken={setToken} />
+                <Sidebar setToken={setToken} />
                 <PortfolioList
                   portfolios={portfolios}
                   onDelete={fetchPortfolios}
@@ -70,7 +74,7 @@ const App = () => {
           <Route path="/create" element={
             token ? (
               <>
-                <Navbar setToken={setToken} />
+                <Sidebar setToken={setToken} />
                 <PortfolioForm
                   onSave={() => { fetchPortfolios(); }}
                   currentPortfolio={currentPortfolio}
