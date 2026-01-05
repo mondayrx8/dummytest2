@@ -18,7 +18,7 @@ const Login = ({ setToken }) => {
     const endpoint = isRegistering ? '/register' : '/login';
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/auth${endpoint}`, {
+      const response = await axios.post(`https://dummytest2.onrender.com/api/auth${endpoint}`, {
         username,
         password
       });
@@ -135,3 +135,4 @@ const Login = ({ setToken }) => {
 };
 
 export default Login;
+// Vercel Force Update 1
