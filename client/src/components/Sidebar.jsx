@@ -28,13 +28,6 @@ const Sidebar = ({ setToken }) => {
                     <span className="brand-icon">🚀</span>
                     {!isCollapsed && <span className="brand-text">Portfolio</span>}
                 </div>
-                <button
-                    onClick={() => setIsCollapsed(!isCollapsed)}
-                    className="collapse-btn"
-                    title={isCollapsed ? 'Expand' : 'Collapse'}
-                >
-                    <span className="collapse-icon">☰</span>
-                </button>
             </div>
 
             {/* Navigation Links */}
@@ -67,6 +60,16 @@ const Sidebar = ({ setToken }) => {
                 </Link>
 
                 <div className="menu-divider"></div>
+
+                {/* Collapse Toggle Button */}
+                <button
+                    onClick={() => setIsCollapsed(!isCollapsed)}
+                    className="menu-item collapse-toggle-item"
+                    title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+                >
+                    <span className="menu-icon">{isCollapsed ? '»' : '«'}</span>
+                    {!isCollapsed && <span className="menu-text">Collapse</span>}
+                </button>
 
                 <button
                     onClick={handleLogout}
