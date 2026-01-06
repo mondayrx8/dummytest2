@@ -11,7 +11,7 @@ const GuestList = () => {
     useEffect(() => {
         const fetchPublicData = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/portfolio/all');
+                const res = await axios.get('https://dummytest2.onrender.com/api/portfolio/all');
                 setPortfolios(res.data);
             } catch (error) {
                 console.error("Error fetching guest data:", error);
