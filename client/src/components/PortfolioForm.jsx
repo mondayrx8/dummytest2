@@ -50,10 +50,10 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       const config = { headers: { 'auth-token': token } };
 
       if (currentPortfolio) {
-        await axios.put(`http://localhost:5000/api/portfolio/update/${currentPortfolio._id}`, formData, config);
+        await axios.put(`https://dummytest2.onrender.com/api/portfolio/update/${currentPortfolio._id}`, formData, config);
         setCurrentPortfolio(null);
       } else {
-        await axios.post('http://localhost:5000/api/portfolio/add', formData, config);
+        await axios.post('https://dummytest2.onrender.com/api/portfolio/add', formData, config);
       }
 
       onSave();
@@ -226,3 +226,4 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 };
 
 export default PortfolioForm;
+// FIXED: Updated Portfolio URL to Render
