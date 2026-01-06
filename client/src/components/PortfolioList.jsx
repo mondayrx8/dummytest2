@@ -13,7 +13,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
 
         setDeleting(id);
         try {
-            await axios.delete(`http://localhost:5000/api/portfolio/delete/${id}`, {
+            await axios.delete(`https://dummytest2.onrender.com/api/portfolio/delete/${id}`, {
                 headers: { 'auth-token': localStorage.getItem('token') }
             });
             onDelete();
