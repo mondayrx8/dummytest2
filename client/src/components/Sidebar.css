@@ -1,14 +1,13 @@
 /* ========== Modern Sidebar - Redesign 2026 ========== */
-/* STANDARD DOCUMENT FLOW: Browser window handles scrolling */
+/* DOCUMENT FLOW: Sidebar sticky, no internal scroll */
 .modern-sidebar {
     position: sticky;
     top: 0;
-    left: 0;
     width: var(--sidebar-width);
-    height: 100%;
-    /* Fill grid cell height, not viewport */
-    align-self: start;
-    /* Sticky needs this for proper behavior */
+    height: 100vh;
+    /* Full viewport for sticky */
+    flex-shrink: 0;
+    /* Don't shrink in flex layout */
     background: white;
     display: flex;
     flex-direction: column;
@@ -16,7 +15,8 @@
     z-index: 1000;
     font-family: var(--font-sans);
     border-right: 1px solid var(--border-color);
-    overflow: visible;
+    overflow-y: hidden;
+    /* No sidebar scroll */
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
