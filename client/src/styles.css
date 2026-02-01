@@ -69,13 +69,14 @@
   /* If we add a top header later */
 }
 
-/* Layout Shell - NUCLEAR FIX */
+/* Layout Shell - DOCUMENT FLOW */
 .app-layout {
   display: flex;
+  flex-direction: row;
   width: 100%;
+  height: auto;
   min-height: 100vh;
   overflow: visible !important;
-  /* No internal scrollbar track */
   background-color: var(--bg-off-white);
 }
 
@@ -83,7 +84,7 @@
   width: var(--sidebar-width-collapsed);
 }
 
-/* Main Content Area - Fully Fluid */
+/* Main Content Area - Document Flow */
 .main-content-area {
   flex: 1;
   width: 100%;
@@ -103,10 +104,13 @@
 @media (max-width: 968px) {
   .app-layout {
     display: block;
+    flex-direction: column;
   }
 
   .main-content-area {
     padding: clamp(16px, 4vw, 40px);
+    margin-left: 0;
+    width: 100%;
   }
 }
 
