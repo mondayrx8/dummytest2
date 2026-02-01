@@ -1,13 +1,10 @@
 /* ========== Portfolio Form Page - Redesign 2026 ========== */
 .builder-page {
-    min-height: 100vh;
     padding: 0;
     position: relative;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    /* Margin handled by .app-layout grid */
-    margin-left: 0;
     width: 100%;
 }
 

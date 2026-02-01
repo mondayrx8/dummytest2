@@ -141,10 +141,7 @@ body,
   /* Force browser window to take over */
 }
 
-body {
-  overflow-y: scroll !important;
-  /* Keep gutter to prevent layout shift */
-}
+/* Body already defined below with font settings */
 
 body {
   font-family: var(--font-sans);
