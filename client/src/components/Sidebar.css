@@ -1,13 +1,9 @@
 /* ========== Modern Sidebar - Redesign 2026 ========== */
-/* DOCUMENT FLOW: Matches Guest Page - single scrollbar */
+/* DOCUMENT FLOW: Pure sticky, no height forcing */
 .modern-sidebar {
     position: sticky;
     top: 0;
-    align-self: flex-start;
-    /* KEY: Stick to top without forcing height */
     width: var(--sidebar-width);
-    min-height: 100vh;
-    max-height: 100vh;
     flex-shrink: 0;
     background: white;
     display: flex;
@@ -16,8 +12,7 @@
     z-index: 1000;
     font-family: var(--font-sans);
     border-right: 1px solid var(--border-color);
-    overflow: hidden;
-    /* Hide any overflow inside sidebar */
+    overflow: visible;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
