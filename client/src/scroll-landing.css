@@ -8,12 +8,13 @@
 
 .scroll-landing {
   font-family: var(--font-sans);
-  overflow: clip;
-  /* Prevents double scrollbar, clips overflow without creating scroll container */
+  overflow: visible;
+  /* NUCLEAR: Browser window scrolls */
+  overflow-x: clip;
+  /* Clip horizontal overflow only */
   background: var(--bg-white);
   color: var(--text-dark);
   min-height: 100vh;
-  /* Use min-height instead of implicit height */
 }
 
 /* ============================================ */

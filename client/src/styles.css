@@ -116,10 +116,28 @@
   padding: 0;
 }
 
-html,
-body {
+/* NUCLEAR RESET: Single Browser Scrollbar */
+html {
+  height: auto;
+  min-height: 100%;
   overflow-x: hidden;
-  /* Prevent horizontal scroll */
+  overflow-y: visible;
+  /* Browser window handles vertical scroll */
+}
+
+body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  /* No nested scroll container */
+}
+
+#root {
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+  /* Let content flow naturally */
 }
 
 body {
