@@ -15,6 +15,7 @@ const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [portfolios, setPortfolios] = useState([]);
   const [currentPortfolio, setCurrentPortfolio] = useState(null); // For Editing
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   // This ensures the token stays valid if you refresh the page
   useEffect(() => {
@@ -36,6 +37,24 @@ const App = () => {
     fetchPortfolios();
   }, []);
 
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
+
+  // Layout wrapper for authenticated pages
+  const AuthenticatedLayout = ({ children }) => (
+    <div className={`app-layout ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      <Sidebar
+        setToken={setToken}
+        isCollapsed={isSidebarCollapsed}
+        toggleCollapse={toggleSidebar}
+      />
+      <div className="main-content-area">
+        {children}
+      </div>
+    </div>
+  );
+
   return (
     <BrowserRouter>
       <div className="app-container">
@@ -49,7 +68,7 @@ const App = () => {
           <Route path="/old-landing" element={<LandingPage />} />
 
           {/* PAGE 1: PUBLIC INVESTOR VIEW (No Token Required!) */}
-          <Route path="/investors" element={<GuestList />} /> {/*
+          <Route path="/investors" element={<GuestList />} />
 
           {/* PAGE 2: LOGIN (If logged in, go to dashboard) */}
           <Route path="/login" element={
@@ -59,28 +78,26 @@ const App = () => {
           {/* PAGE 2: DASHBOARD (The List) */}
           <Route path="/dashboard" element={
             token ? (
-              <>
-                <Sidebar setToken={setToken} />
+              <AuthenticatedLayout>
                 <PortfolioList
                   portfolios={portfolios}
                   onDelete={fetchPortfolios}
                   setCurrentPortfolio={setCurrentPortfolio}
                 />
-              </>
+              </AuthenticatedLayout>
             ) : <Navigate to="/" />
           } />
 
           {/* PAGE 3: BUILDER (The Form) */}
           <Route path="/create" element={
             token ? (
-              <>
-                <Sidebar setToken={setToken} />
+              <AuthenticatedLayout>
                 <PortfolioForm
                   onSave={() => { fetchPortfolios(); }}
                   currentPortfolio={currentPortfolio}
                   setCurrentPortfolio={setCurrentPortfolio}
                 />
-              </>
+              </AuthenticatedLayout>
             ) : <Navigate to="/" />
           } />
 

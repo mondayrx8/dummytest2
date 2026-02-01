@@ -1,14 +1,14 @@
 /* ========== Dashboard Portfolio List - Redesign 2026 ========== */
 .dashboard-list-container {
     min-height: 100vh;
-    background: var(--bg-off-white);
     padding: 0;
     position: relative;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    /* Margin handled by .with-sidebar class in layout or JS, but here for reference if needed standalone */
-    /* margin-left: 260px; managed by Sidebar global class usually */
+    /* Margin handled by .app-layout grid */
+    margin-left: 0;
+    width: 100%;
 }
 
 /* Soft Gradients */
@@ -41,7 +41,8 @@
 
 /* Hero */
 .dashboard-hero {
-    padding: 48px 40px 32px;
+    padding: 0 0 32px 0;
+    /* Padding handled by main-content-area */
     position: relative;
     z-index: 1;
 }
@@ -69,7 +70,8 @@
 .dashboard-main-content {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px 48px;
+    padding: 0 0 48px 0;
+    /* Padding handled by main-content-area */
     position: relative;
     z-index: 5;
     width: 100%;
@@ -342,11 +344,5 @@
         grid-template-columns: 1fr;
     }
 
-    .dashboard-hero {
-        padding: 32px 24px;
-    }
-
-    .dashboard-main-content {
-        padding: 0 24px 32px;
-    }
+    /* Padding managed by grid shell and main content area */
 }

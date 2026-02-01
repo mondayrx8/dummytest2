@@ -46,6 +46,44 @@
 
   /* Font Family */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Layout Variables */
+  --sidebar-width-expanded: 260px;
+  --sidebar-width-collapsed: 80px;
+  --sidebar-width: var(--sidebar-width-expanded);
+  --header-height: 0px;
+  /* If we add a top header later */
+}
+
+/* Layout Shell */
+.app-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+  transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--bg-off-white);
+}
+
+.app-layout.sidebar-collapsed {
+  --sidebar-width: var(--sidebar-width-collapsed);
+}
+
+/* Main Content Area */
+.main-content-area {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Mobile Layout Override */
+@media (max-width: 968px) {
+  .app-layout {
+    display: block;
+    /* Stack on mobile */
+  }
 }
 
 * {
@@ -63,7 +101,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-dark);
   line-height: 1.2;
   font-weight: 700;
@@ -101,7 +144,9 @@ button {
 }
 
 /* Input Resets */
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -111,7 +156,9 @@ input, textarea, select {
   width: 100%;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--primary-surface);

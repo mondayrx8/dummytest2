@@ -1,24 +1,17 @@
 /* ========== Modern Sidebar - Redesign 2026 ========== */
 .modern-sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
+    /* Grid cell placement handled by parent .app-layout */
     height: 100vh;
-    width: 260px;
     background: white;
     display: flex;
     flex-direction: column;
     padding: 24px 16px;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     font-family: var(--font-sans);
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
-    /* Softer shadow */
     border-right: 1px solid var(--border-color);
-}
-
-.modern-sidebar.collapsed {
-    width: 80px;
+    position: sticky;
+    /* Sticky in the grid column */
+    top: 0;
 }
 
 /* Header */
@@ -29,16 +22,23 @@
     margin-bottom: 32px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--border-color);
+    min-height: 80px;
+    /* Prevent jumping during collapse */
 }
 
 .sidebar-brand {
     display: flex;
     align-items: center;
     gap: 12px;
+    overflow: hidden;
+    /* Hide overflow when collapsing */
 }
 
 .brand-icon {
-    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
     filter: drop-shadow(0 2px 4px rgba(124, 58, 237, 0.2));
 }
 
@@ -47,13 +47,14 @@
     font-weight: 700;
     color: var(--text-dark);
     white-space: nowrap;
-    overflow: hidden;
-    transition: opacity 0.3s ease;
+    opacity: 1;
+    transition: opacity 0.2s ease;
 }
 
-.modern-sidebar.collapsed .brand-text {
+.brand-text.hidden {
     opacity: 0;
     width: 0;
+    display: none;
 }
 
 /* Navigation Menu */
@@ -93,6 +94,7 @@
     transition: all 0.2s ease;
     width: 100%;
     text-align: left;
+    white-space: nowrap;
 }
 
 .menu-item:hover:not(.active) {
@@ -107,24 +109,23 @@
 }
 
 .menu-icon {
-    font-size: 20px;
-    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 24px;
+    height: 24px;
+    flex-shrink: 0;
     color: currentColor;
 }
 
 .menu-text {
-    white-space: nowrap;
-    overflow: hidden;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
 }
 
-.modern-sidebar.collapsed .menu-text {
+.menu-text.hidden {
     opacity: 0;
     width: 0;
+    display: none;
 }
 
 .modern-sidebar.collapsed .menu-item {
@@ -156,29 +157,19 @@
     color: var(--error);
 }
 
-/* Content Adjustment for pages using sidebar */
-.with-sidebar {
-    margin-left: 260px;
-    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.with-sidebar.sidebar-collapsed {
-    margin-left: 80px;
-}
-
-/* Responsive */
+/* Responsive Mobile Layout handled in styles.css via .app-layout media query */
 @media (max-width: 968px) {
     .modern-sidebar {
+        position: fixed;
+        /* Revert to fixed on mobile overlay */
+        left: 0;
+        top: 0;
+        transition: transform 0.3s ease;
         transform: translateX(-100%);
+        box-shadow: var(--shadow-xl);
     }
 
     .modern-sidebar.mobile-open {
         transform: translateX(0);
-        box-shadow: var(--shadow-xl);
-    }
-
-    .with-sidebar,
-    .with-sidebar.sidebar-collapsed {
-        margin-left: 0;
     }
 }
