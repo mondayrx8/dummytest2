@@ -165,6 +165,7 @@
         transition: transform 0.3s ease;
         transform: translateX(-100%);
         box-shadow: var(--shadow-xl);
+        pointer-events: auto;
     }
 
     .modern-sidebar.mobile-open {
