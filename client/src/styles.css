@@ -69,12 +69,13 @@
   /* If we add a top header later */
 }
 
-/* Layout Shell - DOCUMENT FLOW (Flex) */
+/* Layout Shell - DOCUMENT FLOW (No Internal Scroll) */
 .app-layout {
   display: flex;
   height: auto;
   min-height: 100vh;
-  overflow: visible;
+  overflow: visible !important;
+  /* FORCE: No container scroll */
   background-color: var(--bg-off-white);
 }
 
@@ -86,8 +87,9 @@
 .main-content-area {
   flex: 1;
   height: auto;
-  min-height: calc(100vh - 40px);
-  overflow: visible;
+  min-height: auto;
+  overflow: visible !important;
+  /* FORCE: Content grows window, no box scroll */
   padding: 40px;
 }
 
