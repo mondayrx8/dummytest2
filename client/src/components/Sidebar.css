@@ -1,7 +1,12 @@
 /* ========== Modern Sidebar - Redesign 2026 ========== */
 .modern-sidebar {
-    /* Grid cell placement handled by parent .app-layout */
-    height: 100vh;
+    position: fixed;
+    /* Fixed to viewport */
+    left: 0;
+    top: 0;
+    width: var(--sidebar-width);
+    height: 100dvh;
+    /* Dynamic viewport height for mobile */
     background: white;
     display: flex;
     flex-direction: column;
@@ -9,9 +14,13 @@
     z-index: 1000;
     font-family: var(--font-sans);
     border-right: 1px solid var(--border-color);
-    position: sticky;
-    /* Sticky in the grid column */
-    top: 0;
+    overflow: hidden;
+    /* Sidebar itself doesn't scroll */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-sidebar.collapsed {
+    width: var(--sidebar-width-collapsed);
 }
 
 /* Header */
@@ -64,7 +73,10 @@
     flex-direction: column;
     gap: 8px;
     overflow-y: auto;
+    /* Menu can scroll if content overflows */
     overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
 }
 
 /* Scrollbar */

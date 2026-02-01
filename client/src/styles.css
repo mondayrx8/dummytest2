@@ -69,27 +69,37 @@
   /* If we add a top header later */
 }
 
-/* Layout Shell */
+/* Layout Shell - LOCKED SCROLL CONTAINER */
 .app-layout {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  min-height: 100vh;
-  transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  /* Sidebar is fixed, no grid needed */
+  height: 100vh;
+  overflow: hidden;
   background-color: var(--bg-off-white);
 }
 
-.app-layout.sidebar-collapsed {
-  --sidebar-width: var(--sidebar-width-collapsed);
+/* Main Content Area - THE ONLY SCROLLABLE CONTAINER */
+.main-content-area {
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 40px;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Main Content Area */
-.main-content-area {
-  width: 100%;
+.app-layout.sidebar-collapsed .main-content-area {
+  margin-left: var(--sidebar-width-collapsed);
+  width: calc(100% - var(--sidebar-width-collapsed));
+}
+
+/* Inner content constraint for readability */
+.main-content-area>* {
   max-width: 1400px;
-  margin: 0 auto;
-  padding: 40px;
-  min-height: 100vh;
-  overflow-x: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Mobile Layout Override */
