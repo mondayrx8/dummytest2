@@ -1,12 +1,12 @@
 /* ========== Modern Sidebar - Redesign 2026 ========== */
+/* STANDARD DOCUMENT FLOW: Browser window handles scrolling */
 .modern-sidebar {
-    position: fixed;
-    /* Fixed to viewport */
-    left: 0;
+    position: sticky;
     top: 0;
+    left: 0;
     width: var(--sidebar-width);
-    height: 100dvh;
-    /* Dynamic viewport height for mobile */
+    height: auto;
+    min-height: 100vh;
     background: white;
     display: flex;
     flex-direction: column;
@@ -14,8 +14,7 @@
     z-index: 1000;
     font-family: var(--font-sans);
     border-right: 1px solid var(--border-color);
-    overflow: hidden;
-    /* Sidebar itself doesn't scroll */
+    overflow: visible;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -32,7 +31,6 @@
     padding-bottom: 24px;
     border-bottom: 1px solid var(--border-color);
     min-height: 80px;
-    /* Prevent jumping during collapse */
 }
 
 .sidebar-brand {
@@ -40,7 +38,6 @@
     align-items: center;
     gap: 12px;
     overflow: hidden;
-    /* Hide overflow when collapsing */
 }
 
 .brand-icon {
@@ -66,27 +63,13 @@
     display: none;
 }
 
-/* Navigation Menu */
+/* Navigation Menu - NO INDEPENDENT SCROLL */
 .sidebar-menu {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    overflow-y: auto;
-    /* Menu can scroll if content overflows */
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-color) transparent;
-}
-
-/* Scrollbar */
-.sidebar-menu::-webkit-scrollbar {
-    width: 4px;
-}
-
-.sidebar-menu::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
+    overflow: visible;
 }
 
 /* Menu Item */
@@ -169,13 +152,13 @@
     color: var(--error);
 }
 
-/* Responsive Mobile Layout handled in styles.css via .app-layout media query */
+/* Mobile */
 @media (max-width: 968px) {
     .modern-sidebar {
         position: fixed;
-        /* Revert to fixed on mobile overlay */
         left: 0;
         top: 0;
+        height: 100dvh;
         transition: transform 0.3s ease;
         transform: translateX(-100%);
         box-shadow: var(--shadow-xl);

@@ -69,30 +69,27 @@
   /* If we add a top header later */
 }
 
-/* Layout Shell - LOCKED SCROLL CONTAINER */
+/* Layout Shell - STANDARD DOCUMENT FLOW */
 .app-layout {
-  display: block;
-  /* Sidebar is fixed, no grid needed */
-  height: 100vh;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+  overflow: visible;
+  /* Browser window handles scroll */
   background-color: var(--bg-off-white);
+  transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Main Content Area - THE ONLY SCROLLABLE CONTAINER */
+.app-layout.sidebar-collapsed {
+  grid-template-columns: var(--sidebar-width-collapsed) 1fr;
+}
+
+/* Main Content Area - STANDARD FLOW */
 .main-content-area {
-  margin-left: var(--sidebar-width);
-  width: calc(100% - var(--sidebar-width));
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  min-height: 100vh;
+  overflow: visible;
+  /* No independent scroll */
   padding: 40px;
-  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.app-layout.sidebar-collapsed .main-content-area {
-  margin-left: var(--sidebar-width-collapsed);
-  width: calc(100% - var(--sidebar-width-collapsed));
 }
 
 /* Inner content constraint for readability */
