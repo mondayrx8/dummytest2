@@ -69,13 +69,13 @@
   /* If we add a top header later */
 }
 
-/* Layout Shell - DOCUMENT FLOW (No Internal Scroll) */
+/* Layout Shell - NUCLEAR FIX */
 .app-layout {
   display: flex;
-  height: auto;
+  width: 100%;
   min-height: 100vh;
   overflow: visible !important;
-  /* FORCE: No container scroll */
+  /* No internal scrollbar track */
   background-color: var(--bg-off-white);
 }
 
@@ -83,13 +83,12 @@
   width: var(--sidebar-width-collapsed);
 }
 
-/* Main Content Area - DOCUMENT FLOW */
+/* Main Content Area - Fully Fluid */
 .main-content-area {
   flex: 1;
-  height: auto;
-  min-height: auto;
+  width: 100%;
+  height: auto !important;
   overflow: visible !important;
-  /* FORCE: Content grows window, no box scroll */
   padding: 40px;
 }
 
@@ -124,28 +123,23 @@
   padding: 0;
 }
 
-/* NUCLEAR RESET: Single Browser Scrollbar */
-html {
-  height: auto;
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: visible;
-  /* Browser window handles vertical scroll */
+/* NUCLEAR ABSOLUTE RESET */
+html,
+body,
+#root,
+.app-container {
+  height: auto !important;
+  min-height: 100% !important;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  /* Force browser window to take over */
 }
 
 body {
-  height: auto;
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  /* Force window scrollbar */
-}
-
-#root {
-  height: auto;
-  min-height: 100%;
-  overflow: visible;
-  /* Let content flow naturally */
+  overflow-y: scroll !important;
+  /* Keep gutter to prevent layout shift */
 }
 
 body {
