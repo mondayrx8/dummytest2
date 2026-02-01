@@ -73,9 +73,10 @@
 .app-layout {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
+  height: auto;
+  /* Content determines height */
   min-height: 100vh;
   overflow: visible;
-  /* Browser window handles scroll */
   background-color: var(--bg-off-white);
   transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -86,9 +87,10 @@
 
 /* Main Content Area - STANDARD FLOW */
 .main-content-area {
+  height: auto;
+  /* Content determines height */
   min-height: 100vh;
   overflow: visible;
-  /* No independent scroll */
   padding: 40px;
 }
 
@@ -136,8 +138,8 @@ body {
   height: auto;
   min-height: 100%;
   overflow-x: hidden;
-  overflow-y: visible;
-  /* No nested scroll container */
+  overflow-y: scroll;
+  /* Force window scrollbar */
 }
 
 #root {

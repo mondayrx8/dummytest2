@@ -5,8 +5,10 @@
     top: 0;
     left: 0;
     width: var(--sidebar-width);
-    height: auto;
-    min-height: 100vh;
+    height: 100%;
+    /* Fill grid cell height, not viewport */
+    align-self: start;
+    /* Sticky needs this for proper behavior */
     background: white;
     display: flex;
     flex-direction: column;
