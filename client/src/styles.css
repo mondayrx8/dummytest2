@@ -1,852 +1,118 @@
-/* 1. Global Reset - Make everything look clean */
-body {
+/* Global Design System - Redesign 2026 */
+:root {
+  /* Brand Colors */
+  --primary: #7C3AED;
+  --primary-light: #A78BFA;
+  --primary-gradient: linear-gradient(135deg, #7C3AED 0%, #C084FC 100%);
+  --primary-surface: #F3E8FF;
+
+  /* Secondary / CTA */
+  --accent-coral: #F97316;
+  --accent-orange: #FB923C;
+  --accent-surface: #FFEDD5;
+
+  /* Neutrals */
+  --bg-white: #FFFFFF;
+  --bg-off-white: #F8FAFC;
+  --text-dark: #1E293B;
+  --text-medium: #64748B;
+  --text-light: #94A3B8;
+  --border-color: #E2E8F0;
+
+  /* Functional */
+  --success: #10B981;
+  --error: #EF4444;
+  --warning: #F59E0B;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 15px rgba(124, 58, 237, 0.3);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Font Family */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #0a0e27;
-  /* Dark background to match sidebar */
-  color: #333;
 }
 
-/* 2. Main Container - Centers everything on screen */
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  /* Soft shadow */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-off-white);
+  color: var(--text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 3. Headers */
-h1 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
-
-h2 {
-  color: #34495e;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-}
-
-/* 4. The Form Styling */
-.form-container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #eee;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0 20px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  /* Ensures padding doesn't break layout */
-  font-size: 14px;
-  font-family: inherit;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #3498db;
-  outline: none;
-  background-color: #fbfdff;
-}
-
-/* 5. Buttons - Make them pop! */
-button {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 5px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: opacity 0.3s;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-/* Specific Button Colors */
-.btn-save {
-  background-color: #2ecc71;
-  color: white;
-}
-
-/* Green */
-.btn-update {
-  background-color: #f39c12;
-  color: white;
-}
-
-/* Orange */
-.btn-edit {
-  background-color: #3498db;
-  color: white;
-  width: auto;
-  margin-right: 10px;
-}
-
-/* Blue */
-.btn-delete {
-  background-color: #e74c3c;
-  color: white;
-  width: auto;
-}
-
-/* Red */
-.btn-cancel {
-  background-color: #95a5a6;
-  color: white;
-}
-
-/* Grey */
-
-/* 6. The Project List Cards */
-.card {
-  background-color: white;
-  border-left: 5px solid #3498db;
-  /* Blue accent line on left */
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  /* Moves up slightly when hovered */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-  margin-top: 0;
-  color: #2980b9;
-}
-
-/* --- NEW ADDITIONS FOR LAYOUT --- */
-
-/* 7. The Navigation Bar */
-.navbar {
-  background-color: #2c3e50;
-  /* Dark Blue */
-  color: white;
-  padding: 15px 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-}
-
-.nav-content {
-  max-width: 900px;
-  /* Matches your main container width */
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-/* 8. The Footer */
-.footer {
-  text-align: center;
-  padding: 20px;
-  margin-top: 50px;
-  color: #7f8c8d;
-  font-size: 14px;
-  border-top: 1px solid #e0e0e0;
-}
-
-/* ============================================ */
-/* 9. LANDING PAGE STYLES - Versatile Design */
-/* ============================================ */
-
-.landing-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Animated background effect */
-.landing-page::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: backgroundMove 20s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes backgroundMove {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  100% {
-    transform: translate(50px, 50px);
-  }
-}
-
-.landing-content {
-  max-width: 1200px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Hero Section */
-.hero-section {
-  text-align: center;
-  color: white;
-  animation: fadeInDown 0.8s ease-out;
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin: 0 0 15px 0;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  letter-spacing: -1px;
-}
-
-.hero-subtitle {
-  font-size: 1.3rem;
-  font-weight: 300;
-  margin: 0;
-  opacity: 0.95;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Auth Card */
-.auth-card {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
-  padding: 45px 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 450px;
-  animation: fadeInUp 0.8s ease-out;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.auth-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.auth-title {
-  text-align: center;
-  color: #2c3e50;
-  margin: 0 0 30px 0;
-  font-size: 2rem;
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-dark);
+  line-height: 1.2;
   font-weight: 700;
+  margin-bottom: var(--space-md);
 }
 
-.error-message {
-  background-color: #fee;
-  color: #c33;
-  padding: 12px 15px;
-  border-radius: 8px;
-  text-align: center;
-  margin-bottom: 20px;
-  border-left: 4px solid #e74c3c;
-  font-size: 14px;
+p {
+  color: var(--text-medium);
+  margin-bottom: var(--space-md);
 }
 
-/* Auth Form */
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-label {
-  font-weight: 600;
-  color: #34495e;
-  font-size: 14px;
-  letter-spacing: 0.3px;
-}
-
-.form-input {
-  padding: 14px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  font-size: 15px;
-  font-family: inherit;
-  transition: all 0.3s ease;
-  background-color: #fafafa;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #667eea;
-  background-color: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-input::placeholder {
-  color: #aaa;
-}
-
-/* Primary Button */
-.btn-primary {
-  padding: 15px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-/* Auth Toggle Link */
-.auth-toggle {
-  text-align: center;
-  margin-top: 20px;
-  color: #667eea;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.auth-toggle:hover {
-  color: #764ba2;
-  text-decoration: underline;
-}
-
-/* ============================================ */
-/* 10. RESPONSIVE DESIGN - Mobile First */
-/* ============================================ */
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.1rem;
-  }
-
-  .auth-card {
-    padding: 35px 25px;
-  }
-
-  .landing-content {
-    gap: 30px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-
-  .auth-card {
-    padding: 30px 20px;
-  }
-
-  .auth-title {
-    font-size: 1.6rem;
-  }
-}
-
-/* ============================================ */
-/* 11. NAVBAR STYLES - Professional Design */
-/* ============================================ */
-
-.navbar {
-  background: #1a1f36;
-  color: white;
-  padding: 18px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-brand-link {
+a {
   text-decoration: none;
   color: inherit;
-  transition: opacity 0.3s ease;
+  transition: color 0.2sease;
 }
 
-.nav-brand-link:hover {
-  opacity: 0.85;
+ul {
+  list-style: none;
 }
 
-.nav-brand {
-  margin: 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  color: white;
+/* Helper Classes */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
 }
 
-.nav-links {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.nav-link {
-  color: rgba(255, 255, 255, 0.85);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-.nav-link:hover {
-  color: white;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.nav-link-create {
-  background: #10b981;
-  color: white;
-  text-decoration: none;
-  padding: 9px 18px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-.nav-link-create:hover {
-  background: #059669;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.nav-btn-logout {
-  background: #ef4444;
-  color: white;
+/* Button Resets */
+button {
   border: none;
-  padding: 9px 18px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  background: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-btn-logout:hover {
-  background: #dc2626;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-}
-
-/* ============================================ */
-/* 12. DASHBOARD STYLES - Portfolio Grid */
-/* ============================================ */
-
-.dashboard-container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-.dashboard-title {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 40px;
-  text-align: center;
-  font-weight: 700;
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 30px;
-}
-
-.portfolio-card {
-  background: white;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border-left: 5px solid transparent;
-  position: relative;
-  overflow: hidden;
-}
-
-.portfolio-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-  transition: width 0.3s ease;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.portfolio-card:hover::before {
-  width: 100%;
-  opacity: 0.05;
-}
-
-.portfolio-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-  border-left-color: #667eea;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  position: relative;
-  z-index: 1;
-}
-
-.card-title {
-  margin: 0 0 5px 0;
-  color: #2c3e50;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.card-author {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-}
-
-.card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin: 15px 0;
-  transition: transform 0.3s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.portfolio-card:hover .card-image {
-  transform: scale(1.03);
-}
-
-.card-description,
-.card-market {
-  color: #34495e;
-  line-height: 1.6;
-  margin: 10px 0;
-  position: relative;
-  z-index: 1;
-}
-
-.card-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  position: relative;
-  z-index: 2;
-}
-
-/* Update existing button styles to be more consistent */
-.btn-edit {
-  flex: 1;
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-  position: relative;
-  z-index: 2;
-}
-
-.btn-edit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(52, 152, 219, 0.5);
-}
-
-.btn-delete {
-  flex: 1;
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
-}
-
-.btn-delete:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(231, 76, 60, 0.5);
-}
-
-/* ============================================ */
-/* 13. BUILDER/FORM STYLES - Portfolio Builder */
-/* ============================================ */
-
-.builder-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 40px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-}
-
-.builder-title {
-  color: #2c3e50;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.info-message {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 12px 15px;
-  border-radius: 8px;
-  text-align: center;
-  margin-bottom: 20px;
-  border-left: 4px solid #28a745;
-  font-weight: 600;
-}
-
-.form-file-input {
-  padding: 10px 0;
-  border: 2px dashed #e0e0e0;
-  border-radius: 10px;
-  background-color: #fafafa;
   font-family: inherit;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  cursor: pointer;
 }
 
-.form-file-input:hover {
-  border-color: #667eea;
-  background-color: #f5f5ff;
-}
-
-.image-preview {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  margin-top: 15px;
-  border-radius: 10px;
-  border: 3px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.form-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-/* Update button styles */
-.btn-save {
+/* Input Resets */
+input, textarea, select {
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  background-color: var(--bg-white);
+  color: var(--text-dark);
   width: 100%;
-  padding: 15px 20px;
-  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
 }
 
-.btn-save:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
-}
-
-.btn-update {
-  width: 100%;
-  padding: 15px 20px;
-  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-  box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
-}
-
-.btn-update:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
-}
-
-.btn-cancel {
-  width: 100%;
-  padding: 15px 20px;
-  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-  box-shadow: 0 4px 15px rgba(149, 165, 166, 0.4);
-}
-
-.btn-cancel:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(149, 165, 166, 0.6);
-}
-
-/* ============================================ */
-/* 14. RESPONSIVE ENHANCEMENTS */
-/* ============================================ */
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 15px 20px;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .nav-brand {
-    font-size: 1.5rem;
-  }
-
-  .nav-links {
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .builder-container {
-    padding: 25px 20px;
-    margin: 20px;
-  }
-
-  .dashboard-container {
-    padding: 15px;
-  }
-
-  .dashboard-title {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .nav-link,
-  .nav-link-create,
-  .nav-btn-logout {
-    font-size: 0.9rem;
-    padding: 8px 15px;
-  }
-
-  .card-title {
-    font-size: 1.3rem;
-  }
-
-  .builder-title {
-    font-size: 1.6rem;
-  }
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-surface);
 }

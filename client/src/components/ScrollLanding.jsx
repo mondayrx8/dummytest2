@@ -191,7 +191,7 @@ const ScrollLanding = () => {
                             }}
                         >
                             <div className="showcase-item">
-                                <div className="showcase-image" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+                                <div className="showcase-image gradient-card-1">
                                     <div className="showcase-overlay">
                                         <h3>Creative Studio</h3>
                                         <p>Design Portfolio</p>
@@ -200,7 +200,7 @@ const ScrollLanding = () => {
                             </div>
 
                             <div className="showcase-item">
-                                <div className="showcase-image" style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}>
+                                <div className="showcase-image gradient-card-2">
                                     <div className="showcase-overlay">
                                         <h3>Tech Startup</h3>
                                         <p>Product Showcase</p>
@@ -209,7 +209,7 @@ const ScrollLanding = () => {
                             </div>
 
                             <div className="showcase-item">
-                                <div className="showcase-image" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }}>
+                                <div className="showcase-image gradient-card-3">
                                     <div className="showcase-overlay">
                                         <h3>Photography</h3>
                                         <p>Visual Stories</p>
@@ -218,7 +218,7 @@ const ScrollLanding = () => {
                             </div>
 
                             <div className="showcase-item">
-                                <div className="showcase-image" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' }}>
+                                <div className="showcase-image gradient-card-4">
                                     <div className="showcase-overlay">
                                         <h3>Developer</h3>
                                         <p>Code Projects</p>
@@ -227,7 +227,7 @@ const ScrollLanding = () => {
                             </div>
 
                             <div className="showcase-item">
-                                <div className="showcase-image" style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }}>
+                                <div className="showcase-image gradient-card-5">
                                     <div className="showcase-overlay">
                                         <h3>Marketing</h3>
                                         <p>Campaign Results</p>

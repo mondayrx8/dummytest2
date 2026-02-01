@@ -1,266 +1,158 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-/* ========== Dashboard Container ========== */
+/* ========== Dashboard Portfolio List - Redesign 2026 ========== */
 .dashboard-list-container {
     min-height: 100vh;
-    background: #0a0e27;
+    background: var(--bg-off-white);
     padding: 0;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    margin-left: 260px;
-    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Margin handled by .with-sidebar class in layout or JS, but here for reference if needed standalone */
+    /* margin-left: 260px; managed by Sidebar global class usually */
 }
 
-/* Fluid 3D Gradient Blobs for Dashboard */
+/* Soft Gradients */
 .dashboard-list-container::before,
 .dashboard-list-container::after {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.6;
-    animation: dashboardMorphBlob 18s ease-in-out infinite;
-    will-change: transform, border-radius;
+    filter: blur(100px);
+    opacity: 0.4;
+    z-index: 0;
     pointer-events: none;
 }
 
 .dashboard-list-container::before {
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle at 40% 50%,
-            rgba(79, 172, 254, 0.7) 0%,
-            rgba(0, 242, 254, 0.5) 50%,
-            rgba(67, 233, 123, 0.3) 100%);
-    top: -15%;
+    width: 600px;
+    height: 600px;
+    background: #E9D5FF;
+    top: -10%;
     right: -10%;
-    animation-delay: 0s;
 }
 
 .dashboard-list-container::after {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle at 60% 50%,
-            rgba(240, 147, 251, 0.6) 0%,
-            rgba(245, 87, 108, 0.4) 50%,
-            rgba(102, 126, 234, 0.3) 100%);
+    width: 500px;
+    height: 500px;
+    background: #BAE6FD;
     bottom: -10%;
     left: -5%;
-    animation-delay: -9s;
 }
 
-@keyframes dashboardMorphBlob {
-
-    0%,
-    100% {
-        transform: translate(0, 0) scale(1) rotate(0deg);
-        border-radius: 55% 45% 40% 60% / 55% 40% 60% 45%;
-    }
-
-    25% {
-        transform: translate(-40px, 50px) scale(1.15) rotate(90deg);
-        border-radius: 40% 60% 60% 40% / 45% 55% 45% 55%;
-    }
-
-    50% {
-        transform: translate(30px, -30px) scale(0.95) rotate(180deg);
-        border-radius: 60% 40% 50% 50% / 40% 60% 60% 40%;
-    }
-
-    75% {
-        transform: translate(-30px, -40px) scale(1.08) rotate(270deg);
-        border-radius: 50% 50% 45% 55% / 50% 45% 55% 50%;
-    }
-}
-
-/* Third Gradient Blob for Dashboard */
-.dashboard-gradient-blob-3 {
-    position: absolute;
-    width: 550px;
-    height: 550px;
-    background: radial-gradient(circle at 50% 50%,
-            rgba(102, 126, 234, 0.6) 0%,
-            rgba(118, 75, 162, 0.4) 50%,
-            rgba(240, 147, 251, 0.3) 100%);
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.5;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: dashboardMorphBlob 22s ease-in-out infinite;
-    animation-delay: -11s;
-    will-change: transform, border-radius;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* ========== Hero Section ========== */
+/* Hero */
 .dashboard-hero {
-    background: transparent;
-    padding: 80px 40px 60px;
+    padding: 48px 40px 32px;
     position: relative;
-    overflow: visible;
     z-index: 1;
 }
 
 .dashboard-hero-content {
     max-width: 1400px;
     margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 10;
 }
 
 .dashboard-hero-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 48px;
+    font-size: 2.5rem;
     font-weight: 800;
-    color: #ffffff;
-    margin: 0 0 16px 0;
-    letter-spacing: -1px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
 }
 
 .dashboard-hero-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
+    font-size: 1rem;
+    color: var(--text-medium);
     font-weight: 500;
 }
 
-/* ========== Main Content ========== */
+/* Main Content */
 .dashboard-main-content {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 40px;
-    transform: translateY(-40px);
+    padding: 0 40px 48px;
     position: relative;
     z-index: 5;
+    width: 100%;
 }
 
-/* ========== Stats Section ========== */
+/* Stats */
 .dashboard-stats {
     display: flex;
-    justify-content: center;
+    gap: 24px;
     margin-bottom: 40px;
+    flex-wrap: wrap;
 }
 
 .stat-card {
+    flex: 1;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 24px 48px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 20px;
-    box-shadow:
-        0 8px 32px 0 rgba(31, 38, 135, 0.37),
-        0 10px 25px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 24px;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 .stat-value {
-    font-family: 'Inter', sans-serif;
-    font-size: 48px;
+    font-size: 2.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
 }
 
 .stat-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-medium);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.05em;
 }
 
-/* ========== Portfolio Grid ========== */
+/* Grid */
 .dashboard-portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 32px;
-    padding-bottom: 40px;
 }
 
-/* ========== Portfolio Card ========== */
+/* Card */
 .dashboard-portfolio-card {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 24px;
+    background: white;
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow:
-        0 8px 32px 0 rgba(31, 38, 135, 0.37),
-        0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: all 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-family: 'Inter', sans-serif;
-    position: relative;
-}
-
-.dashboard-portfolio-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(255, 255, 255, 0.3),
-            transparent);
-    z-index: 1;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
 }
 
 .dashboard-portfolio-card:hover {
-    transform: translateY(-12px);
-    box-shadow:
-        0 12px 40px 0 rgba(31, 38, 135, 0.45),
-        0 20px 40px rgba(79, 172, 254, 0.3);
-    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
 }
 
-.dashboard-portfolio-card:hover .dashboard-card-overlay {
-    opacity: 0;
-}
-
-.dashboard-portfolio-card:hover .dashboard-card-image {
-    transform: scale(1.05);
-}
-
-/* ========== Card Image ========== */
 .dashboard-card-image-wrapper {
     position: relative;
     width: 100%;
-    height: 240px;
+    height: 200px;
+    background: var(--bg-off-white);
     overflow: hidden;
-    background: #edf2f7;
 }
 
 .dashboard-card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 500ms ease-in-out;
+    transition: transform 0.3s ease;
 }
 
-.dashboard-card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
-    transition: opacity 300ms ease-in-out;
+.dashboard-portfolio-card:hover .dashboard-card-image {
+    transform: scale(1.05);
 }
 
 .dashboard-card-image-placeholder {
@@ -271,180 +163,110 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+    background: var(--primary-surface);
+    color: var(--primary);
 }
 
 .dashboard-placeholder-icon {
-    font-size: 48px;
-    opacity: 0.6;
+    font-size: 32px;
 }
 
 .dashboard-placeholder-text {
-    font-size: 14px;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: #718096;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.05em;
 }
 
-/* ========== Card Content ========== */
+/* Card Content */
 .dashboard-card-content {
-    padding: 28px;
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .dashboard-card-header {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .dashboard-business-name {
-    font-size: 24px;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 12px 0;
-    line-height: 1.3;
-    letter-spacing: -0.5px;
+    color: var(--text-dark);
+    margin-bottom: 8px;
 }
 
 .dashboard-student-info {
-
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-
-
-.dashboard-student-icon {
-    font-size: 16px;
+    font-size: 0.875rem;
+    color: var(--text-medium);
 }
 
 .dashboard-student-name {
-    font-size: 14px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    padding: 4px 12px;
-    background: rgba(79, 172, 254, 0.2);
-    border-radius: 8px;
+    color: var(--text-dark);
+    background: var(--primary-surface);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
 }
 
-/* ========== Team Members Section ========== */
-.dashboard-team-info {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 12px;
-    padding: 12px;
-    background: rgba(251, 207, 232, 0.15);
-    border-radius: 12px;
-    border-left: 3px solid #ec4899;
-    transition: all 300ms ease-in-out;
-}
-
-.dashboard-team-info:hover {
-    background: rgba(251, 207, 232, 0.25);
-    transform: translateX(4px);
-}
-
-.dashboard-team-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    animation: wave 2s ease-in-out infinite;
-}
-
-@keyframes wave {
-
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-
-    25% {
-        transform: rotate(20deg);
-    }
-
-    75% {
-        transform: rotate(-20deg);
-    }
-}
-
-.dashboard-team-content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-}
-
-.dashboard-team-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: #ec4899;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-}
-
-.dashboard-team-members {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.5;
-}
-
-
-/* ========== Card Body ========== */
+/* Card Body */
 .dashboard-card-body {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-bottom: 24px;
+    gap: 16px;
+    flex: 1;
 }
 
 .dashboard-info-section {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
 .dashboard-section-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 14px;
-    border-radius: 8px;
-    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     width: fit-content;
 }
 
 .dashboard-section-badge.pitch {
-    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-    color: #6c5ce7;
+    background: #FEF3C7;
+    color: #D97706;
 }
 
 .dashboard-section-badge.market {
-    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
-    color: white;
+    background: #DBEAFE;
+    color: #2563EB;
 }
 
 .dashboard-section-content {
-    font-size: 15px;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    line-height: 1.5;
 }
 
-.dashboard-section-content.market-size {
+.market-size {
     font-weight: 600;
-    color: #ffffff;
-    font-size: 16px;
+    color: var(--text-dark);
 }
 
-/* ========== Card Actions ========== */
+/* Actions */
 .dashboard-card-actions {
     display: flex;
     gap: 12px;
     padding-top: 20px;
-    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
 }
 
 .dashboard-btn-edit,
@@ -454,222 +276,77 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    padding: 10px;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    color: white;
-    position: relative;
-    overflow: hidden;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
-/* Edit Button - Sophisticated Slate Blue */
 .dashboard-btn-edit {
-    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.dashboard-btn-edit::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.dashboard-btn-edit:hover::before {
-    left: 100%;
+    background: white;
+    border-color: var(--border-color);
+    color: var(--text-dark);
 }
 
 .dashboard-btn-edit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(100, 116, 139, 0.5);
-    background: linear-gradient(135deg, #475569 0%, #334155 100%);
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--bg-off-white);
 }
 
-/* Delete Button - Deep Elegant Red */
 .dashboard-btn-delete {
-    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #FEF2F2;
+    color: var(--error);
+    border-color: transparent;
 }
 
-.dashboard-btn-delete::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+.dashboard-btn-delete:hover {
+    background: #FEE2E2;
 }
 
-.dashboard-btn-delete:hover::before {
-    left: 100%;
-}
-
-.dashboard-btn-delete:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
-    background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
-}
-
-.dashboard-btn-delete:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.btn-icon {
-    font-size: 16px;
-}
-
-/* ========== Empty State ========== */
+/* Empty State */
 .dashboard-empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 20px;
-    gap: 20px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    box-shadow:
-        0 8px 32px 0 rgba(31, 38, 135, 0.37),
-        0 10px 25px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.dashboard-empty-state .empty-icon {
-    font-size: 80px;
-    opacity: 0.5;
-}
-
-.dashboard-empty-state h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-}
-
-.dashboard-empty-state p {
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 400px;
-    margin: 0;
+    padding: 80px 24px;
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    max-width: 600px;
+    margin: 40px auto;
 }
 
 .btn-create-first {
-    margin-top: 16px;
-    padding: 16px 32px;
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    margin-top: 24px;
+    padding: 14px 32px;
+    background: var(--primary-gradient);
     color: white;
     border: none;
-    border-radius: 12px;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    border-radius: var(--radius-full);
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-create-first::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn-create-first:hover::before {
-    left: 100%;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
 }
 
 .btn-create-first:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.6);
-    background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+    box-shadow: var(--shadow-lg);
 }
 
-/* ========== Responsive Design ========== */
-@media (max-width: 968px) {
-    .dashboard-list-container {
-        margin-left: 0;
-    }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
+    .dashboard-portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
     .dashboard-hero {
-        padding: 40px 24px;
-    }
-
-    .dashboard-hero-title {
-        font-size: 36px;
-    }
-
-    .dashboard-hero-subtitle {
-        font-size: 16px;
+        padding: 32px 24px;
     }
 
     .dashboard-main-content {
-        padding: 20px;
-    }
-
-    .dashboard-portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    .stat-card {
-        padding: 20px 40px;
-    }
-
-    .stat-value {
-        font-size: 40px;
-    }
-}
-
-@media (max-width: 480px) {
-    .dashboard-hero-title {
-        font-size: 28px;
-    }
-
-    .dashboard-hero-subtitle {
-        font-size: 14px;
-    }
-
-    .dashboard-business-name {
-        font-size: 20px;
-    }
-
-    .dashboard-card-content {
-        padding: 20px;
-    }
-
-    .dashboard-card-actions {
-        flex-direction: column;
-    }
-
-    .dashboard-btn-edit,
-    .dashboard-btn-delete {
-        width: 100%;
+        padding: 0 24px 32px;
     }
 }
