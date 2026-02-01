@@ -43,9 +43,8 @@
 .builder-container-wrapper {
     max-width: 800px;
     width: 100%;
-    /* Margins managed to center vertically/horizontally within the main-content-area */
     margin: 0 auto;
-    padding: 20px 0;
+    padding: clamp(12px, 4vw, 20px) 0;
     position: relative;
     z-index: 1;
 }
@@ -279,7 +278,8 @@
     }
 
     .builder-form {
-        padding: 24px;
+        padding: clamp(16px, 4vw, 24px);
+        border-radius: var(--radius-md);
     }
 
     .builder-button-group {
@@ -287,6 +287,33 @@
     }
 
     .builder-title {
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 4vw, 1.5rem);
+    }
+
+    .builder-form-input {
+        padding: 10px 12px;
+        font-size: var(--text-sm);
+    }
+}
+
+/* Extreme Mobile (320px) */
+@media (max-width: 360px) {
+    .builder-form {
+        padding: 12px;
+    }
+
+    .builder-form-label {
+        font-size: var(--text-xs);
+    }
+
+    .label-icon {
+        font-size: 0.9rem;
+    }
+
+    .builder-btn-save,
+    .builder-btn-update,
+    .builder-btn-cancel {
+        padding: 12px;
+        font-size: var(--text-sm);
     }
 }

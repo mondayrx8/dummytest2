@@ -1,24 +1,49 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import '../scroll-landing.css';
 
 const ScrollLanding = () => {
-    const [scrollY, setScrollY] = useState(0);
     const heroRef = useRef(null);
-    const featuresRef = useRef(null);
-    const showcaseRef = useRef(null);
-    const ctaRef = useRef(null);
+    const showcaseTrackRef = useRef(null);
 
+    // Performance-optimized scroll handler using requestAnimationFrame
     useEffect(() => {
+        let ticking = false;
+        const hero = heroRef.current;
+        const showcaseTrack = showcaseTrackRef.current;
+
         const handleScroll = () => {
-            setScrollY(window.scrollY);
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const y = window.scrollY;
+
+                    // Hero parallax (lines 44-57 logic, now bypassing React state)
+                    if (hero) {
+                        const parallaxOffset = y * 0.5;
+                        const heroOpacity = Math.max(1 - y / 600, 0);
+                        const heroScale = Math.max(1 - y / 2000, 0.8);
+                        hero.style.transform = `translateY(${parallaxOffset}px) scale(${heroScale})`;
+                        hero.style.opacity = heroOpacity;
+                    }
+
+                    // Showcase horizontal scroll (lines 189-191 logic)
+                    if (showcaseTrack) {
+                        const showcaseOffset = Math.min(Math.max(y - 1200, 0) / 3, 600);
+                        showcaseTrack.style.transform = `translateX(-${showcaseOffset}px)`;
+                    }
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Intersection Observer for fade-in sections (unchanged, already performant)
     useEffect(() => {
         const observerOptions = {
             threshold: 0.1,
@@ -41,21 +66,10 @@ const ScrollLanding = () => {
         return () => observer.disconnect();
     }, []);
 
-    const parallaxOffset = scrollY * 0.5;
-    const heroOpacity = Math.max(1 - scrollY / 600, 0);
-    const heroScale = Math.max(1 - scrollY / 2000, 0.8);
-
     return (
         <div className="scroll-landing">
             {/* Hero Section with Parallax */}
-            <section
-                className="hero-parallax"
-                ref={heroRef}
-                style={{
-                    transform: `translateY(${parallaxOffset}px) scale(${heroScale})`,
-                    opacity: heroOpacity
-                }}
-            >
+            <section className="hero-parallax" ref={heroRef}>
                 <div className="hero-background">
                     <div className="gradient-orb orb-1"></div>
                     <div className="gradient-orb orb-2"></div>
@@ -90,7 +104,7 @@ const ScrollLanding = () => {
             </section>
 
             {/* Features Section with Stagger Animation */}
-            <section className="features-section fade-in-section" ref={featuresRef}>
+            <section className="features-section fade-in-section">
                 <div className="section-container">
                     <h2 className="section-title">Powerful Features</h2>
                     <p className="section-subtitle">Everything you need to stand out</p>
@@ -178,18 +192,13 @@ const ScrollLanding = () => {
             </section>
 
             {/* Showcase Section with Horizontal Scroll Effect */}
-            <section className="showcase-section fade-in-section" ref={showcaseRef}>
+            <section className="showcase-section fade-in-section">
                 <div className="showcase-sticky">
                     <h2 className="section-title">See It In Action</h2>
                     <p className="section-subtitle">Real portfolios, real results</p>
 
                     <div className="showcase-scroll-container">
-                        <div
-                            className="showcase-track"
-                            style={{
-                                transform: `translateX(-${Math.min(Math.max(scrollY - 1200, 0) / 3, 600)}px)`
-                            }}
-                        >
+                        <div className="showcase-track" ref={showcaseTrackRef}>
                             <div className="showcase-item">
                                 <div className="showcase-image gradient-card-1">
                                     <div className="showcase-overlay">
@@ -264,7 +273,7 @@ const ScrollLanding = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="cta-section fade-in-section" ref={ctaRef}>
+            <section className="cta-section fade-in-section">
                 <div className="cta-content">
                     <h2 className="cta-title">Ready to Get Started?</h2>
                     <p className="cta-description">
