@@ -72,6 +72,8 @@ body {
   min-height: 100vh;
   position: relative;
   overflow: visible !important;
+  align-items: stretch;
+  /* Fix for sidebar height */
 }
 
 /* Sidebar Handling in Layout */

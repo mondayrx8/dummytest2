@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Footer from './Footer';
 import './PortfolioList.css';
 
 const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
@@ -147,8 +146,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
                 )}
             </main>
 
-            {/* Footer */}
-            <Footer />
+            {/* Footer Removed (Handled in App.jsx) */}
         </div>
     );
 };
