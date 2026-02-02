@@ -66,39 +66,39 @@ body {
 /* Flexbox Application Layout */
 .app-layout {
   display: flex !important;
-  /* Force Flex */
+  /* Keep flex for structure/context */
   flex-direction: row;
   width: 100%;
   min-height: 100vh;
   position: relative;
   overflow: visible !important;
-  align-items: stretch !important;
-  /* Fix for sidebar height */
+  /* align-items: stretch removed - Fixed sidebar handles height */
 }
 
 /* Sidebar Handling in Layout */
-.app-layout.sidebar-collapsed .modern-sidebar {
-  width: var(--sidebar-width-collapsed);
-}
-
-/* Main Content Area - Document Flow */
+/* Since Sidebar is FIXED, we push content with margin */
 .main-content-area {
   flex: 1;
-  /* Take remaining width */
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* Will be constrained by margin */
   min-width: 0;
-  /* Prevent flex blowout */
   height: auto !important;
   overflow: visible !important;
+  margin-left: var(--sidebar-width-expanded);
+  /* Offset for Fixed Sidebar */
+  transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.app-layout.sidebar-collapsed .main-content-area {
+  margin-left: var(--sidebar-width-collapsed);
 }
 
 /* Main content wrapper padding */
 .content-wrapper {
   padding: var(--space-lg);
   flex: 1;
-  /* Pushes footer down if content is short */
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -166,9 +166,15 @@ a.active {
     flex-direction: column;
   }
 
-  /* On mobile, Sidebar is fixed, so main content takes full width */
+  /* On mobile, Sidebar is hidden/drawer, so NO MARGIN */
   .main-content-area {
+    margin-left: 0 !important;
     width: 100%;
+    padding-top: 60px;
+    /* Space for a top bar if we had one, or just safe area */
+  }
+
+  .app-layout.sidebar-collapsed .main-content-area {
     margin-left: 0 !important;
   }
 
