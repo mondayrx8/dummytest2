@@ -9,13 +9,16 @@
     border-right: 1px solid var(--brand-primary);
     /* Emerald Border */
 
-    /* Sticky Positioning for Desktop */
-    position: sticky;
+    /* Fixed Positioning for Bulletproof Height */
+    position: fixed;
     top: 0;
+    left: 0;
     height: 100vh;
-    /* Takes full viewport height */
+    /* Full viewport height */
     width: var(--sidebar-width-expanded);
     flex-shrink: 0;
+    overflow-y: auto;
+    /* Internal scroll for menu items if needed */
 
     display: flex;
     flex-direction: column;
