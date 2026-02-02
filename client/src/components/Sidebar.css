@@ -1,105 +1,120 @@
-/* ========== Modern Sidebar - Redesign 2026 ========== */
-/* DOCUMENT FLOW: Pure sticky, no height forcing */
+/* ========== Premium Glassmorphous Sidebar ========== */
+
 .modern-sidebar {
+    /* Glassmorphism Base */
+    background: #0a0e27CC;
+    /* Dark Navy with 80% opacity */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-right: 1px solid var(--brand-primary);
+    /* Emerald Border */
+
+    /* Sticky Positioning for Desktop */
     position: sticky;
     top: 0;
-    width: var(--sidebar-width);
+    height: 100vh;
+    /* Takes full viewport height */
+    width: var(--sidebar-width-expanded);
     flex-shrink: 0;
-    background: white;
+
     display: flex;
     flex-direction: column;
     padding: 24px 16px;
-    z-index: 1000;
-    font-family: var(--font-sans);
-    border-right: 1px solid var(--border-color);
-    overflow: visible;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Shadow for depth */
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
 }
 
 .modern-sidebar.collapsed {
     width: var(--sidebar-width-collapsed);
 }
 
-/* Header */
+/* Header & Brand */
 .sidebar-header {
+    height: 80px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border-color);
-    min-height: 80px;
+    justify-content: flex-start;
+    padding-left: 8px;
+    /* Optical alignment */
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sidebar-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
     overflow: hidden;
-}
-
-.brand-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
-    filter: drop-shadow(0 2px 4px rgba(124, 58, 237, 0.2));
+    white-space: nowrap;
 }
 
 .brand-text {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    white-space: nowrap;
     opacity: 1;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.3s ease;
+    background: linear-gradient(90deg, #FFFFFF, #E2E8F0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .brand-text.hidden {
     opacity: 0;
-    width: 0;
-    display: none;
+    pointer-events: none;
 }
 
-/* Navigation Menu - NO SCROLL */
+/* Menu Items */
 .sidebar-menu {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    overflow: visible !important;
-    /* FORCE: No menu scroll */
 }
 
-/* Menu Item */
 .menu-item {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 12px 16px;
-    border-radius: var(--radius-md);
-    font-size: 0.95rem;
+    gap: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    color: #94A3B8;
+    /* Slate 400 */
     font-weight: 500;
-    color: var(--text-medium);
-    text-decoration: none;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100%;
-    text-align: left;
-    white-space: nowrap;
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    min-height: 48px;
+    /* Touch target size */
 }
 
-.menu-item:hover:not(.active) {
-    background: var(--bg-off-white);
-    color: var(--text-dark);
+/* Hover Effects */
+.menu-item:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
 }
 
+/* Active State */
 .menu-item.active {
-    background: var(--primary-surface);
-    color: var(--primary);
-    font-weight: 600;
+    color: white;
+    background: rgba(5, 150, 105, 0.2);
+    /* Emerald Tint */
+    border: 1px solid rgba(5, 150, 105, 0.4);
+}
+
+.menu-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--brand-primary);
+    border-radius: 0 4px 4px 0;
 }
 
 .menu-icon {
@@ -109,11 +124,11 @@
     width: 24px;
     height: 24px;
     flex-shrink: 0;
-    color: currentColor;
 }
 
 .menu-text {
-    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    transition: opacity 0.2s;
 }
 
 .menu-text.hidden {
@@ -122,51 +137,72 @@
     display: none;
 }
 
-.modern-sidebar.collapsed .menu-item {
-    justify-content: center;
-    padding: 12px;
-}
-
 /* Divider */
 .menu-divider {
     height: 1px;
-    background: var(--border-color);
-    margin: 12px 0;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 16px 0;
 }
 
-/* Collapse Toggle */
+/* Collapse Button (Desktop Only) */
 .collapse-toggle-item {
     margin-top: auto;
-    color: var(--text-medium);
+    color: #64748B;
 }
 
 .collapse-toggle-item:hover {
-    background: var(--bg-off-white);
-    color: var(--primary);
+    color: white;
 }
 
-/* Logout */
-.logout-item:hover {
-    background: #FEF2F2;
-    color: var(--error);
-}
-
-/* Mobile */
+/* ========== MOBILE FIRST MASTERY ========== */
 @media (max-width: 968px) {
     .modern-sidebar {
         position: fixed;
         left: 0;
         top: 0;
-        width: var(--sidebar-width);
+        bottom: 0;
         height: 100dvh;
+        /* Dynamic Viewport Height */
+        width: 80% !important;
+        /* Drawer style */
+        max-width: 320px;
         z-index: 9999;
-        transition: transform 0.3s ease;
         transform: translateX(-100%);
-        box-shadow: var(--shadow-xl);
-        pointer-events: auto;
+        border-right: 1px solid var(--brand-primary);
+        box-shadow: 10px 0 50px rgba(0, 0, 0, 0.5);
     }
 
     .modern-sidebar.mobile-open {
         transform: translateX(0);
+    }
+
+    /* Hide Desktop Collapse Toggle on Mobile */
+    .collapse-toggle-item {
+        display: none;
+    }
+
+    /* Force full opacity/visibility for text on mobile */
+    .brand-text,
+    .menu-text {
+        opacity: 1 !important;
+        display: block !important;
+        width: auto !important;
+    }
+
+    /* Mobile Overlay Backdrop (Optional, but good UX) */
+    .mobile-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 9998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+
+    .mobile-backdrop.active {
+        opacity: 1;
+        pointer-events: auto;
     }
 }

@@ -1,33 +1,25 @@
-/* Global Design System - Redesign 2026 */
+/* Global Design System - Redesign 2026 (Magic Alignment) */
 :root {
-  /* Brand Colors */
+  /* Brand Colors - Premium Deep Dark */
   --primary: #7C3AED;
   --primary-light: #A78BFA;
   --primary-gradient: linear-gradient(135deg, #7C3AED 0%, #C084FC 100%);
-  --primary-surface: #F3E8FF;
 
-  /* Secondary / CTA */
-  --accent-coral: #F97316;
-  --accent-orange: #FB923C;
-  --accent-surface: #FFEDD5;
-
-  /* Neutrals */
-  --bg-white: #FFFFFF;
-  --bg-off-white: #F8FAFC;
-  --text-dark: #1E293B;
-  --text-medium: #64748B;
-  --text-light: #94A3B8;
-  --border-color: #E2E8F0;
-
-  /* Functional */
-  --success: #10B981;
-  --error: #EF4444;
-  --warning: #F59E0B;
+  /* Glassmorphism Variables */
+  --glass-bg: rgba(10, 14, 39, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 15px;
 
   /* DEPB Brand (Emerald Green) */
   --brand-primary: #059669;
-  --brand-light: #34D399;
-  --brand-surface: #D1FAE5;
+  --brand-glow: 0 0 20px rgba(5, 150, 105, 0.3);
+
+  /* Neutrals */
+  --bg-dark: #0F172A;
+  --bg-off-white: #F8FAFC;
+  --text-dark: #1E293B;
+  --text-medium: #64748B;
+  --border-color: #E2E8F0;
 
   /* Fluid Typography */
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
@@ -36,98 +28,20 @@
   --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.5rem);
   --text-xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.5rem);
   --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 4rem);
-  --text-hero: clamp(2.5rem, 2rem + 3vw, 5rem);
 
   /* Spacing */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
+  --space-md: clamp(1rem, 0.8rem + 0.5vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-glow: 0 0 15px rgba(124, 58, 237, 0.3);
-
-  /* Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-full: 9999px;
+  /* Layout Variables */
+  --sidebar-width-expanded: 280px;
+  --sidebar-width-collapsed: 80px;
 
   /* Font Family */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-
-  /* Layout Variables */
-  --sidebar-width-expanded: 260px;
-  --sidebar-width-collapsed: 80px;
-  --sidebar-width: var(--sidebar-width-expanded);
-  --header-height: 0px;
-  /* If we add a top header later */
 }
 
-/* Layout Shell - DOCUMENT FLOW */
-.app-layout {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: auto;
-  min-height: 100vh;
-  overflow: visible !important;
-  background-color: var(--bg-off-white);
-}
-
-.app-layout.sidebar-collapsed .modern-sidebar {
-  width: var(--sidebar-width-collapsed);
-}
-
-/* Main Content Area - Document Flow */
-.main-content-area {
-  flex: 1;
-  width: 100%;
-  height: auto !important;
-  overflow: visible !important;
-  padding: 40px;
-}
-
-/* Inner content constraint for readability */
-.main-content-area>* {
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Mobile Layout Override */
-@media (max-width: 968px) {
-  .app-layout {
-    display: block;
-    flex-direction: column;
-  }
-
-  .main-content-area {
-    padding: clamp(16px, 4vw, 40px);
-    margin-left: 0;
-    width: 100%;
-  }
-}
-
-/* Fluid Container Utility */
-.fluid-container {
-  width: 100%;
-  max-width: min(1280px, 100% - clamp(32px, 8vw, 96px));
-  margin-inline: auto;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* NUCLEAR ABSOLUTE RESET */
+/* NUCLEAR RESET: Single Scrollbar Context */
 html,
 body,
 #root,
@@ -138,20 +52,57 @@ body,
   padding: 0;
   overflow-x: hidden !important;
   overflow-y: visible !important;
-  /* Force browser window to take over */
+  /* ONLY browser window scrolls */
+  width: 100%;
 }
-
-/* Body already defined below with font settings */
 
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-off-white);
   color: var(--text-dark);
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Flexbox Application Layout */
+.app-layout {
+  display: flex !important;
+  /* Force Flex */
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Sidebar Handling in Layout */
+.app-layout.sidebar-collapsed .modern-sidebar {
+  width: var(--sidebar-width-collapsed);
+}
+
+/* Main Content Area - Document Flow */
+.main-content-area {
+  flex: 1;
+  /* Take remaining width */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  /* Prevent flex blowout */
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Main content wrapper padding */
+.content-wrapper {
+  padding: var(--space-lg);
+  flex: 1;
+  /* Pushes footer down if content is short */
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Typography Resets */
 h1,
 h2,
 h3,
@@ -159,34 +110,23 @@ h4,
 h5,
 h6 {
   color: var(--text-dark);
-  line-height: 1.2;
   font-weight: 700;
+  line-height: 1.2;
   margin-bottom: var(--space-md);
 }
 
 p {
   color: var(--text-medium);
-  margin-bottom: var(--space-md);
+  margin-bottom: 1rem;
 }
 
 a {
   text-decoration: none;
   color: inherit;
-  transition: color 0.2sease;
+  transition: all 0.2s ease;
 }
 
-ul {
-  list-style: none;
-}
-
-/* Helper Classes */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 var(--space-md);
-}
-
-/* Button Resets */
+/* Form Elements */
 button {
   border: none;
   background: none;
@@ -194,17 +134,15 @@ button {
   font-family: inherit;
 }
 
-/* Input Resets */
 input,
 textarea,
 select {
   font-family: inherit;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: 8px;
   padding: 12px 16px;
-  background-color: var(--bg-white);
-  color: var(--text-dark);
   width: 100%;
+  background: white;
 }
 
 input:focus,
@@ -212,5 +150,27 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-surface);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* Link Active States */
+a.active {
+  color: var(--primary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 968px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  /* On mobile, Sidebar is fixed, so main content takes full width */
+  .main-content-area {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  .content-wrapper {
+    padding: var(--space-md);
+  }
 }
