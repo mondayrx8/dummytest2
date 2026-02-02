@@ -1,13 +1,12 @@
 /* ========== Premium Glassmorphous Sidebar ========== */
 
 .modern-sidebar {
-    /* Glassmorphism Base */
-    background: #0a0e27CC;
-    /* Dark Navy with 80% opacity */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-right: 1px solid var(--brand-primary);
-    /* Emerald Border */
+    /* Solid Background - No Ghosting */
+    background: #0a0e27;
+    /* Deep Solid Navy */
+    /* Removed backdrop-filter to prevent transparency artifacts */
+    border-right: none;
+    /* Removed heavy border */
 
     /* Fixed Positioning for Bulletproof Height */
     position: fixed;
@@ -23,12 +22,12 @@
     display: flex;
     flex-direction: column;
     padding: 24px 16px 80px 16px;
-    /* Increased bottom padding for Logout button position */
+    /* 80px bottom padding for Logout alignment */
     z-index: 100;
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 
-    /* Shadow for depth */
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+    /* Subtle Depth Shadow */
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
 }
 
 .modern-sidebar.collapsed {

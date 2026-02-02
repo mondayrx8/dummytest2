@@ -117,21 +117,27 @@
 }
 
 /* Card */
+/* Card */
 .dashboard-portfolio-card {
     background: white;
-    border-radius: var(--radius-lg);
+    border-radius: 16px;
+    /* Soft Radius */
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.2s ease;
-    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    /* Extremely light shadow */
+    transition: all 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    /* Very subtle border */
     display: flex;
     flex-direction: column;
 }
 
 .dashboard-portfolio-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-light);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    /* Soft lift */
+    border-color: rgba(5, 150, 105, 0.2);
+    /* Subtle Emerald hint */
 }
 
 .dashboard-card-image-wrapper {
@@ -191,7 +197,8 @@
 .dashboard-business-name {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: #1E293B;
+    /* Spec: Deep Slate */
     margin-bottom: 8px;
 }
 
@@ -200,16 +207,11 @@
     align-items: center;
     gap: 8px;
     font-size: 0.875rem;
-    color: var(--text-medium);
+    color: #64748B;
+    /* Spec: Slate Body */
 }
 
-.dashboard-student-name {
-    font-weight: 600;
-    color: var(--text-dark);
-    background: var(--primary-surface);
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
-}
+/* ... existing student-name ... */
 
 /* Card Body */
 .dashboard-card-body {
@@ -225,37 +227,20 @@
     gap: 6px;
 }
 
-.dashboard-section-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: var(--radius-full);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    width: fit-content;
-}
-
-.dashboard-section-badge.pitch {
-    background: #FEF3C7;
-    color: #D97706;
-}
-
-.dashboard-section-badge.market {
-    background: #DBEAFE;
-    color: #2563EB;
-}
+/* ... badges ... */
 
 .dashboard-section-content {
     font-size: 0.9rem;
-    color: var(--text-medium);
-    line-height: 1.5;
+    color: #64748B;
+    /* Spec: Slate */
+    line-height: 1.6;
+    /* Increased breathing room */
 }
 
 .market-size {
     font-weight: 600;
-    color: var(--text-dark);
+    color: #1E293B;
+    /* Spec: Deep Slate */
 }
 
 /* Actions */
