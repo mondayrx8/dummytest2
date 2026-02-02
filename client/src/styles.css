@@ -34,7 +34,7 @@
   --space-lg: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
 
   /* Layout Variables */
-  --sidebar-width-expanded: 280px;
+  --sidebar-width-expanded: 250px;
   --sidebar-width-collapsed: 80px;
 
   /* Font Family */
