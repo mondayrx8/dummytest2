@@ -5,6 +5,8 @@ import './GuestList.css';
 
 const GuestList = () => {
     const [portfolios, setPortfolios] = useState([]);
+    const [filteredPortfolios, setFilteredPortfolios] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -12,6 +14,7 @@ const GuestList = () => {
             try {
                 const res = await axios.get('https://dummytest2.onrender.com/api/portfolio/all');
                 setPortfolios(res.data);
+                setFilteredPortfolios(res.data);
             } catch (error) {
                 console.error("Error fetching guest data:", error);
             } finally {
@@ -21,11 +24,26 @@ const GuestList = () => {
         fetchPublicData();
     }, []);
 
+    useEffect(() => {
+        const results = portfolios.filter(item =>
+            item.businessName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+        setFilteredPortfolios(results);
+    }, [searchTerm, portfolios]);
+
     return (
         <div className="guest-list-container">
+            {/* Background Blobs */}
+            <div className="guest-bg">
+                <div className="blob blob-1"></div>
+                <div className="blob blob-2"></div>
+            </div>
+
             {/* Hero Header */}
             <header className="hero-header">
-                <nav className="public-nav">
+                <nav className="public-nav glass-nav">
                     <div className="nav-brand">
                         <span className="brand-icon">🚀</span>
                         <h1 className="brand-title">Entrepreneur Showcase</h1>
@@ -41,6 +59,20 @@ const GuestList = () => {
                     <p className="hero-subtitle">
                         Explore innovative student ventures and groundbreaking business ideas from the next generation of founders
                     </p>
+
+                    {/* Search Bar */}
+                    <div className="search-section">
+                        <div className="search-bar glass-panel">
+                            <span className="search-icon">🔍</span>
+                            <input
+                                type="text"
+                                placeholder="Search by venture, founder, or keyword..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="search-input"
+                            />
+                        </div>
+                    </div>
                 </div>
             </header>
 
@@ -51,24 +83,25 @@ const GuestList = () => {
                         <div className="spinner"></div>
                         <p>Loading amazing portfolios...</p>
                     </div>
-                ) : portfolios.length === 0 ? (
-                    <div className="empty-state">
-                        <div className="empty-icon">📋</div>
-                        <h3>No Portfolios Yet</h3>
-                        <p>Check back soon to discover exciting student ventures!</p>
+                ) : filteredPortfolios.length === 0 ? (
+                    <div className="empty-state glass-panel">
+                        <div className="empty-icon">🤷‍♂️</div>
+                        <h3>No Ventures Found</h3>
+                        <p>Try adjusting your search terms to find what you're looking for.</p>
+                        {portfolios.length === 0 && <p>Check back soon for new student submissions!</p>}
                     </div>
                 ) : (
                     <>
                         <div className="portfolio-stats">
-                            <div className="stat-badge">
-                                <span className="stat-number">{portfolios.length}</span>
+                            <div className="stat-badge glass-panel">
+                                <span className="stat-number">{filteredPortfolios.length}</span>
                                 <span className="stat-label">Active Ventures</span>
                             </div>
                         </div>
 
                         <div className="portfolio-grid">
-                            {portfolios.map((item) => (
-                                <article key={item._id} className="portfolio-card">
+                            {filteredPortfolios.map((item) => (
+                                <article key={item._id} className="portfolio-card glass-panel">
                                     <div className="card-image-wrapper">
                                         {item.image ? (
                                             <img
@@ -83,47 +116,31 @@ const GuestList = () => {
                                             </div>
                                         )}
                                         <div className="card-overlay"></div>
+                                        <div className="card-category-badge">Technology</div>
                                     </div>
 
                                     <div className="card-content">
                                         <div className="card-header">
                                             <h3 className="business-name">{item.businessName}</h3>
                                             <div className="student-info">
-                                                <span className="student-label">👨‍🎓 Founder:</span>
+                                                <span className="student-label">Founder:</span>
                                                 <span className="student-name">{item.studentName}</span>
                                             </div>
-                                            {/* Show Team Members if they exist */}
-                                            {item.teamMembers && (
-                                                <div className="team-info">
-                                                    <span className="team-icon">🤝</span>
-                                                    <div className="team-content">
-                                                        <span className="team-label">Team Members</span>
-                                                        <span className="team-members">{item.teamMembers}</span>
-                                                    </div>
-                                                </div>
-                                            )}
                                         </div>
 
                                         <div className="card-body">
-                                            <div className="info-section">
-                                                <div className="section-badge pitch-badge">
-                                                    <span className="badge-icon">💡</span>
-                                                    <span className="badge-text">The Pitch</span>
-                                                </div>
-                                                <p className="section-content">{item.description}</p>
-                                            </div>
-
-                                            <div className="info-section">
-                                                <div className="section-badge market-badge">
-                                                    <span className="badge-icon">📊</span>
-                                                    <span className="badge-text">Market Size</span>
-                                                </div>
-                                                <p className="section-content market-size">{item.marketSize}</p>
-                                            </div>
+                                            <p className="card-problem">
+                                                {item.description
+                                                    ? (item.description.length > 100 ? item.description.substring(0, 100) + '...' : item.description)
+                                                    : "No description provided."}
+                                            </p>
                                         </div>
 
                                         <div className="card-footer">
-                                            <span className="view-details">View Details →</span>
+                                            <button className="view-pitch-btn">
+                                                View Full Pitch
+                                                <span className="arrow">→</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </article>
@@ -132,8 +149,6 @@ const GuestList = () => {
                     </>
                 )}
             </main>
-
-            {/* Professional Footer Removed (Handled in App.jsx) */}
         </div>
     );
 };
