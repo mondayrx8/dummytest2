@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './PortfolioForm.css';
 
 const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
@@ -16,11 +16,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     if (currentPortfolio) {
       setFormData(currentPortfolio);
-      setMessage('✏️ Edit Mode: Update your business details');
+      setMessage('✏️ Editing Mode Enabled');
     } else {
       setFormData({ studentName: '', teamMembers: '', businessName: '', description: '', marketSize: '', image: '' });
       setMessage('');
@@ -56,11 +57,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       }
 
       onSave();
-      navigate('/dashboard');
+      setShowToast(true);
+      setTimeout(() => navigate('/dashboard'), 1500); // Wait for toast
 
     } catch (error) {
       console.error(error);
-      setMessage('❌ Error Saving Data');
+      setMessage('❌ Error Saving Data. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -72,156 +74,178 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     navigate('/dashboard');
   };
 
+  // Calculate progress for visual bar
+  const calculateProgress = () => {
+    let filled = 0;
+    const fields = ['studentName', 'businessName', 'description', 'marketSize', 'image'];
+    fields.forEach(field => {
+      if (formData[field] && formData[field].length > 0) filled++;
+    });
+    return (filled / fields.length) * 100;
+  };
+
   return (
     <div className="builder-page">
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="glass-toast">
+          <span className="toast-icon">✅</span>
+          Portfolio Saved Successfully!
+        </div>
+      )}
+
+      {/* Background Blobs (Green Theme) */}
+      <div className="builder-bg">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+      </div>
+
       <div className="builder-container-wrapper">
         <div className="builder-header">
           <h2 className="builder-title">
-            {currentPortfolio ? "✏️ Edit Portfolio" : "🚀 Build Your Entrepreneur Portfolio"}
+            {currentPortfolio ? "Edit Portfolio" : "Design Your Venture"}
           </h2>
-          {message && (
-            <div className={`builder-message ${message.includes('Error') ? 'error' : 'info'}`}>
-              {message}
-            </div>
-          )}
+          <p className="builder-subtitle">
+            Craft a compelling pitch to showcase your innovative idea to the world.
+          </p>
+
+          {/* Progress Bar */}
+          <div className="progress-container">
+            <div className="progress-bar" style={{ width: `${calculateProgress()}%` }}></div>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="builder-form">
-          <div className="builder-form-group">
-            <label className="builder-form-label">
-              <span className="label-icon">👨‍💼</span>
-              Entrepreneur Name
-            </label>
-            <input
-              type="text"
-              name="studentName"
-              value={formData.studentName}
-              onChange={handleChange}
-              placeholder="e.g. Khairul Aming"
-              className="builder-form-input"
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="builder-form glass-panel">
+          {message && <div className="status-banner">{message}</div>}
 
-          <div className="builder-form-group">
-            <label className="builder-form-label">
-              <span className="label-icon">👥</span>
-              Team Members / Co-Founders
-            </label>
-            <input
-              type="text"
-              name="teamMembers"
-              value={formData.teamMembers}
-              onChange={handleChange}
-              placeholder="e.g. Ali (CEO), Sarah (Marketing)"
-              className="builder-form-input"
-            />
-          </div>
-
-          <div className="builder-form-group">
-            <label className="builder-form-label">
-              <span className="label-icon">🏢</span>
-              Business / Startup Name
-            </label>
-            <input
-              type="text"
-              name="businessName"
-              value={formData.businessName}
-              onChange={handleChange}
-              placeholder="e.g. Rembayung"
-              className="builder-form-input"
-              required
-            />
-          </div>
-
-          <div className="builder-form-group">
-            <label className="builder-form-label">
-              <span className="label-icon">🖼️</span>
-              Product Image / Logo
-            </label>
-            <div className="file-upload-wrapper">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="builder-file-input"
-                id="file-upload"
-              />
-              <label htmlFor="file-upload" className="file-upload-label">
-                <span className="upload-icon">📤</span>
-                {formData.image ? 'Change Image' : 'Upload Image'}
-              </label>
-            </div>
-            {formData.image && (
-              <div className="image-preview-wrapper">
-                <img src={formData.image} alt="Preview" className="builder-image-preview" />
+          {/* SECTION 1: BASIC INFO */}
+          <section className="form-section">
+            <h3 className="section-title">
+              <span className="section-icon">1</span> Basic Information
+            </h3>
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="floating-label">Entrepreneur Name *</label>
+                <input
+                  type="text"
+                  name="studentName"
+                  value={formData.studentName}
+                  onChange={handleChange}
+                  className="glass-input"
+                  placeholder="e.g. Khairul Aming"
+                  required
+                />
               </div>
-            )}
-          </div>
+              <div className="input-group">
+                <label className="floating-label">Business Name *</label>
+                <input
+                  type="text"
+                  name="businessName"
+                  value={formData.businessName}
+                  onChange={handleChange}
+                  className="glass-input"
+                  placeholder="e.g. Sambal Nyet"
+                  required
+                />
+              </div>
+            </div>
+            <div className="input-group full-width">
+              <label className="floating-label">Team Members (Optional)</label>
+              <input
+                type="text"
+                name="teamMembers"
+                value={formData.teamMembers}
+                onChange={handleChange}
+                className="glass-input"
+                placeholder="Co-founders, key partners..."
+              />
+            </div>
+          </section>
 
-          <div className="builder-form-group">
-            <label className="builder-form-label">
-              <span className="label-icon">💡</span>
-              Business Description (Pitch)
-            </label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Describe your business idea, problem you're solving, and your solution..."
-              className="builder-form-input builder-form-textarea"
-              required
-            />
-          </div>
+          {/* SECTION 2: THE PITCH */}
+          <section className="form-section">
+            <h3 className="section-title">
+              <span className="section-icon">2</span> The Pitch
+            </h3>
+            <div className="input-group full-width">
+              <label className="floating-label">Problem & Solution *</label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                className="glass-input glass-textarea"
+                placeholder="Describe the problem you are solving and your unique solution..."
+                required
+              />
+            </div>
+          </section>
 
-          <div className="builder-form-group">
-            <label className="builder-form-label">
-              <span className="label-icon">📊</span>
-              Market Size
-            </label>
-            <input
-              type="text"
-              name="marketSize"
-              value={formData.marketSize}
-              onChange={handleChange}
-              placeholder="e.g. 50,000 students in Kedah"
-              className="builder-form-input"
-            />
-          </div>
+          {/* SECTION 3: MARKET */}
+          <section className="form-section">
+            <h3 className="section-title">
+              <span className="section-icon">3</span> Market Analysis
+            </h3>
+            <div className="input-group full-width">
+              <label className="floating-label">Target Market Size</label>
+              <input
+                type="text"
+                name="marketSize"
+                value={formData.marketSize}
+                onChange={handleChange}
+                className="glass-input"
+                placeholder="e.g. 500k University Students in Malaysia"
+              />
+            </div>
+          </section>
 
-          <div className="builder-button-group">
+          {/* SECTION 4: MEDIA */}
+          <section className="form-section">
+            <h3 className="section-title">
+              <span className="section-icon">4</span> Visuals
+            </h3>
+            <div className="file-upload-container">
+              <label htmlFor="file-upload" className="file-drop-zone">
+                <span className="files-icon">📤</span>
+                <span className="upload-text">
+                  {formData.image ? "Change Image" : "Upload Product Image"}
+                </span>
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden-file-input"
+                />
+              </label>
+              {formData.image && (
+                <div className="preview-container">
+                  <img src={formData.image} alt="Preview" className="img-preview" />
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* ACTIONS */}
+          <div className="form-actions">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="btn-cancel"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
-              className={currentPortfolio ? "builder-btn-update" : "builder-btn-save"}
+              className="btn-save"
               disabled={loading}
             >
-              {loading ? (
-                <>
-                  <span className="btn-spinner"></span>
-                  {currentPortfolio ? "Updating..." : "Creating..."}
-                </>
-              ) : (
-                <>
-                  <span className="btn-icon">{currentPortfolio ? "💾" : "✨"}</span>
-                  {currentPortfolio ? "Update Portfolio" : "Create Portfolio"}
-                </>
-              )}
+              {loading ? <span className="spinner"></span> : (currentPortfolio ? "Update Portfolio" : "Save & Publish")}
             </button>
-
-            {currentPortfolio && (
-              <button type="button" onClick={handleCancel} className="builder-btn-cancel">
-                <span className="btn-icon">❌</span>
-                Cancel
-              </button>
-            )}
           </div>
         </form>
       </div>
-
-      {/* Footer Removed (Handled in App.jsx) */}
     </div>
   );
 };
 
 export default PortfolioForm;
-// FIXED: Updated Portfolio URL to Render
