@@ -117,19 +117,28 @@
 
 /* Hero Content */
 .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 64px 24px 0;
     position: relative;
     z-index: 2;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
     color: var(--text-dark);
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     letter-spacing: -0.02em;
     line-height: 1.1;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
 }
 
 .hero-subtitle {
@@ -138,6 +147,7 @@
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
+    text-align: center;
 }
 
 /* ========== Main Content ========== */

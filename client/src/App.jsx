@@ -97,11 +97,11 @@ const App = () => {
 
         {/* ROUTES CONFIGURATION */}
         <Routes>
-          {/* PAGE 0: LANDING PAGE (Default Homepage - Immersive Scroll) */}
-          <Route path="/" element={<ScrollLanding />} />
+          {/* PAGE 0: LANDING PAGE (New Light Mode Redesign) */}
+          <Route path="/" element={<LandingPage />} />
 
-          {/* OLD LANDING PAGE (Backup - Entrepreneurial Portfolio) */}
-          <Route path="/old-landing" element={<LandingPage />} />
+          {/* DARK MODE LANDING (Backup - Cinematic Obsidian) */}
+          <Route path="/scroll-landing" element={<ScrollLanding />} />
 
           {/* PAGE 1: PUBLIC INVESTOR VIEW (No Token Required!) */}
           <Route path="/investors" element={<GuestList />} />
