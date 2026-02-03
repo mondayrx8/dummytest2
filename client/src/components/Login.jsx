@@ -40,99 +40,98 @@ const Login = ({ setToken }) => {
 
   return (
     <div className="login-page">
-      {/* Third Gradient Blob */}
-      <div className="gradient-blob-3"></div>
+      {/* Dynamic Background */}
+      <div className="login-background">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
 
-      <div className="login-content">
-        {/* Hero Section */}
-        <div className="login-hero-section">
-          <div className="hero-icon">🚀</div>
-          <h1 className="login-hero-title">Entrepreneur Portfolio</h1>
-          <p className="login-hero-subtitle">
-            Create, manage, and showcase your entrepreneurial ventures in one beautiful platform
-          </p>
+      <div className="login-container">
+        {/* Brand Header */}
+        <div className="login-brand">
+          <div className="brand-icon-wrapper">
+            <span className="brand-icon">🚀</span>
+          </div>
+          <h1>DEPB</h1>
         </div>
 
-        {/* Auth Card */}
-        <div className="login-auth-card">
-          <h2 className="login-auth-title">
-            {isRegistering ? "Create Your Account" : "Welcome Back"}
-          </h2>
+        {/* Glass Card */}
+        <div className="login-card glass-panel">
+          <div className="card-header">
+            <h2>{isRegistering ? "Join the Future" : "Welcome Back"}</h2>
+            <p className="subtitle">
+              {isRegistering
+                ? "Start building your digital venture portfolio today."
+                : "Manage your entrepreneurial journey."}
+            </p>
+          </div>
 
           {error && (
-            <div className="login-error-message">
+            <div className="error-banner">
               <span className="error-icon">⚠️</span>
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="login-auth-form">
-            <div className="login-form-group">
-              <label className="login-form-label">
-                <span className="label-icon">👤</span>
-                Username
-              </label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="login-form-input"
-                placeholder="Enter your username"
-                required
-              />
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="input-group">
+              <label htmlFor="username">Username</label>
+              <div className="input-wrapper">
+                <span className="input-icon">👤</span>
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Student ID or Username"
+                  required
+                />
+              </div>
             </div>
 
-            <div className="login-form-group">
-              <label className="login-form-label">
-                <span className="label-icon">🔒</span>
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="login-form-input"
-                placeholder="Enter your password"
-                required
-              />
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <div className="input-wrapper">
+                <span className="input-icon">🔒</span>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
             </div>
 
-            <button type="submit" className="login-btn-primary" disabled={loading}>
-              {loading ? (
-                <>
-                  <span className="btn-spinner"></span>
-                  {isRegistering ? "Registering..." : "Logging in..."}
-                </>
-              ) : (
-                <>
-                  {isRegistering ? "Create Account" : "Sign In"}
-                </>
-              )}
+            <button type="submit" className="btn-primary-login" disabled={loading}>
+              {loading ? <span className="spinner"></span> : (isRegistering ? "Create Account" : "Sign In")}
             </button>
           </form>
 
-          <p className="login-auth-toggle" onClick={() => setIsRegistering(!isRegistering)}>
-            {isRegistering ? "Already have an account? Sign In" : "Need an account? Create One"}
-          </p>
-
-          <div className="login-divider">
-            <span>or</span>
+          <div className="card-footer">
+            <p className="toggle-text">
+              {isRegistering ? "Already have an account?" : "New to DEPB?"}
+              <button
+                type="button"
+                className="btn-text-link"
+                onClick={() => setIsRegistering(!isRegistering)}
+              >
+                {isRegistering ? "Login here" : "Create Account"}
+              </button>
+            </p>
           </div>
-
-          <Link to="/investors" className="login-guest-link">
-            <span className="guest-icon">👀</span>
-            View as Guest (Investor View)
-          </Link>
         </div>
 
-        {/* Footer */}
-        <footer className="login-footer">
-          <p>© 2026 Entrepreneur Portfolio | Empowering Student Innovation</p>
-        </footer>
+        {/* Guest Link */}
+        <Link to="/investors" className="guest-link glass-pill">
+          <span className="icon">📈</span>
+          <span>Explore Ventures (Investor View)</span>
+        </Link>
       </div>
     </div>
   );
 };
 
 export default Login;
-// Vercel Force Update 1
