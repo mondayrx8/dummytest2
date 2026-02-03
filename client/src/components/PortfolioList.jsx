@@ -30,123 +30,99 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
     };
 
     return (
-        <div className="dashboard-list-container">
-            {/* Third Gradient Blob */}
-            <div className="dashboard-gradient-blob-3"></div>
+        <div className="dashboard-container">
+            {/* Background Blobs (Green Theme) */}
+            <div className="dashboard-bg">
+                <div className="blob blob-1"></div>
+                <div className="blob blob-2"></div>
+            </div>
 
-            {/* Hero Section */}
-            <header className="dashboard-hero">
-                <div className="dashboard-hero-content">
-                    <h1 className="dashboard-hero-title">Your Portfolio Collection</h1>
-                    <p className="dashboard-hero-subtitle">
-                        Manage and showcase your entrepreneurial ventures
-                    </p>
+            {/* Header / Top Bar */}
+            <header className="dashboard-header glass-panel">
+                <div className="header-content">
+                    <h1>My Ventures</h1>
+                    <div className="header-actions">
+                        <button onClick={() => navigate('/create')} className="btn-primary-create">
+                            <span className="icon">➕</span>
+                            <span>New Project</span>
+                        </button>
+                    </div>
                 </div>
             </header>
 
             {/* Main Content */}
-            <main className="dashboard-main-content">
+            <main className="dashboard-content">
                 {portfolios.length === 0 ? (
-                    <div className="dashboard-empty-state">
-                        <div className="empty-icon">📂</div>
-                        <h3>No Portfolios Yet</h3>
-                        <p>Start building your entrepreneurial portfolio today!</p>
-                        <button onClick={() => navigate('/create')} className="btn-create-first">
-                            Create Your First Portfolio
+                    <div className="empty-state-card glass-panel">
+                        <div className="empty-graphic">🚀</div>
+                        <h2>Ready to Launch?</h2>
+                        <p>Start your first entrepreneurial portfolio and showcase your vision to the world.</p>
+                        <button onClick={() => navigate('/create')} className="btn-primary-large">
+                            Start Your First Pitch
                         </button>
                     </div>
                 ) : (
-                    <>
-                        <div className="dashboard-stats">
-                            <div className="stat-card">
-                                <span className="stat-value">{portfolios.length}</span>
-                                <span className="stat-label">Total Portfolios</span>
+                    <div className="portfolio-grid">
+                        {/* Create New Card (First Item) */}
+                        <div className="create-card glass-panel" onClick={() => navigate('/create')}>
+                            <div className="create-icon-wrapper">
+                                <span className="create-icon">➕</span>
                             </div>
+                            <h3>Create New Venture</h3>
                         </div>
 
-                        <div className="dashboard-portfolio-grid">
-                            {portfolios.map((item) => (
-                                <article key={item._id} className="dashboard-portfolio-card">
-                                    <div className="dashboard-card-image-wrapper">
-                                        {item.image ? (
-                                            <img
-                                                src={item.image}
-                                                alt={item.businessName}
-                                                className="dashboard-card-image"
-                                            />
-                                        ) : (
-                                            <div className="dashboard-card-image-placeholder">
-                                                <span className="dashboard-placeholder-icon">🎯</span>
-                                                <span className="dashboard-placeholder-text">No Image</span>
-                                            </div>
-                                        )}
-                                        <div className="dashboard-card-overlay"></div>
-                                    </div>
-
-                                    <div className="dashboard-card-content">
-                                        <div className="dashboard-card-header">
-                                            <h3 className="dashboard-business-name">{item.businessName}</h3>
-                                            <div className="dashboard-student-info">
-                                                <span className="dashboard-student-icon">👨‍💼</span>
-                                                <span className="dashboard-student-name">{item.studentName}</span>
-                                            </div>
-                                            {/* Show Team Members if they exist */}
-                                            {item.teamMembers && (
-                                                <div className="dashboard-team-info">
-                                                    <span className="dashboard-team-icon">🤝</span>
-                                                    <div className="dashboard-team-content">
-                                                        <span className="dashboard-team-label">Team Members</span>
-                                                        <span className="dashboard-team-members">{item.teamMembers}</span>
-                                                    </div>
-                                                </div>
-                                            )}
+                        {/* Portfolio Cards */}
+                        {portfolios.map((item) => (
+                            <article key={item._id} className="portfolio-card glass-panel">
+                                <div className="card-media">
+                                    {item.image ? (
+                                        <img src={item.image} alt={item.businessName} className="card-img" />
+                                    ) : (
+                                        <div className="card-placeholder">
+                                            <span className="placeholder-icon">📷</span>
                                         </div>
+                                    )}
+                                    <div className="card-status-badge">Active</div>
+                                </div>
 
-                                        <div className="dashboard-card-body">
-                                            <div className="dashboard-info-section">
-                                                <div className="dashboard-section-badge pitch">
-                                                    <span className="badge-icon">💡</span>
-                                                    <span className="badge-text">Pitch</span>
-                                                </div>
-                                                <p className="dashboard-section-content">{item.description}</p>
-                                            </div>
+                                <div className="card-body">
+                                    <h3 className="card-title">{item.businessName}</h3>
+                                    <p className="card-problem">
+                                        {item.description
+                                            ? (item.description.length > 80 ? item.description.substring(0, 80) + '...' : item.description)
+                                            : "No description provided."}
+                                    </p>
+                                </div>
 
-                                            <div className="dashboard-info-section">
-                                                <div className="dashboard-section-badge market">
-                                                    <span className="badge-icon">📊</span>
-                                                    <span className="badge-text">Market Size</span>
-                                                </div>
-                                                <p className="dashboard-section-content market-size">{item.marketSize}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="dashboard-card-actions">
-                                            <button
-                                                onClick={() => handleEditClick(item)}
-                                                className="dashboard-btn-edit"
-                                            >
-                                                <span className="btn-icon">✏️</span>
-                                                Edit
-                                            </button>
-
-                                            <button
-                                                onClick={() => handleDelete(item._id)}
-                                                className="dashboard-btn-delete"
-                                                disabled={deleting === item._id}
-                                            >
-                                                <span className="btn-icon">{deleting === item._id ? '⏳' : '🗑️'}</span>
-                                                {deleting === item._id ? 'Deleting...' : 'Delete'}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </article>
-                            ))}
-                        </div>
-                    </>
+                                <div className="card-actions">
+                                    <button
+                                        className="action-btn preview"
+                                        onClick={() => navigate('/investors')} // Preview links to Public View logic
+                                        title="Preview Public View"
+                                    >
+                                        👁️
+                                    </button>
+                                    <button
+                                        className="action-btn edit"
+                                        onClick={() => handleEditClick(item)}
+                                        title="Edit Portfolio"
+                                    >
+                                        ✏️
+                                    </button>
+                                    <button
+                                        className="action-btn delete"
+                                        onClick={() => handleDelete(item._id)}
+                                        disabled={deleting === item._id}
+                                        title="Delete Portfolio"
+                                    >
+                                        {deleting === item._id ? '⏳' : '🗑️'}
+                                    </button>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
                 )}
             </main>
-
-            {/* Footer Removed (Handled in App.jsx) */}
         </div>
     );
 };
