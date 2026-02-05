@@ -1,54 +1,86 @@
 /* ============================================ */
-/* GLOBAL DESIGN SYSTEM - 2026 MODERN SAAS */
-/* Light Mode, Glassmorphism, Violet/Coral */
+/* GLOBAL DESIGN SYSTEM - DEPB 2026 */
+/* Single Source of Truth for Colors */
 /* ============================================ */
 
 /* Import Modern Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Primary Colors - Violet Theme */
+  /* =========================================== */
+  /* PRIMARY BRAND (Soft Violet to Pink) */
+  /* =========================================== */
   --primary: #7C3AED;
+  --primary-hover: #6D28D9;
   --primary-light: #DDD6FE;
   --primary-surface: rgba(124, 58, 237, 0.08);
-  --primary-gradient: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  --secondary: #DB2777;
+  --gradient-main: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
+  --primary-glow: 0 4px 14px rgba(124, 58, 237, 0.25);
+  --primary-glow-hover: 0 6px 20px rgba(124, 58, 237, 0.35);
 
-  /* Accent Colors - Coral/Orange */
-  --accent-coral: #F97316;
-  --accent-orange: #EA580C;
-  --accent-gradient: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
+  /* =========================================== */
+  /* ACCENT / ACTION (Coral Orange) */
+  /* =========================================== */
+  --accent: #F97316;
+  --accent-hover: #EA580C;
+  --accent-light: #FED7AA;
+  --accent-glow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  --accent-glow-hover: 0 6px 20px rgba(249, 115, 22, 0.4);
 
-  /* Backgrounds */
-  --bg-white: #FFFFFF;
-  --bg-off-white: #F8FAFC;
-  --bg-soft-violet: #FDF4FF;
+  /* =========================================== */
+  /* BACKGROUNDS (Light Mode SaaS) */
+  /* =========================================== */
+  --bg-body: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-soft-purple: #FDF4FF;
+  --bg-soft-pink: #FDF2F8;
+  --glass-panel: rgba(255, 255, 255, 0.7);
+  --glass-panel-solid: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-border-strong: rgba(255, 255, 255, 0.8);
 
-  /* Text Colors */
-  --text-dark: #1E293B;
-  --text-medium: #64748B;
+  /* =========================================== */
+  /* TYPOGRAPHY */
+  /* =========================================== */
+  --text-main: #0F172A;
+  --text-muted: #64748B;
   --text-light: #94A3B8;
 
-  /* Borders & Shadows */
+  /* =========================================== */
+  /* BORDERS & SHADOWS */
+  /* =========================================== */
   --border-color: #E2E8F0;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
 
-  /* Border Radius */
+  /* =========================================== */
+  /* STATUS COLORS */
+  /* =========================================== */
+  --success: #10B981;
+  --success-bg: #D1FAE5;
+  --danger: #EF4444;
+  --danger-bg: #FEE2E2;
+  --warning: #F59E0B;
+  --warning-bg: #FEF3C7;
+  --info: #3B82F6;
+  --info-bg: #DBEAFE;
+
+  /* =========================================== */
+  /* BORDER RADIUS */
+  /* =========================================== */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* Typography */
+  /* =========================================== */
+  /* TYPOGRAPHY SCALE */
+  /* =========================================== */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  /* Navbar Height */
-  --navbar-height: 72px;
-
-  /* Fluid Typography */
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
   --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
@@ -56,7 +88,10 @@
   --text-xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.5rem);
   --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 4rem);
 
-  /* Spacing */
+  /* =========================================== */
+  /* LAYOUT */
+  /* =========================================== */
+  --navbar-height: 72px;
   --space-xs: 8px;
   --space-sm: 12px;
   --space-md: 16px;
@@ -81,8 +116,8 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-off-white);
-  color: var(--text-dark);
+  background-color: var(--bg-body);
+  color: var(--text-main);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
@@ -115,7 +150,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--text-dark);
+  color: var(--text-main);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: var(--space-md);
@@ -134,7 +169,7 @@ h3 {
 }
 
 p {
-  color: var(--text-medium);
+  color: var(--text-muted);
   margin-bottom: 1rem;
 }
 
@@ -160,8 +195,8 @@ select {
   border-radius: var(--radius-md);
   padding: 14px 16px;
   width: 100%;
-  background: white;
-  color: var(--text-dark);
+  background: var(--bg-surface);
+  color: var(--text-main);
   font-size: 1rem;
   transition: all 0.2s ease;
 }
@@ -181,16 +216,16 @@ textarea::placeholder {
 
 /* ========== Utility Classes ========== */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--glass-panel);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
 
 .gradient-text {
-  background: var(--primary-gradient);
+  background: var(--gradient-main);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -203,7 +238,7 @@ textarea::placeholder {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-off-white);
+  background: var(--bg-body);
 }
 
 ::-webkit-scrollbar-thumb {

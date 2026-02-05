@@ -1,11 +1,11 @@
 /* ============================================ */
-/* PORTFOLIO FORM - 2026 MODERN SAAS DESIGN */
-/* Centered Glass Container, Sectioned Layout */
+/* PORTFOLIO FORM - UNIFIED COLOR SYSTEM */
+/* Uses: --accent for actions, --glass-panel */
 /* ============================================ */
 
 .form-page {
     min-height: 100vh;
-    background: var(--bg-off-white);
+    background: var(--bg-body);
     position: relative;
     font-family: var(--font-sans);
     padding-bottom: 60px;
@@ -35,7 +35,7 @@
     right: -10%;
     width: 550px;
     height: 550px;
-    background: #E9D5FF;
+    background: var(--primary-light);
 }
 
 .orb-2 {
@@ -43,7 +43,7 @@
     left: -10%;
     width: 450px;
     height: 450px;
-    background: #FBCFE8;
+    background: var(--bg-soft-pink);
 }
 
 /* ========== Form Wrapper ========== */
@@ -64,14 +64,14 @@
 .form-title {
     font-size: clamp(1.75rem, 4vw, 2.25rem);
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--text-main);
     margin: 0 0 10px 0;
     letter-spacing: -0.02em;
 }
 
 .form-subtitle {
     font-size: 1rem;
-    color: var(--text-medium);
+    color: var(--text-muted);
     max-width: 500px;
     margin: 0 auto 28px;
     line-height: 1.5;
@@ -96,7 +96,7 @@
 
 .progress-fill {
     height: 100%;
-    background: var(--primary-gradient);
+    background: var(--gradient-main);
     border-radius: 6px;
     transition: width 0.4s ease;
 }
@@ -110,10 +110,10 @@
 
 /* ========== Glass Card Form ========== */
 .glass-card {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--glass-panel);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
     box-shadow: var(--shadow-md);
 }
@@ -146,7 +146,7 @@
     width: 32px;
     height: 32px;
     background: var(--primary);
-    color: white;
+    color: var(--bg-surface);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -159,7 +159,7 @@
 .section-title {
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--text-main);
     margin: 0;
 }
 
@@ -181,24 +181,24 @@
 .input-label {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--text-main);
     margin-left: 4px;
 }
 
 .glass-input {
     width: 100%;
     padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--glass-panel);
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     font-size: 0.95rem;
-    color: var(--text-dark);
+    color: var(--text-main);
     transition: all 0.2s ease;
     font-family: inherit;
 }
 
 .glass-input:focus {
-    background: white;
+    background: var(--bg-surface);
     border-color: var(--primary);
     box-shadow: 0 0 0 4px var(--primary-light);
     outline: none;
@@ -238,12 +238,12 @@
     justify-content: center;
     gap: 10px;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--glass-border);
     transition: all 0.25s ease;
 }
 
 .upload-zone:hover {
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--glass-panel);
     border-color: var(--primary);
 }
 
@@ -287,8 +287,8 @@
     right: -10px;
     width: 32px;
     height: 32px;
-    background: #EF4444;
-    color: white;
+    background: var(--danger);
+    color: var(--bg-surface);
     border: none;
     border-radius: 50%;
     font-size: 0.9rem;
@@ -315,15 +315,15 @@
 }
 
 .status-message.info {
-    background: #EFF6FF;
-    color: #1D4ED8;
-    border-left: 4px solid #3B82F6;
+    background: var(--info-bg);
+    color: var(--info);
+    border-left: 4px solid var(--info);
 }
 
 .status-message.error {
-    background: #FEF2F2;
-    color: #DC2626;
-    border-left: 4px solid #EF4444;
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-left: 4px solid var(--danger);
 }
 
 /* ========== Form Actions ========== */
@@ -337,9 +337,9 @@
 .btn-cancel {
     padding: 14px 28px;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    background: white;
-    color: var(--text-medium);
-    border-radius: 50px;
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
@@ -347,21 +347,21 @@
 }
 
 .btn-cancel:hover {
-    background: #FEF2F2;
-    color: #DC2626;
+    background: var(--danger-bg);
+    color: var(--danger);
     border-color: #FECACA;
 }
 
 .btn-save {
     padding: 14px 36px;
-    background: var(--primary-gradient);
-    color: white;
+    background: var(--accent);
+    color: var(--bg-surface);
     border: none;
-    border-radius: 50px;
+    border-radius: var(--radius-full);
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+    box-shadow: var(--accent-glow);
     transition: all 0.25s ease;
     min-width: 160px;
     display: flex;
@@ -370,8 +370,9 @@
 }
 
 .btn-save:hover:not(:disabled) {
+    background: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+    box-shadow: var(--accent-glow-hover);
 }
 
 .btn-save:disabled {
@@ -384,7 +385,7 @@
     width: 20px;
     height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
+    border-top-color: var(--bg-surface);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -400,7 +401,7 @@
     position: fixed;
     top: calc(var(--navbar-height) + 20px);
     right: 24px;
-    background: white;
+    background: var(--bg-surface);
     padding: 16px 24px;
     border-radius: 14px;
     box-shadow: var(--shadow-lg);
@@ -409,9 +410,9 @@
     gap: 12px;
     z-index: 1000;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--text-main);
     animation: slideInRight 0.35s ease;
-    border-left: 4px solid var(--primary);
+    border-left: 4px solid var(--success);
 }
 
 @keyframes slideInRight {

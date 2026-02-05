@@ -1,10 +1,10 @@
 /* ============================================ */
-/* FOOTER - 2026 MODERN SAAS DESIGN */
-/* Clean, Minimal, Violet/Coral Accents */
+/* FOOTER - UNIFIED COLOR SYSTEM */
+/* Uses: --bg-surface, --text-main, --primary */
 /* ============================================ */
 
 .site-footer {
-    background-color: var(--bg-white);
+    background-color: var(--bg-surface);
     border-top: 1px solid var(--border-color);
     padding: 64px 0 32px;
     margin-top: auto;
@@ -40,7 +40,7 @@
 .footer-brand .brand-text {
     font-size: 1.5rem;
     font-weight: 800;
-    background: var(--primary-gradient);
+    background: var(--gradient-main);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -48,7 +48,7 @@
 }
 
 .footer-tagline {
-    color: var(--text-medium);
+    color: var(--text-muted);
     font-size: 0.95rem;
     max-width: 320px;
     line-height: 1.7;
@@ -59,7 +59,7 @@
 .footer-section-title {
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--text-main);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin: 0 0 20px 0;
@@ -73,7 +73,7 @@
 }
 
 .footer-link {
-    color: var(--text-medium);
+    color: var(--text-muted);
     font-size: 0.95rem;
     transition: color 0.2s ease;
 }
@@ -112,7 +112,7 @@
 }
 
 .footer-bottom-link:hover {
-    color: var(--text-dark);
+    color: var(--text-main);
 }
 
 .footer-divider {

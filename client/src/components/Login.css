@@ -1,6 +1,6 @@
 /* ============================================ */
-/* LOGIN PAGE - 2026 MODERN SAAS DESIGN */
-/* Glass Card, Violet Accents, Mobile First */
+/* LOGIN PAGE - UNIFIED COLOR SYSTEM */
+/* Uses: --gradient-main, --bg-soft-purple */
 /* ============================================ */
 
 .login-page {
@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #FDF4FF 0%, #F8FAFC 50%, #EDE9FE 100%);
+    background: linear-gradient(135deg, var(--bg-soft-purple) 0%, var(--bg-body) 50%, var(--primary-light) 100%);
     position: relative;
     overflow: hidden;
     font-family: var(--font-sans);
@@ -39,7 +39,7 @@
     left: -10%;
     width: 500px;
     height: 500px;
-    background: #E9D5FF;
+    background: var(--primary-light);
 }
 
 .orb-2 {
@@ -47,7 +47,7 @@
     right: -10%;
     width: 450px;
     height: 450px;
-    background: #FBCFE8;
+    background: var(--bg-soft-pink);
     animation-delay: -5s;
 }
 
@@ -56,7 +56,7 @@
     left: 50%;
     width: 300px;
     height: 300px;
-    background: #C4B5FD;
+    background: var(--primary-light);
     animation-delay: -10s;
 }
 
@@ -95,7 +95,7 @@
 .brand-icon-wrapper {
     width: 52px;
     height: 52px;
-    background: white;
+    background: var(--bg-surface);
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -110,7 +110,7 @@
 .brand-title {
     font-size: 1.6rem;
     font-weight: 800;
-    background: var(--primary-gradient);
+    background: var(--gradient-main);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -120,25 +120,25 @@
 
 /* ========== Glass Card ========== */
 .glass-card {
-    background: rgba(255, 255, 255, 0.85);
+    background: var(--glass-panel-solid);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--glass-border-strong);
     border-radius: 24px;
     width: 100%;
     box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.04),
+        var(--shadow-sm),
         0 10px 20px -5px rgba(0, 0, 0, 0.06),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+        inset 0 0 0 1px var(--glass-border);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass-card:hover {
     transform: translateY(-4px);
     box-shadow:
-        0 8px 16px -4px rgba(0, 0, 0, 0.06),
+        var(--shadow-md),
         0 16px 32px -8px rgba(0, 0, 0, 0.08),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+        inset 0 0 0 1px var(--glass-border);
 }
 
 .login-card {
@@ -154,12 +154,12 @@
 .card-title {
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--text-main);
     margin-bottom: 8px;
 }
 
 .card-subtitle {
-    color: var(--text-medium);
+    color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.5;
     margin: 0;
@@ -181,7 +181,7 @@
 .input-label {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--text-main);
     margin-left: 4px;
 }
 
@@ -201,16 +201,16 @@
 .glass-input {
     width: 100%;
     padding: 16px 16px 16px 50px;
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--glass-panel);
     border: 1px solid var(--border-color);
     border-radius: 14px;
     font-size: 1rem;
-    color: var(--text-dark);
+    color: var(--text-main);
     transition: all 0.2s ease;
 }
 
 .glass-input:focus {
-    background: white;
+    background: var(--bg-surface);
     border-color: var(--primary);
     box-shadow: 0 0 0 4px var(--primary-light);
     outline: none;
@@ -223,8 +223,8 @@
 /* ========== Submit Button ========== */
 .btn-submit {
     margin-top: 8px;
-    background: var(--primary-gradient);
-    color: white;
+    background: var(--gradient-main);
+    color: var(--bg-surface);
     padding: 16px;
     border-radius: 14px;
     font-weight: 600;
@@ -232,7 +232,7 @@
     border: none;
     cursor: pointer;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+    box-shadow: var(--primary-glow);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -241,7 +241,7 @@
 
 .btn-submit:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+    box-shadow: var(--primary-glow-hover);
 }
 
 .btn-submit:active:not(:disabled) {
@@ -258,7 +258,7 @@
     width: 22px;
     height: 22px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
+    border-top-color: var(--bg-surface);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -279,7 +279,7 @@
 
 .toggle-text {
     font-size: 0.9rem;
-    color: var(--text-medium);
+    color: var(--text-muted);
     margin: 0;
 }
 
@@ -300,8 +300,8 @@
 
 /* ========== Error Banner ========== */
 .error-banner {
-    background: #FEF2F2;
-    color: #DC2626;
+    background: var(--danger-bg);
+    color: var(--danger);
     padding: 14px 16px;
     border-radius: 12px;
     font-size: 0.9rem;
@@ -309,7 +309,7 @@
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 20px;
-    border-left: 4px solid #DC2626;
+    border-left: 4px solid var(--danger);
 }
 
 .error-icon {
@@ -326,9 +326,9 @@
     align-items: center;
     gap: 10px;
     padding: 14px 24px;
-    background: white;
-    border-radius: 50px;
-    color: var(--text-medium);
+    background: var(--bg-surface);
+    border-radius: var(--radius-full);
+    color: var(--text-muted);
     font-weight: 600;
     font-size: 0.9rem;
     text-decoration: none;

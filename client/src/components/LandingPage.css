@@ -1,13 +1,13 @@
 /* ============================================ */
-/* LANDING PAGE - 2026 MODERN SAAS DESIGN */
-/* Light Mode, Glassmorphism, Violet/Coral */
+/* LANDING PAGE - UNIFIED COLOR SYSTEM */
+/* Uses: --gradient-main, --accent, --primary */
 /* ============================================ */
 
 .landing-page {
     font-family: var(--font-sans);
     overflow-x: clip;
-    background: var(--bg-white);
-    color: var(--text-dark);
+    background: var(--bg-surface);
+    color: var(--text-main);
     min-height: 100vh;
 }
 
@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, #FDF4FF 0%, #F8FAFC 100%);
+    background: radial-gradient(circle at 50% 50%, var(--bg-soft-purple) 0%, var(--bg-body) 100%);
     will-change: transform, opacity;
     contain: layout style;
     backface-visibility: hidden;
@@ -56,7 +56,7 @@
 .orb-1 {
     width: 600px;
     height: 600px;
-    background: #E9D5FF;
+    background: var(--primary-light);
     top: -10%;
     left: -10%;
     animation-delay: 0s;
@@ -65,7 +65,7 @@
 .orb-2 {
     width: 500px;
     height: 500px;
-    background: #FBCFE8;
+    background: var(--bg-soft-pink);
     top: 20%;
     right: -5%;
     animation-delay: -5s;
@@ -74,7 +74,7 @@
 .orb-3 {
     width: 700px;
     height: 700px;
-    background: #C4B5FD;
+    background: var(--primary-light);
     bottom: -20%;
     left: 20%;
     animation-delay: -10s;
@@ -109,11 +109,11 @@
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: white;
+    background: var(--bg-surface);
     border-radius: var(--radius-full);
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-medium);
+    color: var(--text-muted);
     box-shadow: var(--shadow-sm);
     margin-bottom: 24px;
 }
@@ -128,7 +128,7 @@
     line-height: 1.1;
     margin-bottom: 24px;
     letter-spacing: -0.02em;
-    color: var(--text-dark);
+    color: var(--text-main);
 }
 
 .title-line {
@@ -136,7 +136,7 @@
 }
 
 .gradient-text {
-    background: var(--primary-gradient);
+    background: var(--gradient-main);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -144,7 +144,7 @@
 
 .hero-description {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--text-medium);
+    color: var(--text-muted);
     margin-bottom: 40px;
     max-width: 600px;
     margin-left: auto;
@@ -173,20 +173,20 @@
 }
 
 .cta-button.primary {
-    background: var(--accent-coral);
-    color: white;
-    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3);
+    background: var(--accent);
+    color: var(--bg-surface);
+    box-shadow: var(--accent-glow);
 }
 
 .cta-button.primary:hover {
-    background: var(--accent-orange);
+    background: var(--accent-hover);
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+    box-shadow: var(--accent-glow-hover);
 }
 
 .cta-button.secondary {
-    background: white;
-    color: var(--text-dark);
+    background: var(--bg-surface);
+    color: var(--text-main);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
 }
@@ -194,7 +194,7 @@
 .cta-button.secondary:hover {
     border-color: var(--primary);
     color: var(--primary);
-    background: var(--bg-off-white);
+    background: var(--bg-body);
     transform: translateY(-3px);
 }
 
@@ -222,7 +222,7 @@
 .mouse {
     width: 26px;
     height: 42px;
-    border: 2px solid var(--text-medium);
+    border: 2px solid var(--text-muted);
     border-radius: 20px;
     position: relative;
 }
@@ -230,7 +230,7 @@
 .wheel {
     width: 4px;
     height: 8px;
-    background: var(--text-medium);
+    background: var(--text-muted);
     border-radius: 2px;
     position: absolute;
     top: 8px;
@@ -253,7 +253,7 @@
 
 .scroll-indicator p {
     font-size: 0.75rem;
-    color: var(--text-medium);
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -264,7 +264,7 @@
 
 .features-section {
     padding: 120px 24px;
-    background: var(--bg-off-white);
+    background: var(--bg-body);
 }
 
 .section-container {
@@ -277,13 +277,13 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 16px;
-    color: var(--text-dark);
+    color: var(--text-main);
 }
 
 .section-subtitle {
     font-size: 1.1rem;
     text-align: center;
-    color: var(--text-medium);
+    color: var(--text-muted);
     margin-bottom: 64px;
     max-width: 600px;
     margin-left: auto;
@@ -297,7 +297,7 @@
 }
 
 .feature-card {
-    background: var(--bg-white);
+    background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
     padding: 36px 28px;
@@ -344,7 +344,7 @@
 .feature-card:hover .feature-icon {
     transform: scale(1.1) rotate(5deg);
     background: var(--primary);
-    color: white;
+    color: var(--bg-surface);
 }
 
 .feature-icon svg {
@@ -357,13 +357,13 @@
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: var(--text-dark);
+    color: var(--text-main);
 }
 
 .feature-description {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--text-medium);
+    color: var(--text-muted);
     margin: 0;
 }
 
@@ -373,7 +373,7 @@
 
 .showcase-section {
     padding: 120px 0;
-    background: var(--bg-white);
+    background: var(--bg-surface);
     overflow: hidden;
 }
 
@@ -417,25 +417,25 @@
     box-shadow: var(--shadow-xl);
 }
 
-/* Gradient Cards */
+/* Gradient Cards - Using palette tints */
 .gradient-card-1 {
-    background: linear-gradient(135deg, #E9D5FF 0%, #F5D0FE 100%);
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-soft-pink) 100%);
 }
 
 .gradient-card-2 {
-    background: linear-gradient(135deg, #FBCFE8 0%, #FECDD3 100%);
+    background: linear-gradient(135deg, var(--bg-soft-pink) 0%, var(--accent-light) 100%);
 }
 
 .gradient-card-3 {
-    background: linear-gradient(135deg, #BAE6FD 0%, #C7D2FE 100%);
+    background: linear-gradient(135deg, var(--info-bg) 0%, var(--primary-light) 100%);
 }
 
 .gradient-card-4 {
-    background: linear-gradient(135deg, #A7F3D0 0%, #D1FAE5 100%);
+    background: linear-gradient(135deg, var(--success-bg) 0%, var(--info-bg) 100%);
 }
 
 .gradient-card-5 {
-    background: linear-gradient(135deg, #FDE68A 0%, #FDBA74 100%);
+    background: linear-gradient(135deg, var(--warning-bg) 0%, var(--accent-light) 100%);
 }
 
 .showcase-overlay {
@@ -457,7 +457,7 @@
 
 .showcase-overlay h3 {
     font-size: 1.4rem;
-    color: white;
+    color: var(--bg-surface);
     margin-bottom: 4px;
 }
 
@@ -498,7 +498,7 @@
 
 .stat-label {
     font-size: 0.9rem;
-    color: var(--text-medium);
+    color: var(--text-muted);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -510,10 +510,10 @@
 
 .cta-section {
     padding: 120px 24px;
-    background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+    background: linear-gradient(135deg, var(--text-main) 0%, #1E293B 100%);
     position: relative;
     overflow: hidden;
-    color: white;
+    color: var(--bg-surface);
     text-align: center;
 }
 
@@ -528,7 +528,7 @@
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 900;
     margin-bottom: 20px;
-    color: white;
+    color: var(--bg-surface);
 }
 
 .cta-description {
@@ -543,8 +543,8 @@
     padding: 18px 44px;
     font-size: 1.1rem;
     font-weight: 700;
-    color: white;
-    background: var(--accent-coral);
+    color: var(--bg-surface);
+    background: var(--accent);
     border-radius: var(--radius-full);
     text-decoration: none;
     transition: all 0.3s ease;
@@ -554,7 +554,7 @@
 }
 
 .cta-button-large:hover {
-    background: var(--accent-orange);
+    background: var(--accent-hover);
     transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
