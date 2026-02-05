@@ -1,24 +1,33 @@
 /* ============================================ */
-/* NAVBAR - UNIFIED COLOR SYSTEM */
-/* Uses: --glass-panel, --primary, --accent */
+/* NAVBAR - STORMY MORNING THEME */
+/* Blue-Gray Professional Color Scheme */
 /* ============================================ */
 
 .glass-navbar {
+    --storm-slate: #6A89A7;
+    --storm-light: #BDDDFC;
+    --storm-sky: #88BDF2;
+    --storm-dark: #384959;
+    --storm-surface: #FFFFFF;
+    --storm-body: #F5F9FC;
+    --storm-gradient: linear-gradient(135deg, #6A89A7 0%, #88BDF2 100%);
+    --storm-gradient-dark: linear-gradient(135deg, #384959 0%, #6A89A7 100%);
+
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 9999;
-    background: var(--glass-panel);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
 }
 
 .glass-navbar.scrolled {
-    background: var(--glass-panel-solid);
-    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 4px 20px rgba(56, 73, 89, 0.08);
 }
 
 .navbar-inner {
@@ -42,13 +51,13 @@
 
 .brand-icon {
     font-size: 1.5rem;
-    filter: drop-shadow(0 2px 4px rgba(124, 58, 237, 0.3));
+    filter: drop-shadow(0 2px 4px rgba(106, 137, 167, 0.3));
 }
 
 .brand-text {
     font-size: 1.35rem;
     font-weight: 800;
-    background: var(--gradient-main);
+    background: var(--storm-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -74,13 +83,13 @@
 }
 
 .mobile-toggle:hover {
-    background: var(--bg-body);
+    background: var(--storm-body);
 }
 
 .toggle-bar {
     width: 22px;
     height: 2px;
-    background: var(--text-main);
+    background: var(--storm-dark);
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -112,7 +121,7 @@
     gap: 6px;
     padding: 10px 16px;
     border-radius: var(--radius-md);
-    color: var(--text-muted);
+    color: var(--storm-slate);
     font-weight: 500;
     font-size: 0.9rem;
     text-decoration: none;
@@ -120,13 +129,13 @@
 }
 
 .nav-link:hover {
-    color: var(--primary);
-    background: var(--primary-surface);
+    color: var(--storm-dark);
+    background: rgba(136, 189, 242, 0.15);
 }
 
 .nav-link.active {
-    color: var(--primary);
-    background: rgba(124, 58, 237, 0.1);
+    color: var(--storm-dark);
+    background: rgba(136, 189, 242, 0.2);
     font-weight: 600;
 }
 
@@ -150,38 +159,38 @@
 }
 
 .nav-btn.primary {
-    background: var(--primary);
-    color: var(--bg-surface);
-    box-shadow: var(--primary-glow);
+    background: var(--storm-dark);
+    color: var(--storm-surface);
+    box-shadow: 0 4px 12px rgba(56, 73, 89, 0.25);
 }
 
 .nav-btn.primary:hover {
-    background: var(--primary-hover);
+    background: #2D3B47;
     transform: translateY(-2px);
-    box-shadow: var(--primary-glow-hover);
+    box-shadow: 0 6px 18px rgba(56, 73, 89, 0.35);
 }
 
 .nav-btn.accent {
-    background: var(--accent);
-    color: var(--bg-surface);
-    box-shadow: var(--accent-glow);
+    background: var(--storm-slate);
+    color: var(--storm-surface);
+    box-shadow: 0 4px 12px rgba(106, 137, 167, 0.25);
 }
 
 .nav-btn.accent:hover {
-    background: var(--accent-hover);
+    background: #5A7A99;
     transform: translateY(-2px);
-    box-shadow: var(--accent-glow-hover);
+    box-shadow: 0 6px 18px rgba(106, 137, 167, 0.35);
 }
 
 .nav-btn.logout {
     background: transparent;
-    color: var(--text-muted);
+    color: var(--storm-slate);
     padding: 10px 16px;
 }
 
 .nav-btn.logout:hover {
-    background: var(--danger-bg);
-    color: var(--danger);
+    background: #FEE2E2;
+    color: #DC2626;
 }
 
 /* ========== User Section ========== */
@@ -191,7 +200,7 @@
     gap: 8px;
     margin-left: 8px;
     padding-left: 16px;
-    border-left: 1px solid var(--border-color);
+    border-left: 1px solid rgba(106, 137, 167, 0.2);
 }
 
 .user-badge {
@@ -199,7 +208,7 @@
     align-items: center;
     gap: 8px;
     padding: 8px 14px;
-    background: var(--bg-body);
+    background: var(--storm-body);
     border-radius: var(--radius-full);
 }
 
@@ -210,7 +219,7 @@
 .user-name {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-main);
+    color: var(--storm-dark);
     max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -225,7 +234,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(56, 73, 89, 0.3);
     z-index: 1;
 }
 
@@ -257,12 +266,12 @@
         right: 0;
         width: 280px;
         height: 100vh;
-        background: var(--bg-surface);
+        background: var(--storm-surface);
         flex-direction: column;
         align-items: stretch;
         padding: 80px 20px 24px;
         gap: 12px;
-        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+        box-shadow: -10px 0 40px rgba(56, 73, 89, 0.15);
         transform: translateX(100%);
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 5;
@@ -291,7 +300,7 @@
         border-left: none;
         margin-top: auto;
         padding-top: 20px;
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid rgba(106, 137, 167, 0.15);
         flex-direction: column;
         align-items: stretch;
         gap: 12px;
@@ -304,8 +313,8 @@
     .nav-btn.logout {
         width: 100%;
         justify-content: center;
-        background: var(--danger-bg);
-        color: var(--danger);
+        background: #FEE2E2;
+        color: #DC2626;
     }
 }
 
