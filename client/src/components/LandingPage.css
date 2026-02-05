@@ -1,13 +1,25 @@
 /* ============================================ */
-/* LANDING PAGE - UNIFIED COLOR SYSTEM */
-/* Uses: --gradient-main, --accent, --primary */
+/* LANDING PAGE - STORMY MORNING THEME */
+/* Blue-Gray Professional Color Scheme */
 /* ============================================ */
 
+/* Stormy Morning Color Palette */
 .landing-page {
+    --storm-slate: #6A89A7;
+    --storm-light: #BDDDFC;
+    --storm-sky: #88BDF2;
+    --storm-dark: #384959;
+    --storm-surface: #FFFFFF;
+    --storm-body: #F5F9FC;
+    --storm-gradient: linear-gradient(135deg, #6A89A7 0%, #88BDF2 100%);
+    --storm-gradient-dark: linear-gradient(135deg, #384959 0%, #6A89A7 100%);
+    --storm-glow: 0 4px 14px rgba(106, 137, 167, 0.3);
+    --storm-glow-hover: 0 8px 24px rgba(106, 137, 167, 0.4);
+
     font-family: var(--font-sans);
     overflow-x: clip;
-    background: var(--bg-surface);
-    color: var(--text-main);
+    background: var(--storm-surface);
+    color: var(--storm-dark);
     min-height: 100vh;
 }
 
@@ -23,7 +35,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, var(--bg-soft-purple) 0%, var(--bg-body) 100%);
+    background: radial-gradient(circle at 50% 50%, var(--storm-light) 0%, var(--storm-body) 100%);
     will-change: transform, opacity;
     contain: layout style;
     backface-visibility: hidden;
@@ -40,7 +52,7 @@
     overflow: hidden;
 }
 
-/* Soft Gradient Orbs */
+/* Soft Gradient Orbs - Stormy Theme */
 .gradient-orb {
     position: absolute;
     border-radius: 50%;
@@ -56,7 +68,7 @@
 .orb-1 {
     width: 600px;
     height: 600px;
-    background: var(--primary-light);
+    background: var(--storm-light);
     top: -10%;
     left: -10%;
     animation-delay: 0s;
@@ -65,7 +77,7 @@
 .orb-2 {
     width: 500px;
     height: 500px;
-    background: var(--bg-soft-pink);
+    background: var(--storm-sky);
     top: 20%;
     right: -5%;
     animation-delay: -5s;
@@ -74,10 +86,11 @@
 .orb-3 {
     width: 700px;
     height: 700px;
-    background: var(--primary-light);
+    background: var(--storm-slate);
     bottom: -20%;
     left: 20%;
     animation-delay: -10s;
+    opacity: 0.3;
 }
 
 @keyframes float {
@@ -109,13 +122,14 @@
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: var(--bg-surface);
+    background: var(--storm-surface);
     border-radius: var(--radius-full);
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--storm-slate);
     box-shadow: var(--shadow-sm);
     margin-bottom: 24px;
+    border: 1px solid rgba(106, 137, 167, 0.15);
 }
 
 .badge-icon {
@@ -128,7 +142,7 @@
     line-height: 1.1;
     margin-bottom: 24px;
     letter-spacing: -0.02em;
-    color: var(--text-main);
+    color: var(--storm-dark);
 }
 
 .title-line {
@@ -136,7 +150,7 @@
 }
 
 .gradient-text {
-    background: var(--gradient-main);
+    background: var(--storm-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -144,7 +158,7 @@
 
 .hero-description {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--text-muted);
+    color: var(--storm-slate);
     margin-bottom: 40px;
     max-width: 600px;
     margin-left: auto;
@@ -173,28 +187,28 @@
 }
 
 .cta-button.primary {
-    background: var(--accent);
-    color: var(--bg-surface);
-    box-shadow: var(--accent-glow);
+    background: var(--storm-dark);
+    color: var(--storm-surface);
+    box-shadow: 0 4px 16px rgba(56, 73, 89, 0.3);
 }
 
 .cta-button.primary:hover {
-    background: var(--accent-hover);
+    background: #2D3B47;
     transform: translateY(-3px);
-    box-shadow: var(--accent-glow-hover);
+    box-shadow: 0 8px 24px rgba(56, 73, 89, 0.4);
 }
 
 .cta-button.secondary {
-    background: var(--bg-surface);
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
+    background: var(--storm-surface);
+    color: var(--storm-dark);
+    border: 2px solid var(--storm-slate);
     box-shadow: var(--shadow-sm);
 }
 
 .cta-button.secondary:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    background: var(--bg-body);
+    border-color: var(--storm-sky);
+    background: var(--storm-light);
+    color: var(--storm-dark);
     transform: translateY(-3px);
 }
 
@@ -222,7 +236,7 @@
 .mouse {
     width: 26px;
     height: 42px;
-    border: 2px solid var(--text-muted);
+    border: 2px solid var(--storm-slate);
     border-radius: 20px;
     position: relative;
 }
@@ -230,7 +244,7 @@
 .wheel {
     width: 4px;
     height: 8px;
-    background: var(--text-muted);
+    background: var(--storm-slate);
     border-radius: 2px;
     position: absolute;
     top: 8px;
@@ -253,7 +267,7 @@
 
 .scroll-indicator p {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--storm-slate);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -264,7 +278,7 @@
 
 .features-section {
     padding: 120px 24px;
-    background: var(--bg-body);
+    background: var(--storm-body);
 }
 
 .section-container {
@@ -277,13 +291,13 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 16px;
-    color: var(--text-main);
+    color: var(--storm-dark);
 }
 
 .section-subtitle {
     font-size: 1.1rem;
     text-align: center;
-    color: var(--text-muted);
+    color: var(--storm-slate);
     margin-bottom: 64px;
     max-width: 600px;
     margin-left: auto;
@@ -297,8 +311,8 @@
 }
 
 .feature-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
+    background: var(--storm-surface);
+    border: 1px solid rgba(106, 137, 167, 0.15);
     border-radius: var(--radius-xl);
     padding: 36px 28px;
     transition: all 0.3s ease;
@@ -325,26 +339,26 @@
 .feature-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--primary-light);
+    border-color: var(--storm-sky);
 }
 
 .feature-icon {
     width: 56px;
     height: 56px;
-    background: var(--primary-surface);
+    background: rgba(136, 189, 242, 0.15);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    color: var(--primary);
+    color: var(--storm-slate);
     transition: all 0.3s ease;
 }
 
 .feature-card:hover .feature-icon {
     transform: scale(1.1) rotate(5deg);
-    background: var(--primary);
-    color: var(--bg-surface);
+    background: var(--storm-sky);
+    color: var(--storm-surface);
 }
 
 .feature-icon svg {
@@ -357,13 +371,13 @@
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: var(--text-main);
+    color: var(--storm-dark);
 }
 
 .feature-description {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--text-muted);
+    color: var(--storm-slate);
     margin: 0;
 }
 
@@ -373,7 +387,7 @@
 
 .showcase-section {
     padding: 120px 0;
-    background: var(--bg-surface);
+    background: var(--storm-surface);
     overflow: hidden;
 }
 
@@ -417,25 +431,25 @@
     box-shadow: var(--shadow-xl);
 }
 
-/* Gradient Cards - Using palette tints */
+/* Gradient Cards - Stormy Morning Theme */
 .gradient-card-1 {
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-soft-pink) 100%);
+    background: linear-gradient(135deg, var(--storm-light) 0%, var(--storm-sky) 100%);
 }
 
 .gradient-card-2 {
-    background: linear-gradient(135deg, var(--bg-soft-pink) 0%, var(--accent-light) 100%);
+    background: linear-gradient(135deg, var(--storm-sky) 0%, var(--storm-slate) 100%);
 }
 
 .gradient-card-3 {
-    background: linear-gradient(135deg, var(--info-bg) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, var(--storm-slate) 0%, var(--storm-dark) 100%);
 }
 
 .gradient-card-4 {
-    background: linear-gradient(135deg, var(--success-bg) 0%, var(--info-bg) 100%);
+    background: linear-gradient(135deg, var(--storm-light) 0%, var(--storm-slate) 100%);
 }
 
 .gradient-card-5 {
-    background: linear-gradient(135deg, var(--warning-bg) 0%, var(--accent-light) 100%);
+    background: linear-gradient(135deg, var(--storm-sky) 0%, var(--storm-light) 100%);
 }
 
 .showcase-overlay {
@@ -444,7 +458,7 @@
     left: 0;
     right: 0;
     padding: 28px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(56, 73, 89, 0.8) 0%, transparent 100%);
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
@@ -457,7 +471,7 @@
 
 .showcase-overlay h3 {
     font-size: 1.4rem;
-    color: var(--bg-surface);
+    color: var(--storm-surface);
     margin-bottom: 4px;
 }
 
@@ -472,7 +486,7 @@
 
 .stats-section {
     padding: 80px 24px;
-    background: var(--primary-surface);
+    background: rgba(136, 189, 242, 0.1);
 }
 
 .stats-grid {
@@ -491,17 +505,18 @@
 .stat-number {
     font-size: 2.75rem;
     font-weight: 800;
-    color: var(--primary);
+    color: var(--storm-slate);
     margin-bottom: 6px;
     letter-spacing: -0.05em;
 }
 
 .stat-label {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--storm-dark);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    opacity: 0.7;
 }
 
 /* ============================================ */
@@ -510,10 +525,10 @@
 
 .cta-section {
     padding: 120px 24px;
-    background: linear-gradient(135deg, var(--text-main) 0%, #1E293B 100%);
+    background: var(--storm-gradient-dark);
     position: relative;
     overflow: hidden;
-    color: var(--bg-surface);
+    color: var(--storm-surface);
     text-align: center;
 }
 
@@ -528,12 +543,12 @@
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 900;
     margin-bottom: 20px;
-    color: var(--bg-surface);
+    color: var(--storm-surface);
 }
 
 .cta-description {
     font-size: 1.15rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     margin-bottom: 40px;
     line-height: 1.6;
 }
@@ -543,8 +558,8 @@
     padding: 18px 44px;
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--bg-surface);
-    background: var(--accent);
+    color: var(--storm-dark);
+    background: var(--storm-light);
     border-radius: var(--radius-full);
     text-decoration: none;
     transition: all 0.3s ease;
@@ -554,7 +569,7 @@
 }
 
 .cta-button-large:hover {
-    background: var(--accent-hover);
+    background: var(--storm-surface);
     transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
@@ -565,7 +580,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: 0.5s;
 }
 
