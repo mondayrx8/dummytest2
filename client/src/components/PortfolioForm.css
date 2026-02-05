@@ -1,11 +1,22 @@
 /* ============================================ */
-/* PORTFOLIO FORM - UNIFIED COLOR SYSTEM */
-/* Uses: --accent for actions, --glass-panel */
+/* PORTFOLIO FORM - STORMY MORNING THEME */
+/* Blue-Gray Professional Color Scheme */
 /* ============================================ */
 
 .form-page {
+    --storm-slate: #6A89A7;
+    --storm-light: #BDDDFC;
+    --storm-sky: #88BDF2;
+    --storm-dark: #384959;
+    --storm-surface: #FFFFFF;
+    --storm-body: #F5F9FC;
+    --storm-gradient: linear-gradient(135deg, #6A89A7 0%, #88BDF2 100%);
+    --storm-gradient-dark: linear-gradient(135deg, #384959 0%, #6A89A7 100%);
+    --storm-glow: 0 4px 14px rgba(106, 137, 167, 0.3);
+    --storm-glow-hover: 0 8px 24px rgba(106, 137, 167, 0.4);
+
     min-height: 100vh;
-    background: var(--bg-body);
+    background: var(--storm-body);
     position: relative;
     font-family: var(--font-sans);
     padding-bottom: 60px;
@@ -35,7 +46,7 @@
     right: -10%;
     width: 550px;
     height: 550px;
-    background: var(--primary-light);
+    background: var(--storm-light);
 }
 
 .orb-2 {
@@ -43,7 +54,7 @@
     left: -10%;
     width: 450px;
     height: 450px;
-    background: var(--bg-soft-pink);
+    background: var(--storm-sky);
 }
 
 /* ========== Form Wrapper ========== */
@@ -64,14 +75,14 @@
 .form-title {
     font-size: clamp(1.75rem, 4vw, 2.25rem);
     font-weight: 800;
-    color: var(--text-main);
+    color: var(--storm-dark);
     margin: 0 0 10px 0;
     letter-spacing: -0.02em;
 }
 
 .form-subtitle {
     font-size: 1rem;
-    color: var(--text-muted);
+    color: var(--storm-slate);
     max-width: 500px;
     margin: 0 auto 28px;
     line-height: 1.5;
@@ -89,14 +100,14 @@
     width: 100%;
     max-width: 300px;
     height: 6px;
-    background: rgba(0, 0, 0, 0.06);
+    background: rgba(106, 137, 167, 0.15);
     border-radius: 6px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: var(--gradient-main);
+    background: var(--storm-gradient);
     border-radius: 6px;
     transition: width 0.4s ease;
 }
@@ -104,16 +115,16 @@
 .progress-text {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--primary);
+    color: var(--storm-slate);
     white-space: nowrap;
 }
 
 /* ========== Glass Card Form ========== */
 .glass-card {
-    background: var(--glass-panel);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 24px;
     box-shadow: var(--shadow-md);
 }
@@ -126,7 +137,7 @@
 .form-section {
     margin-bottom: 36px;
     padding-bottom: 32px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid rgba(106, 137, 167, 0.1);
 }
 
 .form-section:last-of-type {
@@ -145,8 +156,8 @@
 .section-number {
     width: 32px;
     height: 32px;
-    background: var(--primary);
-    color: var(--bg-surface);
+    background: var(--storm-slate);
+    color: var(--storm-surface);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -159,7 +170,7 @@
 .section-title {
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--storm-dark);
     margin: 0;
 }
 
@@ -181,31 +192,32 @@
 .input-label {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-main);
+    color: var(--storm-dark);
     margin-left: 4px;
 }
 
 .glass-input {
     width: 100%;
     padding: 14px 18px;
-    background: var(--glass-panel);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(245, 249, 252, 0.8);
+    border: 1px solid rgba(106, 137, 167, 0.2);
     border-radius: 14px;
     font-size: 0.95rem;
-    color: var(--text-main);
+    color: var(--storm-dark);
     transition: all 0.2s ease;
     font-family: inherit;
 }
 
 .glass-input:focus {
-    background: var(--bg-surface);
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px var(--primary-light);
+    background: var(--storm-surface);
+    border-color: var(--storm-sky);
+    box-shadow: 0 0 0 4px rgba(136, 189, 242, 0.25);
     outline: none;
 }
 
 .glass-input::placeholder {
-    color: var(--text-light);
+    color: var(--storm-slate);
+    opacity: 0.6;
 }
 
 .glass-textarea {
@@ -216,7 +228,8 @@
 
 .input-hint {
     font-size: 0.8rem;
-    color: var(--text-light);
+    color: var(--storm-slate);
+    opacity: 0.7;
     margin-left: 4px;
 }
 
@@ -230,7 +243,7 @@
 .upload-zone {
     width: 100%;
     padding: 40px 24px;
-    border: 2px dashed rgba(0, 0, 0, 0.1);
+    border: 2px dashed rgba(106, 137, 167, 0.3);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -238,13 +251,13 @@
     justify-content: center;
     gap: 10px;
     cursor: pointer;
-    background: var(--glass-border);
+    background: rgba(255, 255, 255, 0.5);
     transition: all 0.25s ease;
 }
 
 .upload-zone:hover {
-    background: var(--glass-panel);
-    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.8);
+    border-color: var(--storm-sky);
 }
 
 .upload-icon {
@@ -253,13 +266,14 @@
 
 .upload-text {
     font-weight: 600;
-    color: var(--primary);
+    color: var(--storm-slate);
     font-size: 1rem;
 }
 
 .upload-hint {
     font-size: 0.8rem;
-    color: var(--text-light);
+    color: var(--storm-slate);
+    opacity: 0.6;
 }
 
 .upload-input {
@@ -278,7 +292,7 @@
     height: auto;
     border-radius: 14px;
     box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(106, 137, 167, 0.15);
 }
 
 .remove-image {
@@ -287,8 +301,8 @@
     right: -10px;
     width: 32px;
     height: 32px;
-    background: var(--danger);
-    color: var(--bg-surface);
+    background: #EF4444;
+    color: var(--storm-surface);
     border: none;
     border-radius: 50%;
     font-size: 0.9rem;
@@ -315,15 +329,15 @@
 }
 
 .status-message.info {
-    background: var(--info-bg);
-    color: var(--info);
-    border-left: 4px solid var(--info);
+    background: rgba(136, 189, 242, 0.15);
+    color: var(--storm-dark);
+    border-left: 4px solid var(--storm-sky);
 }
 
 .status-message.error {
-    background: var(--danger-bg);
-    color: var(--danger);
-    border-left: 4px solid var(--danger);
+    background: #FEE2E2;
+    color: #DC2626;
+    border-left: 4px solid #EF4444;
 }
 
 /* ========== Form Actions ========== */
@@ -336,9 +350,9 @@
 
 .btn-cancel {
     padding: 14px 28px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: var(--bg-surface);
-    color: var(--text-muted);
+    border: 1px solid rgba(106, 137, 167, 0.3);
+    background: var(--storm-surface);
+    color: var(--storm-slate);
     border-radius: var(--radius-full);
     font-weight: 600;
     font-size: 0.95rem;
@@ -347,21 +361,21 @@
 }
 
 .btn-cancel:hover {
-    background: var(--danger-bg);
-    color: var(--danger);
+    background: #FEE2E2;
+    color: #DC2626;
     border-color: #FECACA;
 }
 
 .btn-save {
     padding: 14px 36px;
-    background: var(--accent);
-    color: var(--bg-surface);
+    background: var(--storm-dark);
+    color: var(--storm-surface);
     border: none;
     border-radius: var(--radius-full);
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
-    box-shadow: var(--accent-glow);
+    box-shadow: 0 4px 14px rgba(56, 73, 89, 0.3);
     transition: all 0.25s ease;
     min-width: 160px;
     display: flex;
@@ -370,9 +384,9 @@
 }
 
 .btn-save:hover:not(:disabled) {
-    background: var(--accent-hover);
+    background: #2D3B47;
     transform: translateY(-2px);
-    box-shadow: var(--accent-glow-hover);
+    box-shadow: 0 8px 24px rgba(56, 73, 89, 0.4);
 }
 
 .btn-save:disabled {
@@ -385,7 +399,7 @@
     width: 20px;
     height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: var(--bg-surface);
+    border-top-color: var(--storm-surface);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -401,7 +415,7 @@
     position: fixed;
     top: calc(var(--navbar-height) + 20px);
     right: 24px;
-    background: var(--bg-surface);
+    background: var(--storm-surface);
     padding: 16px 24px;
     border-radius: 14px;
     box-shadow: var(--shadow-lg);
@@ -410,9 +424,9 @@
     gap: 12px;
     z-index: 1000;
     font-weight: 600;
-    color: var(--text-main);
+    color: var(--storm-dark);
     animation: slideInRight 0.35s ease;
-    border-left: 4px solid var(--success);
+    border-left: 4px solid #10B981;
 }
 
 @keyframes slideInRight {
