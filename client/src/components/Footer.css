@@ -1,54 +1,75 @@
-/* ========== Professional Footer Redesign 2026 ========== */
-.professional-footer {
+/* ============================================ */
+/* FOOTER - 2026 MODERN SAAS DESIGN */
+/* Clean, Minimal, Violet/Coral Accents */
+/* ============================================ */
+
+.site-footer {
     background-color: var(--bg-white);
     border-top: 1px solid var(--border-color);
     padding: 64px 0 32px;
     margin-top: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-container {
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 48px;
     margin-bottom: 48px;
 }
 
 /* Brand Section */
 .footer-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 16px;
+}
+
+.footer-brand .brand-icon {
+    font-size: 1.5rem;
+}
+
+.footer-brand .brand-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     letter-spacing: -0.02em;
 }
 
 .footer-tagline {
     color: var(--text-medium);
-    font-size: 1rem;
-    max-width: 300px;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    max-width: 320px;
+    line-height: 1.7;
+    margin: 0;
 }
 
-/* Links Sections */
+/* Section Title */
 .footer-section-title {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--text-dark);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 24px;
+    letter-spacing: 0.08em;
+    margin: 0 0 20px 0;
 }
 
+/* Links */
 .footer-links {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 .footer-link {
@@ -64,7 +85,7 @@
 /* Bottom Bar */
 .footer-bottom {
     border-top: 1px solid var(--border-color);
-    padding-top: 32px;
+    padding-top: 28px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,11 +96,13 @@
 .footer-copyright {
     color: var(--text-light);
     font-size: 0.875rem;
+    margin: 0;
 }
 
 .footer-bottom-links {
     display: flex;
-    gap: 24px;
+    align-items: center;
+    gap: 16px;
 }
 
 .footer-bottom-link {
@@ -92,15 +115,40 @@
     color: var(--text-dark);
 }
 
-/* Responsive */
+.footer-divider {
+    color: var(--text-light);
+    font-size: 0.75rem;
+}
+
+/* ========== Responsive ========== */
 @media (max-width: 768px) {
+    .site-footer {
+        padding: 48px 0 24px;
+    }
+
     .footer-content {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 36px;
+        margin-bottom: 36px;
+    }
+
+    .footer-tagline {
+        max-width: 100%;
     }
 
     .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .footer-container {
+        padding: 0 16px;
+    }
+
+    .footer-brand .brand-text {
+        font-size: 1.3rem;
     }
 }

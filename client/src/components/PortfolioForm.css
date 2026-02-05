@@ -1,111 +1,132 @@
-/* ========== Portfolio Form - Redesign 2026 ========== */
-.builder-page {
+/* ============================================ */
+/* PORTFOLIO FORM - 2026 MODERN SAAS DESIGN */
+/* Centered Glass Container, Sectioned Layout */
+/* ============================================ */
+
+.form-page {
     min-height: 100vh;
-    padding: 0;
+    background: var(--bg-off-white);
     position: relative;
     font-family: var(--font-sans);
+    padding-bottom: 60px;
 }
 
-/* Background Blobs (Green Theme) */
-.builder-bg {
+/* ========== Background Orbs ========== */
+.form-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
     overflow: hidden;
     pointer-events: none;
 }
 
-.blob {
+.orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
+    filter: blur(100px);
+    opacity: 0.4;
 }
 
-.blob-1 {
+.orb-1 {
     top: -10%;
     right: -10%;
-    width: 600px;
-    height: 600px;
-    background: #D1FAE5;
-    /* Emerald 100 */
+    width: 550px;
+    height: 550px;
+    background: #E9D5FF;
 }
 
-.blob-2 {
+.orb-2 {
     bottom: -10%;
     left: -10%;
-    width: 500px;
-    height: 500px;
-    background: #ECFCCB;
-    /* Lime 100 */
+    width: 450px;
+    height: 450px;
+    background: #FBCFE8;
 }
 
-/* Wrapper */
-.builder-container-wrapper {
+/* ========== Form Wrapper ========== */
+.form-wrapper {
+    position: relative;
+    z-index: 1;
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 24px;
-    position: relative;
-    z-index: 1;
 }
 
-/* Header */
-.builder-header {
+/* ========== Header ========== */
+.form-header {
     text-align: center;
     margin-bottom: 40px;
 }
 
-.builder-title {
-    font-size: 2rem;
+.form-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
     font-weight: 800;
     color: var(--text-dark);
-    margin: 0 0 8px 0;
+    margin: 0 0 10px 0;
     letter-spacing: -0.02em;
 }
 
-.builder-subtitle {
-    color: var(--text-medium);
+.form-subtitle {
     font-size: 1rem;
+    color: var(--text-medium);
     max-width: 500px;
-    margin: 0 auto 24px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
 }
 
-/* Progress Bar */
-.progress-container {
-    width: 100%;
-    height: 4px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    overflow: hidden;
-    max-width: 400px;
-    margin: 0 auto;
+/* ========== Progress Bar ========== */
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-content: center;
 }
 
 .progress-bar {
+    width: 100%;
+    max-width: 300px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
     height: 100%;
     background: var(--primary-gradient);
-    transition: width 0.3s ease;
+    border-radius: 6px;
+    transition: width 0.4s ease;
 }
 
-/* Glass Panel Form */
-.glass-panel {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
+.progress-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+/* ========== Glass Card Form ========== */
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+}
+
+.form-container {
     padding: 40px;
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
 }
 
-/* Sections */
+/* ========== Sections ========== */
 .form-section {
-    margin-bottom: 40px;
+    margin-bottom: 36px;
     padding-bottom: 32px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .form-section:last-of-type {
@@ -114,30 +135,35 @@
     padding-bottom: 0;
 }
 
-.section-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 24px;
+.section-header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    margin-bottom: 24px;
 }
 
-.section-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
+.section-number {
+    width: 32px;
+    height: 32px;
     background: var(--primary);
     color: white;
     border-radius: 50%;
-    font-size: 0.8rem;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
 }
 
-/* Form Grid */
+.section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* ========== Form Grid ========== */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -145,30 +171,26 @@
     margin-bottom: 20px;
 }
 
+/* ========== Input Groups ========== */
 .input-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    position: relative;
 }
 
-.input-group.full-width {
-    width: 100%;
-}
-
-.floating-label {
+.input-label {
+    font-size: 0.9rem;
     font-weight: 600;
-    font-size: 0.85rem;
     color: var(--text-dark);
     margin-left: 4px;
 }
 
 .glass-input {
     width: 100%;
-    padding: 14px 16px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
     font-size: 0.95rem;
     color: var(--text-dark);
     transition: all 0.2s ease;
@@ -178,73 +200,133 @@
 .glass-input:focus {
     background: white;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-light);
+    box-shadow: 0 0 0 4px var(--primary-light);
     outline: none;
 }
 
+.glass-input::placeholder {
+    color: var(--text-light);
+}
+
 .glass-textarea {
-    min-height: 120px;
+    min-height: 140px;
     resize: vertical;
     line-height: 1.6;
 }
 
-/* File Upload */
-.file-upload-container {
+.input-hint {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-left: 4px;
+}
+
+/* ========== Upload Area ========== */
+.upload-area {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
 }
 
-.file-drop-zone {
+.upload-zone {
     width: 100%;
-    padding: 32px;
+    padding: 40px 24px;
     border: 2px dashed rgba(0, 0, 0, 0.1);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.3);
-    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all 0.25s ease;
 }
 
-.file-drop-zone:hover {
-    background: rgba(255, 255, 255, 0.6);
+.upload-zone:hover {
+    background: rgba(255, 255, 255, 0.7);
     border-color: var(--primary);
 }
 
-.files-icon {
-    font-size: 2rem;
+.upload-icon {
+    font-size: 2.5rem;
 }
 
 .upload-text {
     font-weight: 600;
     color: var(--primary);
+    font-size: 1rem;
 }
 
-.hidden-file-input {
+.upload-hint {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.upload-input {
     display: none;
 }
 
-.preview-container {
-    width: 100%;
+/* Preview */
+.preview-wrapper {
+    position: relative;
     max-width: 400px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
-.img-preview {
+.preview-image {
     width: 100%;
     height: auto;
-    display: block;
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* Actions */
+.remove-image {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 32px;
+    height: 32px;
+    background: #EF4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-md);
+}
+
+.remove-image:hover {
+    background: #DC2626;
+    transform: scale(1.1);
+}
+
+/* ========== Status Message ========== */
+.status-message {
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.status-message.info {
+    background: #EFF6FF;
+    color: #1D4ED8;
+    border-left: 4px solid #3B82F6;
+}
+
+.status-message.error {
+    background: #FEF2F2;
+    color: #DC2626;
+    border-left: 4px solid #EF4444;
+}
+
+/* ========== Form Actions ========== */
 .form-actions {
     margin-top: 40px;
     display: flex;
@@ -253,12 +335,14 @@
 }
 
 .btn-cancel {
-    padding: 12px 24px;
+    padding: 14px 28px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background: white;
     color: var(--text-medium);
     border-radius: 50px;
     font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
     transition: all 0.2s;
 }
 
@@ -269,20 +353,25 @@
 }
 
 .btn-save {
-    padding: 12px 32px;
+    padding: 14px 36px;
     background: var(--primary-gradient);
     color: white;
     border: none;
     border-radius: 50px;
     font-weight: 600;
-    box-shadow: var(--shadow-md);
-    transition: all 0.2s;
-    min-width: 140px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+    transition: all 0.25s ease;
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-save:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
 }
 
 .btn-save:disabled {
@@ -290,28 +379,44 @@
     cursor: wait;
 }
 
-/* Toast */
-.glass-toast {
+/* Spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== Toast Notification ========== */
+.toast-notification {
     position: fixed;
-    top: 24px;
+    top: calc(var(--navbar-height) + 20px);
     right: 24px;
     background: white;
     padding: 16px 24px;
-    border-radius: 12px;
+    border-radius: 14px;
     box-shadow: var(--shadow-lg);
     display: flex;
     align-items: center;
     gap: 12px;
-    z-index: 100;
+    z-index: 1000;
     font-weight: 600;
     color: var(--text-dark);
-    animation: slideIn 0.3s ease;
+    animation: slideInRight 0.35s ease;
     border-left: 4px solid var(--primary);
 }
 
-@keyframes slideIn {
+@keyframes slideInRight {
     from {
-        transform: translateX(100%);
+        transform: translateX(120%);
         opacity: 0;
     }
 
@@ -321,24 +426,18 @@
     }
 }
 
-.status-banner {
-    background: #FEF2F2;
-    color: #DC2626;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 500;
-    margin-bottom: 24px;
-    text-align: center;
+.toast-icon {
+    font-size: 1.2rem;
 }
 
-/* Responsive */
+/* ========== Responsive ========== */
 @media (max-width: 768px) {
-    .builder-container-wrapper {
-        padding: 24px 16px;
+    .form-wrapper {
+        padding: 32px 20px;
     }
 
-    .glass-panel {
-        padding: 24px;
+    .form-container {
+        padding: 28px 24px;
     }
 
     .form-grid {
@@ -353,5 +452,27 @@
     .btn-save {
         width: 100%;
         text-align: center;
+        justify-content: center;
+    }
+
+    .toast-notification {
+        left: 16px;
+        right: 16px;
+    }
+}
+
+@media (max-width: 320px) {
+    .form-container {
+        padding: 24px 20px;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .section-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
     }
 }

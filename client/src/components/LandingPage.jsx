@@ -1,198 +1,284 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 import './LandingPage.css';
 
 const LandingPage = () => {
-    // Refs for Intersection Observer
     const heroRef = useRef(null);
-    const featuresRef = useRef(null);
-    const statsRef = useRef(null);
+    const showcaseTrackRef = useRef(null);
 
-    // Scroll Fade-in Animation Hook
+    // Performance-optimized scroll handler using requestAnimationFrame
+    useEffect(() => {
+        let ticking = false;
+        const hero = heroRef.current;
+        const showcaseTrack = showcaseTrackRef.current;
+
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const y = window.scrollY;
+
+                    // Hero parallax effect
+                    if (hero) {
+                        const parallaxOffset = y * 0.4;
+                        const heroOpacity = Math.max(1 - y / 700, 0);
+                        const heroScale = Math.max(1 - y / 2500, 0.85);
+                        hero.style.transform = `translateY(${parallaxOffset}px) scale(${heroScale})`;
+                        hero.style.opacity = heroOpacity;
+                    }
+
+                    // Showcase horizontal scroll effect
+                    if (showcaseTrack) {
+                        const showcaseOffset = Math.min(Math.max(y - 1400, 0) / 3, 500);
+                        showcaseTrack.style.transform = `translateX(-${showcaseOffset}px)`;
+                    }
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Intersection Observer for fade-in sections
     useEffect(() => {
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -100px 0px'
         };
 
-        const observerCallback = (entries, observer) => {
+        const observerCallback = (entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Animates only once
                 }
             });
         };
 
         const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-        const sections = document.querySelectorAll('.fade-in-section');
-        sections.forEach(section => observer.observe(section));
+        const elements = document.querySelectorAll('.fade-in-section');
+        elements.forEach(el => observer.observe(el));
 
         return () => observer.disconnect();
     }, []);
 
     return (
-        <div className="landing-container">
-            {/* 1. Hero Section */}
-            <section className="hero-section fade-in-section" ref={heroRef}>
-                <div className="hero-blob blob-1"></div>
-                <div className="hero-blob blob-2"></div>
-
-                {/* Navbar */}
-                <nav className="landing-nav">
-                    <div className="nav-logo">
-                        <span className="logo-icon">🚀</span>
-                        <span className="logo-text">DEPB</span>
-                    </div>
-                    <div className="nav-links">
-                        <Link to="/investors" className="nav-link">Explore Ventures</Link>
-                        <Link to="/login" className="nav-btn-primary">Student Login</Link>
-                    </div>
-                </nav>
+        <div className="landing-page">
+            {/* Hero Section with Parallax */}
+            <section className="hero-parallax" ref={heroRef}>
+                <div className="hero-background">
+                    <div className="gradient-orb orb-1"></div>
+                    <div className="gradient-orb orb-2"></div>
+                    <div className="gradient-orb orb-3"></div>
+                </div>
 
                 <div className="hero-content">
                     <div className="hero-badge">
-                        <span className="badge-emoji">✨</span>
-                        <span>Digital Portfolio Builder</span>
+                        <span className="badge-icon">✨</span>
+                        <span>Digital Entrepreneur Portfolio Builder</span>
                     </div>
-                    <h1 className="hero-title">
-                        Build Your Professional<br />
-                        <span className="gradient-text">Entrepreneurial Pitch</span>
+
+                    <h1 className="hero-main-title">
+                        <span className="title-line">Build Your</span>
+                        <span className="title-line gradient-text">Dream Portfolio</span>
                     </h1>
+
                     <p className="hero-description">
-                        Transform your business plan into a shareable digital portfolio.
-                        No coding required. Replace dull PDFs with a professional Digital Pitch Deck.
+                        Transform your business ideas into stunning digital pitches.
+                        Showcase your ventures to investors with a professional portfolio.
                     </p>
-                    <div className="hero-cta">
-                        <Link to="/login" className="cta-button-primary">
-                            <span>Get Started</span>
-                            <span className="btn-arrow">→</span>
+
+                    <div className="hero-cta-group">
+                        <Link to="/login" className="cta-button primary">
+                            Get Started
+                            <span className="button-arrow">→</span>
                         </Link>
-                        <Link to="/investors" className="cta-button-secondary">
-                            <span>View Examples</span>
+                        <Link to="/investors" className="cta-button secondary">
+                            Explore Ventures
                         </Link>
                     </div>
                 </div>
 
-                {/* Floating Glass Visuals */}
-                <div className="hero-visual">
-                    <div className="floating-card card-1">
-                        <span className="card-emoji">💡</span>
-                        <span className="card-text">Innovative Ideas</span>
+                <div className="scroll-indicator">
+                    <div className="mouse">
+                        <div className="wheel"></div>
                     </div>
-                    <div className="floating-card card-2">
-                        <span className="card-emoji">📊</span>
-                        <span className="card-text">Market Analysis</span>
-                    </div>
-                    <div className="floating-card card-3">
-                        <span className="card-emoji">🎯</span>
-                        <span className="card-text">Growth Strategy</span>
+                    <p>Scroll to explore</p>
+                </div>
+            </section>
+
+            {/* Features Section with Stagger Animation */}
+            <section className="features-section fade-in-section">
+                <div className="section-container">
+                    <h2 className="section-title">Powerful Features</h2>
+                    <p className="section-subtitle">Everything you need to stand out and succeed</p>
+
+                    <div className="features-grid">
+                        <div className="feature-card" style={{ '--delay': '0.1s' }}>
+                            <div className="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                                </svg>
+                            </div>
+                            <h3 className="feature-title">Easy Builder</h3>
+                            <p className="feature-description">
+                                Create stunning portfolios in minutes with our intuitive drag-and-drop builder
+                            </p>
+                        </div>
+
+                        <div className="feature-card" style={{ '--delay': '0.2s' }}>
+                            <div className="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                            </div>
+                            <h3 className="feature-title">Lightning Fast</h3>
+                            <p className="feature-description">
+                                Optimized performance with smooth 60fps animations throughout
+                            </p>
+                        </div>
+
+                        <div className="feature-card" style={{ '--delay': '0.3s' }}>
+                            <div className="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                                    <path d="M8 21h8M12 17v4" />
+                                </svg>
+                            </div>
+                            <h3 className="feature-title">Fully Responsive</h3>
+                            <p className="feature-description">
+                                Perfect experience across all devices from mobile to desktop
+                            </p>
+                        </div>
+
+                        <div className="feature-card" style={{ '--delay': '0.4s' }}>
+                            <div className="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                            <h3 className="feature-title">Team Collaboration</h3>
+                            <p className="feature-description">
+                                Add co-founders and team members to present as a cohesive unit
+                            </p>
+                        </div>
+
+                        <div className="feature-card" style={{ '--delay': '0.5s' }}>
+                            <div className="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                                </svg>
+                            </div>
+                            <h3 className="feature-title">Public Showcase</h3>
+                            <p className="feature-description">
+                                Share your portfolio with investors and mentors via a simple link
+                            </p>
+                        </div>
+
+                        <div className="feature-card" style={{ '--delay': '0.6s' }}>
+                            <div className="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg>
+                            </div>
+                            <h3 className="feature-title">Secure & Private</h3>
+                            <p className="feature-description">
+                                Your intellectual property is protected with enterprise-grade security
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* 2. Features Section */}
-            <section className="features-section fade-in-section" ref={featuresRef}>
-                <div className="section-header">
-                    <span className="section-badge">Why Choose DEPB</span>
-                    <h2 className="section-title">Everything You Need to Succeed</h2>
-                    <p className="section-subtitle">
-                        Powerful tools designed for student entrepreneurs to pitch with confidence.
-                    </p>
-                </div>
+            {/* Showcase Section with Horizontal Scroll */}
+            <section className="showcase-section fade-in-section">
+                <div className="showcase-container">
+                    <h2 className="section-title">See It In Action</h2>
+                    <p className="section-subtitle">Real portfolios, real results</p>
 
-                <div className="features-grid">
-                    <div className="feature-card">
-                        <div className="feature-icon gradient-1">
-                            <span>📝</span>
-                        </div>
-                        <h3 className="feature-title">Easy Portfolio Builder</h3>
-                        <p className="feature-description">
-                            Create stunning portfolios in minutes with our intuitive builder.
-                            Focus on your pitch, not the code.
-                        </p>
-                    </div>
+                    <div className="showcase-scroll-wrapper">
+                        <div className="showcase-track" ref={showcaseTrackRef}>
+                            <div className="showcase-item">
+                                <div className="showcase-card gradient-card-1">
+                                    <div className="showcase-overlay">
+                                        <h3>Tech Startup</h3>
+                                        <p>AI Solutions</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div className="feature-card">
-                        <div className="feature-icon gradient-2">
-                            <span>👥</span>
-                        </div>
-                        <h3 className="feature-title">Team Collaboration</h3>
-                        <p className="feature-description">
-                            Add team members and co-founders. Build your entrepreneurial
-                            network and present as a cohesive unit.
-                        </p>
-                    </div>
+                            <div className="showcase-item">
+                                <div className="showcase-card gradient-card-2">
+                                    <div className="showcase-overlay">
+                                        <h3>E-Commerce</h3>
+                                        <p>Marketplace</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div className="feature-card">
-                        <div className="feature-icon gradient-3">
-                            <span>🌐</span>
-                        </div>
-                        <h3 className="feature-title">Public Showcase</h3>
-                        <p className="feature-description">
-                            Share your portfolio with investors, mentors, and the world via a
-                            simple public link.
-                        </p>
-                    </div>
+                            <div className="showcase-item">
+                                <div className="showcase-card gradient-card-3">
+                                    <div className="showcase-overlay">
+                                        <h3>FinTech</h3>
+                                        <p>Payment Solutions</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div className="feature-card">
-                        <div className="feature-icon gradient-4">
-                            <span>📈</span>
-                        </div>
-                        <h3 className="feature-title">Dynamic Page Gen</h3>
-                        <p className="feature-description">
-                            Automatically generate a professional landing page for your venture
-                            using your input data.
-                        </p>
-                    </div>
+                            <div className="showcase-item">
+                                <div className="showcase-card gradient-card-4">
+                                    <div className="showcase-overlay">
+                                        <h3>HealthTech</h3>
+                                        <p>Medical Innovation</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div className="feature-card">
-                        <div className="feature-icon gradient-5">
-                            <span>🎥</span>
+                            <div className="showcase-item">
+                                <div className="showcase-card gradient-card-5">
+                                    <div className="showcase-overlay">
+                                        <h3>EdTech</h3>
+                                        <p>Learning Platform</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="feature-title">Media Management</h3>
-                        <p className="feature-description">
-                            Upload high-quality images and embed pitch videos to make your
-                            presentation stand out.
-                        </p>
-                    </div>
-
-                    <div className="feature-card">
-                        <div className="feature-icon gradient-6">
-                            <span>🔒</span>
-                        </div>
-                        <h3 className="feature-title">Secure Platform</h3>
-                        <p className="feature-description">
-                            Your intellectual property is important. We use industry-standard
-                            security practices.
-                        </p>
                     </div>
                 </div>
             </section>
 
-            {/* 3. Stats Section (Social Proof) */}
-            <section className="features-section fade-in-section" style={{ background: 'var(--bg-off-white)' }} ref={statsRef}>
-                <div className="section-header">
-                    <h2 className="section-title">Trusted by Student Innovators</h2>
-                </div>
-                <div className="features-grid" style={{ textAlign: 'center', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
-                    <div className="stat-item">
-                        <div style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--primary-violet)' }}>10K+</div>
-                        <div style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Active Students</div>
-                    </div>
-                    <div className="stat-item">
-                        <div style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--primary-violet)' }}>50K+</div>
-                        <div style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Portfolios Created</div>
-                    </div>
-                    <div className="stat-item">
-                        <div style={{ fontSize: '3rem', fontWeight: '800', color: 'var(--primary-violet)' }}>100%</div>
-                        <div style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Free for Students</div>
+            {/* Stats Section */}
+            <section className="stats-section fade-in-section">
+                <div className="section-container">
+                    <div className="stats-grid">
+                        <div className="stat-item">
+                            <div className="stat-number">10K+</div>
+                            <div className="stat-label">Active Students</div>
+                        </div>
+                        <div className="stat-item">
+                            <div className="stat-number">50K+</div>
+                            <div className="stat-label">Portfolios Created</div>
+                        </div>
+                        <div className="stat-item">
+                            <div className="stat-number">99.9%</div>
+                            <div className="stat-label">Uptime</div>
+                        </div>
+                        <div className="stat-item">
+                            <div className="stat-number">100%</div>
+                            <div className="stat-label">Free for Students</div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* 4. CTA Section */}
+            {/* CTA Section */}
             <section className="cta-section fade-in-section">
                 <div className="cta-content">
                     <h2 className="cta-title">Ready to Start Your Journey?</h2>
@@ -200,16 +286,14 @@ const LandingPage = () => {
                         Join thousands of student entrepreneurs building their future today.
                     </p>
                     <Link to="/login" className="cta-button-large">
-                        <span>Create Your Portfolio Now</span>
-                        <span className="btn-sparkle">✨</span>
+                        Create Your Portfolio Now
+                        <span className="button-shine"></span>
                     </Link>
                 </div>
             </section>
 
             {/* Footer */}
-            <footer className="landing-footer">
-                <p>© 2026 DEPB | Empowering Student Innovation</p>
-            </footer>
+            <Footer />
         </div>
     );
 };

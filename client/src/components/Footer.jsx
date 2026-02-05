@@ -6,14 +6,17 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="professional-footer">
+    <footer className="site-footer">
       <div className="footer-container">
         <div className="footer-content">
           {/* Brand Section */}
           <div className="footer-section footer-brand-section">
-            <h3 className="footer-brand">Entrepreneur Portfolio</h3>
+            <div className="footer-brand">
+              <span className="brand-icon">🚀</span>
+              <span className="brand-text">DEPB</span>
+            </div>
             <p className="footer-tagline">
-              Empowering student entrepreneurs to showcase their innovative ventures
+              Empowering student entrepreneurs to showcase their innovative ventures to the world.
             </p>
           </div>
 
@@ -23,7 +26,7 @@ const Footer = () => {
             <div className="footer-links">
               <Link to="/dashboard" className="footer-link">Dashboard</Link>
               <Link to="/create" className="footer-link">Create Portfolio</Link>
-              <Link to="/investors" className="footer-link">Public View</Link>
+              <Link to="/investors" className="footer-link">Explore Ventures</Link>
             </div>
           </div>
 
@@ -41,7 +44,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © {currentYear} Entrepreneur Portfolio. All rights reserved.
+            © {currentYear} DEPB. All rights reserved.
           </p>
           <div className="footer-bottom-links">
             <a href="#" className="footer-bottom-link">Privacy Policy</a>

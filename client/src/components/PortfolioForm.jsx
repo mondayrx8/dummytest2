@@ -58,7 +58,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
       onSave();
       setShowToast(true);
-      setTimeout(() => navigate('/dashboard'), 1500); // Wait for toast
+      setTimeout(() => navigate('/dashboard'), 1500);
 
     } catch (error) {
       console.error(error);
@@ -74,7 +74,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     navigate('/dashboard');
   };
 
-  // Calculate progress for visual bar
+  // Calculate progress percentage
   const calculateProgress = () => {
     let filled = 0;
     const fields = ['studentName', 'businessName', 'description', 'marketSize', 'image'];
@@ -85,47 +85,62 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   };
 
   return (
-    <div className="builder-page">
+    <div className="form-page">
       {/* Toast Notification */}
       {showToast && (
-        <div className="glass-toast">
+        <div className="toast-notification">
           <span className="toast-icon">✅</span>
-          Portfolio Saved Successfully!
+          <span>Portfolio Saved Successfully!</span>
         </div>
       )}
 
-      {/* Background Blobs (Green Theme) */}
-      <div className="builder-bg">
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
+      {/* Background Orbs */}
+      <div className="form-bg">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
       </div>
 
-      <div className="builder-container-wrapper">
-        <div className="builder-header">
-          <h2 className="builder-title">
-            {currentPortfolio ? "Edit Portfolio" : "Design Your Venture"}
-          </h2>
-          <p className="builder-subtitle">
-            Craft a compelling pitch to showcase your innovative idea to the world.
+      <div className="form-wrapper">
+        {/* Page Header */}
+        <header className="form-header">
+          <h1 className="form-title">
+            {currentPortfolio ? "Edit Your Portfolio" : "Design Your Venture"}
+          </h1>
+          <p className="form-subtitle">
+            Create a compelling pitch to showcase your innovative ideas to investors
           </p>
 
           {/* Progress Bar */}
-          <div className="progress-container">
-            <div className="progress-bar" style={{ width: `${calculateProgress()}%` }}></div>
+          <div className="progress-wrapper">
+            <div className="progress-bar">
+              <div
+                className="progress-fill"
+                style={{ width: `${calculateProgress()}%` }}
+              ></div>
+            </div>
+            <span className="progress-text">{Math.round(calculateProgress())}% Complete</span>
           </div>
-        </div>
+        </header>
 
-        <form onSubmit={handleSubmit} className="builder-form glass-panel">
-          {message && <div className="status-banner">{message}</div>}
+        {/* Form Container */}
+        <form onSubmit={handleSubmit} className="form-container glass-card">
+          {/* Status Message */}
+          {message && (
+            <div className={`status-message ${message.includes('❌') ? 'error' : 'info'}`}>
+              {message}
+            </div>
+          )}
 
-          {/* SECTION 1: BASIC INFO */}
+          {/* Section 1: Project Identity */}
           <section className="form-section">
-            <h3 className="section-title">
-              <span className="section-icon">1</span> Basic Information
-            </h3>
+            <div className="section-header">
+              <span className="section-number">1</span>
+              <h2 className="section-title">Project Identity</h2>
+            </div>
+
             <div className="form-grid">
               <div className="input-group">
-                <label className="floating-label">Entrepreneur Name *</label>
+                <label className="input-label">Entrepreneur Name *</label>
                 <input
                   type="text"
                   name="studentName"
@@ -136,8 +151,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   required
                 />
               </div>
+
               <div className="input-group">
-                <label className="floating-label">Business Name *</label>
+                <label className="input-label">Business Name *</label>
                 <input
                   type="text"
                   name="businessName"
@@ -149,8 +165,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 />
               </div>
             </div>
-            <div className="input-group full-width">
-              <label className="floating-label">Team Members (Optional)</label>
+
+            <div className="input-group">
+              <label className="input-label">Team Members (Optional)</label>
               <input
                 type="text"
                 name="teamMembers"
@@ -162,70 +179,93 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
           </section>
 
-          {/* SECTION 2: THE PITCH */}
+          {/* Section 2: The Pitch */}
           <section className="form-section">
-            <h3 className="section-title">
-              <span className="section-icon">2</span> The Pitch
-            </h3>
-            <div className="input-group full-width">
-              <label className="floating-label">Problem & Solution *</label>
+            <div className="section-header">
+              <span className="section-number">2</span>
+              <h2 className="section-title">The Pitch</h2>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Problem & Solution *</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 className="glass-input glass-textarea"
-                placeholder="Describe the problem you are solving and your unique solution..."
+                placeholder="Describe the problem you're solving and your unique solution..."
                 required
               />
+              <span className="input-hint">
+                Tip: Be specific about the pain point and how your solution addresses it.
+              </span>
             </div>
           </section>
 
-          {/* SECTION 3: MARKET */}
+          {/* Section 3: Market Analysis */}
           <section className="form-section">
-            <h3 className="section-title">
-              <span className="section-icon">3</span> Market Analysis
-            </h3>
-            <div className="input-group full-width">
-              <label className="floating-label">Target Market Size</label>
+            <div className="section-header">
+              <span className="section-number">3</span>
+              <h2 className="section-title">Market Analysis</h2>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Target Market Size</label>
               <input
                 type="text"
                 name="marketSize"
                 value={formData.marketSize}
                 onChange={handleChange}
                 className="glass-input"
-                placeholder="e.g. 500k University Students in Malaysia"
+                placeholder="e.g. 500K University Students in Malaysia"
               />
             </div>
           </section>
 
-          {/* SECTION 4: MEDIA */}
+          {/* Section 4: Visuals */}
           <section className="form-section">
-            <h3 className="section-title">
-              <span className="section-icon">4</span> Visuals
-            </h3>
-            <div className="file-upload-container">
-              <label htmlFor="file-upload" className="file-drop-zone">
-                <span className="files-icon">📤</span>
+            <div className="section-header">
+              <span className="section-number">4</span>
+              <h2 className="section-title">Visuals</h2>
+            </div>
+
+            <div className="upload-area">
+              <label htmlFor="file-upload" className="upload-zone">
+                <div className="upload-icon">📤</div>
                 <span className="upload-text">
-                  {formData.image ? "Change Image" : "Upload Product Image"}
+                  {formData.image ? "Change Image" : "Click to Upload Product Image"}
                 </span>
+                <span className="upload-hint">PNG, JPG, WebP up to 5MB</span>
                 <input
                   id="file-upload"
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
-                  className="hidden-file-input"
+                  className="upload-input"
                 />
               </label>
+
               {formData.image && (
-                <div className="preview-container">
-                  <img src={formData.image} alt="Preview" className="img-preview" />
+                <div className="preview-wrapper">
+                  <img
+                    src={formData.image}
+                    alt="Preview"
+                    className="preview-image"
+                  />
+                  <button
+                    type="button"
+                    className="remove-image"
+                    onClick={() => setFormData({ ...formData, image: '' })}
+                    aria-label="Remove image"
+                  >
+                    ✕
+                  </button>
                 </div>
               )}
             </div>
           </section>
 
-          {/* ACTIONS */}
+          {/* Form Actions */}
           <div className="form-actions">
             <button
               type="button"
@@ -239,7 +279,11 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               className="btn-save"
               disabled={loading}
             >
-              {loading ? <span className="spinner"></span> : (currentPortfolio ? "Update Portfolio" : "Save & Publish")}
+              {loading ? (
+                <span className="spinner"></span>
+              ) : (
+                currentPortfolio ? "Update Portfolio" : "Save & Publish"
+              )}
             </button>
           </div>
         </form>

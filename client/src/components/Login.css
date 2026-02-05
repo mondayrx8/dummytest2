@@ -1,16 +1,21 @@
-/* ========== Login Page Redesign 2026 ========== */
+/* ============================================ */
+/* LOGIN PAGE - 2026 MODERN SAAS DESIGN */
+/* Glass Card, Violet Accents, Mobile First */
+/* ============================================ */
+
 .login-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-off-white);
+    background: linear-gradient(135deg, #FDF4FF 0%, #F8FAFC 50%, #EDE9FE 100%);
     position: relative;
     overflow: hidden;
     font-family: var(--font-sans);
+    padding: calc(var(--navbar-height) + 20px) 20px 40px;
 }
 
-/* Background Gradients (Matches Landing) */
+/* ========== Background Orbs ========== */
 .login-background {
     position: absolute;
     top: 0;
@@ -21,44 +26,41 @@
     overflow: hidden;
 }
 
-.blob {
+.orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.6;
-    animation: float 20s infinite ease-in-out;
+    opacity: 0.5;
+    animation: floatOrb 20s infinite ease-in-out;
 }
 
-.blob-1 {
-    top: -10%;
+.orb-1 {
+    top: -15%;
     left: -10%;
-    width: 600px;
-    height: 600px;
-    background: #D1FAE5;
-    /* Emerald 100 */
-}
-
-.blob-2 {
-    bottom: -10%;
-    right: -10%;
     width: 500px;
     height: 500px;
-    background: #ECFCCB;
-    /* Lime 100 */
+    background: #E9D5FF;
+}
+
+.orb-2 {
+    bottom: -15%;
+    right: -10%;
+    width: 450px;
+    height: 450px;
+    background: #FBCFE8;
     animation-delay: -5s;
 }
 
-.blob-3 {
+.orb-3 {
     top: 40%;
-    left: 40%;
+    left: 50%;
     width: 300px;
     height: 300px;
-    background: #CCFBF1;
-    /* Teal 100 */
+    background: #C4B5FD;
     animation-delay: -10s;
 }
 
-@keyframes float {
+@keyframes floatOrb {
 
     0%,
     100% {
@@ -70,7 +72,7 @@
     }
 }
 
-/* Container */
+/* ========== Container ========== */
 .login-container {
     position: relative;
     z-index: 1;
@@ -80,22 +82,21 @@
     gap: 24px;
     width: 100%;
     max-width: 420px;
-    padding: 20px;
 }
 
-/* Brand */
+/* ========== Brand ========== */
 .login-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     margin-bottom: 8px;
 }
 
 .brand-icon-wrapper {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,57 +104,68 @@
 }
 
 .brand-icon {
-    font-size: 24px;
+    font-size: 26px;
 }
 
-.login-brand h1 {
-    font-size: 1.5rem;
+.brand-title {
+    font-size: 1.6rem;
     font-weight: 800;
-    color: var(--text-dark);
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0;
     letter-spacing: -0.02em;
 }
 
-/* Glass Card */
-.glass-panel {
+/* ========== Glass Card ========== */
+.glass-card {
     background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid white;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 24px;
-    padding: 40px;
     width: 100%;
     box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.05),
-        0 10px 15px -3px rgba(0, 0, 0, 0.05),
-        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-    transition: transform 0.3s ease;
+        0 4px 6px -1px rgba(0, 0, 0, 0.04),
+        0 10px 20px -5px rgba(0, 0, 0, 0.06),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.glass-panel:hover {
+.glass-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    box-shadow:
+        0 8px 16px -4px rgba(0, 0, 0, 0.06),
+        0 16px 32px -8px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.6);
 }
 
-/* Header */
+.login-card {
+    padding: 40px;
+}
+
+/* ========== Card Header ========== */
 .card-header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 }
 
-.card-header h2 {
+.card-title {
     font-size: 1.75rem;
+    font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 8px;
 }
 
-.subtitle {
+.card-subtitle {
     color: var(--text-medium);
     font-size: 0.95rem;
     line-height: 1.5;
+    margin: 0;
 }
 
-/* Form */
+/* ========== Form ========== */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -166,7 +178,7 @@
     gap: 8px;
 }
 
-.input-group label {
+.input-label {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-dark);
@@ -186,123 +198,65 @@
     z-index: 2;
 }
 
-.input-wrapper input {
+.glass-input {
     width: 100%;
-    padding: 14px 16px 14px 48px;
-    /* Room for icon */
-    background: white;
+    padding: 16px 16px 16px 50px;
+    background: rgba(255, 255, 255, 0.7);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 1rem;
-    transition: all 0.2s ease;
     color: var(--text-dark);
+    transition: all 0.2s ease;
 }
 
-.input-wrapper input:focus {
+.glass-input:focus {
+    background: white;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px var(--primary-light);
     outline: none;
 }
 
-/* Actions */
-.btn-primary-login {
-    margin-top: 12px;
-    background: var(--gradient-primary);
+.glass-input::placeholder {
+    color: var(--text-light);
+}
+
+/* ========== Submit Button ========== */
+.btn-submit {
+    margin-top: 8px;
+    background: var(--primary-gradient);
     color: white;
-    padding: 14px;
-    border-radius: 12px;
+    padding: 16px;
+    border-radius: 14px;
     font-weight: 600;
     font-size: 1.05rem;
-    transition: all 0.2s;
-    box-shadow: var(--shadow-md);
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 54px;
 }
 
-.btn-primary-login:hover:not(:disabled) {
+.btn-submit:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
 }
 
-.btn-primary-login:disabled {
+.btn-submit:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-submit:disabled {
     opacity: 0.7;
     cursor: wait;
 }
 
-/* Footer Links */
-.card-footer {
-    margin-top: 24px;
-    text-align: center;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    padding-top: 20px;
-}
-
-.toggle-text {
-    font-size: 0.9rem;
-    color: var(--text-medium);
-}
-
-.btn-text-link {
-    color: var(--primary);
-    font-weight: 600;
-    margin-left: 6px;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-.btn-text-link:hover {
-    text-decoration: underline;
-}
-
-/* Guest Link Pill */
-.guest-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    background: white;
-    border-radius: 50px;
-    color: var(--text-medium);
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: all 0.2s;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid transparent;
-}
-
-.guest-link:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--primary-light);
-    color: var(--primary);
-}
-
-.icon {
-    font-size: 1.1rem;
-}
-
-/* Error */
-.error-banner {
-    background: #FEF2F2;
-    color: #DC2626;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    border-left: 3px solid #DC2626;
-}
-
-/* Spinner */
+/* ========== Spinner ========== */
 .spinner {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-top-color: white;
     border-radius: 50%;
@@ -315,12 +269,123 @@
     }
 }
 
+/* ========== Card Footer ========== */
+.card-footer {
+    margin-top: 24px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.toggle-text {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin: 0;
+}
+
+.btn-toggle {
+    color: var(--primary);
+    font-weight: 600;
+    margin-left: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: inherit;
+}
+
+.btn-toggle:hover {
+    text-decoration: underline;
+}
+
+/* ========== Error Banner ========== */
+.error-banner {
+    background: #FEF2F2;
+    color: #DC2626;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #DC2626;
+}
+
+.error-icon {
+    flex-shrink: 0;
+}
+
+.error-text {
+    line-height: 1.4;
+}
+
+/* ========== Guest Link ========== */
+.guest-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: white;
+    border-radius: 50px;
+    color: var(--text-medium);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+}
+
+.guest-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.guest-icon {
+    font-size: 1.1rem;
+}
+
+.guest-arrow {
+    margin-left: auto;
+    transition: transform 0.2s;
+}
+
+.guest-link:hover .guest-arrow {
+    transform: translateX(4px);
+}
+
+/* ========== Responsive ========== */
 @media (max-width: 480px) {
-    .glass-panel {
-        padding: 24px;
+    .login-page {
+        padding: calc(var(--navbar-height) + 16px) 16px 32px;
     }
 
-    .login-container {
-        padding: 16px;
+    .login-card {
+        padding: 28px 24px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .glass-input {
+        padding: 14px 14px 14px 46px;
+    }
+}
+
+@media (max-width: 320px) {
+    .login-card {
+        padding: 24px 20px;
+    }
+
+    .brand-title {
+        font-size: 1.4rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
     }
 }

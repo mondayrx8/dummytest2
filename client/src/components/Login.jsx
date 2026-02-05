@@ -32,7 +32,7 @@ const Login = ({ setToken }) => {
         setToken(response.data.token);
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      setError(err.response?.data?.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -40,43 +40,49 @@ const Login = ({ setToken }) => {
 
   return (
     <div className="login-page">
-      {/* Dynamic Background */}
+      {/* Animated Background Blobs */}
       <div className="login-background">
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <div className="blob blob-3"></div>
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="orb orb-3"></div>
       </div>
 
       <div className="login-container">
-        {/* Brand Header */}
+        {/* Brand Logo */}
         <div className="login-brand">
           <div className="brand-icon-wrapper">
             <span className="brand-icon">🚀</span>
           </div>
-          <h1>DEPB</h1>
+          <h1 className="brand-title">DEPB</h1>
         </div>
 
         {/* Glass Card */}
-        <div className="login-card glass-panel">
+        <div className="login-card glass-card">
           <div className="card-header">
-            <h2>{isRegistering ? "Join the Future" : "Welcome Back"}</h2>
-            <p className="subtitle">
+            <h2 className="card-title">
+              {isRegistering ? "Create Account" : "Welcome Back"}
+            </h2>
+            <p className="card-subtitle">
               {isRegistering
                 ? "Start building your digital venture portfolio today."
-                : "Manage your entrepreneurial journey."}
+                : "Sign in to manage your entrepreneurial journey."}
             </p>
           </div>
 
+          {/* Error Banner */}
           {error && (
             <div className="error-banner">
               <span className="error-icon">⚠️</span>
-              {error}
+              <span className="error-text">{error}</span>
             </div>
           )}
 
+          {/* Login Form */}
           <form onSubmit={handleSubmit} className="login-form">
             <div className="input-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username" className="input-label">
+                Username
+              </label>
               <div className="input-wrapper">
                 <span className="input-icon">👤</span>
                 <input
@@ -84,14 +90,18 @@ const Login = ({ setToken }) => {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Student ID or Username"
+                  placeholder="Enter your student ID"
+                  className="glass-input"
                   required
+                  autoComplete="username"
                 />
               </div>
             </div>
 
             <div className="input-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password" className="input-label">
+                Password
+              </label>
               <div className="input-wrapper">
                 <span className="input-icon">🔒</span>
                 <input
@@ -100,34 +110,49 @@ const Login = ({ setToken }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
+                  className="glass-input"
                   required
+                  autoComplete={isRegistering ? "new-password" : "current-password"}
                 />
               </div>
             </div>
 
-            <button type="submit" className="btn-primary-login" disabled={loading}>
-              {loading ? <span className="spinner"></span> : (isRegistering ? "Create Account" : "Sign In")}
+            <button
+              type="submit"
+              className="btn-submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="spinner"></span>
+              ) : (
+                isRegistering ? "Create Account" : "Sign In"
+              )}
             </button>
           </form>
 
+          {/* Toggle Login/Register */}
           <div className="card-footer">
             <p className="toggle-text">
               {isRegistering ? "Already have an account?" : "New to DEPB?"}
               <button
                 type="button"
-                className="btn-text-link"
-                onClick={() => setIsRegistering(!isRegistering)}
+                className="btn-toggle"
+                onClick={() => {
+                  setIsRegistering(!isRegistering);
+                  setError('');
+                }}
               >
-                {isRegistering ? "Login here" : "Create Account"}
+                {isRegistering ? "Sign In" : "Create Account"}
               </button>
             </p>
           </div>
         </div>
 
         {/* Guest Link */}
-        <Link to="/investors" className="guest-link glass-pill">
-          <span className="icon">📈</span>
-          <span>Explore Ventures (Investor View)</span>
+        <Link to="/investors" className="guest-link">
+          <span className="guest-icon">🌐</span>
+          <span>Explore Ventures as Guest</span>
+          <span className="guest-arrow">→</span>
         </Link>
       </div>
     </div>

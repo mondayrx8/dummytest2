@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import Footer from './Footer';
 import './GuestList.css';
 
 const GuestList = () => {
@@ -34,35 +34,34 @@ const GuestList = () => {
     }, [searchTerm, portfolios]);
 
     return (
-        <div className="guest-list-container">
-            {/* Background Blobs */}
+        <div className="guest-page">
+            {/* Background Orbs */}
             <div className="guest-bg">
-                <div className="blob blob-1"></div>
-                <div className="blob blob-2"></div>
+                <div className="orb orb-1"></div>
+                <div className="orb orb-2"></div>
             </div>
 
-            {/* Hero Header */}
-            <header className="hero-header">
-                <nav className="public-nav glass-nav">
-                    <div className="nav-brand">
-                        <span className="brand-icon">🚀</span>
-                        <h1 className="brand-title">Entrepreneur Showcase</h1>
-                    </div>
-                    <Link to="/" className="login-button">
-                        <span className="button-icon">👤</span>
-                        Student Login
-                    </Link>
-                </nav>
-
+            {/* Hero Section */}
+            <header className="guest-hero">
                 <div className="hero-content">
-                    <h2 className="hero-title">Discover Tomorrow's Entrepreneurs</h2>
+                    <div className="hero-badge">
+                        <span className="badge-icon">🌟</span>
+                        <span>Investor Showcase</span>
+                    </div>
+
+                    <h1 className="hero-title">
+                        Discover Tomorrow's
+                        <span className="gradient-text"> Entrepreneurs</span>
+                    </h1>
+
                     <p className="hero-subtitle">
-                        Explore innovative student ventures and groundbreaking business ideas from the next generation of founders
+                        Explore innovative student ventures and groundbreaking business ideas
+                        from the next generation of founders
                     </p>
 
                     {/* Search Bar */}
-                    <div className="search-section">
-                        <div className="search-bar glass-panel">
+                    <div className="search-wrapper">
+                        <div className="search-bar glass-search">
                             <span className="search-icon">🔍</span>
                             <input
                                 type="text"
@@ -71,75 +70,104 @@ const GuestList = () => {
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="search-input"
                             />
+                            {searchTerm && (
+                                <button
+                                    className="search-clear"
+                                    onClick={() => setSearchTerm('')}
+                                    aria-label="Clear search"
+                                >
+                                    ✕
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
             </header>
 
             {/* Main Content */}
-            <main className="main-content">
+            <main className="guest-content">
                 {loading ? (
+                    /* Loading State */
                     <div className="loading-state">
                         <div className="spinner"></div>
                         <p>Loading amazing portfolios...</p>
                     </div>
                 ) : filteredPortfolios.length === 0 ? (
-                    <div className="empty-state glass-panel">
-                        <div className="empty-icon">🤷‍♂️</div>
-                        <h3>No Ventures Found</h3>
-                        <p>Try adjusting your search terms to find what you're looking for.</p>
-                        {portfolios.length === 0 && <p>Check back soon for new student submissions!</p>}
+                    /* Empty State */
+                    <div className="empty-state glass-card">
+                        <div className="empty-icon">🔎</div>
+                        <h3 className="empty-title">No Ventures Found</h3>
+                        <p className="empty-description">
+                            {searchTerm
+                                ? "Try adjusting your search terms to find what you're looking for."
+                                : "Check back soon for new student submissions!"}
+                        </p>
+                        {searchTerm && (
+                            <button
+                                className="btn-clear-search"
+                                onClick={() => setSearchTerm('')}
+                            >
+                                Clear Search
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <>
-                        <div className="portfolio-stats">
-                            <div className="stat-badge glass-panel">
-                                <span className="stat-number">{filteredPortfolios.length}</span>
-                                <span className="stat-label">Active Ventures</span>
+                        {/* Stats Badge */}
+                        <div className="stats-wrapper">
+                            <div className="stats-badge glass-card">
+                                <span className="stats-number">{filteredPortfolios.length}</span>
+                                <span className="stats-label">Active Ventures</span>
                             </div>
                         </div>
 
+                        {/* Portfolio Grid */}
                         <div className="portfolio-grid">
                             {filteredPortfolios.map((item) => (
-                                <article key={item._id} className="portfolio-card glass-panel">
+                                <article key={item._id} className="portfolio-card glass-card">
+                                    {/* Card Image */}
                                     <div className="card-image-wrapper">
                                         {item.image ? (
                                             <img
                                                 src={item.image}
                                                 alt={item.businessName}
                                                 className="card-image"
+                                                loading="lazy"
                                             />
                                         ) : (
-                                            <div className="card-image-placeholder">
+                                            <div className="card-placeholder">
                                                 <span className="placeholder-icon">🎯</span>
                                                 <span className="placeholder-text">No Image</span>
                                             </div>
                                         )}
                                         <div className="card-overlay"></div>
-                                        <div className="card-category-badge">Technology</div>
+                                        <div className="card-category">Technology</div>
                                     </div>
 
+                                    {/* Card Content */}
                                     <div className="card-content">
                                         <div className="card-header">
                                             <h3 className="business-name">{item.businessName}</h3>
-                                            <div className="student-info">
-                                                <span className="student-label">Founder:</span>
-                                                <span className="student-name">{item.studentName}</span>
+                                            <div className="founder-info">
+                                                <span className="founder-label">Founder:</span>
+                                                <span className="founder-name">{item.studentName}</span>
                                             </div>
                                         </div>
 
                                         <div className="card-body">
-                                            <p className="card-problem">
+                                            <p className="card-description">
                                                 {item.description
-                                                    ? (item.description.length > 100 ? item.description.substring(0, 100) + '...' : item.description)
+                                                    ? (item.description.length > 110
+                                                        ? item.description.substring(0, 110) + '...'
+                                                        : item.description)
                                                     : "No description provided."}
                                             </p>
                                         </div>
 
                                         <div className="card-footer">
-                                            <button className="view-pitch-btn">
-                                                View Full Pitch
-                                                <span className="arrow">→</span>
+                                            <button className="btn-view-pitch">
+                                                <span>View Full Pitch</span>
+                                                <span className="btn-arrow">→</span>
                                             </button>
                                         </div>
                                     </div>
@@ -149,6 +177,8 @@ const GuestList = () => {
                     </>
                 )}
             </main>
+
+            <Footer />
         </div>
     );
 };
