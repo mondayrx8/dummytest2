@@ -1,26 +1,42 @@
 /**
  * Auth Routes - Maps HTTP endpoints to AuthController methods.
  *
- * This file is intentionally thin: it only wires up Express routes
- * to controller class methods. All business logic lives in
- * AuthService, and all HTTP handling lives in AuthController.
+ * This file is the composition root for authentication:
+ *   1. Instantiates the Service (business logic layer)
+ *   2. Injects the Service into the Controller (DI)
+ *   3. Applies Zod validation middleware to each route
+ *   4. Wires Express routes to controller methods
+ *
+ * Request flow:
+ *   Client  →  validate(schema)  →  AuthController  →  AuthService  →  DB
  */
 
 const express = require('express');
 const router = express.Router();
 
-// Import Service and Controller classes
+// ── Middleware ───────────────────────────────────────
+const validate = require('../middleware/validate');
+
+// ── Validation Schemas ──────────────────────────────
+const { registerSchema, loginSchema } = require('../validations/authValidation');
+
+// ── Service & Controller (Dependency Injection) ─────
 const AuthService = require('../services/AuthService');
 const AuthController = require('../controllers/AuthController');
 
-// Instantiate the service, then inject it into the controller
 const authService = new AuthService();
 const authController = new AuthController(authService);
 
+// ── Route Definitions ───────────────────────────────
+
 // POST /api/auth/register  -  Create a new user account
-router.post('/register', authController.register);
+//   1. validate(registerSchema) → checks username, password, confirmPassword
+//   2. authController.register  → delegates to AuthService.register()
+router.post('/register', validate(registerSchema), authController.register);
 
 // POST /api/auth/login     -  Authenticate and receive a JWT
-router.post('/login', authController.login);
+//   1. validate(loginSchema)   → checks username & password are present
+//   2. authController.login    → delegates to AuthService.login()
+router.post('/login', validate(loginSchema), authController.login);
 
 module.exports = router;

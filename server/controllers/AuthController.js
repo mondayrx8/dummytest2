@@ -1,10 +1,16 @@
 /**
  * AuthController - Express request handler for authentication endpoints.
  *
- * This controller receives an AuthService instance via constructor
- * injection, keeping it decoupled from the concrete service
- * implementation. Each method handles HTTP request/response
- * concerns and delegates business logic to the service layer.
+ * Architecture:
+ *   - Receives an AuthService instance via constructor injection (DI).
+ *   - Does NOT contain try/catch blocks; errors are propagated to
+ *     the global errorHandler middleware automatically.
+ *   - Data validation is handled BEFORE this controller is reached,
+ *     via Zod validation middleware in the route definitions.
+ *
+ * This controller is intentionally thin: it translates HTTP semantics
+ * (status codes, req/res) and delegates ALL business logic to the
+ * service layer.
  */
 
 class AuthController {
@@ -23,31 +29,28 @@ class AuthController {
     /**
      * POST /register
      * Registers a new user account.
+     *
+     * NOTE: No try/catch needed.
+     * - Express 5 natively catches rejected promises from async handlers
+     *   and forwards the error to the global error-handling middleware.
+     * - Request body has already been validated by Zod middleware.
      */
     async register(req, res) {
-        try {
-            const { username, password } = req.body;
-            const result = await this.authService.register(username, password);
-            res.status(201).json(result);
-        } catch (error) {
-            const statusCode = error.statusCode || 500;
-            res.status(statusCode).json({ message: error.message || 'Registration failed' });
-        }
+        const { username, password } = req.body;
+        const result = await this.authService.register(username, password);
+        res.status(201).json(result);
     }
 
     /**
      * POST /login
      * Authenticates a user and returns a JWT token.
+     *
+     * NOTE: No try/catch needed — same reasoning as above.
      */
     async login(req, res) {
-        try {
-            const { username, password } = req.body;
-            const result = await this.authService.login(username, password);
-            res.json(result);
-        } catch (error) {
-            const statusCode = error.statusCode || 500;
-            res.status(statusCode).json({ message: error.message || 'Login failed' });
-        }
+        const { username, password } = req.body;
+        const result = await this.authService.login(username, password);
+        res.json(result);
     }
 }
 

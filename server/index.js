@@ -5,11 +5,14 @@
  *   1. Load environment variables
  *   2. Configure Express middleware (CORS, body parsing)
  *   3. Mount route modules (auth, portfolio)
- *   4. Connect to MongoDB via Mongoose
- *   5. Start the HTTP server
+ *   4. Mount global error handler (MUST be last middleware)
+ *   5. Connect to MongoDB via Mongoose
+ *   6. Start the HTTP server
  *
  * Architecture Overview:
- *   Routes  →  Controllers (HTTP layer)  →  Services (business logic)  →  Models (DB)
+ *   Routes  →  Validation (Zod)  →  Controllers (HTTP)  →  Services (logic)  →  Models (DB)
+ *              ↘ on error ↙             ↘ on error ↙
+ *                        Global Error Handler
  *
  * This file does NOT contain any business logic; it is purely
  * responsible for application bootstrapping and configuration.
@@ -20,6 +23,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
+
+// Import the global error handler
+const { errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
 
@@ -40,6 +46,14 @@ app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/auth', authRoutes);
 
 // ──────────────────────────────────────────────
+// Global Error Handler (MUST be after all routes)
+// ──────────────────────────────────────────────
+// This catches ALL errors thrown in controllers, services,
+// and validation middleware — providing a consistent JSON
+// error response format across the entire API.
+app.use(errorHandler);
+
+// ──────────────────────────────────────────────
 // Database Connection
 // ──────────────────────────────────────────────
 mongoose
@@ -52,5 +66,5 @@ mongoose
 // ──────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT} (OOP Architecture Active)`);
+    console.log(`Server is running on port ${PORT} (Enterprise Architecture Active)`);
 });

@@ -1,9 +1,15 @@
 /**
  * PortfolioController - Express request handler for portfolio endpoints.
  *
- * This controller receives a PortfolioService instance via constructor
- * injection. Each method maps to a specific HTTP verb/route and
- * translates between the HTTP layer and the service layer.
+ * Architecture:
+ *   - Receives a PortfolioService instance via constructor injection (DI).
+ *   - Does NOT contain try/catch blocks; all errors propagate to the
+ *     global errorHandler middleware automatically (Express 5).
+ *   - Data validation for POST/PUT is handled by Zod middleware
+ *     BEFORE requests reach these methods.
+ *
+ * Each method maps to a specific HTTP verb/route and translates
+ * between the HTTP layer and the service layer.
  */
 
 class PortfolioController {
@@ -25,39 +31,31 @@ class PortfolioController {
      * Retrieves every portfolio entry (public route).
      */
     async getAll(req, res) {
-        try {
-            const portfolios = await this.portfolioService.getAll();
-            res.status(200).json(portfolios);
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to fetch data' });
-        }
+        const portfolios = await this.portfolioService.getAll();
+        res.status(200).json(portfolios);
     }
 
     /**
      * POST /add
      * Creates a new portfolio entry (protected route).
+     * Body has already been validated by Zod middleware.
      */
     async create(req, res) {
-        try {
-            const savedPortfolio = await this.portfolioService.create(req.body);
-            res.status(201).json(savedPortfolio);
-        } catch (error) {
-            console.error('Error Saving Portfolio:', error.message);
-            res.status(400).json({ error: error.message });
-        }
+        const savedPortfolio = await this.portfolioService.create(req.body);
+        res.status(201).json(savedPortfolio);
     }
 
     /**
      * PUT /update/:id
      * Updates an existing portfolio entry (protected route).
+     * Body has already been validated by Zod middleware.
      */
     async update(req, res) {
-        try {
-            const updatedPortfolio = await this.portfolioService.update(req.params.id, req.body);
-            res.status(200).json(updatedPortfolio);
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to update' });
-        }
+        const updatedPortfolio = await this.portfolioService.update(
+            req.params.id,
+            req.body
+        );
+        res.status(200).json(updatedPortfolio);
     }
 
     /**
@@ -65,12 +63,8 @@ class PortfolioController {
      * Removes a portfolio entry (protected route).
      */
     async delete(req, res) {
-        try {
-            await this.portfolioService.delete(req.params.id);
-            res.status(200).json({ message: 'Deleted successfully' });
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to delete' });
-        }
+        await this.portfolioService.delete(req.params.id);
+        res.status(200).json({ message: 'Deleted successfully' });
     }
 }
 
