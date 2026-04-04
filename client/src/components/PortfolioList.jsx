@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import './PortfolioList.css';
 
-const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
+const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser }) => {
     const navigate = useNavigate();
     const [deleting, setDeleting] = useState(null);
 
@@ -133,6 +133,8 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
 
                                 {/* Card Actions */}
                                 <div className="card-actions">
+
+                                    {/* 👁️ Preview Button - Free from Iron Wall (Everyone can see) */}
                                     <button
                                         className="action-btn preview"
                                         onClick={handlePreview}
@@ -144,33 +146,44 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio }) => {
                                             <circle cx="12" cy="12" r="3" />
                                         </svg>
                                     </button>
-                                    <button
-                                        className="action-btn edit"
-                                        onClick={() => handleEditClick(item)}
-                                        title="Edit Portfolio"
-                                        aria-label="Edit portfolio"
-                                    >
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        className="action-btn delete"
-                                        onClick={() => handleDelete(item._id)}
-                                        disabled={deleting === item._id}
-                                        title="Delete Portfolio"
-                                        aria-label="Delete portfolio"
-                                    >
-                                        {deleting === item._id ? (
-                                            <span className="spinner-small"></span>
-                                        ) : (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                <polyline points="3 6 5 6 21 6" />
-                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                            </svg>
-                                        )}
-                                    </button>
+
+                                    {/* 🛡️ Start of Iron Wall */}
+                                    {currentUser && (currentUser.role === 'admin' || item.userId === currentUser.id) && (
+                                        <>
+                                            {/* Edit Button */}
+                                            <button
+                                                className="action-btn edit"
+                                                onClick={() => handleEditClick(item)}
+                                                title="Edit Portfolio"
+                                                aria-label="Edit portfolio"
+                                            >
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                </svg>
+                                            </button>
+
+                                            {/* Delete Button */}
+                                            <button
+                                                className="action-btn delete"
+                                                onClick={() => handleDelete(item._id)}
+                                                disabled={deleting === item._id}
+                                                title="Delete Portfolio"
+                                                aria-label="Delete portfolio"
+                                            >
+                                                {deleting === item._id ? (
+                                                    <span className="spinner-small"></span>
+                                                ) : (
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                        <polyline points="3 6 5 6 21 6" />
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                    </svg>
+                                                )}
+                                            </button>
+                                        </>
+                                    )}
+                                    {/* 🛡️ End of Iron Wall */}
+
                                 </div>
                             </article>
                         ))}
