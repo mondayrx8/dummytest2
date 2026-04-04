@@ -35,6 +35,38 @@ const App = () => {
     fetchPortfolios();
   }, []);
 
+  // 📡 RADAR IDLE TIMEOUT (10 MINIT)
+  useEffect(() => {
+    // Hanya aktifkan radar kalau user dah login
+    if (!token) return;
+
+    let timeoutId;
+
+    const logoutUser = () => {
+      alert("⚠️ Sesi tamat kerana tiada pergerakan (Idle 10 Minit). Sila log masuk semula.");
+      localStorage.removeItem('token');
+      setToken(null);
+    };
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(logoutUser, 5000); // 600000ms = 10 mins
+    };
+
+    const events = ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'];
+
+    // Pasang telinga untuk kesan pergerakan user
+    events.forEach(event => window.addEventListener(event, resetTimer));
+    resetTimer(); // Mula kira detik sekarang
+
+    // Cuci radar bila tutup komponen
+    return () => {
+      clearTimeout(timeoutId);
+      events.forEach(event => window.removeEventListener(event, resetTimer));
+    };
+  }, [token]);
+
+
   return (
     <BrowserRouter>
       <div className="app-container">
