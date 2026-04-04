@@ -129,11 +129,6 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                                                 : item.description)
                                             : "No description provided."}
                                     </p>
-                                    <div style={{ background: 'black', color: 'lime', padding: '5px', marginTop: '10px', fontSize: '11px', fontFamily: 'monospace' }}>
-                                        Owner ID: {item.userId || "EMPTY"} <br />
-                                        My ID: {currentUser ? currentUser.id : "EMPTY"} <br />
-                                        Role: {currentUser ? currentUser.role : "EMPTY"}
-                                    </div>
                                 </div>
 
                                 {/* Card Actions */}
