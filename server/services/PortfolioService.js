@@ -32,7 +32,7 @@ class PortfolioService {
      * @throws {Error} If validation or save fails
      */
     async create(data) {
-        const { studentName, teamMembers, businessName, description, marketSize, image } = data;
+        const { studentName, teamMembers, businessName, description, marketSize, image, userId } = data;
 
         const newPortfolio = new Portfolio({
             studentName,
@@ -41,6 +41,7 @@ class PortfolioService {
             description,
             marketSize,
             image,
+            userId,
         });
 
         return newPortfolio.save();
