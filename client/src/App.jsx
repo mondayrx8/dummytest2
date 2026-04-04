@@ -14,12 +14,31 @@ const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [portfolios, setPortfolios] = useState([]);
   const [currentPortfolio, setCurrentPortfolio] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   // Ensure the token stays valid on refresh
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
-    if (savedToken) setToken(savedToken);
-  }, []);
+    if (savedToken) {
+      setToken(savedToken);
+      // Decode JWT token to read ID and Role
+      try {
+        const base64Url = savedToken.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        const payload = JSON.parse(jsonPayload);
+        setCurrentUser(payload);
+      } catch (error) {
+        console.error("Token is broken", error);
+        setCurrentUser(null);
+      }
+    } else {
+      setCurrentUser(null);
+    }
+  }, [token]);
 
   // Function to refresh the portfolio list
   const fetchPortfolios = async () => {
@@ -94,6 +113,7 @@ const App = () => {
                   portfolios={portfolios}
                   onDelete={fetchPortfolios}
                   setCurrentPortfolio={setCurrentPortfolio}
+                  currentUser={currentUser}
                 />
               ) : <Navigate to="/login" />
             } />
