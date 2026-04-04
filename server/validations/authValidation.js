@@ -32,12 +32,6 @@ const registerSchema = z
             .min(6, 'Password must be at least 6 characters')
             .max(128, 'Password must be at most 128 characters'),
 
-        confirmPassword: z
-            .string({ required_error: 'Please confirm your password' }),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        message: 'Passwords do not match',
-        path: ['confirmPassword'], // Attaches the error to the confirmPassword field
     });
 
 // ──────────────────────────────────────────────
