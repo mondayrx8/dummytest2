@@ -48,22 +48,35 @@ class PortfolioService {
 
     /**
      * Update an existing portfolio entry by ID.
-     *
-     * @param {string} id   - Mongoose ObjectId of the portfolio to update
-     * @param {Object} data - Fields to update (partial or full)
-     * @returns {Promise<Object|null>} The updated document, or null if not found
      */
-    async update(id, data) {
+    async update(id, data, userId, userRole) {
+        const portfolio = await Portfolio.findById(id);
+        if (!portfolio) throw new Error("Portfolio not found");
+
+        // Privacy: If not admin and not owner, kick him!
+        if (userRole !== 'admin' && portfolio.userId.toString() !== userId.toString()) {
+            const error = new Error("Access Denied: You cannot edit someone else's portfolio.");
+            error.statusCode = 403;
+            throw error;
+        }
+
         return Portfolio.findByIdAndUpdate(id, data, { new: true });
     }
 
     /**
      * Delete a portfolio entry by ID.
-     *
-     * @param {string} id - Mongoose ObjectId of the portfolio to delete
-     * @returns {Promise<Object|null>} The deleted document, or null if not found
      */
-    async delete(id) {
+    async delete(id, userId, userRole) {
+        const portfolio = await Portfolio.findById(id);
+        if (!portfolio) throw new Error("Portfolio not found");
+
+        // Privacy: If not admin and not owner, kick him!
+        if (userRole !== 'admin' && portfolio.userId.toString() !== userId.toString()) {
+            const error = new Error("Access Denied: You cannot delete someone else's portfolio.");
+            error.statusCode = 403;
+            throw error;
+        }
+
         return Portfolio.findByIdAndDelete(id);
     }
 }

@@ -37,33 +37,38 @@ class PortfolioController {
 
     /**
      * POST /add
-     * Creates a new portfolio entry (protected route).
-     * Body has already been validated by Zod middleware.
      */
     async create(req, res) {
-        const savedPortfolio = await this.portfolioService.create(req.body);
+        // Kita selitkan userId ke dalam data dari frontend sebelum hantar ke database
+        const portfolioData = { ...req.body, userId: req.user.id };
+        const savedPortfolio = await this.portfolioService.create(portfolioData);
         res.status(201).json(savedPortfolio);
     }
 
     /**
      * PUT /update/:id
-     * Updates an existing portfolio entry (protected route).
-     * Body has already been validated by Zod middleware.
      */
     async update(req, res) {
+        // Controller WAJIB suapkan ID dan Role pengguna yang tengah tekan butang
         const updatedPortfolio = await this.portfolioService.update(
             req.params.id,
-            req.body
+            req.body,
+            req.user.id,
+            req.user.role
         );
         res.status(200).json(updatedPortfolio);
     }
 
     /**
      * DELETE /delete/:id
-     * Removes a portfolio entry (protected route).
      */
     async delete(req, res) {
-        await this.portfolioService.delete(req.params.id);
+        // Controller WAJIB suapkan ID dan Role pengguna yang tengah tekan butang
+        await this.portfolioService.delete(
+            req.params.id,
+            req.user.id,
+            req.user.role
+        );
         res.status(200).json({ message: 'Deleted successfully' });
     }
 }

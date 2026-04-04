@@ -75,12 +75,12 @@ class AuthService {
             throw error;
         }
 
-        // Sign JWT with user ID as payload
-        const token = jwt.sign({ id: user._id }, this.jwtSecret, {
+        // Sign JWT with user ID dan ROLE
+        const token = jwt.sign({ id: user._id, role: user.role }, this.jwtSecret, {
             expiresIn: this.jwtExpiry,
         });
 
-        return { token, username: user.username };
+        return { token, username: user.username, role: user.role };
     }
 }
 

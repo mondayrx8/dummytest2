@@ -43,14 +43,14 @@ const App = () => {
     let timeoutId;
 
     const logoutUser = () => {
-      alert("⚠️ Sesi tamat kerana tiada pergerakan (Idle 10 Minit). Sila log masuk semula.");
+      alert("⚠️ Session has timed out after 10 minutes of inactivity. Please login again.");
       localStorage.removeItem('token');
       setToken(null);
     };
 
     const resetTimer = () => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(logoutUser, 5000); // 600000ms = 10 mins
+      timeoutId = setTimeout(logoutUser, 600000); // 600000ms = 10 mins
     };
 
     const events = ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'];
