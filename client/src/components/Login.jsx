@@ -53,7 +53,7 @@ const Login = ({ setToken }) => {
           <div className="brand-icon-wrapper">
             <span className="brand-icon">🚀</span>
           </div>
-          <h1 className="brand-title">DEPB</h1>
+          <h1 className="brand-title">SiswaNiaga</h1>
         </div>
 
         {/* Glass Card */}
@@ -133,7 +133,7 @@ const Login = ({ setToken }) => {
           {/* Toggle Login/Register */}
           <div className="card-footer">
             <p className="toggle-text">
-              {isRegistering ? "Already have an account?" : "New to DEPB?"}
+              {isRegistering ? "Already have an account?" : "New to SiswaNiaga?"}
               <button
                 type="button"
                 className="btn-toggle"

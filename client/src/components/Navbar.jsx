@@ -50,7 +50,7 @@ const Navbar = ({ user, setToken }) => {
                 {/* Brand */}
                 <Link to={user ? "/dashboard" : "/"} className="navbar-brand" onClick={closeMobileMenu}>
                     <span className="brand-icon">🚀</span>
-                    <span className="brand-text">DEPB</span>
+                    <span className="brand-text">SiswaNiaga</span>
                 </Link>
 
                 {/* Mobile Toggle */}

@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="footer-section footer-brand-section">
             <div className="footer-brand">
               <span className="brand-icon">🚀</span>
-              <span className="brand-text">DEPB</span>
+              <span className="brand-text">Siswa Niaga</span>
             </div>
             <p className="footer-tagline">
               Empowering student entrepreneurs to showcase their innovative ventures to the world.
@@ -44,7 +44,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © {currentYear} DEPB. All rights reserved.
+            © {currentYear} SiswaNiaga. All rights reserved.
           </p>
           <div className="footer-bottom-links">
             <a href="#" className="footer-bottom-link">Privacy Policy</a>
