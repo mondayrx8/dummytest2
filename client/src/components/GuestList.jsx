@@ -50,8 +50,8 @@ const GuestList = () => {
                     </div>
 
                     <h1 className="hero-title">
-                        Discover Tomorrow's
-                        <span className="gradient-text"> Entrepreneurs</span>
+                        Discover University
+                        <span className="gradient-text"> Ventures</span>
                     </h1>
 
                     <p className="hero-subtitle">
@@ -141,7 +141,7 @@ const GuestList = () => {
                                             </div>
                                         )}
                                         <div className="card-overlay"></div>
-                                        <div className="card-category">Technology</div>
+                                        <div className="card-category">{item.category || 'Innovation'}</div>
                                     </div>
 
                                     {/* Card Content */}

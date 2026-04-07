@@ -123,7 +123,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         </header>
 
         {/* Form Container */}
-        <form onSubmit={handleSubmit} className="form-container glass-card">
+        <form onSubmit={handleSubmit} className="form-container">
           {/* Status Message */}
           {message && (
             <div className={`status-message ${message.includes('❌') ? 'error' : 'info'}`}>
@@ -268,13 +268,6 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           {/* Form Actions */}
           <div className="form-actions">
             <button
-              type="button"
-              onClick={handleCancel}
-              className="btn-cancel"
-            >
-              Cancel
-            </button>
-            <button
               type="submit"
               className="btn-save"
               disabled={loading}
@@ -284,6 +277,13 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               ) : (
                 currentPortfolio ? "Update Portfolio" : "Save & Publish"
               )}
+            </button>
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="btn-cancel"
+            >
+              Cancel
             </button>
           </div>
         </form>

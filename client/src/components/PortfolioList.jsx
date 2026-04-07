@@ -36,12 +36,6 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
 
     return (
         <div className="dashboard-page">
-            {/* Background Orbs */}
-            <div className="dashboard-bg">
-                <div className="orb orb-1"></div>
-                <div className="orb orb-2"></div>
-            </div>
-
             {/* Dashboard Header */}
             <header className="dashboard-header">
                 <div className="header-content">
@@ -55,8 +49,10 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                         onClick={() => navigate('/create')}
                         className="btn-create"
                     >
-                        <span className="btn-icon">✨</span>
-                        <span>New Project</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                        <span>New Venture</span>
                     </button>
                 </div>
             </header>
@@ -64,9 +60,12 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
             {/* Main Content */}
             <main className="dashboard-content">
                 {portfolios.length === 0 ? (
-                    /* Empty State */
-                    <div className="empty-state glass-card">
-                        <div className="empty-icon">🚀</div>
+                    <div className="empty-state premium-card">
+                        <div className="empty-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" width="64" height="64">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </div>
                         <h2 className="empty-title">Welcome, Entrepreneur!</h2>
                         <p className="empty-description">
                             You haven't created any portfolios yet. Start your first pitch
@@ -81,27 +80,11 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                         </button>
                     </div>
                 ) : (
-                    /* Portfolio Grid */
-                    <div className="portfolio-grid">
-                        {/* Create New Card */}
-                        <div
-                            className="create-card"
-                            onClick={() => navigate('/create')}
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(e) => e.key === 'Enter' && navigate('/create')}
-                        >
-                            <div className="create-icon">
-                                <span>+</span>
-                            </div>
-                            <h3 className="create-title">Create New Venture</h3>
-                            <p className="create-subtitle">Start a new project</p>
-                        </div>
-
+                    <div className="venture-grid">
                         {/* Portfolio Cards */}
                         {portfolios.map((item) => (
-                            <article key={item._id} className="portfolio-card glass-card">
-                                {/* Card Image */}
+                            <article key={item._id} className="venture-card premium-card">
+                                {/* Card Media */}
                                 <div className="card-media">
                                     {item.image ? (
                                         <img
@@ -112,11 +95,18 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                                         />
                                     ) : (
                                         <div className="card-placeholder">
-                                            <span className="placeholder-icon">📷</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="40" height="40">
+                                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                                <path d="M21 15l-5-5L5 21" />
+                                            </svg>
                                             <span className="placeholder-text">No Image</span>
                                         </div>
                                     )}
-                                    <div className="card-badge">Active</div>
+                                    {/* Category displayed here as a badge */}
+                                    {item.category && (
+                                        <div className="card-category-badge">{item.category}</div>
+                                    )}
                                 </div>
 
                                 {/* Card Body */}
@@ -133,57 +123,39 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
 
                                 {/* Card Actions */}
                                 <div className="card-actions">
-
-                                    {/* 👁️ Preview Button - Free from Iron Wall (Everyone can see) */}
+                                    {/* Everyone can preview */}
                                     <button
-                                        className="action-btn preview"
+                                        className="btn-action preview-link"
                                         onClick={handlePreview}
                                         title="Preview Public View"
-                                        aria-label="Preview portfolio"
                                     >
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
                                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                             <circle cx="12" cy="12" r="3" />
                                         </svg>
                                     </button>
 
-                                    {/* 🛡️ Start of Iron Wall */}
+                                    {/* RBAC check */}
                                     {currentUser && (currentUser.role === 'admin' || item.userId === currentUser.id) && (
-                                        <>
-                                            {/* Edit Button */}
+                                        <div className="admin-actions">
                                             <button
-                                                className="action-btn edit"
+                                                className="btn-action edit"
                                                 onClick={() => handleEditClick(item)}
                                                 title="Edit Portfolio"
-                                                aria-label="Edit portfolio"
                                             >
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                                </svg>
+                                                Edit
                                             </button>
 
-                                            {/* Delete Button */}
                                             <button
-                                                className="action-btn delete"
+                                                className="btn-action delete"
                                                 onClick={() => handleDelete(item._id)}
                                                 disabled={deleting === item._id}
                                                 title="Delete Portfolio"
-                                                aria-label="Delete portfolio"
                                             >
-                                                {deleting === item._id ? (
-                                                    <span className="spinner-small"></span>
-                                                ) : (
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                        <polyline points="3 6 5 6 21 6" />
-                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                                    </svg>
-                                                )}
+                                                {deleting === item._id ? "..." : "Delete"}
                                             </button>
-                                        </>
+                                        </div>
                                     )}
-                                    {/* 🛡️ End of Iron Wall */}
-
                                 </div>
                             </article>
                         ))}

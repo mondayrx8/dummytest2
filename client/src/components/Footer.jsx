@@ -6,51 +6,45 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="site-footer">
+    <footer className="footer-premium">
       <div className="footer-container">
-        <div className="footer-content">
-          {/* Brand Section */}
-          <div className="footer-section footer-brand-section">
+        <div className="footer-grid">
+          
+          {/* Section 1: Brand Name & Tagline */}
+          <div className="footer-section brand-section">
             <div className="footer-brand">
-              <span className="brand-icon">🚀</span>
-              <span className="brand-text">Siswa Niaga</span>
+              <svg className="footer-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              <h2>SiswaNiaga</h2>
             </div>
             <p className="footer-tagline">
-              Empowering student entrepreneurs to showcase their innovative ventures to the world.
+              Empowering University Entrepreneurs to build their business empires starting from campus.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Section 2: Quick Links */}
           <div className="footer-section">
-            <h4 className="footer-section-title">Quick Links</h4>
-            <div className="footer-links">
-              <Link to="/dashboard" className="footer-link">Dashboard</Link>
-              <Link to="/create" className="footer-link">Create Portfolio</Link>
-              <Link to="/investors" className="footer-link">Explore Ventures</Link>
-            </div>
+            <h3 className="footer-heading">Quick Links</h3>
+            <ul className="footer-links">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="#about">About Us</Link></li>
+              <li><Link to="#contact">Contact</Link></li>
+            </ul>
           </div>
 
-          {/* Resources */}
+          {/* Section 3: Legal & Copyright */}
           <div className="footer-section">
-            <h4 className="footer-section-title">Resources</h4>
-            <div className="footer-links">
-              <a href="#" className="footer-link">Documentation</a>
-              <a href="#" className="footer-link">Support</a>
-              <a href="#" className="footer-link">Contact Us</a>
-            </div>
+            <h3 className="footer-heading">Legal</h3>
+            <ul className="footer-links">
+              <li><Link to="#privacy">Privacy Policy</Link></li>
+              <li><Link to="#terms">Terms of Service</Link></li>
+            </ul>
+            <p className="footer-copyright">
+              © {currentYear} SiswaNiaga.<br />All rights reserved.
+            </p>
           </div>
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="footer-bottom">
-          <p className="footer-copyright">
-            © {currentYear} SiswaNiaga. All rights reserved.
-          </p>
-          <div className="footer-bottom-links">
-            <a href="#" className="footer-bottom-link">Privacy Policy</a>
-            <span className="footer-divider">•</span>
-            <a href="#" className="footer-bottom-link">Terms of Service</a>
-          </div>
         </div>
       </div>
     </footer>

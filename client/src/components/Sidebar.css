@@ -1,70 +1,56 @@
-/* ========== Premium Glassmorphous Sidebar ========== */
+/* ========== Premium Corporate Sidebar ========== */
 
 .modern-sidebar {
-    /* Solid Background - No Ghosting */
-    background: #0a0e27;
-    /* Deep Solid Navy */
-    /* Removed backdrop-filter to prevent transparency artifacts */
-    border-right: none;
-    /* Removed heavy border */
-
-    /* Fixed Positioning for Bulletproof Height */
+    background: var(--primary-color, #1E3A8A); /* Corporate Navy Blue */
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    /* Full viewport height */
-    width: var(--sidebar-width-expanded);
+    width: var(--sidebar-width-expanded, 260px);
     flex-shrink: 0;
     overflow-y: auto;
-    /* Internal scroll for menu items if needed */
-
     display: flex;
     flex-direction: column;
     padding: 24px 16px 80px 16px;
-    /* 80px bottom padding for Logout alignment */
     z-index: 100;
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-
-    /* Subtle Depth Shadow */
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+    border: none;
 }
 
 .modern-sidebar.collapsed {
-    width: var(--sidebar-width-collapsed);
+    width: var(--sidebar-width-collapsed, 80px);
 }
 
-/* Header & Brand */
 .sidebar-header {
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding-left: 8px;
-    /* Optical alignment */
     margin-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-brand {
     display: flex;
     align-items: center;
     gap: 16px;
-    color: white;
-    font-weight: 700;
-    font-size: 1.5rem;
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 1.4rem;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.brand-icon {
+    /* Focus Brand Icon to Startup Orange Accent */
+    color: var(--secondary-color, #F59E0B);
 }
 
 .brand-text {
     opacity: 1;
     transition: opacity 0.3s ease;
-    background: linear-gradient(90deg, #FFFFFF, #E2E8F0);
-    -webkit-background-clip: text;
-    background-clip: text;
-    /* Standard property for compatibility */
-    -webkit-text-fill-color: transparent;
 }
 
 .brand-text.hidden {
@@ -72,7 +58,6 @@
     pointer-events: none;
 }
 
-/* Menu Items */
 .sidebar-menu {
     flex: 1;
     display: flex;
@@ -86,29 +71,27 @@
     gap: 16px;
     padding: 14px 16px;
     border-radius: 12px;
-    color: #94A3B8;
-    /* Slate 400 */
+    color: rgba(255, 255, 255, 0.75);
     font-weight: 500;
     font-size: 0.95rem;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     min-height: 48px;
-    /* Touch target size */
+    text-decoration: none;
+    border: 1px solid transparent;
 }
 
-/* Hover Effects */
 .menu-item:hover {
-    color: white;
-    background: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.08); /* Slight White Wash on Hover */
 }
 
-/* Active State */
+/* Active Nav Area using Startup Orange */
 .menu-item.active {
-    color: white;
-    background: rgba(5, 150, 105, 0.2);
-    /* Emerald Tint */
-    border: 1px solid rgba(5, 150, 105, 0.4);
+    color: #FFFFFF;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .menu-item.active::before {
@@ -118,7 +101,7 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: var(--brand-primary);
+    background: var(--secondary-color, #F59E0B);
     border-radius: 0 4px 4px 0;
 }
 
@@ -129,6 +112,7 @@
     width: 24px;
     height: 24px;
     flex-shrink: 0;
+    color: inherit;
 }
 
 .menu-text {
@@ -142,72 +126,56 @@
     display: none;
 }
 
-/* Divider */
 .menu-divider {
     height: 1px;
     background: rgba(255, 255, 255, 0.1);
     margin: 16px 0;
 }
 
-/* Collapse Button (Desktop Only) */
+/* Base button cleanup */
+.menu-item.collapse-toggle-item,
+.menu-item.logout-item {
+    background: none;
+    cursor: pointer;
+}
+
 .collapse-toggle-item {
     margin-top: auto;
-    color: #64748B;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .collapse-toggle-item:hover {
-    color: white;
+    color: #FFFFFF;
 }
 
-/* ========== MOBILE FIRST MASTERY ========== */
+/* Distinct Logout Warning State */
+.logout-item:hover {
+    color: #EF4444 !important;
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ========== Mobile Handling ========== */
 @media (max-width: 968px) {
     .modern-sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        height: 100dvh;
-        /* Dynamic Viewport Height */
-        width: 80% !important;
-        /* Drawer style */
-        max-width: 320px;
-        z-index: 9999 !important;
         transform: translateX(-100%);
-        border-right: 1px solid var(--brand-primary);
-        box-shadow: 10px 0 50px rgba(0, 0, 0, 0.5);
+        width: 280px !important;
+        box-shadow: 10px 0 50px rgba(0, 0, 0, 0.4);
     }
-
+    
     .modern-sidebar.mobile-open {
         transform: translateX(0);
     }
 
-    /* Hide Desktop Collapse Toggle on Mobile */
     .collapse-toggle-item {
         display: none;
     }
 
-    /* Force full opacity/visibility for text on mobile */
-    .brand-text,
-    .menu-text {
-        opacity: 1 !important;
-        display: block !important;
-        width: auto !important;
-    }
-
-    /* Mobile Overlay Backdrop (Optional, but good UX) */
     .mobile-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(15, 23, 42, 0.5);
         backdrop-filter: blur(4px);
-        z-index: 9998;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s;
-    }
-
-    .mobile-backdrop.active {
-        opacity: 1;
-        pointer-events: auto;
+        z-index: 99;
     }
 }

@@ -40,24 +40,19 @@ const Login = ({ setToken }) => {
 
   return (
     <div className="login-page">
-      {/* Animated Background Blobs */}
-      <div className="login-background">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
-        <div className="orb orb-3"></div>
-      </div>
-
       <div className="login-container">
         {/* Brand Logo */}
         <div className="login-brand">
           <div className="brand-icon-wrapper">
-            <span className="brand-icon">🚀</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
           </div>
           <h1 className="brand-title">SiswaNiaga</h1>
         </div>
 
-        {/* Glass Card */}
-        <div className="login-card glass-card">
+        {/* Auth Card */}
+        <div className="auth-card">
           <div className="card-header">
             <h2 className="card-title">
               {isRegistering ? "Create Account" : "Welcome Back"}
@@ -72,8 +67,12 @@ const Login = ({ setToken }) => {
           {/* Error Banner */}
           {error && (
             <div className="error-banner">
-              <span className="error-icon">⚠️</span>
-              <span className="error-text">{error}</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span>{error}</span>
             </div>
           )}
 
@@ -84,14 +83,19 @@ const Login = ({ setToken }) => {
                 Username
               </label>
               <div className="input-wrapper">
-                <span className="input-icon">👤</span>
+                <span className="input-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </span>
                 <input
                   id="username"
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your student ID"
-                  className="glass-input"
+                  className="modern-input"
                   required
                   autoComplete="username"
                 />
@@ -103,14 +107,19 @@ const Login = ({ setToken }) => {
                 Password
               </label>
               <div className="input-wrapper">
-                <span className="input-icon">🔒</span>
+                <span className="input-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </span>
                 <input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="glass-input"
+                  className="modern-input"
                   required
                   autoComplete={isRegistering ? "new-password" : "current-password"}
                 />
@@ -123,7 +132,7 @@ const Login = ({ setToken }) => {
               disabled={loading}
             >
               {loading ? (
-                <span className="spinner"></span>
+                "Loading..."
               ) : (
                 isRegistering ? "Create Account" : "Sign In"
               )}
@@ -150,7 +159,6 @@ const Login = ({ setToken }) => {
 
         {/* Guest Link */}
         <Link to="/investors" className="guest-link">
-          <span className="guest-icon">🌐</span>
           <span>Explore Ventures as Guest</span>
           <span className="guest-arrow">→</span>
         </Link>
