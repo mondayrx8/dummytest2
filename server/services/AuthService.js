@@ -82,6 +82,50 @@ class AuthService {
 
         return { token, username: user.username, role: user.role };
     }
+
+    /**
+     * Get user profile by ID.
+     * @param {string} userId
+     * @returns {Promise<Object>}
+     */
+    async getProfile(userId) {
+        const user = await User.findById(userId).select('-password');
+        if (!user) {
+            const error = new Error('User not found');
+            error.statusCode = 404;
+            throw error;
+        }
+        return { username: user.username, role: user.role };
+    }
+
+    /**
+     * Change user password.
+     * @param {string} userId
+     * @param {string} oldPassword
+     * @param {string} newPassword
+     * @returns {Promise<{message: string}>}
+     */
+    async changePassword(userId, oldPassword, newPassword) {
+        const user = await User.findById(userId);
+        if (!user) {
+            const error = new Error('User not found');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            const error = new Error('Invalid old password');
+            error.statusCode = 400;
+            throw error;
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, this.saltRounds);
+        user.password = hashedPassword;
+        await user.save();
+
+        return { message: 'Password updated successfully!' };
+    }
 }
 
 module.exports = AuthService;

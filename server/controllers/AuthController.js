@@ -47,10 +47,15 @@ class AuthController {
      *
      * NOTE: No try/catch needed — same reasoning as above.
      */
-    async login(req, res) {
-        const { username, password } = req.body;
-        const result = await this.authService.login(username, password);
-        res.json(result);
+    async login(req, res, next) {
+        try {
+            const { username, password } = req.body;
+            const result = await this.authService.login(username, password);
+            res.json(result);
+        } catch (error) {
+            // Ini akan hantar ralat ke errorHandler.js kau
+            next(error);
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -7,6 +7,19 @@ import './PortfolioList.css';
 const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser }) => {
     const navigate = useNavigate();
     const [deleting, setDeleting] = useState(null);
+    const [stats, setStats] = useState({ totalUsers: 0, totalVisits: 0 });
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const response = await axios.get('https://dummytest2.onrender.com/api/stats');
+                setStats(response.data);
+            } catch (error) {
+                console.error("Error fetching stats:", error);
+            }
+        };
+        fetchStats();
+    }, []);
 
     const handleDelete = async (id) => {
         if (!window.confirm("🗑️ Are you sure you want to delete this portfolio? This action cannot be undone.")) return;
@@ -56,6 +69,18 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                     </button>
                 </div>
             </header>
+
+            {/* Statistics Radar */}
+            <section className="stats-radar" style={{ maxWidth: '1280px', margin: '0 auto 32px', padding: '0 24px', display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+                <div className="stat-card" style={{ flex: 1, minWidth: '250px', background: 'linear-gradient(135deg, #1E3A8A, #0f172a)', color: 'white', padding: '24px', borderRadius: '16px', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}>
+                    <h3 style={{ margin: '0 0 8px', fontSize: '1.1rem', opacity: 0.9 }}>👥 Total Registered Users</h3>
+                    <p style={{ margin: 0, fontSize: '2.5rem', fontWeight: 800 }}>{stats.totalUsers}</p>
+                </div>
+                <div className="stat-card" style={{ flex: 1, minWidth: '250px', background: 'linear-gradient(135deg, #f97316, #ea580c)', color: 'white', padding: '24px', borderRadius: '16px', boxShadow: '0 10px 20px rgba(249,115,22,0.2)' }}>
+                    <h3 style={{ margin: '0 0 8px', fontSize: '1.1rem', opacity: 0.9 }}>🌍 Global Platform Visits</h3>
+                    <p style={{ margin: 0, fontSize: '2.5rem', fontWeight: 800 }}>{stats.totalVisits}</p>
+                </div>
+            </section>
 
             {/* Main Content */}
             <main className="dashboard-content">

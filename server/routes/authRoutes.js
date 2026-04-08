@@ -16,6 +16,7 @@ const router = express.Router();
 
 // ── Middleware ───────────────────────────────────────
 const validate = require('../middleware/validate');
+const auth = require('../middleware/authMiddleware');
 
 // ── Validation Schemas ──────────────────────────────
 const { registerSchema, loginSchema } = require('../validations/authValidation');
@@ -38,5 +39,11 @@ router.post('/register', validate(registerSchema), authController.register);
 //   1. validate(loginSchema)   → checks username & password are present
 //   2. authController.login    → delegates to AuthService.login()
 router.post('/login', validate(loginSchema), authController.login);
+
+// GET /api/auth/profile     -  Get current user profile
+router.get('/profile', auth, authController.getProfile);
+
+// PUT /api/auth/change-password  -  Change user password
+router.put('/change-password', auth, authController.changePassword);
 
 module.exports = router;

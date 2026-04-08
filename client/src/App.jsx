@@ -10,6 +10,7 @@ import Login from './components/Login';
 import GuestList from './components/GuestList';
 import LandingPage from './components/LandingPage';
 import PortfolioDetails from './components/PortfolioDetails';
+import UserProfile from './components/UserProfile';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -131,6 +132,11 @@ const App = () => {
                   setCurrentPortfolio={setCurrentPortfolio}
                 />
               ) : <Navigate to="/login" />
+            } />
+
+            {/* User Profile - Protected */}
+            <Route path="/profile" element={
+              token ? <UserProfile /> : <Navigate to="/login" />
             } />
 
             {/* Catch-all redirect */}

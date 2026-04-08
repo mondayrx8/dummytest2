@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import html2pdf from 'html2pdf.js';
 import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
@@ -62,10 +63,28 @@ const PortfolioDetails = () => {
         mediaProof
     } = portfolio;
 
+    const handleDownloadPDF = () => {
+        const element = document.getElementById('portfolio-pdf-content');
+        
+        const opt = {
+            margin:       [10, 10, 10, 10],
+            filename:     `${businessName ? businessName.replace(/\s+/g, '_') : 'Startup'}_Pitch_Deck.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().from(element).set(opt).save();
+    };
+
     return (
         <div className="portfolio-details-page">
-            <button onClick={() => navigate(-1)} className="btn-back-floating">← Back</button>
+            <div className="floating-actions" style={{ position: 'fixed', top: '24px', left: '24px', zIndex: 100, display: 'flex', gap: '12px' }}>
+                <button onClick={() => navigate(-1)} className="btn-back-floating" style={{ position: 'static' }}>← Back</button>
+                <button onClick={handleDownloadPDF} className="btn-back-floating" style={{ position: 'static', background: '#f97316', color: 'white' }}>📥 Download PDF</button>
+            </div>
             
+            <div id="portfolio-pdf-content">
             {/* Banner Section */}
             <div className="portfolio-banner">
                 {image ? (
@@ -200,6 +219,8 @@ const PortfolioDetails = () => {
                 </div>
 
             </div>
+            </div>
+            {/* End PDF Wrapper */}
         </div>
     );
 };
