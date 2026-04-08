@@ -52,30 +52,32 @@ const errorHandler = (err, req, res, next) => {
     // ── 2. Zod Validation Errors ────────────────────────────────
     // These are thrown by the validate() middleware when req.body
     // does not match the Zod schema.
-    if (err instanceof ZodError) {
-        const formattedErrors = err.errors.map((e) => ({
-            field: e.path.join('.'),
-            message: e.message,
+    if (err instanceof ZodError || err.name === 'ZodError') {
+        const rawErrors = err.errors || [];
+        const formattedErrors = rawErrors.map((e) => ({
+            field: e.path?.join('.') || 'input',
+            message: e.message || 'Validation failed',
         }));
 
         return res.status(400).json({
             success: false,
             message: 'Validation failed',
-            errors: formattedErrors,
+            errors: formattedErrors.length > 0 ? formattedErrors : [{ message: err.message || 'Invalid data submitted' }],
         });
     }
 
     // ── 3. Mongoose Validation Errors ───────────────────────────
     if (err.name === 'ValidationError') {
-        const formattedErrors = Object.values(err.errors).map((e) => ({
-            field: e.path,
-            message: e.message,
+        const errorValues = err.errors ? Object.values(err.errors) : [];
+        const formattedErrors = errorValues.map((e) => ({
+            field: e.path || 'database_field',
+            message: e.message || 'Validation failed',
         }));
 
         return res.status(400).json({
             success: false,
             message: 'Database validation failed',
-            errors: formattedErrors,
+            errors: formattedErrors.length > 0 ? formattedErrors : [{ message: err.message || 'Invalid database constraints' }],
         });
     }
 
