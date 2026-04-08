@@ -24,6 +24,8 @@ class AuthController {
         // without losing the `this` context.
         this.register = this.register.bind(this);
         this.login = this.login.bind(this);
+        this.getProfile = this.getProfile.bind(this);
+        this.changePassword = this.changePassword.bind(this);
     }
 
     /**
@@ -54,6 +56,33 @@ class AuthController {
             res.json(result);
         } catch (error) {
             // Ini akan hantar ralat ke errorHandler.js kau
+            next(error);
+        }
+    }
+
+    /**
+     * GET /profile
+     * Get current user profile
+     */
+    async getProfile(req, res, next) {
+        try {
+            const profile = await this.authService.getProfile(req.user.id);
+            res.json(profile);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    /**
+     * PUT /change-password
+     * Change user password
+     */
+    async changePassword(req, res, next) {
+        try {
+            const { oldPassword, newPassword } = req.body;
+            const result = await this.authService.changePassword(req.user.id, oldPassword, newPassword);
+            res.json(result);
+        } catch (error) {
             next(error);
         }
     }
