@@ -40,6 +40,52 @@ const portfolioFields = {
     image: z
         .string()
         .optional(),
+
+    businessBasics: z.object({
+        name: z.string().optional(),
+        type: z.enum(['Food', 'Beverage', 'Service', 'Hybrid', '']).optional(),
+        startDate: z.string().optional(),
+        location: z.string().optional()
+    }).optional(),
+
+    productOffering: z.object({
+        mainItems: z.union([z.string(), z.array(z.string())]).optional(),
+        priceRange: z.string().optional(),
+        uniqueness: z.string().optional()
+    }).optional(),
+
+    customerMarket: z.object({
+        targetCustomers: z.string().optional(),
+        customerCount: z.union([z.string(), z.number()]).optional(),
+        acquisitionChannels: z.union([z.string(), z.array(z.string())]).optional()
+    }).optional(),
+
+    operations: z.object({
+        prepLocation: z.string().optional(),
+        teamSize: z.union([z.number(), z.string()]).optional(),
+        toolsUsed: z.union([z.string(), z.array(z.string())]).optional()
+    }).optional(),
+
+    salesRevenue: z.object({
+        monthlyRevenue: z.union([z.string(), z.number()]).optional(),
+        paymentMethods: z.union([z.string(), z.array(z.string())]).optional(),
+        peakTimes: z.string().optional()
+    }).optional(),
+
+    challenges: z.object({
+        topChallenge: z.string().optional(),
+        solution: z.string().optional()
+    }).optional(),
+
+    learningGrowth: z.object({
+        skillsGained: z.union([z.string(), z.array(z.string())]).optional(),
+        futurePlans: z.string().optional()
+    }).optional(),
+
+    mediaProof: z.object({
+        mediaLinks: z.array(z.string()).optional(),
+        socialLinks: z.string().optional()
+    }).optional()
 };
 
 // ──────────────────────────────────────────────
@@ -52,6 +98,14 @@ const createPortfolioSchema = z.object({
     description: portfolioFields.description,
     marketSize: portfolioFields.marketSize,
     image: portfolioFields.image,
+    businessBasics: portfolioFields.businessBasics,
+    productOffering: portfolioFields.productOffering,
+    customerMarket: portfolioFields.customerMarket,
+    operations: portfolioFields.operations,
+    salesRevenue: portfolioFields.salesRevenue,
+    challenges: portfolioFields.challenges,
+    learningGrowth: portfolioFields.learningGrowth,
+    mediaProof: portfolioFields.mediaProof,
 });
 
 // ──────────────────────────────────────────────

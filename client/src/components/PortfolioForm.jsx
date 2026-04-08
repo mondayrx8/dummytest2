@@ -5,31 +5,66 @@ import './PortfolioForm.css';
 
 const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+
+  const initialFormState = {
     studentName: '',
     teamMembers: '',
     businessName: '',
     description: '',
     marketSize: '',
-    image: ''
-  });
+    image: '',
+    businessBasics: { name: '', type: '', startDate: '', location: '' },
+    productOffering: { mainItems: '', priceRange: '', uniqueness: '' },
+    customerMarket: { targetCustomers: '', customerCount: '', acquisitionChannels: '' },
+    operations: { prepLocation: '', teamSize: '', toolsUsed: '' },
+    salesRevenue: { monthlyRevenue: '', paymentMethods: '', peakTimes: '' },
+    challenges: { topChallenge: '', solution: '' },
+    learningGrowth: { skillsGained: '', futurePlans: '' },
+    mediaProof: { mediaLinks: '', socialLinks: '' }
+  };
 
+  const [formData, setFormData] = useState(initialFormState);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     if (currentPortfolio) {
-      setFormData(currentPortfolio);
+      setFormData({ 
+        ...initialFormState, 
+        ...currentPortfolio,
+        businessBasics: { ...initialFormState.businessBasics, ...(currentPortfolio.businessBasics || {}) },
+        productOffering: { ...initialFormState.productOffering, ...(currentPortfolio.productOffering || {}) },
+        customerMarket: { ...initialFormState.customerMarket, ...(currentPortfolio.customerMarket || {}) },
+        operations: { ...initialFormState.operations, ...(currentPortfolio.operations || {}) },
+        salesRevenue: { ...initialFormState.salesRevenue, ...(currentPortfolio.salesRevenue || {}) },
+        challenges: { ...initialFormState.challenges, ...(currentPortfolio.challenges || {}) },
+        learningGrowth: { ...initialFormState.learningGrowth, ...(currentPortfolio.learningGrowth || {}) },
+        mediaProof: { 
+            mediaLinks: currentPortfolio.mediaProof?.mediaLinks ? currentPortfolio.mediaProof.mediaLinks.join('\n') : '', 
+            socialLinks: currentPortfolio.mediaProof?.socialLinks || '' 
+        }
+      });
       setMessage('✏️ Editing Mode Enabled');
     } else {
-      setFormData({ studentName: '', teamMembers: '', businessName: '', description: '', marketSize: '', image: '' });
+      setFormData(initialFormState);
       setMessage('');
     }
+    // eslint-disable-next-line
   }, [currentPortfolio]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleNestedChange = (section, e) => {
+    setFormData({
+      ...formData,
+      [section]: {
+        ...formData[section],
+        [e.target.name]: e.target.value
+      }
+    });
   };
 
   const handleFileChange = (e) => {
@@ -49,11 +84,25 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     try {
       const config = { headers: { 'auth-token': token } };
 
+      const processedMediaLinks = typeof formData.mediaProof.mediaLinks === 'string'
+        ? formData.mediaProof.mediaLinks.split(/[\n,]+/).map(l => l.trim()).filter(l => l)
+        : formData.mediaProof.mediaLinks;
+
+      const submitData = {
+          ...formData, // Spread top level fields
+          // Ensure businessName at top level stays in sync
+          businessName: formData.businessName || formData.businessBasics.name,
+          mediaProof: {
+              ...formData.mediaProof,
+              mediaLinks: processedMediaLinks
+          }
+      };
+
       if (currentPortfolio) {
-        await axios.put(`https://dummytest2.onrender.com/api/portfolio/update/${currentPortfolio._id}`, formData, config);
+        await axios.put(`https://dummytest2.onrender.com/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
         setCurrentPortfolio(null);
       } else {
-        await axios.post('https://dummytest2.onrender.com/api/portfolio/add', formData, config);
+        await axios.post('https://dummytest2.onrender.com/api/portfolio/add', submitData, config);
       }
 
       onSave();
@@ -70,18 +119,21 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
   const handleCancel = () => {
     setCurrentPortfolio(null);
-    setFormData({ studentName: '', businessName: '', description: '', marketSize: '', image: '' });
+    setFormData(initialFormState);
     navigate('/dashboard');
   };
 
-  // Calculate progress percentage
   const calculateProgress = () => {
     let filled = 0;
-    const fields = ['studentName', 'businessName', 'description', 'marketSize', 'image'];
-    fields.forEach(field => {
-      if (formData[field] && formData[field].length > 0) filled++;
+    const requiredChecks = [
+      formData.studentName, formData.businessName, formData.description, formData.marketSize,
+      formData.businessBasics.type, formData.productOffering.mainItems, formData.customerMarket.targetCustomers,
+      formData.salesRevenue.monthlyRevenue
+    ];
+    requiredChecks.forEach(field => {
+      if (field && field.toString().trim().length > 0) filled++;
     });
-    return (filled / fields.length) * 100;
+    return Math.min(Math.round((filled / requiredChecks.length) * 100), 100);
   };
 
   return (
@@ -94,23 +146,15 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         </div>
       )}
 
-      {/* Background Orbs */}
-      <div className="form-bg">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
-      </div>
-
       <div className="form-wrapper">
-        {/* Page Header */}
         <header className="form-header">
           <h1 className="form-title">
-            {currentPortfolio ? "Edit Your Portfolio" : "Design Your Venture"}
+            {currentPortfolio ? "Edit Business Pitch" : "Create Business Pitch"}
           </h1>
           <p className="form-subtitle">
-            Create a compelling pitch to showcase your innovative ideas to investors
+            Complete the sections below to build a comprehensive presentation for your startup venture.
           </p>
 
-          {/* Progress Bar */}
           <div className="progress-wrapper">
             <div className="progress-bar">
               <div
@@ -118,24 +162,22 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 style={{ width: `${calculateProgress()}%` }}
               ></div>
             </div>
-            <span className="progress-text">{Math.round(calculateProgress())}% Complete</span>
+            <span className="progress-text">{calculateProgress()}% Complete</span>
           </div>
         </header>
 
-        {/* Form Container */}
         <form onSubmit={handleSubmit} className="form-container">
-          {/* Status Message */}
           {message && (
             <div className={`status-message ${message.includes('❌') ? 'error' : 'info'}`}>
               {message}
             </div>
           )}
 
-          {/* Section 1: Project Identity */}
-          <section className="form-section">
-            <div className="section-header">
-              <span className="section-number">1</span>
-              <h2 className="section-title">Project Identity</h2>
+          {/* 1. Business Basics */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">1</span>
+              <h2 className="card-title">Business Basics</h2>
             </div>
 
             <div className="form-grid">
@@ -146,7 +188,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   name="studentName"
                   value={formData.studentName}
                   onChange={handleChange}
-                  className="glass-input"
+                  className="modern-input"
                   placeholder="e.g. Khairul Aming"
                   required
                 />
@@ -158,8 +200,11 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   type="text"
                   name="businessName"
                   value={formData.businessName}
-                  onChange={handleChange}
-                  className="glass-input"
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleNestedChange('businessBasics', { target: { name: 'name', value: e.target.value } });
+                  }}
+                  className="modern-input"
                   placeholder="e.g. Sambal Nyet"
                   required
                 />
@@ -173,67 +218,359 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 name="teamMembers"
                 value={formData.teamMembers}
                 onChange={handleChange}
-                className="glass-input"
+                className="modern-input"
                 placeholder="Co-founders, key partners..."
+              />
+            </div>
+
+            <div className="form-grid mt-4">
+              <div className="input-group">
+                <label className="input-label">Business Type</label>
+                <select
+                  name="type"
+                  value={formData.businessBasics.type}
+                  onChange={(e) => handleNestedChange('businessBasics', e)}
+                  className="modern-select"
+                >
+                  <option value="">Select a category</option>
+                  <option value="Food">Food</option>
+                  <option value="Beverage">Beverage</option>
+                  <option value="Service">Service</option>
+                  <option value="Hybrid">Hybrid</option>
+                </select>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">Start Date</label>
+                <input
+                  type="date"
+                  name="startDate"
+                  value={formData.businessBasics.startDate}
+                  onChange={(e) => handleNestedChange('businessBasics', e)}
+                  className="modern-input"
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Operating Location</label>
+              <input
+                type="text"
+                name="location"
+                value={formData.businessBasics.location}
+                onChange={(e) => handleNestedChange('businessBasics', e)}
+                className="modern-input"
+                placeholder="Where does the business operate from?"
               />
             </div>
           </section>
 
-          {/* Section 2: The Pitch */}
-          <section className="form-section">
-            <div className="section-header">
-              <span className="section-number">2</span>
-              <h2 className="section-title">The Pitch</h2>
+          {/* 2. Product or Service Offering */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">2</span>
+              <h2 className="card-title">Product & Services</h2>
             </div>
 
             <div className="input-group">
-              <label className="input-label">Problem & Solution *</label>
+              <label className="input-label">Overview & Problem Solved *</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                className="glass-input glass-textarea"
-                placeholder="Describe the problem you're solving and your unique solution..."
+                className="modern-textarea"
+                placeholder="Describe what your business does and the problem you are solving..."
                 required
               />
-              <span className="input-hint">
-                Tip: Be specific about the pain point and how your solution addresses it.
-              </span>
-            </div>
-          </section>
-
-          {/* Section 3: Market Analysis */}
-          <section className="form-section">
-            <div className="section-header">
-              <span className="section-number">3</span>
-              <h2 className="section-title">Market Analysis</h2>
             </div>
 
             <div className="input-group">
-              <label className="input-label">Target Market Size</label>
+              <label className="input-label">Main Items / Services Offered</label>
+              <input
+                type="text"
+                name="mainItems"
+                value={formData.productOffering.mainItems}
+                onChange={(e) => handleNestedChange('productOffering', e)}
+                className="modern-input"
+                placeholder="e.g. Nasi Lemak, Iced Coffee, Sneaker Cleaning"
+              />
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Pricing Range</label>
+                <input
+                  type="text"
+                  name="priceRange"
+                  value={formData.productOffering.priceRange}
+                  onChange={(e) => handleNestedChange('productOffering', e)}
+                  className="modern-input"
+                  placeholder="e.g. RM 5.00 - RM 15.00"
+                />
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">Uniqueness / USP</label>
+                <input
+                  type="text"
+                  name="uniqueness"
+                  value={formData.productOffering.uniqueness}
+                  onChange={(e) => handleNestedChange('productOffering', e)}
+                  className="modern-input"
+                  placeholder="What makes your product special?"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* 3. Customer & Market */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">3</span>
+              <h2 className="card-title">Customer & Market</h2>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Overall Market Size *</label>
               <input
                 type="text"
                 name="marketSize"
                 value={formData.marketSize}
                 onChange={handleChange}
-                className="glass-input"
+                className="modern-input"
                 placeholder="e.g. 500K University Students in Malaysia"
+                required
+              />
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Target Customers</label>
+                <input
+                  type="text"
+                  name="targetCustomers"
+                  value={formData.customerMarket.targetCustomers}
+                  onChange={(e) => handleNestedChange('customerMarket', e)}
+                  className="modern-input"
+                  placeholder="e.g. Students aged 18-24"
+                />
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">Customer Count (Weekly/Monthly)</label>
+                <input
+                  type="text"
+                  name="customerCount"
+                  value={formData.customerMarket.customerCount}
+                  onChange={(e) => handleNestedChange('customerMarket', e)}
+                  className="modern-input"
+                  placeholder="e.g. 150 customers/week"
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Acquisition Channels</label>
+              <input
+                type="text"
+                name="acquisitionChannels"
+                value={formData.customerMarket.acquisitionChannels}
+                onChange={(e) => handleNestedChange('customerMarket', e)}
+                className="modern-input"
+                placeholder="How do you get customers? (e.g. TikTok, Words of mouth)"
               />
             </div>
           </section>
 
-          {/* Section 4: Visuals */}
-          <section className="form-section">
-            <div className="section-header">
-              <span className="section-number">4</span>
-              <h2 className="section-title">Visuals</h2>
+          {/* 4. Operations */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">4</span>
+              <h2 className="card-title">Operations</h2>
             </div>
 
-            <div className="upload-area">
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Prep / Production Location</label>
+                <input
+                  type="text"
+                  name="prepLocation"
+                  value={formData.operations.prepLocation}
+                  onChange={(e) => handleNestedChange('operations', e)}
+                  className="modern-input"
+                  placeholder="e.g. Home Kitchen, Rented Studio"
+                />
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">Total Team Size</label>
+                <input
+                  type="number"
+                  name="teamSize"
+                  value={formData.operations.teamSize}
+                  onChange={(e) => handleNestedChange('operations', e)}
+                  className="modern-input"
+                  placeholder="Number of staff or helpers"
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Tools & Equipment Used</label>
+              <input
+                type="text"
+                name="toolsUsed"
+                value={formData.operations.toolsUsed}
+                onChange={(e) => handleNestedChange('operations', e)}
+                className="modern-input"
+                placeholder="e.g. Oven, Espresso machine, Graphic tablet"
+              />
+            </div>
+          </section>
+
+          {/* 5. Sales & Revenue */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">5</span>
+              <h2 className="card-title">Sales & Revenue</h2>
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Monthly Revenue</label>
+                <input
+                  type="text"
+                  name="monthlyRevenue"
+                  value={formData.salesRevenue.monthlyRevenue}
+                  onChange={(e) => handleNestedChange('salesRevenue', e)}
+                  className="modern-input"
+                  placeholder="e.g. RM 3,500"
+                />
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">Peak Sales Times</label>
+                <input
+                  type="text"
+                  name="peakTimes"
+                  value={formData.salesRevenue.peakTimes}
+                  onChange={(e) => handleNestedChange('salesRevenue', e)}
+                  className="modern-input"
+                  placeholder="e.g. Weekends, 12PM - 2PM"
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Accepted Payment Methods</label>
+              <input
+                type="text"
+                name="paymentMethods"
+                value={formData.salesRevenue.paymentMethods}
+                onChange={(e) => handleNestedChange('salesRevenue', e)}
+                className="modern-input"
+                placeholder="e.g. Cash, QR Pay, Online Transfer"
+              />
+            </div>
+          </section>
+
+          {/* 6. Challenges & Solutions */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">6</span>
+              <h2 className="card-title">Challenges</h2>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Biggest Challenge</label>
+              <textarea
+                name="topChallenge"
+                value={formData.challenges.topChallenge}
+                onChange={(e) => handleNestedChange('challenges', e)}
+                className="modern-textarea"
+                placeholder="What is the hardest part about running this business?"
+              />
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">How are you solving it?</label>
+              <textarea
+                name="solution"
+                value={formData.challenges.solution}
+                onChange={(e) => handleNestedChange('challenges', e)}
+                className="modern-textarea"
+                placeholder="Your solution or adaptation strategy..."
+              />
+            </div>
+          </section>
+
+          {/* 7. Learning & Growth */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">7</span>
+              <h2 className="card-title">Learning & Growth</h2>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Key Skills Gained</label>
+              <input
+                type="text"
+                name="skillsGained"
+                value={formData.learningGrowth.skillsGained}
+                onChange={(e) => handleNestedChange('learningGrowth', e)}
+                className="modern-input"
+                placeholder="e.g. Digital Marketing, Inventory Management"
+              />
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Future Expansion Plans</label>
+              <textarea
+                name="futurePlans"
+                value={formData.learningGrowth.futurePlans}
+                onChange={(e) => handleNestedChange('learningGrowth', e)}
+                className="modern-textarea"
+                placeholder="Where do you see the business next year?"
+              />
+            </div>
+          </section>
+
+          {/* 8. Media Proof */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">8</span>
+              <h2 className="card-title">Media & Proof</h2>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Social Media Links (Instagram/TikTok)</label>
+              <input
+                type="text"
+                name="socialLinks"
+                value={formData.mediaProof.socialLinks}
+                onChange={(e) => handleNestedChange('mediaProof', e)}
+                className="modern-input"
+                placeholder="e.g. https://instagram.com/mybusiness"
+              />
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Other Links (Press, Video, Menu)</label>
+              <textarea
+                name="mediaLinks"
+                value={formData.mediaProof.mediaLinks}
+                onChange={(e) => handleNestedChange('mediaProof', e)}
+                className="modern-textarea"
+                placeholder="Separate links by newline or comma..."
+              />
+            </div>
+
+            <div className="upload-area mt-4">
+              <label className="input-label">Main Business Photo *</label>
               <label htmlFor="file-upload" className="upload-zone">
                 <div className="upload-icon">📤</div>
                 <span className="upload-text">
-                  {formData.image ? "Change Image" : "Click to Upload Product Image"}
+                  {formData.image ? "Change Image" : "Click to Upload Photo"}
                 </span>
                 <span className="upload-hint">PNG, JPG, WebP up to 5MB</span>
                 <input
@@ -266,23 +603,15 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           </section>
 
           {/* Form Actions */}
-          <div className="form-actions">
-            <button
-              type="submit"
-              className="btn-save"
-              disabled={loading}
-            >
+          <div className="form-actions-card">
+            <button type="submit" className="btn-save" disabled={loading}>
               {loading ? (
                 <span className="spinner"></span>
               ) : (
-                currentPortfolio ? "Update Portfolio" : "Save & Publish"
+                currentPortfolio ? "Update Business Pitch" : "Simpan / Save Portfolio"
               )}
             </button>
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="btn-cancel"
-            >
+            <button type="button" onClick={handleCancel} className="btn-cancel">
               Cancel
             </button>
           </div>
