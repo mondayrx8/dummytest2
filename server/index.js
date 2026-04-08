@@ -35,25 +35,27 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:5173',
     'https://siswaniaga.my',
-    'https://www.siswaniaga.my'
+    'https://www.siswaniaga.my',
+    'https://dummytest2.vercel.app' // <--- TAMBAH INI (Suspek Utama!)
 ];
 
-// Buang simbol '/' di hujung CLIENT_URL jika ada, supaya CORS tak keliru
+// Buang simbol '/' di hujung CLIENT_URL jika ada
 if (process.env.CLIENT_URL) {
     allowedOrigins.push(process.env.CLIENT_URL.replace(/\/$/, ""));
 }
 
 app.use(cors({
     origin: function (origin, callback) {
-        // Benarkan jika origin wujud dalam senarai allowedOrigins, atau jika origin kosong (contoh: dari Postman)
+        // Benarkan jika origin ada dalam senarai ATAU jika tiada origin (cth: Postman)
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
+            // Log ini yang muncul kat Render tadi!
             console.error('[CORS BLOCK] Akses disekat dari origin:', origin);
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true, // WAJIB untuk benarkan sistem JWT Token / Cookies
+    credentials: true,
 }));
 
 app.use(bodyParser.json({ limit: '50mb' }));
