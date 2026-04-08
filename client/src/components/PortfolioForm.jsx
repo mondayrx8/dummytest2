@@ -30,8 +30,8 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
   useEffect(() => {
     if (currentPortfolio) {
-      setFormData({ 
-        ...initialFormState, 
+      setFormData({
+        ...initialFormState,
         ...currentPortfolio,
         businessBasics: { ...initialFormState.businessBasics, ...(currentPortfolio.businessBasics || {}) },
         productOffering: { ...initialFormState.productOffering, ...(currentPortfolio.productOffering || {}) },
@@ -40,9 +40,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         salesRevenue: { ...initialFormState.salesRevenue, ...(currentPortfolio.salesRevenue || {}) },
         challenges: { ...initialFormState.challenges, ...(currentPortfolio.challenges || {}) },
         learningGrowth: { ...initialFormState.learningGrowth, ...(currentPortfolio.learningGrowth || {}) },
-        mediaProof: { 
-            mediaLinks: currentPortfolio.mediaProof?.mediaLinks ? currentPortfolio.mediaProof.mediaLinks.join('\n') : '', 
-            socialLinks: currentPortfolio.mediaProof?.socialLinks || '' 
+        mediaProof: {
+          mediaLinks: currentPortfolio.mediaProof?.mediaLinks ? currentPortfolio.mediaProof.mediaLinks.join('\n') : '',
+          socialLinks: currentPortfolio.mediaProof?.socialLinks || ''
         }
       });
       setMessage('✏️ Editing Mode Enabled');
@@ -54,7 +54,11 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   }, [currentPortfolio]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleNestedChange = (section, e) => {
@@ -89,13 +93,13 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         : formData.mediaProof.mediaLinks;
 
       const submitData = {
-          ...formData, // Spread top level fields
-          // Ensure businessName at top level stays in sync
-          businessName: formData.businessName || formData.businessBasics.name,
-          mediaProof: {
-              ...formData.mediaProof,
-              mediaLinks: processedMediaLinks
-          }
+        ...formData, // Spread top level fields
+        // Ensure businessName at top level stays in sync
+        businessName: formData.businessName || formData.businessBasics.name,
+        mediaProof: {
+          ...formData.mediaProof,
+          mediaLinks: processedMediaLinks
+        }
       };
 
       if (currentPortfolio) {
@@ -200,10 +204,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   type="text"
                   name="businessName"
                   value={formData.businessName}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleNestedChange('businessBasics', { target: { name: 'name', value: e.target.value } });
-                  }}
+                  onChange={handleChange}
                   className="modern-input"
                   placeholder="e.g. Sambal Nyet"
                   required
