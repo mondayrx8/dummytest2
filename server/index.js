@@ -32,7 +32,15 @@ const app = express();
 // ──────────────────────────────────────────────
 // Middleware Configuration
 // ──────────────────────────────────────────────
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:5173', // Untuk ujian di laptop Komander
+        process.env.CLIENT_URL,  // Untuk website production (dari Env Render)
+        'https://siswaniaga.my', // Fallback terus ke domain Vercel kau
+        'https://www.siswaniaga.my' // Fallback www
+    ].filter(Boolean), // Buang nilai kosong
+    credentials: true, // WAJIB untuk benarkan sistem JWT Token / Cookies
+}));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
