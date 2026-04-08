@@ -19,6 +19,18 @@ class PortfolioService {
     }
 
     /**
+     * Retrieve a single portfolio entry by ID.
+     *
+     * @param {string} id - The portfolio ID
+     * @returns {Promise<Object>} The portfolio document
+     */
+    async getById(id) {
+        const portfolio = await Portfolio.findById(id);
+        if (!portfolio) throw new Error("Portfolio not found");
+        return portfolio;
+    }
+
+    /**
      * Create a new portfolio entry.
      *
      * @param {Object} data - Portfolio fields

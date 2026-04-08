@@ -21,6 +21,7 @@ class PortfolioController {
 
         // Bind methods so they retain `this` when used as route callbacks
         this.getAll = this.getAll.bind(this);
+        this.getPortfolioById = this.getPortfolioById.bind(this);
         this.create = this.create.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
@@ -33,6 +34,22 @@ class PortfolioController {
     async getAll(req, res) {
         const portfolios = await this.portfolioService.getAll();
         res.status(200).json(portfolios);
+    }
+
+    /**
+     * GET /view/:id
+     * Retrieves a single portfolio entry by ID (public route).
+     */
+    async getPortfolioById(req, res) {
+        try {
+            const portfolio = await this.portfolioService.getById(req.params.id);
+            res.status(200).json(portfolio);
+        } catch (error) {
+            // Because error handler will catch normal thrown errors, but if ID format is invalid, 
+            // mongoose throws CastError, so we let it propagate or catch it.
+            // Actually, we'll let it propagate.
+            res.status(404).json({ message: error.message });
+        }
     }
 
     /**

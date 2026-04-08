@@ -37,6 +37,9 @@ const portfolioController = new PortfolioController(portfolioService);
 // GET  /api/portfolio/all  -  Retrieve all portfolios (public)
 router.get('/all', portfolioController.getAll);
 
+// GET  /api/portfolio/view/:id  -  Retrieve a single portfolio (public)
+router.get('/view/:id', portfolioController.getPortfolioById);
+
 // POST /api/portfolio/add  -  Create a new portfolio (protected + validated)
 //   1. auth                        → verifies JWT token
 //   2. validate(createPortfolioSchema) → checks required fields & constraints

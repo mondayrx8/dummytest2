@@ -9,6 +9,7 @@ import PortfolioForm from './components/PortfolioForm';
 import Login from './components/Login';
 import GuestList from './components/GuestList';
 import LandingPage from './components/LandingPage';
+import PortfolioDetails from './components/PortfolioDetails';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -100,6 +101,9 @@ const App = () => {
 
             {/* Public Investor View */}
             <Route path="/investors" element={<GuestList />} />
+
+            {/* Public Portfolio Details View */}
+            <Route path="/portfolio/:id" element={<PortfolioDetails />} />
 
             {/* Login / Register */}
             <Route path="/login" element={

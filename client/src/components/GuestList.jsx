@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Footer from './Footer';
 import './GuestList.css';
 
 const GuestList = () => {
+    const navigate = useNavigate();
     const [portfolios, setPortfolios] = useState([]);
     const [filteredPortfolios, setFilteredPortfolios] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -165,7 +167,7 @@ const GuestList = () => {
                                         </div>
 
                                         <div className="card-footer">
-                                            <button className="btn-view-pitch">
+                                            <button className="btn-view-pitch" onClick={() => navigate(`/portfolio/${item._id}`)}>
                                                 <span>View Full Pitch</span>
                                                 <span className="btn-arrow">→</span>
                                             </button>
