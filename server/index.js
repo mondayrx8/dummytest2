@@ -32,17 +32,32 @@ const app = express();
 // ──────────────────────────────────────────────
 // Middleware Configuration
 // ──────────────────────────────────────────────
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://siswaniaga.my',
+    'https://www.siswaniaga.my'
+];
+
+// Buang simbol '/' di hujung CLIENT_URL jika ada, supaya CORS tak keliru
+if (process.env.CLIENT_URL) {
+    allowedOrigins.push(process.env.CLIENT_URL.replace(/\/$/, ""));
+}
+
 app.use(cors({
-    origin: [
-        'http://localhost:5173', // Untuk ujian di laptop Komander
-        process.env.CLIENT_URL,  // Untuk website production (dari Env Render)
-        'https://siswaniaga.my', // Fallback terus ke domain Vercel kau
-        'https://www.siswaniaga.my' // Fallback www
-    ].filter(Boolean), // Buang nilai kosong
+    origin: function (origin, callback) {
+        // Benarkan jika origin wujud dalam senarai allowedOrigins, atau jika origin kosong (contoh: dari Postman)
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.error('[CORS BLOCK] Akses disekat dari origin:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true, // WAJIB untuk benarkan sistem JWT Token / Cookies
 }));
+
 app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); S
 
 // ──────────────────────────────────────────────
 // Route Mounting
