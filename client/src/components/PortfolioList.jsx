@@ -12,55 +12,50 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await axios.get('https://api.siswaniaga.my/api/stats');
-                setStats(response.data);
-            } catch (error) {
-                console.error("Error fetching stats:", error);
+                const res = await axios.get('https://api.siswaniaga.my/api/stats');
+                setStats(res.data);
+            } catch (err) {
+                console.error("Error fetching stats", err);
             }
         };
         fetchStats();
     }, []);
 
     const handleDelete = async (id) => {
-        if (!window.confirm("🗑️ Are you sure you want to delete this portfolio? This action cannot be undone.")) return;
-
-        setDeleting(id);
-        try {
-            await axios.delete(`https://api.siswaniaga.my/api/portfolio/delete/${id}`, {
-                headers: { 'auth-token': localStorage.getItem('token') }
-            });
-            onDelete();
-        } catch (error) {
-            console.error("Error deleting:", error);
-            alert("Error deleting portfolio. Please try again.");
-        } finally {
-            setDeleting(null);
+        if (window.confirm('Eject this portfolio? This action cannot be reversed.')) {
+            setDeleting(id);
+            try {
+                const token = localStorage.getItem('token');
+                await axios.delete(`https://api.siswaniaga.my/api/portfolio/delete/${id}`, {
+                    headers: { 'auth-token': token }
+                });
+                onDelete();
+            } catch (error) {
+                console.error("Error deleting portfolio:", error);
+                alert("Failed to delete portfolio. Please try again.");
+            } finally {
+                setDeleting(null);
+            }
         }
     };
 
-    const handleEditClick = (item) => {
-        setCurrentPortfolio(item);
+    const handleEditClick = (portfolio) => {
+        setCurrentPortfolio(portfolio);
         navigate('/create');
     };
 
-    const handlePreview = (id) => {
-        navigate(`/portfolio/${id}`);
-    };
-
     return (
-        <div className="enterprise-dashboard">
-            <div className="enterprise-container">
-                {/* Header */}
+        <div className="dashboard-page">
+            <div className="dashboard-container">
+                
+                {/* Header Area */}
                 <header className="enterprise-header">
-                    <div className="header-title-wrapper">
-                        <h1 className="enterprise-title">Ventures</h1>
-                        <p className="enterprise-subtitle">Manage and oversee your portfolio projects.</p>
+                    <div>
+                        <h1 className="enterprise-title">Dashboard</h1>
+                        <p style={{ color: 'var(--text-muted)', margin: '0.5rem 0 0 0' }}>Manage your university ventures.</p>
                     </div>
-                    <button onClick={() => navigate('/create')} className="btn-enterprise-primary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Create New Pitch
+                    <button className="enterprise-btn-create" onClick={() => { setCurrentPortfolio(null); navigate('/create'); }}>
+                        + New Pitch
                     </button>
                 </header>
 
@@ -76,92 +71,58 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                     </div>
                 </section>
 
-                {/* Main Content Area */}
-                <main>
-                    {portfolios.length === 0 ? (
-                        <div className="enterprise-empty-state">
-                            <div className="empty-icon-wrap">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="48" height="48">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                </svg>
-                            </div>
-                            <h2 className="empty-title">No Portfolios Found</h2>
-                            <p className="empty-desc">
-                                Get started by creating your first portfolio. It will appear here once it has been saved.
-                            </p>
-                            <button onClick={() => navigate('/create')} className="btn-enterprise-primary">
-                                Create New Pitch
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="enterprise-grid">
-                            {portfolios.map((item) => (
-                                <article key={item._id} className="enterprise-card">
-                                    {/* Media */}
-                                    <div className="enterprise-card-media">
-                                        {item.image ? (
-                                            <img src={item.image} alt={item.businessName} className="enterprise-card-img" loading="lazy" />
-                                        ) : (
-                                            <div className="enterprise-card-no-img">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="24" height="24">
-                                                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                                                    <circle cx="8.5" cy="8.5" r="1.5" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" />
-                                                </svg>
-                                                <span>No Media</span>
-                                            </div>
-                                        )}
-                                        {item.category && (
-                                            <span className="enterprise-badge">{item.category}</span>
-                                        )}
+                {/* Portfolio Grid */}
+                {portfolios.length === 0 ? (
+                    <div className="enterprise-empty-state">
+                        <h3 style={{color: 'var(--text-color)', marginBottom: '0.5rem'}}>No Portfolios Found</h3>
+                        <p>You haven't created any pitches yet. Start building your business portfolio today.</p>
+                    </div>
+                ) : (
+                    <section className="enterprise-grid">
+                        {portfolios.map((item) => (
+                            <article key={item._id} className="enterprise-card">
+                                {/* Image Map */}
+                                {item.image ? (
+                                    <img src={item.image} alt={item.businessName} className="enterprise-card-image" loading="lazy" />
+                                ) : (
+                                    <div className="card-placeholder">
+                                        No Image
                                     </div>
+                                )}
+                                
+                                {/* Content Map */}
+                                <div className="enterprise-card-content">
+                                    <h3 className="enterprise-business-name">{item.businessName}</h3>
+                                    <p className="enterprise-student-name">Founder: {item.studentName}</p>
+                                    <p className="enterprise-description">
+                                        {item.description ? (item.description.length > 100 ? item.description.substring(0, 100) + '...' : item.description) : "No description provided."}
+                                    </p>
 
-                                    {/* Body */}
-                                    <div className="enterprise-card-body">
-                                        <h3 className="enterprise-card-title">{item.businessName}</h3>
-                                        <p className="enterprise-card-desc">
-                                            {item.description
-                                                ? (item.description.length > 100
-                                                    ? item.description.substring(0, 100) + '...'
-                                                    : item.description)
-                                                : "No description provided."}
-                                        </p>
-                                    </div>
-
-                                    {/* Footer */}
-                                    <div className="enterprise-card-footer">
-                                        <button className="btn-enterprise-text" onClick={() => handlePreview(item._id)}>
-                                            View Details
+                                    {/* Action Buttons Map */}
+                                    <div className="enterprise-card-actions">
+                                        <button className="enterprise-btn" onClick={() => navigate(`/portfolio/${item._id}`)}>
+                                            View
                                         </button>
-
-                                        {currentUser && (currentUser.role === 'admin' || item.userId === currentUser.id) && (
-                                            <div className="enterprise-actions">
-                                                <button className="btn-enterprise-action" onClick={() => handleEditClick(item)} title="Edit">
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                    </svg>
+                                        {(currentUser?.role === 'admin' || currentUser?.id === item.userId) && (
+                                            <>
+                                                <button className="enterprise-btn" onClick={() => handleEditClick(item)}>
                                                     Edit
                                                 </button>
-                                                <button className="btn-enterprise-action btn-enterprise-delete" onClick={() => handleDelete(item._id)} disabled={deleting === item._id} title="Delete">
-                                                    {deleting === item._id ? (
-                                                        <span>...</span>
-                                                    ) : (
-                                                        <>
-                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                            </svg>
-                                                            Delete
-                                                        </>
-                                                    )}
+                                                <button 
+                                                    className="enterprise-btn danger" 
+                                                    onClick={() => handleDelete(item._id)}
+                                                    disabled={deleting === item._id}
+                                                >
+                                                    {deleting === item._id ? 'Deleting...' : 'Delete'}
                                                 </button>
-                                            </div>
+                                            </>
                                         )}
                                     </div>
-                                </article>
-                            ))}
-                        </div>
-                    )}
-                </main>
+                                </div>
+                            </article>
+                        ))}
+                    </section>
+                )}
             </div>
             <Footer />
         </div>

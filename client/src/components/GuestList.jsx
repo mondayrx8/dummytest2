@@ -37,149 +37,81 @@ const GuestList = () => {
 
     return (
         <div className="guest-page">
-            {/* Background Orbs */}
-            <div className="guest-bg">
-                <div className="orb orb-1"></div>
-                <div className="orb orb-2"></div>
-            </div>
-
-            {/* Hero Section */}
-            <header className="guest-hero">
-                <div className="hero-content">
-                    <div className="hero-badge">
-                        <span className="badge-icon">🌟</span>
-                        <span>Investor Showcase</span>
-                    </div>
-
-                    <h1 className="hero-title">
-                        Discover University
-                        <span className="gradient-text"> Ventures</span>
-                    </h1>
-
-                    <p className="hero-subtitle">
-                        Explore innovative student ventures and groundbreaking business ideas
-                        from the next generation of founders
+            <div className="guest-container">
+                {/* Hero Section */}
+                <header className="guest-header">
+                    <h1 className="guest-title">Investor Showcase</h1>
+                    <p className="guest-subtitle">
+                        Explore innovative student ventures and groundbreaking business ideas from the next generation of founders.
                     </p>
 
-                    {/* Search Bar */}
+                    <div className="stats-badge">
+                        <span className="stats-number">{filteredPortfolios.length}</span>
+                        <span className="stats-label">Active Ventures</span>
+                    </div>
+
                     <div className="search-wrapper">
-                        <div className="search-bar glass-search">
-                            <span className="search-icon">🔍</span>
-                            <input
-                                type="text"
-                                placeholder="Search by venture, founder, or keyword..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="search-input"
-                            />
+                        <span className="search-icon">🔍</span>
+                        <input
+                            type="text"
+                            placeholder="Search by venture, founder, or keyword..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="search-input"
+                        />
+                    </div>
+                </header>
+
+                {/* Main Content */}
+                <main>
+                    {loading ? (
+                        <div className="loading-state">
+                            <p>Loading amazing portfolios...</p>
+                        </div>
+                    ) : filteredPortfolios.length === 0 ? (
+                        <div className="empty-state">
+                            <h3 style={{color: 'var(--text-color)', marginBottom: '0.5rem'}}>No Ventures Found</h3>
+                            <p>{searchTerm ? "Try adjusting your search terms." : "Check back soon for new student submissions!"}</p>
                             {searchTerm && (
-                                <button
-                                    className="search-clear"
-                                    onClick={() => setSearchTerm('')}
-                                    aria-label="Clear search"
-                                >
-                                    ✕
+                                <button className="enterprise-btn-view" style={{maxWidth: '200px', margin: '1rem auto 0 auto'}} onClick={() => setSearchTerm('')}>
+                                    Clear Search
                                 </button>
                             )}
                         </div>
-                    </div>
-                </div>
-            </header>
-
-            {/* Main Content */}
-            <main className="guest-content">
-                {loading ? (
-                    /* Loading State */
-                    <div className="loading-state">
-                        <div className="spinner"></div>
-                        <p>Loading amazing portfolios...</p>
-                    </div>
-                ) : filteredPortfolios.length === 0 ? (
-                    /* Empty State */
-                    <div className="empty-state glass-card">
-                        <div className="empty-icon">🔎</div>
-                        <h3 className="empty-title">No Ventures Found</h3>
-                        <p className="empty-description">
-                            {searchTerm
-                                ? "Try adjusting your search terms to find what you're looking for."
-                                : "Check back soon for new student submissions!"}
-                        </p>
-                        {searchTerm && (
-                            <button
-                                className="btn-clear-search"
-                                onClick={() => setSearchTerm('')}
-                            >
-                                Clear Search
-                            </button>
-                        )}
-                    </div>
-                ) : (
-                    <>
-                        {/* Stats Badge */}
-                        <div className="stats-wrapper">
-                            <div className="stats-badge glass-card">
-                                <span className="stats-number">{filteredPortfolios.length}</span>
-                                <span className="stats-label">Active Ventures</span>
-                            </div>
-                        </div>
-
-                        {/* Portfolio Grid */}
-                        <div className="portfolio-grid">
+                    ) : (
+                        <div className="enterprise-grid">
                             {filteredPortfolios.map((item) => (
-                                <article key={item._id} className="portfolio-card glass-card">
-                                    {/* Card Image */}
-                                    <div className="card-image-wrapper">
-                                        {item.image ? (
-                                            <img
-                                                src={item.image}
-                                                alt={item.businessName}
-                                                className="card-image"
-                                                loading="lazy"
-                                            />
-                                        ) : (
-                                            <div className="card-placeholder">
-                                                <span className="placeholder-icon">🎯</span>
-                                                <span className="placeholder-text">No Image</span>
-                                            </div>
-                                        )}
-                                        <div className="card-overlay"></div>
-                                        <div className="card-category">{item.category || 'Innovation'}</div>
-                                    </div>
-
-                                    {/* Card Content */}
-                                    <div className="card-content">
-                                        <div className="card-header">
-                                            <h3 className="business-name">{item.businessName}</h3>
-                                            <div className="founder-info">
-                                                <span className="founder-label">Founder:</span>
-                                                <span className="founder-name">{item.studentName}</span>
-                                            </div>
+                                <article key={item._id} className="enterprise-card">
+                                    {/* Image Map */}
+                                    {item.image ? (
+                                        <img src={item.image} alt={item.businessName} className="enterprise-card-image" loading="lazy" />
+                                    ) : (
+                                        <div className="card-placeholder">
+                                            No Image
                                         </div>
+                                    )}
+                                    
+                                    {/* Content Map */}
+                                    <div className="enterprise-card-content">
+                                        <h3 className="enterprise-business-name">{item.businessName}</h3>
+                                        <p className="enterprise-student-name">Founder: {item.studentName}</p>
+                                        <p className="enterprise-description">
+                                            {item.description ? (item.description.length > 100 ? item.description.substring(0, 100) + '...' : item.description) : "No description provided."}
+                                        </p>
 
-                                        <div className="card-body">
-                                            <p className="card-description">
-                                                {item.description
-                                                    ? (item.description.length > 110
-                                                        ? item.description.substring(0, 110) + '...'
-                                                        : item.description)
-                                                    : "No description provided."}
-                                            </p>
-                                        </div>
-
-                                        <div className="card-footer">
-                                            <button className="btn-view-pitch" onClick={() => navigate(`/portfolio/${item._id}`)}>
-                                                <span>View Full Pitch</span>
-                                                <span className="btn-arrow">→</span>
+                                        {/* Action Buttons Map */}
+                                        <div className="enterprise-card-actions">
+                                            <button className="enterprise-btn-view" onClick={() => navigate(`/portfolio/${item._id}`)}>
+                                                View Full Pitch
                                             </button>
                                         </div>
                                     </div>
                                 </article>
                             ))}
                         </div>
-                    </>
-                )}
-            </main>
-
+                    )}
+                </main>
+            </div>
             <Footer />
         </div>
     );

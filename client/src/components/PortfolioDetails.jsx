@@ -79,9 +79,9 @@ const PortfolioDetails = () => {
 
     return (
         <div className="portfolio-details-page">
-            <div className="floating-actions" style={{ position: 'fixed', top: '24px', left: '24px', zIndex: 100, display: 'flex', gap: '12px' }}>
-                <button onClick={() => navigate(-1)} className="btn-back-floating" style={{ position: 'static' }}>← Back</button>
-                <button onClick={handleDownloadPDF} className="btn-back-floating" style={{ position: 'static', background: '#f97316', color: 'white' }}>📥 Download PDF</button>
+            <div className="floating-actions">
+                <button onClick={() => navigate(-1)} className="btn-back-floating">← Back</button>
+                <button onClick={handleDownloadPDF} className="btn-back-floating primary">📥 Download PDF</button>
             </div>
 
             <div id="portfolio-pdf-content">
