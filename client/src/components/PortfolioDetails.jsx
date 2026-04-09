@@ -107,7 +107,7 @@ const PortfolioDetails = () => {
 
                     {/* Intro / Executive Summary */}
                     <section className="detail-section intro-section">
-                        <h2>Executive Summary</h2>
+                        <h2>Overview</h2>
                         <p className="summary-text">{description}</p>
                     </section>
 

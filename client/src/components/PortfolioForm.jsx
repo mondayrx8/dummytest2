@@ -609,7 +609,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               {loading ? (
                 <span className="spinner"></span>
               ) : (
-                currentPortfolio ? "Update Business Pitch" : "Simpan / Save Portfolio"
+                currentPortfolio ? "Update Business Pitch" : "Save Portfolio"
               )}
             </button>
             <button type="button" onClick={handleCancel} className="btn-cancel">

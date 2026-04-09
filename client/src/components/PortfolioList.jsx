@@ -47,7 +47,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
     return (
         <div className="dashboard-page">
             <div className="dashboard-container">
-                
+
                 {/* Header Area */}
                 <header className="enterprise-header">
                     <div>
@@ -55,7 +55,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                         <p style={{ color: 'var(--text-muted)', margin: '0.5rem 0 0 0' }}>Manage your university ventures.</p>
                     </div>
                     <button className="enterprise-btn-create" onClick={() => { setCurrentPortfolio(null); navigate('/create'); }}>
-                        + New Pitch
+                        + New Portfolio
                     </button>
                 </header>
 
@@ -74,7 +74,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                 {/* Portfolio Grid */}
                 {portfolios.length === 0 ? (
                     <div className="enterprise-empty-state">
-                        <h3 style={{color: 'var(--text-color)', marginBottom: '0.5rem'}}>No Portfolios Found</h3>
+                        <h3 style={{ color: 'var(--text-color)', marginBottom: '0.5rem' }}>No Portfolios Found</h3>
                         <p>You haven't created any pitches yet. Start building your business portfolio today.</p>
                     </div>
                 ) : (
@@ -89,7 +89,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                                         No Image
                                     </div>
                                 )}
-                                
+
                                 {/* Content Map */}
                                 <div className="enterprise-card-content">
                                     <h3 className="enterprise-business-name">{item.businessName}</h3>
@@ -108,8 +108,8 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                                                 <button className="enterprise-btn" onClick={() => handleEditClick(item)}>
                                                     Edit
                                                 </button>
-                                                <button 
-                                                    className="enterprise-btn danger" 
+                                                <button
+                                                    className="enterprise-btn danger"
                                                     onClick={() => handleDelete(item._id)}
                                                     disabled={deleting === item._id}
                                                 >
