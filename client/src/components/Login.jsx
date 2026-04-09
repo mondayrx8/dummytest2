@@ -18,7 +18,7 @@ const Login = ({ setToken }) => {
     const endpoint = isRegistering ? '/register' : '/login';
 
     try {
-      const response = await axios.post(`http://149.118.146.248:5000/api/auth${endpoint}`, {
+      const response = await axios.post(`https://api.siswaniaga.my/api/auth${endpoint}`, {
         username,
         password
       });

@@ -103,10 +103,10 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       };
 
       if (currentPortfolio) {
-        await axios.put(`http://149.118.146.248:5000/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
+        await axios.put(`https://api.siswaniaga.my/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
         setCurrentPortfolio(null);
       } else {
-        await axios.post('http://149.118.146.248:5000/api/portfolio/add', submitData, config);
+        await axios.post('https://api.siswaniaga.my/api/portfolio/add', submitData, config);
       }
 
       onSave();

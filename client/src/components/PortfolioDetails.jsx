@@ -14,7 +14,7 @@ const PortfolioDetails = () => {
     useEffect(() => {
         const fetchPortfolio = async () => {
             try {
-                const response = await axios.get(`http://149.118.146.248:5000/api/portfolio/view/${id}`);
+                const response = await axios.get(`https://api.siswaniaga.my/api/portfolio/view/${id}`);
                 setPortfolio(response.data);
             } catch (err) {
                 console.error(err);

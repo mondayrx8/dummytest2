@@ -14,7 +14,7 @@ const GuestList = () => {
     useEffect(() => {
         const fetchPublicData = async () => {
             try {
-                const res = await axios.get('http://149.118.146.248:5000/api/portfolio/all');
+                const res = await axios.get('https://api.siswaniaga.my/api/portfolio/all');
                 setPortfolios(res.data);
                 setFilteredPortfolios(res.data);
             } catch (error) {

@@ -24,7 +24,7 @@ const UserProfile = () => {
                     navigate('/login');
                     return;
                 }
-                const response = await axios.get('http://149.118.146.248:5000/api/auth/profile', {
+                const response = await axios.get('https://api.siswaniaga.my/api/auth/profile', {
                     headers: { 'auth-token': token }
                 });
                 setProfile(response.data);
@@ -58,7 +58,7 @@ const UserProfile = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.put('http://149.118.146.248:5000/api/auth/change-password', {
+            const response = await axios.put('https://api.siswaniaga.my/api/auth/change-password', {
                 oldPassword,
                 newPassword
             }, {

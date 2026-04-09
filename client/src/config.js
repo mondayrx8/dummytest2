@@ -17,7 +17,7 @@
  *       VITE_API_URL=http://localhost:5000/api/v1
  *
  *   - Production: Create `client/.env.production` with:
- *       VITE_API_URL=http://149.118.146.248:5000/api/v1
+ *       VITE_API_URL=https://api.siswaniaga.my/api/v1
  *
  *   - Or set VITE_API_URL in your deployment platform (Vercel, Render, etc.)
  */
@@ -25,7 +25,7 @@
 const API_URL =
     import.meta.env.VITE_API_URL ||
     (import.meta.env.MODE === 'production'
-        ? 'http://149.118.146.248:5000/api'
+        ? 'https://api.siswaniaga.my/api'
         : 'http://localhost:5000/api');
 
 export { API_URL };

@@ -12,7 +12,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await axios.get('http://149.118.146.248:5000/api/stats');
+                const response = await axios.get('https://api.siswaniaga.my/api/stats');
                 setStats(response.data);
             } catch (error) {
                 console.error("Error fetching stats:", error);
@@ -26,7 +26,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
 
         setDeleting(id);
         try {
-            await axios.delete(`http://149.118.146.248:5000/api/portfolio/delete/${id}`, {
+            await axios.delete(`https://api.siswaniaga.my/api/portfolio/delete/${id}`, {
                 headers: { 'auth-token': localStorage.getItem('token') }
             });
             onDelete();

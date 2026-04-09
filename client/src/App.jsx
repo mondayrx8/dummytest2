@@ -45,7 +45,7 @@ const App = () => {
   // Function to refresh the portfolio list
   const fetchPortfolios = async () => {
     try {
-      const res = await axios.get('http://149.118.146.248:5000/api/portfolio/all');
+      const res = await axios.get('https://api.siswaniaga.my/api/portfolio/all');
       setPortfolios(res.data);
     } catch (error) {
       console.error("Error fetching data:", error);
