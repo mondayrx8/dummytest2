@@ -17,7 +17,7 @@
  *       VITE_API_URL=http://localhost:5000/api/v1
  *
  *   - Production: Create `client/.env.production` with:
- *       VITE_API_URL=https://dummytest2.onrender.com/api/v1
+ *       VITE_API_URL=http://149.118.146.248:5000/api/v1
  *
  *   - Or set VITE_API_URL in your deployment platform (Vercel, Render, etc.)
  */

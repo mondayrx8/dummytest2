@@ -8,7 +8,7 @@ const UserProfile = () => {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    
+
     // Password state
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -24,7 +24,7 @@ const UserProfile = () => {
                     navigate('/login');
                     return;
                 }
-                const response = await axios.get('https://dummytest2.onrender.com/api/auth/profile', {
+                const response = await axios.get('http://149.118.146.248:5000/api/auth/profile', {
                     headers: { 'auth-token': token }
                 });
                 setProfile(response.data);
@@ -41,7 +41,7 @@ const UserProfile = () => {
 
     const handlePasswordChange = async (e) => {
         e.preventDefault();
-        
+
         // Basic validation
         if (newPassword !== confirmPassword) {
             setPwdMessage({ type: 'error', text: 'New passwords do not match' });
@@ -58,7 +58,7 @@ const UserProfile = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.put('https://dummytest2.onrender.com/api/auth/change-password', {
+            const response = await axios.put('http://149.118.146.248:5000/api/auth/change-password', {
                 oldPassword,
                 newPassword
             }, {
@@ -66,15 +66,15 @@ const UserProfile = () => {
             });
 
             setPwdMessage({ type: 'success', text: response.data.message || 'Password updated successfully!' });
-            
+
             // Clear fields on success
             setOldPassword('');
             setNewPassword('');
             setConfirmPassword('');
         } catch (err) {
             console.error("Error changing password:", err);
-            const errorMsg = err.response && err.response.data && err.response.data.message 
-                ? err.response.data.message 
+            const errorMsg = err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
                 : 'Failed to update password. Please check your old password.';
             setPwdMessage({ type: 'error', text: errorMsg });
         } finally {
@@ -137,7 +137,7 @@ const UserProfile = () => {
                         <div className="card-body">
                             <form onSubmit={handlePasswordChange} className="password-form">
                                 <h3>Change Password</h3>
-                                
+
                                 {pwdMessage.text && (
                                     <div className={`message-toast ${pwdMessage.type}`}>
                                         {pwdMessage.text}
@@ -146,8 +146,8 @@ const UserProfile = () => {
 
                                 <div className="form-group">
                                     <label>Old Password</label>
-                                    <input 
-                                        type="password" 
+                                    <input
+                                        type="password"
                                         value={oldPassword}
                                         onChange={(e) => setOldPassword(e.target.value)}
                                         required
@@ -156,8 +156,8 @@ const UserProfile = () => {
                                 </div>
                                 <div className="form-group">
                                     <label>New Password</label>
-                                    <input 
-                                        type="password" 
+                                    <input
+                                        type="password"
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
                                         required
@@ -166,17 +166,17 @@ const UserProfile = () => {
                                 </div>
                                 <div className="form-group">
                                     <label>Confirm New Password</label>
-                                    <input 
-                                        type="password" 
+                                    <input
+                                        type="password"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         required
                                         placeholder="Confirm new password"
                                     />
                                 </div>
-                                
-                                <button 
-                                    type="submit" 
+
+                                <button
+                                    type="submit"
                                     className="btn-update-pwd"
                                     disabled={pwdLoading}
                                 >

@@ -12,7 +12,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await axios.get('https://dummytest2.onrender.com/api/stats');
+                const response = await axios.get('http://149.118.146.248:5000/api/stats');
                 setStats(response.data);
             } catch (error) {
                 console.error("Error fetching stats:", error);
@@ -26,7 +26,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
 
         setDeleting(id);
         try {
-            await axios.delete(`https://dummytest2.onrender.com/api/portfolio/delete/${id}`, {
+            await axios.delete(`http://149.118.146.248:5000/api/portfolio/delete/${id}`, {
                 headers: { 'auth-token': localStorage.getItem('token') }
             });
             onDelete();
@@ -63,7 +63,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                         className="btn-create"
                     >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
-                            <path d="M12 5v14M5 12h14"/>
+                            <path d="M12 5v14M5 12h14" />
                         </svg>
                         <span>New Venture</span>
                     </button>

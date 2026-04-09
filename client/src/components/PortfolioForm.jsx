@@ -103,10 +103,10 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       };
 
       if (currentPortfolio) {
-        await axios.put(`https://dummytest2.onrender.com/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
+        await axios.put(`http://149.118.146.248:5000/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
         setCurrentPortfolio(null);
       } else {
-        await axios.post('https://dummytest2.onrender.com/api/portfolio/add', submitData, config);
+        await axios.post('http://149.118.146.248:5000/api/portfolio/add', submitData, config);
       }
 
       onSave();
