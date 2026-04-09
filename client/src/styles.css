@@ -8,33 +8,33 @@
 
 :root {
   /* =========================================== */
-  /* PRIMARY BRAND (Corporate Navy Blue) */
-  /* Elegant and trustworthy */
+  /* PRIMARY BRAND (UUM Royal Navy Blue) */
+  /* Authoritative, academic, and prestigious */
   /* =========================================== */
-  --primary-color: #1E3A8A; 
-  --primary-hover: #1E40AF;
-  --primary-light: #DBEAFE;
-  --primary-surface: rgba(30, 58, 138, 0.08);
-  --primary-glow: 0 4px 14px rgba(30, 58, 138, 0.25);
-  --primary-glow-hover: 0 6px 20px rgba(30, 58, 138, 0.35);
+  --primary-color: #0B2046; 
+  --primary-hover: #081736;
+  --primary-light: #E0E8F2;
+  --primary-surface: rgba(11, 32, 70, 0.08);
+  --primary-glow: 0 4px 14px rgba(11, 32, 70, 0.25);
+  --primary-glow-hover: 0 6px 20px rgba(11, 32, 70, 0.35);
 
   /* =========================================== */
-  /* ACCENT / SECONDARY (Startup Orange / Gold) */
-  /* Energetic accent color */
+  /* ACCENT / SECONDARY (UUM Academic Gold) */
+  /* Prestigious accent color */
   /* =========================================== */
-  --secondary-color: #F59E0B;
-  --secondary-hover: #D97706;
-  --secondary-light: #FEF3C7;
-  --secondary-glow: 0 4px 12px rgba(245, 158, 11, 0.3);
-  --secondary-glow-hover: 0 6px 20px rgba(245, 158, 11, 0.4);
+  --secondary-color: #FDB813;
+  --secondary-hover: #E6A60B;
+  --secondary-light: #FFF5D6;
+  --secondary-glow: 0 4px 12px rgba(253, 184, 19, 0.3);
+  --secondary-glow-hover: 0 6px 20px rgba(253, 184, 19, 0.4);
 
   --gradient-main: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   
   /* =========================================== */
-  /* BACKGROUNDS (Light Slate/Gray) */
-  /* To make white portfolio cards pop out */
+  /* BACKGROUNDS & SURFACES */
+  /* Crisp, clean official portal layout */
   /* =========================================== */
-  --bg-color: #F8FAFC; 
+  --bg-color: #F9FAFB; 
   --bg-surface: #FFFFFF;
   --glass-panel: rgba(255, 255, 255, 0.7);
   --glass-panel-solid: rgba(255, 255, 255, 0.85);

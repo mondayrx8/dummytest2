@@ -67,11 +67,11 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                 {/* Statistics Radar */}
                 <section className="enterprise-stats">
                     <div className="stat-card-enterprise">
-                        <h3 className="stat-label">Total Users</h3>
+                        <h3 className="stat-label">Total Verified Users</h3>
                         <p className="stat-value">{stats.totalUsers}</p>
                     </div>
                     <div className="stat-card-enterprise">
-                        <h3 className="stat-label">Platform Visits</h3>
+                        <h3 className="stat-label">Total Visits</h3>
                         <p className="stat-value">{stats.totalVisits}</p>
                     </div>
                 </section>
