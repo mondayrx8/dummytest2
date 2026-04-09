@@ -1,7 +1,7 @@
 /* ========== Premium Corporate Sidebar ========== */
 
 .modern-sidebar {
-    background: var(--primary-color, #1E3A8A); /* Corporate Navy Blue */
+    background: var(--primary-color); /* Corporate Navy Blue */
     position: fixed;
     top: 0;
     left: 0;
@@ -11,11 +11,12 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    padding: 24px 16px 80px 16px;
+    padding: var(--space-lg) var(--space-md) 80px var(--space-md);
     z-index: 100;
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-xl);
     border: none;
+    font-family: var(--font-sans);
 }
 
 .modern-sidebar.collapsed {
@@ -27,25 +28,24 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 8px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: var(--space-xs);
+    margin-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .sidebar-brand {
     display: flex;
     align-items: center;
-    gap: 16px;
-    color: #FFFFFF;
+    gap: var(--space-md);
+    color: var(--bg-surface);
     font-weight: 800;
-    font-size: 1.4rem;
+    font-size: var(--text-xl);
     overflow: hidden;
     white-space: nowrap;
 }
 
 .brand-icon {
-    /* Focus Brand Icon to Startup Orange Accent */
-    color: var(--secondary-color, #F59E0B);
+    color: var(--secondary-color);
 }
 
 .brand-text {
@@ -62,18 +62,18 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-xs);
 }
 
 .menu-item {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 14px 16px;
-    border-radius: 12px;
-    color: rgba(255, 255, 255, 0.75);
+    gap: var(--space-md);
+    padding: 14px var(--space-md);
+    border-radius: var(--radius-md);
+    color: var(--text-light);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     position: relative;
     overflow: hidden;
     transition: all 0.25s ease;
@@ -83,15 +83,14 @@
 }
 
 .menu-item:hover {
-    color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.08); /* Slight White Wash on Hover */
+    color: var(--bg-surface);
+    background: var(--primary-surface);
 }
 
-/* Active Nav Area using Startup Orange */
 .menu-item.active {
-    color: #FFFFFF;
-    background: rgba(245, 158, 11, 0.15);
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: var(--bg-surface);
+    background: var(--warning-bg);
+    border: 1px solid var(--warning);
 }
 
 .menu-item.active::before {
@@ -101,8 +100,8 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: var(--secondary-color, #F59E0B);
-    border-radius: 0 4px 4px 0;
+    background: var(--secondary-color);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 .menu-icon {
@@ -128,11 +127,10 @@
 
 .menu-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 16px 0;
+    background: var(--border-color);
+    margin: var(--space-md) 0;
 }
 
-/* Base button cleanup */
 .menu-item.collapse-toggle-item,
 .menu-item.logout-item {
     background: none;
@@ -141,26 +139,24 @@
 
 .collapse-toggle-item {
     margin-top: auto;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-light);
 }
 
 .collapse-toggle-item:hover {
-    color: #FFFFFF;
+    color: var(--bg-surface);
 }
 
-/* Distinct Logout Warning State */
 .logout-item:hover {
-    color: #EF4444 !important;
-    background: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.3);
+    color: var(--danger) !important;
+    background: var(--danger-bg);
+    border-color: var(--danger);
 }
 
-/* ========== Mobile Handling ========== */
 @media (max-width: 968px) {
     .modern-sidebar {
         transform: translateX(-100%);
         width: 280px !important;
-        box-shadow: 10px 0 50px rgba(0, 0, 0, 0.4);
+        box-shadow: var(--shadow-xl);
     }
     
     .modern-sidebar.mobile-open {
@@ -174,7 +170,8 @@
     .mobile-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(15, 23, 42, 0.5);
+        background: var(--text-color);
+        opacity: 0.5;
         backdrop-filter: blur(4px);
         z-index: 99;
     }
