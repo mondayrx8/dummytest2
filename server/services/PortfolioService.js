@@ -44,17 +44,8 @@ class PortfolioService {
      * @throws {Error} If validation or save fails
      */
     async create(data) {
-        const { studentName, teamMembers, businessName, description, marketSize, image, userId } = data;
-
-        const newPortfolio = new Portfolio({
-            studentName,
-            teamMembers,
-            businessName,
-            description,
-            marketSize,
-            image,
-            userId,
-        });
+        // ✅ Guna 'data' bulat-bulat, telan semua sekali (termasuk optional fields & userId)
+        const newPortfolio = new Portfolio(data);
 
         return newPortfolio.save();
     }
