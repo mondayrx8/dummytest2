@@ -1,4 +1,4 @@
-/* Navbar.css - Enterprise SaaS Layout */
+/* Navbar.css */
 .enterprise-navbar {
     position: sticky;
     top: 0;
@@ -23,7 +23,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
 }
 
 /* Left Section */
@@ -49,45 +48,26 @@
     align-items: center;
 }
 
-/* Center Section */
-.enterprise-navbar-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.enterprise-nav-link-center {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.enterprise-nav-link-center:hover,
-.enterprise-nav-link-center.active {
-    color: var(--text-color);
-}
-
 /* Right Section */
 .enterprise-navbar-right {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: var(--space-lg);
 }
 
-.enterprise-nav-link-ghost {
+.enterprise-nav-link {
     color: var(--text-muted);
     font-size: 0.875rem;
     font-weight: 500;
-    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     transition: color 0.2s ease;
+    text-decoration: none;
 }
 
-.enterprise-nav-link-ghost:hover {
+.enterprise-nav-link:hover,
+.enterprise-nav-link.active {
     color: var(--text-color);
 }
 
@@ -97,8 +77,8 @@
     gap: 0.375rem;
     font-size: 0.875rem;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-sm);
     transition: all 0.2s ease;
     text-decoration: none;
     cursor: pointer;
@@ -114,13 +94,31 @@
     background-color: var(--primary-hover);
 }
 
-/* User Profile Section */
-.enterprise-user-section {
+/* Dropdown */
+.enterprise-user-dropdown-container {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    border-left: 1px solid var(--border-color);
-    padding-left: 1.5rem;
+}
+
+.enterprise-user-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s ease;
+}
+
+.enterprise-user-trigger:hover {
+    background-color: rgba(0,0,0,0.04);
 }
 
 .enterprise-user-avatar {
@@ -129,31 +127,61 @@
     align-items: center;
 }
 
-.enterprise-profile-link {
-    color: var(--text-muted);
+.enterprise-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 200px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    z-index: 1010;
+    animation: fadeInDown 0.15s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.enterprise-dropdown-item {
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
     font-size: 0.875rem;
     font-weight: 500;
     text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.enterprise-profile-link:hover {
-    color: var(--text-color);
-}
-
-.enterprise-logout-btn {
-    background: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
     border: none;
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    font-weight: 500;
+    width: 100%;
+    text-align: left;
     cursor: pointer;
-    padding: 0;
-    transition: color 0.2s ease;
+    font-family: inherit;
+    transition: background-color 0.15s ease;
 }
 
-.enterprise-logout-btn:hover {
-    color: var(--text-color);
+.enterprise-dropdown-item:hover {
+    background-color: rgba(0,0,0,0.03);
+}
+
+.enterprise-dropdown-item.danger {
+    color: var(--danger);
+}
+
+.enterprise-dropdown-item.danger:hover {
+    background-color: var(--danger-bg);
+}
+
+.enterprise-dropdown-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0.25rem 0;
 }
 
 /* Mobile Toggle */
@@ -193,7 +221,6 @@
 }
 
 @media (max-width: 768px) {
-    .enterprise-navbar-center,
     .enterprise-navbar-right {
         display: none;
     }
@@ -231,6 +258,9 @@
         padding: 1rem;
         border-bottom: 1px solid var(--border-color);
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
     
     .enterprise-nav-btn.primary {
