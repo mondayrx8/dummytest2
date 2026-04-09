@@ -8,7 +8,6 @@ const Navbar = ({ user, setToken }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
-    // Handle scroll effect for navbar
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
@@ -30,32 +29,57 @@ const Navbar = ({ user, setToken }) => {
     const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
     const closeMobileMenu = () => setMobileMenuOpen(false);
 
-    // Get username from token (simple decode)
-    const getUsername = () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (token) {
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                return payload.username || 'User';
-            }
-        } catch {
-            return 'User';
-        }
-        return 'User';
-    };
-
     return (
         <nav className={`enterprise-navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
-                {/* Brand */}
-                <Link to={user ? "/dashboard" : "/"} className="enterprise-brand" onClick={closeMobileMenu}>
-                    <span className="enterprise-brand-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    </span>
-                    <span>SiswaNiaga</span>
-                </Link>
+                {/* Left Section - Brand */}
+                <div className="enterprise-navbar-left">
+                    <Link to={user ? "/dashboard" : "/"} className="enterprise-brand" onClick={closeMobileMenu}>
+                        <span className="enterprise-brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </span>
+                        <span>SiswaNiaga</span>
+                    </Link>
+                </div>
 
-                {/* Mobile Toggle */}
+                {/* Center Section - Precision Centered Links */}
+                <div className="enterprise-navbar-center">
+                    {!user ? (
+                        <>
+                            <Link to="/" className={`enterprise-nav-link-center ${isActive('/') ? 'active' : ''}`}>Home</Link>
+                            <Link to="/investors" className={`enterprise-nav-link-center ${isActive('/investors') ? 'active' : ''}`}>Explore</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/dashboard" className={`enterprise-nav-link-center ${isActive('/dashboard') ? 'active' : ''}`}>Home</Link>
+                        </>
+                    )}
+                </div>
+
+                {/* Right Section - CTA and Auth */}
+                <div className="enterprise-navbar-right">
+                    {!user ? (
+                        <>
+                            <Link to="/login" className="enterprise-nav-link-ghost">Sign In</Link>
+                            <Link to="/login" className="enterprise-nav-btn primary">Get Started</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/create" className="enterprise-nav-btn primary">+ New Portfolio</Link>
+                            
+                            {/* Profile & Logout Group */}
+                            <div className="enterprise-user-section">
+                                <span className="enterprise-user-avatar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                </span>
+                                <Link to="/profile" className="enterprise-profile-link">Profile</Link>
+                                <button onClick={handleLogout} className="enterprise-logout-btn">Logout</button>
+                            </div>
+                        </>
+                    )}
+                </div>
+
+                {/* Mobile Toggle Button (Visible only on mobile) */}
                 <button
                     className={`enterprise-mobile-toggle ${mobileMenuOpen ? 'active' : ''}`}
                     onClick={toggleMobileMenu}
@@ -67,67 +91,23 @@ const Navbar = ({ user, setToken }) => {
                     <span className="toggle-line"></span>
                 </button>
 
-                {/* Navigation Links */}
-                <div className={`enterprise-nav-menu ${mobileMenuOpen ? 'open' : 'enterprise-desktop-menu'}`}>
+                {/* Mobile Menu Structure */}
+                <div className={`enterprise-nav-menu-mobile ${mobileMenuOpen ? 'open' : ''}`}>
                     {!user ? (
-                        /* Guest Navigation */
                         <>
-                            <Link
-                                to="/investors"
-                                className={`enterprise-nav-link ${isActive('/investors') ? 'active' : ''}`}
-                                onClick={closeMobileMenu}
-                            >
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                                <span>Explore Ventures</span>
-                            </Link>
-                            <Link
-                                to="/login"
-                                className="enterprise-nav-btn primary"
-                                onClick={closeMobileMenu}
-                            >
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                <span>Student Login</span>
-                            </Link>
+                            <Link to="/" className="mobile-nav-link" onClick={closeMobileMenu}>Home</Link>
+                            <Link to="/investors" className="mobile-nav-link" onClick={closeMobileMenu}>Explore</Link>
+                            <Link to="/login" className="mobile-nav-link" onClick={closeMobileMenu}>Sign In</Link>
+                            <Link to="/login" className="enterprise-nav-btn primary" onClick={closeMobileMenu}>Get Started</Link>
                         </>
                     ) : (
-                        /* Authenticated Navigation */
                         <>
-                            <Link
-                                to="/dashboard"
-                                className={`enterprise-nav-link ${isActive('/dashboard') ? 'active' : ''}`}
-                                onClick={closeMobileMenu}
-                            >
-                                <span>Dashboard</span>
-                            </Link>
-                            <Link
-                                to="/create"
-                                className={`enterprise-nav-link ${isActive('/create') ? 'active' : ''}`}
-                                onClick={closeMobileMenu}
-                            >
-                                <span>Create Pitch</span>
-                            </Link>
-                            <Link
-                                to="/investors"
-                                className={`enterprise-nav-link ${isActive('/investors') ? 'active' : ''}`}
-                                onClick={closeMobileMenu}
-                            >
-                                <span>Preview Public View</span>
-                            </Link>
-
-                            {/* User Info & Logout */}
-                            <div className="enterprise-user-section">
-                                <div className="enterprise-user-badge">
-                                    <span className="enterprise-user-avatar">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                    </span>
-                                    <span>{getUsername()}</span>
-                                </div>
-                                <button
-                                    onClick={handleLogout}
-                                    className="enterprise-nav-btn secondary"
-                                >
-                                    <span>Logout</span>
-                                </button>
+                            <Link to="/dashboard" className="mobile-nav-link" onClick={closeMobileMenu}>Home</Link>
+                            <Link to="/create" className="enterprise-nav-btn primary" onClick={closeMobileMenu}>+ New Portfolio</Link>
+                            
+                            <div className="mobile-user-section">
+                                <Link to="/profile" className="mobile-nav-link" onClick={closeMobileMenu}>Profile</Link>
+                                <button onClick={handleLogout} className="mobile-nav-link" style={{ textAlign: 'left', background: 'none', border: 'none', borderBottom: '1px solid var(--border-color)', cursor: 'pointer', fontFamily: 'inherit' }}>Logout</button>
                             </div>
                         </>
                     )}
