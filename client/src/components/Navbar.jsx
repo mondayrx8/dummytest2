@@ -36,7 +36,7 @@ const Navbar = ({ user, setToken }) => {
                 <div className="enterprise-navbar-left">
                     <Link to={user ? "/dashboard" : "/"} className="enterprise-brand" onClick={closeMobileMenu}>
                         <span className="enterprise-brand-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
                         </span>
                         <span>SiswaNiaga</span>
                     </Link>
@@ -60,17 +60,16 @@ const Navbar = ({ user, setToken }) => {
                 <div className="enterprise-navbar-right">
                     {!user ? (
                         <>
-                            <Link to="/login" className="enterprise-nav-link-ghost">Sign In</Link>
-                            <Link to="/login" className="enterprise-nav-btn primary">Get Started</Link>
+                            <Link to="/login" className="enterprise-nav-btn primary">Sign In</Link>
                         </>
                     ) : (
                         <>
                             <Link to="/create" className="enterprise-nav-btn primary">+ New Portfolio</Link>
-                            
+
                             {/* Profile & Logout Group */}
                             <div className="enterprise-user-section">
                                 <span className="enterprise-user-avatar">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                                 </span>
                                 <Link to="/profile" className="enterprise-profile-link">Profile</Link>
                                 <button onClick={handleLogout} className="enterprise-logout-btn">Logout</button>
@@ -97,14 +96,13 @@ const Navbar = ({ user, setToken }) => {
                         <>
                             <Link to="/" className="mobile-nav-link" onClick={closeMobileMenu}>Home</Link>
                             <Link to="/investors" className="mobile-nav-link" onClick={closeMobileMenu}>Explore</Link>
-                            <Link to="/login" className="mobile-nav-link" onClick={closeMobileMenu}>Sign In</Link>
-                            <Link to="/login" className="enterprise-nav-btn primary" onClick={closeMobileMenu}>Get Started</Link>
+                            <Link to="/login" className="enterprise-nav-btn primary" onClick={closeMobileMenu}>Sign In</Link>
                         </>
                     ) : (
                         <>
                             <Link to="/dashboard" className="mobile-nav-link" onClick={closeMobileMenu}>Home</Link>
                             <Link to="/create" className="enterprise-nav-btn primary" onClick={closeMobileMenu}>+ New Portfolio</Link>
-                            
+
                             <div className="mobile-user-section">
                                 <Link to="/profile" className="mobile-nav-link" onClick={closeMobileMenu}>Profile</Link>
                                 <button onClick={handleLogout} className="mobile-nav-link" style={{ textAlign: 'left', background: 'none', border: 'none', borderBottom: '1px solid var(--border-color)', cursor: 'pointer', fontFamily: 'inherit' }}>Logout</button>
