@@ -26,6 +26,6 @@ const API_URL =
     import.meta.env.VITE_API_URL ||
     (import.meta.env.MODE === 'production'
         ? 'http://149.118.146.248:5000/api'
-        : 'http://localhost:5000/api/v1');
+        : 'http://localhost:5000/api');
 
 export { API_URL };

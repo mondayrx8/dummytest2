@@ -69,7 +69,7 @@ if (!parsed.success) {
     });
 
     console.error('╠══════════════════════════════════════════════════╣');
-    console.error('║  Fix your .env file and restart the server.     ║');
+    console.error('║  Fix your .env file and restart the server.      ║');
     console.error('╚══════════════════════════════════════════════════╝');
     console.error('');
 
