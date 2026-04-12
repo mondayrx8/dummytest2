@@ -10,7 +10,7 @@
 
 .floating-actions {
     position: fixed;
-    top: var(--space-lg);
+    bottom: var(--space-lg);
     left: var(--space-lg);
     z-index: 100;
     display: flex;
