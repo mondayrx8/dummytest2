@@ -40,7 +40,7 @@ const GuestList = () => {
             <div className="guest-container">
                 {/* Hero Section */}
                 <header className="guest-header">
-                    <h1 className="guest-title">Investor Showcase</h1>
+                    <h1 className="guest-title">Our Showcase</h1>
                     <p className="guest-subtitle">
                         Explore innovative student ventures and groundbreaking business ideas from the next generation of founders.
                     </p>
@@ -70,10 +70,10 @@ const GuestList = () => {
                         </div>
                     ) : filteredPortfolios.length === 0 ? (
                         <div className="empty-state">
-                            <h3 style={{color: 'var(--text-color)', marginBottom: '0.5rem'}}>No Ventures Found</h3>
+                            <h3 style={{ color: 'var(--text-color)', marginBottom: '0.5rem' }}>No Ventures Found</h3>
                             <p>{searchTerm ? "Try adjusting your search terms." : "Check back soon for new student submissions!"}</p>
                             {searchTerm && (
-                                <button className="enterprise-btn-view" style={{maxWidth: '200px', margin: '1rem auto 0 auto'}} onClick={() => setSearchTerm('')}>
+                                <button className="enterprise-btn-view" style={{ maxWidth: '200px', margin: '1rem auto 0 auto' }} onClick={() => setSearchTerm('')}>
                                     Clear Search
                                 </button>
                             )}
@@ -90,7 +90,7 @@ const GuestList = () => {
                                             No Image
                                         </div>
                                     )}
-                                    
+
                                     {/* Content Map */}
                                     <div className="enterprise-card-content">
                                         <h3 className="enterprise-business-name">{item.businessName}</h3>
@@ -102,7 +102,7 @@ const GuestList = () => {
                                         {/* Action Buttons Map */}
                                         <div className="enterprise-card-actions">
                                             <button className="enterprise-btn-view" onClick={() => navigate(`/portfolio/${item._id}`)}>
-                                                View Full Pitch
+                                                View Details
                                             </button>
                                         </div>
                                     </div>
