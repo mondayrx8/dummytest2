@@ -118,7 +118,7 @@
 }
 
 .enterprise-user-trigger:hover {
-    background-color: rgba(0,0,0,0.04);
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 .enterprise-user-avatar {
@@ -144,8 +144,15 @@
 }
 
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .enterprise-dropdown-item {
@@ -167,7 +174,7 @@
 }
 
 .enterprise-dropdown-item:hover {
-    background-color: rgba(0,0,0,0.03);
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 .enterprise-dropdown-item.danger {
@@ -224,12 +231,12 @@
     .enterprise-navbar-right {
         display: none;
     }
-    
+
     .enterprise-mobile-toggle {
         display: block;
         z-index: 1001;
     }
-    
+
     .enterprise-nav-menu-mobile {
         position: fixed;
         top: 72px;
@@ -246,11 +253,11 @@
         overflow-y: auto;
         display: flex;
     }
-    
+
     .enterprise-nav-menu-mobile.open {
         right: 0;
     }
-    
+
     .mobile-nav-link {
         color: var(--text-color);
         font-size: 1rem;
@@ -262,7 +269,7 @@
         align-items: center;
         gap: 0.5rem;
     }
-    
+
     .enterprise-nav-btn.primary {
         margin-top: 1rem;
         text-align: center;
@@ -277,7 +284,7 @@
         flex-direction: column;
         gap: 0;
     }
-    
+
     .enterprise-mobile-overlay {
         display: block;
         position: fixed;
@@ -285,7 +292,7 @@
         left: 0;
         width: 100%;
         height: calc(100vh - 72px);
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.5);
         z-index: 999;
     }
 }

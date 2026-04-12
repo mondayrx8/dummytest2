@@ -75,7 +75,11 @@ const Navbar = ({ user, setToken }) => {
                 <div className="enterprise-navbar-left">
                     <Link to={user ? "/dashboard" : "/"} className="enterprise-brand" onClick={closeMobileMenu}>
                         <span className="enterprise-brand-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="20" height="20"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+                            <img
+                                src="/siswa-logo.png"
+                                alt="SiswaNiaga Logo"
+                                style={{ width: '80px', height: '50px', objectFit: 'contain' }}
+                            />
                         </span>
                         <span>SiswaNiaga</span>
                     </Link>
@@ -93,11 +97,11 @@ const Navbar = ({ user, setToken }) => {
                         <>
                             <Link to="/dashboard" className={`enterprise-nav-link ${isActive('/dashboard') ? 'active' : ''}`}>Dashboard</Link>
                             <Link to="/investors" className={`enterprise-nav-link ${isActive('/investors') ? 'active' : ''}`}>Explore</Link>
-                            
+
                             {/* Profile Dropdown Component */}
                             <div className="enterprise-user-dropdown-container" ref={dropdownRef}>
-                                <button 
-                                    className="enterprise-user-trigger" 
+                                <button
+                                    className="enterprise-user-trigger"
                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                 >
                                     <span className="enterprise-user-avatar">
@@ -151,13 +155,13 @@ const Navbar = ({ user, setToken }) => {
                         <>
                             <Link to="/dashboard" className="mobile-nav-link" onClick={closeMobileMenu}>Dashboard</Link>
                             <Link to="/investors" className="mobile-nav-link" onClick={closeMobileMenu}>Explore</Link>
-                            
+
                             <div className="mobile-user-section">
-                                <span className="mobile-nav-link" style={{color: 'var(--text-muted)'}}>
+                                <span className="mobile-nav-link" style={{ color: 'var(--text-muted)' }}>
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                                     {getUsername()}
                                 </span>
-                                <Link to="/profile" className="mobile-nav-link" style={{paddingLeft: '2.5rem'}} onClick={closeMobileMenu}>Profile</Link>
+                                <Link to="/profile" className="mobile-nav-link" style={{ paddingLeft: '2.5rem' }} onClick={closeMobileMenu}>Profile</Link>
                                 <button onClick={handleLogout} className="mobile-nav-link" style={{ textAlign: 'left', background: 'none', border: 'none', borderBottom: '1px solid var(--border-color)', cursor: 'pointer', fontFamily: 'inherit', color: 'var(--danger)', paddingLeft: '2.5rem' }}>Logout</button>
                             </div>
                         </>
