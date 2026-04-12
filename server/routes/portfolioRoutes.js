@@ -37,6 +37,9 @@ const portfolioController = new PortfolioController(portfolioService);
 // GET  /api/portfolio/all  -  Retrieve all portfolios (public)
 router.get('/all', portfolioController.getAll);
 
+// GET /api/portfolio/dashboard-list - Retrieve portfolios for specific user or admin
+router.get('/dashboard-list', auth, portfolioController.getDashboardList);
+
 // GET  /api/portfolio/view/:id  -  Retrieve a single portfolio (public)
 router.get('/view/:id', portfolioController.getPortfolioById);
 

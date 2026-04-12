@@ -115,8 +115,6 @@ const App = () => {
             <Route path="/dashboard" element={
               token ? (
                 <PortfolioList
-                  portfolios={portfolios}
-                  onDelete={fetchPortfolios}
                   setCurrentPortfolio={setCurrentPortfolio}
                   currentUser={currentUser}
                 />

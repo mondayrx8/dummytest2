@@ -4,10 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import './PortfolioList.css';
 
-const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser }) => {
+const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
     const navigate = useNavigate();
     const [deleting, setDeleting] = useState(null);
     const [stats, setStats] = useState({ totalUsers: 0, totalVisits: 0 });
+    const [dashboardPortfolios, setDashboardPortfolios] = useState([]);
+
+    const fetchDashboardPortfolios = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await axios.get('https://api.siswaniaga.my/api/portfolio/dashboard-list', {
+                headers: { 'auth-token': token }
+            });
+            setDashboardPortfolios(res.data);
+        } catch (err) {
+            console.error("Error fetching dashboard portfolios:", err);
+        }
+    };
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -19,6 +32,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
             }
         };
         fetchStats();
+        fetchDashboardPortfolios();
     }, []);
 
     const handleDelete = async (id) => {
@@ -29,7 +43,7 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                 await axios.delete(`https://api.siswaniaga.my/api/portfolio/delete/${id}`, {
                     headers: { 'auth-token': token }
                 });
-                onDelete();
+                fetchDashboardPortfolios();
             } catch (error) {
                 console.error("Error deleting portfolio:", error);
                 alert("Failed to delete portfolio. Please try again.");
@@ -72,14 +86,14 @@ const PortfolioList = ({ portfolios, onDelete, setCurrentPortfolio, currentUser 
                 </section>
 
                 {/* Portfolio Grid */}
-                {portfolios.length === 0 ? (
+                {dashboardPortfolios.length === 0 ? (
                     <div className="enterprise-empty-state">
                         <h3 style={{ color: 'var(--text-color)', marginBottom: '0.5rem' }}>No Portfolios Found</h3>
                         <p>You haven't created any pitches yet. Start building your business portfolio today.</p>
                     </div>
                 ) : (
                     <section className="enterprise-grid">
-                        {portfolios.map((item) => (
+                        {dashboardPortfolios.map((item) => (
                             <article key={item._id} className="enterprise-card">
                                 {/* Image Map */}
                                 {item.image ? (

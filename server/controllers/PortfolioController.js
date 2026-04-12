@@ -25,6 +25,7 @@ class PortfolioController {
         this.create = this.create.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
+        this.getDashboardList = this.getDashboardList.bind(this);
     }
 
     /**
@@ -33,6 +34,14 @@ class PortfolioController {
      */
     async getAll(req, res) {
         const portfolios = await this.portfolioService.getAll();
+        res.status(200).json(portfolios);
+    }
+
+    /**
+     * GET /dashboard-list
+     */
+    async getDashboardList(req, res) {
+        const portfolios = await this.portfolioService.getDashboardPortfolios(req.user.id, req.user.role);
         res.status(200).json(portfolios);
     }
 

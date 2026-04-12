@@ -19,6 +19,17 @@ class PortfolioService {
     }
 
     /**
+     * Retrieve portfolios for dashboard based on user role
+     */
+    async getDashboardPortfolios(userId, userRole) {
+        if (userRole === 'admin') {
+            return Portfolio.find().sort({ createdAt: -1 }); // Admin nampak semua
+        } else {
+            return Portfolio.find({ userId: userId }).sort({ createdAt: -1 }); // User nampak dia punya je
+        }
+    }
+
+    /**
      * Retrieve a single portfolio entry by ID.
      *
      * @param {string} id - The portfolio ID
