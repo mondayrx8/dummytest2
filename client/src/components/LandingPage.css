@@ -1,13 +1,13 @@
 /* ============================================ */
-/* LANDING PAGE - PREMIUM SILICON VALLEY STYLE */
+/* LANDING PAGE - UUM ENTERPRISE STYLE */
 /* ============================================ */
 
 .landing-page {
     /* Map to root variables from styles.css */
-    --lp-primary: var(--primary-color, #1E3A8A);
-    --lp-accent: var(--secondary-color, #F59E0B);
-    --lp-accent-hover: var(--secondary-hover, #D97706);
-    --lp-bg: var(--bg-color, #F8FAFC);
+    --lp-primary: var(--primary-color, #0B2046);
+    --lp-accent: var(--secondary-color, #FDB813);
+    --lp-accent-hover: var(--secondary-hover, #E6A60B);
+    --lp-bg: var(--bg-color, #F9FAFB);
     --lp-surface: var(--bg-surface, #FFFFFF);
     --lp-text: var(--text-color, #1E293B);
     --lp-text-muted: var(--text-muted, #64748B);
@@ -41,13 +41,13 @@
     animation: slowFloat 20s ease-in-out infinite alternate;
 }
 
-.blob-blue {
+.blob-navy {
     top: -10%; left: -10%;
     width: 60vw; height: 60vw;
     background: var(--lp-primary);
 }
 
-.blob-orange {
+.blob-gold {
     bottom: -20%; right: -10%;
     width: 50vw; height: 50vw;
     background: var(--lp-accent);
@@ -65,14 +65,14 @@
 /* ============================================ */
 
 .text-gradient-primary {
-    background: linear-gradient(135deg, var(--lp-primary) 0%, #3B82F6 100%);
+    background: linear-gradient(135deg, var(--lp-primary) 0%, #081736 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.text-gradient-orange {
-    background: linear-gradient(135deg, var(--lp-accent) 0%, #F97316 100%);
+.text-gradient-gold {
+    background: linear-gradient(135deg, var(--lp-accent) 0%, #E6A60B 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

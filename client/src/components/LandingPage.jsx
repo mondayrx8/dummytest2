@@ -45,8 +45,8 @@ const LandingPage = () => {
         <div className="landing-page">
             {/* Background elements */}
             <div className="blobs-container">
-                <div className="blob blob-blue"></div>
-                <div className="blob blob-orange"></div>
+                <div className="blob blob-navy"></div>
+                <div className="blob blob-gold"></div>
             </div>
 
             {/* Hero Section */}
@@ -83,7 +83,7 @@ const LandingPage = () => {
             {/* Features Section */}
             <section className="features-section">
                 <div className="section-header animate-on-scroll">
-                    <h2 className="section-title">Everything you need to <span className="text-gradient-orange">stand out</span></h2>
+                    <h2 className="section-title">Everything you need to <span className="text-gradient-gold">stand out</span></h2>
                     <p className="section-description">Crafted specifically for the modern student entrepreneur.</p>
                 </div>
 
@@ -100,8 +100,8 @@ const LandingPage = () => {
                         <div className="feature-icon-wrapper">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         </div>
-                        <h3 className="feature-card-title">Premium Aesthetics</h3>
-                        <p className="feature-card-text">Leverage stunning UI components inspired by Silicon Valley startups, capturing investor attention instantly.</p>
+                        <h3 className="feature-card-title">Enterprise Aesthetics</h3>
+                        <p className="feature-card-text">Leverage stunning UI components aligned with the formal UUM academic enterprise design, capturing professional and academic attention instantly.</p>
                     </div>
 
                     <div className="feature-card glass-card animate-on-scroll delay-3">
