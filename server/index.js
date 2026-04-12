@@ -22,6 +22,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 require('dotenv').config();
 
 // Import the global error handler
@@ -29,6 +30,8 @@ const { errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
 
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // ──────────────────────────────────────────────
 // Middleware Configuration
 // ──────────────────────────────────────────────
