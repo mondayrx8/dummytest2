@@ -86,7 +86,7 @@ const ScrollLanding = () => {
                     </p>
                     <div className="hero-cta-group">
                         <Link to="/login" className="cta-button primary">
-                            Get Started
+                            Sign In
                             <span className="button-arrow">→</span>
                         </Link>
                         <Link to="/investors" className="cta-button secondary">
