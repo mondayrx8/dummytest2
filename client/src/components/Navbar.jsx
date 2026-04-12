@@ -78,7 +78,7 @@ const Navbar = ({ user, setToken }) => {
                             <img
                                 src="/siswa-logo.png"
                                 alt="SiswaNiaga Logo"
-                                style={{ width: '80px', height: '50px', objectFit: 'contain' }}
+                                style={{ width: '82px', height: '82px', objectFit: 'contain' }}
                             />
                         </span>
                         <span>SiswaNiaga</span>
