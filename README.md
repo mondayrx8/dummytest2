@@ -1,6 +1,6 @@
-# 🚀 DEPB - Digital Entrepreneur Portfolio Builder
+# 🎓 SiswaNiaga - Universiti Utara Malaysia Enterprise Portal
 
-A modern, professional web application that empowers student entrepreneurs to create, manage, and showcase their business portfolios to potential investors.
+A professional, high-fidelity web application built for Universiti Utara Malaysia (UUM) that empowers student entrepreneurs to create, manage, and showcase their business ventures to potential investors. 
 
 ![React](https://img.shields.io/badge/React-19.0.0-61DAFB?style=flat-square&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-7.3.0-646CFF?style=flat-square&logo=vite)
@@ -10,52 +10,85 @@ A modern, professional web application that empowers student entrepreneurs to cr
 ## ✨ Features
 
 ### 🎯 For Student Entrepreneurs
-- **Portfolio Creation** - Build stunning business portfolios with rich content
-- **Image Uploads** - Showcase your venture with visual media
-- **Dashboard Management** - Edit, preview, and delete portfolios easily
-- **Real-time Progress** - Track form completion with visual progress bar
+- **Venture Creation** - Build stunning business portfolios with rich content and media.
+- **Dashboard Management** - Edit, preview, and delete portfolios easily through a professional dashboard.
+- **Export to PDF** - Download individual portfolio pitch decks directly.
+- **Real-time Progress** - Track form completion and platform statistics visually.
 
 ### 🌐 For Investors (Guest View)
-- **Public Showcase Gallery** - Browse all published student ventures
-- **Smart Search** - Filter portfolios by name, founder, or keywords
-- **Interactive Cards** - Hover effects and detailed pitch views
+- **Public Showcase Gallery** - Browse all published student ventures through a premium Venture Card grid.
+- **Smart Search & Filters** - Quickly navigate projects by keywords or specific criteria.
+- **Interactive Details** - Hover effects and complete pitch views out of the box.
 
-### 🔐 Authentication
-- **Secure Login/Register** - JWT-based authentication system
-- **Session Management** - Persistent login with token storage
-- **Role-based Access** - Student dashboard vs public investor view
+### 🔐 Architecture & Security
+- **Secure Authentication** - JWT-based auth system with session management and secure routing.
+- **Role-based Access Control (RBAC)** - Separates student dashboard (authenticated) from public investor views.
+- **Clean Architecture** - Standardized OOP Controller-Service backend implementation.
 
 ## 🎨 Design System
 
-Built with the **"Stormy Morning"** color palette - a professional blue-gray theme that conveys trustworthiness and reliability.
+Fully refactored to align with the formal **Universiti Utara Malaysia (UUM)** academic enterprise aesthetic, completely utilizing CSS variables to standardize styling across all modules.
 
-| Color | Hex | Usage |
+| Brand Color | Hex | Usage |
 |-------|-----|-------|
-| Storm Dark | `#384959` | Headlines, Primary CTAs |
-| Storm Slate | `#6A89A7` | Accents, Icons |
-| Storm Sky | `#88BDF2` | Hover States, Focus |
-| Storm Light | `#BDDDFC` | Backgrounds, Orbs |
+| **UUM Royal Navy Blue** | `#0B2046` | Primary brand color, headers, authentications, authoritative elements |
+| **UUM Academic Gold** | `#FDB813` | Accents, core CTAs, highlights |
 
-### UI/UX Features
-- ✅ Glassmorphism effects with backdrop blur
-- ✅ Smooth micro-animations and transitions
-- ✅ Mobile-first responsive design
-- ✅ Floating gradient orbs for visual depth
-- ✅ Modern typography with Inter font
+### UI/UX Highlights
+- ✅ Comprehensive implementation of the UUM color scheme
+- ✅ Glassmorphism effects perfectly matched with deep navy branding
+- ✅ Clean white-card setups for the investor galleries and showcases
+- ✅ Modern typography utilizing the **Poppins** font family
+- ✅ Dynamic micro-animations for responsiveness and interactivity
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **React 19** - UI library
-- **React Router DOM** - Client-side routing
-- **Axios** - HTTP client for API calls
-- **Vite** - Build tool and dev server
-- **CSS3** - Custom styling with CSS variables
+**Frontend:**
+- React 19 + Vite
+- React Router DOM
+- html2pdf.js for Document Generation
+- Custom CSS Variables for Theming (`styles.css`)
 
-### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - NoSQL database
-- **JWT** - Authentication tokens
+**Backend:**
+- Node.js & Express.js
+- MongoDB & Mongoose (OOP MVC approach)
+- JWT + bcryptjs for security
 
 ## 📁 Project Structure
+
+```text
+📦 FYP1_Portfolio
+ ┣ 📂 client                 # React frontend application
+ ┃ ┣ 📂 src               
+ ┃ ┃ ┣ 📂 assets           # Static UI media
+ ┃ ┃ ┣ 📂 components       # Modular React functional components
+ ┃ ┃ ┃ ┣ 📜 Dashboard, Portfolio cards, Navbar, etc.
+ ┃ ┃ ┣ 📜 App.jsx          # Entry application routing 
+ ┃ ┃ ┗ 📜 styles.css       # Core Design System CSS variables & utilities
+ ┃ ┣ 📜 package.json
+ ┃ ┗ 📜 vite.config.js
+ ┣ 📂 server                 # Express backend application
+ ┃ ┣ 📂 config             # Environment and external resource setups
+ ┃ ┣ 📂 controllers        # Route handlers and HTTP logic
+ ┃ ┣ 📂 middleware         # Auth, validation, and error guards
+ ┃ ┣ 📂 models             # Mongoose database schemas
+ ┃ ┣ 📂 routes             # API endpoints definitions
+ ┃ ┣ 📂 services           # Business logic and database operations
+ ┃ ┣ 📂 utils              # Helper functions
+ ┃ ┣ 📂 validations        # Zod validation schemas
+ ┃ ┗ 📜 index.js           # Server entry point
+ ┣ 📜 package.json           # Backend dependency configurations
+ ┗ 📜 README.md              # Project documentation
+```
+
+## 🚀 Quick Start
+
+1. **Clone the repository**
+2. **Setup Backend:**
+   - In the root folder, run `npm install`
+   - Setup a `.env` file at `server/.env` based on standard configurations (e.g., MongoDB URI, JWT Secret)
+   - Start the backend via `node server/index.js`
+3. **Setup Frontend:**
+   - Navigate to the frontend directory: `cd client`
+   - Install dependencies: `npm install`
+   - Start the development server: `npm run dev`
