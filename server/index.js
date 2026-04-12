@@ -39,7 +39,8 @@ const allowedOrigins = [
     'http://localhost:5173',
     'https://siswaniaga.my',
     'https://www.siswaniaga.my',
-    'https://dummytest2.vercel.app' // <--- TAMBAH INI (Suspek Utama!)
+    'https://dummytest2.vercel.app',
+    'https://siswaniaga-frontend.pages.dev'
 ];
 
 // Buang simbol '/' di hujung CLIENT_URL jika ada
