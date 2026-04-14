@@ -113,7 +113,7 @@ class AuthService {
         // Hantar E-mel menggunakan Resend
         try {
             await resend.emails.send({
-                from: 'SiswaNiaga Admin <onboarding@resend.dev>', // Guna emel percuma Resend buat masa ni
+                from: 'SiswaNiaga Admin <admin@siswaniaga.my>',
                 to: email,
                 subject: 'SiswaNiaga - Reset Password Anda',
                 html: `
