@@ -421,7 +421,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 value={formData.marketSize}
                 onChange={handleChange}
                 className="modern-input"
-                placeholder="e.g. 500K University Students in Malaysia"
+                placeholder="e.g. 20K University Students in Malaysia"
                 required
               />
             </div>
@@ -474,7 +474,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
             <div className="form-grid">
               <div className="input-group">
-                <label className="input-label">Prep / Production Location</label>
+                <label className="input-label">Production Location</label>
                 <input
                   type="text"
                   name="prepLocation"

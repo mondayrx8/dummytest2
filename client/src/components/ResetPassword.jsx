@@ -26,7 +26,7 @@ const ResetPassword = () => {
                 token,
                 newPassword
             });
-            setMessage("Kemenangan! " + res.data.message);
+            setMessage("Success! " + res.data.message);
             setTimeout(() => navigate('/'), 3000); // Bawa user ke page login lepas 3 saat
         } catch (err) {
             setError(err.response?.data?.message || "Token tidak sah atau telah luput.");
