@@ -7,33 +7,36 @@ import './GuestList.css';
 const GuestList = () => {
     const navigate = useNavigate();
     const [portfolios, setPortfolios] = useState([]);
-    const [filteredPortfolios, setFilteredPortfolios] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchPublicData = async () => {
-            try {
-                const res = await axios.get('https://api.siswaniaga.my/api/portfolio/all');
-                setPortfolios(res.data);
-                setFilteredPortfolios(res.data);
-            } catch (error) {
-                console.error("Error fetching guest data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPublicData();
-    }, []);
+    // 👇 State Pagination Baru
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalVentures, setTotalVentures] = useState(0);
 
+    const fetchPublicData = async (page = 1, search = '') => {
+        try {
+            setLoading(true);
+            const res = await axios.get(`https://api.siswaniaga.my/api/portfolio/all?page=${page}&limit=9&search=${search}`);
+            setPortfolios(res.data.data);
+            setCurrentPage(res.data.currentPage);
+            setTotalPages(res.data.totalPages === 0 ? 1 : res.data.totalPages);
+            setTotalVentures(res.data.total);
+        } catch (error) {
+            console.error("Error fetching guest data:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Auto-fetch bila user menaip (delay 0.5s supaya server tak jem)
     useEffect(() => {
-        const results = portfolios.filter(item =>
-            item.businessName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
-        setFilteredPortfolios(results);
-    }, [searchTerm, portfolios]);
+        const timeoutId = setTimeout(() => {
+            fetchPublicData(1, searchTerm);
+        }, 500);
+        return () => clearTimeout(timeoutId);
+    }, [searchTerm]);
 
     return (
         <div className="guest-page">
@@ -46,7 +49,7 @@ const GuestList = () => {
                     </p>
 
                     <div className="stats-badge">
-                        <span className="stats-number">{filteredPortfolios.length}</span>
+                        <span className="stats-number">{totalVentures}</span>
                         <span className="stats-label">Active Ventures</span>
                     </div>
 
@@ -68,7 +71,7 @@ const GuestList = () => {
                         <div className="loading-state">
                             <p>Loading amazing portfolios...</p>
                         </div>
-                    ) : filteredPortfolios.length === 0 ? (
+                    ) : portfolios.length === 0 ? (
                         <div className="empty-state">
                             <h3 style={{ color: 'var(--text-color)', marginBottom: '0.5rem' }}>No Ventures Found</h3>
                             <p>{searchTerm ? "Try adjusting your search terms." : "Check back soon for new student submissions!"}</p>
@@ -80,7 +83,7 @@ const GuestList = () => {
                         </div>
                     ) : (
                         <div className="enterprise-grid">
-                            {filteredPortfolios.map((item) => (
+                            {portfolios.map((item) => (
                                 <article key={item._id} className="enterprise-card">
                                     {/* Image Map */}
                                     {item.image ? (
@@ -110,6 +113,35 @@ const GuestList = () => {
                             ))}
                         </div>
                     )}
+
+                    {/* 👇👇👇 KOD BUTANG PAGINATION 👇👇👇 */}
+                    {!loading && portfolios.length > 0 && totalPages > 1 && (
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', margin: '40px 0' }}>
+                            <button
+                                onClick={() => fetchPublicData(currentPage - 1, searchTerm)}
+                                disabled={currentPage === 1}
+                                className="enterprise-btn-view"
+                                style={{ opacity: currentPage === 1 ? 0.5 : 1, cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+                            >
+                                ← Previous
+                            </button>
+
+                            <span style={{ color: 'var(--text-color)', fontWeight: 'bold' }}>
+                                Page {currentPage} of {totalPages}
+                            </span>
+
+                            <button
+                                onClick={() => fetchPublicData(currentPage + 1, searchTerm)}
+                                disabled={currentPage === totalPages}
+                                className="enterprise-btn-view"
+                                style={{ opacity: currentPage === totalPages ? 0.5 : 1, cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+                            >
+                                Next →
+                            </button>
+                        </div>
+                    )}
+                    {/* 👆👆👆 ----------------------- 👆👆👆 */}
+
                 </main>
             </div>
             <Footer />
