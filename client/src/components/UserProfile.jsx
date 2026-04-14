@@ -9,6 +9,9 @@ const UserProfile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
+    const [newEmail, setNewEmail] = useState('');
+    const [emailLoading, setEmailLoading] = useState(false);
+    const [emailMessage, setEmailMessage] = useState({ type: '', text: '' });
     // Password state
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -38,6 +41,36 @@ const UserProfile = () => {
 
         fetchProfile();
     }, [navigate]);
+
+    // 👇👇👇 2. Fungsi Kemaskini Email 👇👇👇
+    const handleEmailChange = async (e) => {
+        e.preventDefault();
+        setEmailLoading(true);
+        setEmailMessage({ type: '', text: '' });
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.put('https://api.siswaniaga.my/api/auth/update-email', {
+                email: newEmail
+            }, {
+                headers: { 'auth-token': token }
+            });
+
+            setEmailMessage({ type: 'success', text: response.data.message });
+            // Update paparan emel serta-merta tanpa perlu refresh page
+            setProfile(prev => ({ ...prev, email: newEmail }));
+            setNewEmail('');
+        } catch (err) {
+            console.error("Error updating email:", err);
+            const errorMsg = err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Gagal mengemaskini e-mel.';
+            setEmailMessage({ type: 'error', text: errorMsg });
+        } finally {
+            setEmailLoading(false);
+        }
+    };
+    // 👆👆👆 --------------------------- 👆👆👆
 
     const handlePasswordChange = async (e) => {
         e.preventDefault();
@@ -131,6 +164,39 @@ const UserProfile = () => {
                                 <label>Role</label>
                                 <p className="info-value role-badge">{profile?.role}</p>
                             </div>
+
+                            {/* 👇👇👇 3. Borang Kemaskini Email 👇👇👇 */}
+                            <hr style={{ margin: '20px 0', borderColor: '#e2e8f0', borderStyle: 'solid', borderWidth: '1px 0 0 0' }} />
+                            <form onSubmit={handleEmailChange} className="password-form" style={{ marginTop: '0' }}>
+                                <h3 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>Update Email</h3>
+
+                                {emailMessage.text && (
+                                    <div className={`message-toast ${emailMessage.type}`}>
+                                        {emailMessage.text}
+                                    </div>
+                                )}
+
+                                <div className="form-group">
+                                    <input
+                                        type="email"
+                                        value={newEmail}
+                                        onChange={(e) => setNewEmail(e.target.value)}
+                                        required
+                                        placeholder="Masukkan e-mel baharu"
+                                        style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    className="btn-update-pwd"
+                                    disabled={emailLoading}
+                                    style={{ backgroundColor: '#0f172a', marginTop: '10px' }}
+                                >
+                                    {emailLoading ? 'Menyimpan...' : 'Simpan E-mel'}
+                                </button>
+                            </form>
+                            {/* 👆👆👆 ----------------------------- 👆👆👆 */}
+
                         </div>
                     </div>
 
