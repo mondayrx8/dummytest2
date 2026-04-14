@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './PortfolioForm.css';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const navigate = useNavigate();
@@ -34,6 +35,54 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
+
+  // 👇👇👇 1. FUNGSI AI COPYWRITER 👇👇👇
+  const handleEnhanceWithAI = async () => {
+    if (!formData.description) return alert("Sila taip sedikit idea asal sebelum tekan AI.");
+    try {
+      setLoading(true);
+      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const prompt = `Baiki dan jadikan ayat ini lebih profesional dan meyakinkan untuk pelabur bisnes. Jangan terlalu panjang, kekalkan poin utama: "${formData.description}"`;
+      const result = await model.generateContent(prompt);
+      setFormData({ ...formData, description: result.response.text() });
+    } catch (error) {
+      console.error("AI Error:", error);
+      alert("Gagal panggil AI. Semak API Key.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 👇👇👇 2. FUNGSI UPLOAD GALERI (CLOUDINARY) 👇👇👇
+  const handleShopImageUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+    setLoading(true);
+    const uploadedUrls = [...formData.shopImages];
+
+    try {
+      for (const file of files) {
+        const uploadData = new FormData();
+        uploadData.append("file", file);
+        uploadData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+        uploadData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+
+        const res = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`, uploadData);
+        uploadedUrls.push(res.data.secure_url);
+      }
+      setFormData({ ...formData, shopImages: uploadedUrls });
+    } catch (error) {
+      console.error("Cloudinary Error:", error);
+      alert("Gagal muat naik gambar ke Cloudinary.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const removeShopImage = (indexToRemove) => {
+    setFormData({ ...formData, shopImages: formData.shopImages.filter((_, index) => index !== indexToRemove) });
+  };
 
   useEffect(() => {
     if (currentPortfolio) {
@@ -302,7 +351,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             <div className="input-group">
-              <label className="input-label">Overview & Problem Solved *</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <label className="input-label" style={{ margin: 0 }}>Overview*</label>
+                <button type="button" onClick={handleEnhanceWithAI} disabled={loading} style={{ backgroundColor: '#8b5cf6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  ✨ Kemaskan dengan AI
+                </button>
+              </div>
               <textarea
                 name="description"
                 value={formData.description}
@@ -658,6 +712,27 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               )}
             </div>
           </section>
+
+          <div className="upload-area mt-4" style={{ backgroundColor: '#f0f9ff', border: '2px dashed #0ea5e9' }}>
+            <label className="input-label" style={{ color: '#0369a1' }}>📸 Galeri Gambar Kedai / Produk (Multiple)</label>
+            <label htmlFor="shop-gallery-upload" className="upload-zone" style={{ minHeight: '80px' }}>
+              <div className="upload-icon">➕</div>
+              <span className="upload-text">Klik untuk pilih banyak gambar serentak</span>
+              <input id="shop-gallery-upload" type="file" accept="image/*" multiple onChange={handleShopImageUpload} className="upload-input" />
+            </label>
+
+            {/* Tempat Preview Gambar Galeri */}
+            {formData.shopImages.length > 0 && (
+              <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', marginTop: '15px', padding: '10px 0' }}>
+                {formData.shopImages.map((img, idx) => (
+                  <div key={idx} style={{ position: 'relative', minWidth: '100px' }}>
+                    <img src={img} alt={`Gallery ${idx}`} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+                    <button type="button" onClick={() => removeShopImage(idx)} style={{ position: 'absolute', top: '-5px', right: '-5px', background: 'red', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', cursor: 'pointer', fontSize: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Form Actions */}
           <div className="form-actions-card">
