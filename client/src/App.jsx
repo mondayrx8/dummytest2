@@ -11,6 +11,8 @@ import GuestList from './components/GuestList';
 import LandingPage from './components/LandingPage';
 import PortfolioDetails from './components/PortfolioDetails';
 import UserProfile from './components/UserProfile';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -110,6 +112,11 @@ const App = () => {
             <Route path="/login" element={
               !token ? <Login setToken={setToken} /> : <Navigate to="/dashboard" />
             } />
+
+            {/* 👇👇👇 LALUAN FORGOT & RESET PASSWORD 👇👇👇 */}
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            {/* 👆👆👆 --------------------------------- 👆👆👆 */}
 
             {/* Dashboard - Protected */}
             <Route path="/dashboard" element={
