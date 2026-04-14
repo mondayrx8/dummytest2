@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import html2pdf from 'html2pdf.js';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
@@ -60,8 +61,20 @@ const PortfolioDetails = () => {
         salesRevenue,
         challenges,
         learningGrowth,
-        mediaProof
+        mediaProof,
+        whatsappNumber,
+        monthlySalesData,
+        shopImages
     } = portfolio;
+
+    // --- FUNGSI KLIK WHATSAPP ---
+    const handleWhatsApp = () => {
+        if (!whatsappNumber) return alert("Nombor WhatsApp tidak disediakan.");
+        // Bersihkan nombor (buang +, sengkang, atau ruang kosong)
+        const cleanNumber = whatsappNumber.replace(/\D/g, '');
+        const text = encodeURIComponent(`Hai ${studentName}, saya seorang pelabur dan berminat dengan profil bisnes ${businessName} anda di SiswaNiaga. Boleh kita berbincang lebih lanjut?`);
+        window.open(`https://wa.me/${cleanNumber}?text=${text}`, '_blank');
+    };
 
     const handleDownloadPDF = () => {
         const element = document.getElementById('portfolio-pdf-content');
@@ -82,6 +95,9 @@ const PortfolioDetails = () => {
             <div className="floating-actions">
                 <button onClick={() => navigate(-1)} className="btn-back-floating">← Back</button>
                 <button onClick={handleDownloadPDF} className="btn-back-floating primary">📥 Download PDF</button>
+                {whatsappNumber && (
+                    <button onClick={handleWhatsApp} className="btn-back-floating" style={{ backgroundColor: '#25D366', color: 'white', border: 'none' }}>💬 Direct Deal</button>
+                )}
             </div>
 
             <div id="portfolio-pdf-content">
@@ -160,10 +176,29 @@ const PortfolioDetails = () => {
                         <div className="grid-col">
                             {/* 5. Sales & Revenue */}
                             <div className="detail-card highlight-card">
-                                <h3 className="card-header"><span className="icon">💰</span> Financial Highlights</h3>
+                                <h3 className="card-header"><span className="icon">💰</span> Financial Highlights & Traction</h3>
+
+                                {/* --- GRAF TRACTION --- */}
+                                {monthlySalesData && monthlySalesData.length > 0 ? (
+                                    <div style={{ width: '100%', height: 220, marginTop: '15px', marginBottom: '20px' }}>
+                                        <h4 style={{ fontSize: '14px', marginBottom: '10px', color: '#64748b' }}>Monthly Sales Traction (RM)</h4>
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <LineChart data={monthlySalesData}>
+                                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                                                <XAxis dataKey="month" fontSize={12} stroke="#64748b" />
+                                                <YAxis fontSize={12} stroke="#64748b" />
+                                                <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }} />
+                                                <Line type="monotone" dataKey="sales" stroke="#2563eb" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                ) : (
+                                    <p className="text-muted" style={{ fontSize: '13px', fontStyle: 'italic', marginBottom: '15px' }}>No traction data available yet.</p>
+                                )}
+
                                 <div className="finance-stats">
                                     <div className="stat">
-                                        <span className="stat-label">Monthly Revenue</span>
+                                        <span className="stat-label">Estimated Monthly Revenue</span>
                                         <span className="stat-value">{salesRevenue?.monthlyRevenue || '-'}</span>
                                     </div>
                                     <div className="stat">
@@ -221,6 +256,16 @@ const PortfolioDetails = () => {
                 </div>
             </div>
             {/* End PDF Wrapper */}
+            {shopImages && shopImages.length > 0 && (
+                <div style={{ maxWidth: '1000px', margin: '40px auto', padding: '20px', backgroundColor: '#ffffff', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+                    <h3 style={{ marginBottom: '20px', color: '#1e293b', borderBottom: '2px solid #e2e8f0', paddingBottom: '10px' }}>📸 Shop & Product Gallery</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
+                        {shopImages.map((img, idx) => (
+                            <img key={idx} src={img} alt={`Shop ${idx + 1}`} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px', cursor: 'pointer', transition: 'transform 0.2s' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.02)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

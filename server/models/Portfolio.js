@@ -20,6 +20,17 @@ const portfolioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    whatsappNumber: {
+        type: String,
+        required: false
+    },
+    monthlySalesData: [{
+        month: { type: String },
+        sales: { type: Number }
+    }],
+    shopImages: [{
+        type: String
+    }],
     description: {
         type: String,
         required: true

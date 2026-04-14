@@ -21,6 +21,13 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     challenges: { topChallenge: '', solution: '' },
     learningGrowth: { skillsGained: '', futurePlans: '' },
     mediaProof: { mediaLinks: '', socialLinks: '' }
+    whatsappNumber: '',
+    monthlySalesData: [
+      { month: 'Bulan 1', sales: '' },
+      { month: 'Bulan 2', sales: '' },
+      { month: 'Bulan 3', sales: '' }
+    ],
+    shopImages: []
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -40,6 +47,10 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         salesRevenue: { ...initialFormState.salesRevenue, ...(currentPortfolio.salesRevenue || {}) },
         challenges: { ...initialFormState.challenges, ...(currentPortfolio.challenges || {}) },
         learningGrowth: { ...initialFormState.learningGrowth, ...(currentPortfolio.learningGrowth || {}) },
+        whatsappNumber: currentPortfolio.whatsappNumber || '',
+        monthlySalesData: (currentPortfolio.monthlySalesData && currentPortfolio.monthlySalesData.length > 0)
+          ? currentPortfolio.monthlySalesData
+          : initialFormState.monthlySalesData,
         mediaProof: {
           mediaLinks: currentPortfolio.mediaProof?.mediaLinks ? currentPortfolio.mediaProof.mediaLinks.join('\n') : '',
           socialLinks: currentPortfolio.mediaProof?.socialLinks || ''
@@ -72,6 +83,11 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   };
 
   const handleFileChange = (e) => {
+    const handleSalesChange = (index, field, value) => {
+      const newData = [...formData.monthlySalesData];
+      newData[index][field] = value;
+      setFormData({ ...formData, monthlySalesData: newData });
+    };
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -210,6 +226,18 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   required
                 />
               </div>
+            </div>
+
+            <div className="input-group mt-4">
+              <label className="input-label">WhatsApp Number (For Direct Deal) 💬</label>
+              <input
+                type="text"
+                name="whatsappNumber"
+                value={formData.whatsappNumber}
+                onChange={handleChange}
+                className="modern-input"
+                placeholder="e.g. 60123456789 (Mula dengan 60)"
+              />
             </div>
 
             <div className="input-group">
@@ -434,6 +462,34 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             <div className="card-header">
               <span className="card-number">5</span>
               <h2 className="card-title">Sales & Revenue</h2>
+            </div>
+
+            <div className="input-group" style={{ backgroundColor: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+              <label className="input-label" style={{ color: '#2563eb' }}>📈 Monthly Sales Traction (For Chart)</label>
+              <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '10px' }}>Masukkan anggaran jualan untuk 3 bulan terakhir. Biarkan kosong jika tiada data.</p>
+
+              <div className="form-grid" style={{ gap: '10px' }}>
+                {formData.monthlySalesData.map((data, index) => (
+                  <div key={index} style={{ display: 'flex', gap: '10px' }}>
+                    <input
+                      type="text"
+                      value={data.month}
+                      onChange={(e) => handleSalesChange(index, 'month', e.target.value)}
+                      className="modern-input"
+                      placeholder="Cth: Jan"
+                      style={{ flex: 1 }}
+                    />
+                    <input
+                      type="number"
+                      value={data.sales}
+                      onChange={(e) => handleSalesChange(index, 'sales', Number(e.target.value))}
+                      className="modern-input"
+                      placeholder="Cth: 1500"
+                      style={{ flex: 2 }}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="form-grid">
