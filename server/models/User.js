@@ -19,8 +19,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user' // Automatically become normal user
-    }
-    // We don't store "confirmPassword" - that is only for the frontend check  
+    },
+    // 👇👇👇 TAMBAH DUA BARIS INI 👇👇👇
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
+    // 👆👆👆 ----------------------- 👆👆👆
 });
 
 module.exports = mongoose.model('User', userSchema);
