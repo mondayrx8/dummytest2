@@ -13,6 +13,17 @@
 
 const express = require('express');
 const router = express.Router();
+const rateLimit = require('express-rate-limit');
+
+// 👇👇👇 PERISAI ANTI-SPAM (MAX 3 KALI SEJAM) 👇👇👇
+const forgotPasswordLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 jam
+    max: 3, // Hadkan 3 kali request sahaja per IP
+    message: { message: "Terlalu banyak percubaan. Sila cuba lagi selepas 1 jam." },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+// 👆👆👆 ------------------------------------------ 👆👆👆
 
 // ── Middleware ───────────────────────────────────────
 const validate = require('../middleware/validate');
@@ -46,7 +57,7 @@ router.get('/profile', auth, authController.getProfile);
 // PUT /api/auth/change-password  -  Change user password
 router.put('/change-password', auth, authController.changePassword);
 router.put('/update-email', auth, validate(updateEmailSchema), authController.updateEmail);
-router.post('/forgot-password', authController.forgotPassword);
+router.post('/forgot-password', forgotPasswordLimiter, authController.forgotPassword);
 router.post('/reset-password', authController.resetPassword);
 
 module.exports = router;
