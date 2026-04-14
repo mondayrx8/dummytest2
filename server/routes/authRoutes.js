@@ -45,7 +45,7 @@ router.get('/profile', auth, authController.getProfile);
 
 // PUT /api/auth/change-password  -  Change user password
 router.put('/change-password', auth, authController.changePassword);
-
+router.put('/update-email', auth, authController.updateEmail);
 router.post('/forgot-password', authController.forgotPassword);
 router.post('/reset-password', authController.resetPassword);
 

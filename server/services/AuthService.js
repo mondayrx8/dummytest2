@@ -179,7 +179,11 @@ class AuthService {
             error.statusCode = 404;
             throw error;
         }
-        return { username: user.username, role: user.role };
+        return {
+            username: user.username,
+            email: user.email || 'Tiada E-mel', // ✅ Tambah ini
+            role: user.role
+        };
     }
 
     /**
@@ -189,6 +193,14 @@ class AuthService {
      * @param {string} newPassword
      * @returns {Promise<{message: string}>}
      */
+
+    async updateEmail(userId, newEmail) {
+        const user = await User.findById(userId);
+        user.email = newEmail;
+        await user.save();
+        return { message: 'E-mel berjaya dikemaskini!' };
+    }
+
     async changePassword(userId, oldPassword, newPassword) {
         const user = await User.findById(userId);
         if (!user) {

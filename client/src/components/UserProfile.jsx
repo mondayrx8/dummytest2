@@ -122,6 +122,12 @@ const UserProfile = () => {
                                 <p className="info-value">{profile?.username}</p>
                             </div>
                             <div className="info-group">
+                                <label>Email Address</label>
+                                <p className="info-value" style={{ textTransform: 'none' }}>
+                                    {profile?.email || 'Sila kemaskini e-mel anda'}
+                                </p>
+                            </div>
+                            <div className="info-group">
                                 <label>Role</label>
                                 <p className="info-value role-badge">{profile?.role}</p>
                             </div>

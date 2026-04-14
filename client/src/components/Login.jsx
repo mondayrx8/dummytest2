@@ -123,9 +123,16 @@ const Login = ({ setToken }) => {
             )}
 
             <div className="input-group">
-              <label htmlFor="password" className="input-label">
-                Password
-              </label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                <label htmlFor="password" className="input-label" style={{ margin: 0 }}>
+                  Password
+                </label>
+                {!isRegistering && (
+                  <Link to="/forgot-password" style={{ fontSize: '12px', color: '#2563eb', textDecoration: 'none', fontWeight: '600' }}>
+                    Lupa Password?
+                  </Link>
+                )}
+              </div>
               <div className="input-wrapper">
                 <span className="input-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -28,6 +28,7 @@ class AuthController {
         this.changePassword = this.changePassword.bind(this);
         this.forgotPassword = this.forgotPassword.bind(this);
         this.resetPassword = this.resetPassword.bind(this);
+        this.updateEmail = this.updateEmail.bind(this);
     }
 
     /**
@@ -61,6 +62,12 @@ class AuthController {
             // Ini akan hantar ralat ke errorHandler.js kau
             next(error);
         }
+    }
+
+    async updateEmail(req, res) {
+        const { email } = req.body;
+        const result = await this.authService.updateEmail(req.user.id, email);
+        res.status(200).json(result);
     }
 
     async forgotPassword(req, res) {
