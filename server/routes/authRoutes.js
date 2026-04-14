@@ -19,7 +19,7 @@ const validate = require('../middleware/validate');
 const auth = require('../middleware/authMiddleware');
 
 // ── Validation Schemas ──────────────────────────────
-const { registerSchema, loginSchema } = require('../validations/authValidation');
+const { registerSchema, loginSchema, updateEmailSchema } = require('../validations/authValidation');
 
 // ── Service & Controller (Dependency Injection) ─────
 const AuthService = require('../services/AuthService');
@@ -45,7 +45,7 @@ router.get('/profile', auth, authController.getProfile);
 
 // PUT /api/auth/change-password  -  Change user password
 router.put('/change-password', auth, authController.changePassword);
-router.put('/update-email', auth, authController.updateEmail);
+router.put('/update-email', auth, validate(updateEmailSchema), authController.updateEmail);
 router.post('/forgot-password', authController.forgotPassword);
 router.post('/reset-password', authController.resetPassword);
 

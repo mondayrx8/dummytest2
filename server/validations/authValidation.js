@@ -53,4 +53,13 @@ const loginSchema = z.object({
         .min(1, 'Password cannot be empty'),
 });
 
-module.exports = { registerSchema, loginSchema };
+// ──────────────────────────────────────────────
+// PUT /api/auth/update-email
+// ──────────────────────────────────────────────
+const updateEmailSchema = z.object({
+    email: z
+        .string({ required_error: 'Email is required' })
+        .email('Sila masukkan format e-mel yang sah'),
+});
+
+module.exports = { registerSchema, loginSchema, updateEmailSchema };

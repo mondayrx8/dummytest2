@@ -106,8 +106,9 @@ class AuthService {
         await user.save();
 
         // Bina Link Reset (Arahkan ke Frontend)
-        const resetLink = `http://localhost:5173/reset-password/${resetToken}?email=${email}`;
-        // 🚨 NOTA: Tukar 'http://localhost:5173' kepada 'https://siswaniaga.my' bila deploy nanti!
+        // Ambil URL depan dari .env (atau guna localhost kalau takde)
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        const resetLink = `${clientUrl}/reset-password/${resetToken}?email=${email}`;
 
         // Hantar E-mel menggunakan Resend
         try {
@@ -195,6 +196,14 @@ class AuthService {
      */
 
     async updateEmail(userId, newEmail) {
+        // Semak kalau e-mel tu dah wujud dan dimiliki orang lain
+        const existingEmail = await User.findOne({ email: newEmail });
+        if (existingEmail && existingEmail._id.toString() !== userId.toString()) {
+            const error = new Error('E-mel ini telah didaftarkan oleh pengguna lain.');
+            error.statusCode = 400;
+            throw error;
+        }
+
         const user = await User.findById(userId);
         user.email = newEmail;
         await user.save();
