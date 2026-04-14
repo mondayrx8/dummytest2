@@ -6,6 +6,7 @@ import './Login.css';
 const Login = ({ setToken }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,7 @@ const Login = ({ setToken }) => {
     try {
       const response = await axios.post(`https://api.siswaniaga.my/api/auth${endpoint}`, {
         username,
+        email,
         password
       });
 
@@ -101,6 +103,24 @@ const Login = ({ setToken }) => {
                 />
               </div>
             </div>
+
+            {isRegistering && (
+              <div className="input-group">
+                <label htmlFor="email" className="input-label">Email Address</label>
+                <div className="input-wrapper">
+                  <span className="input-icon">📧</span>
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="student@siswa.edu.my"
+                    className="modern-input"
+                    required={isRegistering}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="input-group">
               <label htmlFor="password" className="input-label">

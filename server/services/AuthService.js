@@ -32,11 +32,11 @@ class AuthService {
      * @returns {Promise<{message: string}>}
      * @throws {Error} If the username already exists or save fails
      */
-    async register(username, password) {
-        // Check for duplicate username
-        const existingUser = await User.findOne({ username });
+    async register(username, email, password) {
+        // Check for duplicate username OR email
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
-            const error = new Error('User already exists');
+            const error = new Error('Username or Email already exists');
             error.statusCode = 400;
             throw error;
         }
@@ -44,7 +44,7 @@ class AuthService {
         // Hash password with bcrypt
         const hashedPassword = await bcrypt.hash(password, this.saltRounds);
 
-        const newUser = new User({ username, password: hashedPassword });
+        const newUser = new User({ username, email, password: hashedPassword });
         await newUser.save();
 
         return { message: 'User registered successfully!' };

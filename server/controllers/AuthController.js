@@ -38,8 +38,9 @@ class AuthController {
      * - Request body has already been validated by Zod middleware.
      */
     async register(req, res) {
-        const { username, password } = req.body;
-        const result = await this.authService.register(username, password);
+        // Tangkap email dari frontend
+        const { username, email, password } = req.body;
+        const result = await this.authService.register(username, email, password);
         res.status(201).json(result);
     }
 

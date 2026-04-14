@@ -27,6 +27,12 @@ const registerSchema = z
                 'Username can only contain letters, numbers, and underscores'
             ),
 
+        // 👇👇👇 TAMBAH PAS VIP EMAIL DI SINI 👇👇👇
+        email: z
+            .string({ required_error: 'Email is required' })
+            .email('Sila masukkan format e-mel yang sah'),
+        // 👆👆👆 ------------------------------- 👆👆👆
+
         password: z
             .string({ required_error: 'Password is required' })
             .min(6, 'Password must be at least 6 characters')
