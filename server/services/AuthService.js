@@ -10,6 +10,9 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 class AuthService {
     /**
@@ -81,6 +84,87 @@ class AuthService {
         });
 
         return { token, username: user.username, role: user.role };
+    }
+
+    // 👇👇👇 1. Fungsi Hantar E-mel Lupa Kata Laluan 👇👇👇
+    async forgotPassword(email) {
+        // Cari pengguna berdasarkan e-mel
+        const user = await User.findOne({ email });
+        if (!user) {
+            const error = new Error('Tiada akaun ditemui dengan e-mel tersebut.');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        // Cipta token rawak (Token Sakti)
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        const tokenHash = await bcrypt.hash(resetToken, this.saltRounds);
+
+        // Simpan token dalam database dengan tempoh sah (contoh: 1 jam)
+        user.resetPasswordToken = tokenHash;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 Jam
+        await user.save();
+
+        // Bina Link Reset (Arahkan ke Frontend)
+        const resetLink = `http://localhost:5173/reset-password/${resetToken}?email=${email}`;
+        // 🚨 NOTA: Tukar 'http://localhost:5173' kepada 'https://siswaniaga.my' bila deploy nanti!
+
+        // Hantar E-mel menggunakan Resend
+        try {
+            await resend.emails.send({
+                from: 'SiswaNiaga Admin <onboarding@resend.dev>', // Guna emel percuma Resend buat masa ni
+                to: email,
+                subject: 'SiswaNiaga - Reset Password Anda',
+                html: `
+                    <h2>Permohonan Reset Kata Laluan</h2>
+                    <p>Hai ${user.username},</p>
+                    <p>Seseorang telah memohon untuk menukar kata laluan akaun anda.</p>
+                    <p>Klik butang di bawah untuk menetapkan kata laluan baharu:</p>
+                    <a href="${resetLink}" style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Kata Laluan</a>
+                    <p>Jika anda tidak membuat permohonan ini, sila abaikan e-mel ini.</p>
+                    <p>Pautan ini akan luput dalam masa 1 jam.</p>
+                `
+            });
+            return { message: 'E-mel reset kata laluan telah dihantar!' };
+        } catch (error) {
+            console.error("Gagal hantar e-mel:", error);
+            const err = new Error('Sistem e-mel sedang sibuk. Sila cuba sebentar lagi.');
+            err.statusCode = 500;
+            throw err;
+        }
+    }
+
+    // 👇👇👇 2. Fungsi Tetapkan Kata Laluan Baharu 👇👇👇
+    async resetPassword(email, token, newPassword) {
+        const user = await User.findOne({
+            email,
+            resetPasswordExpires: { $gt: Date.now() } // Pastikan token belum luput
+        });
+
+        if (!user || !user.resetPasswordToken) {
+            const error = new Error('Token tidak sah atau telah luput. Sila mohon semula.');
+            error.statusCode = 400;
+            throw error;
+        }
+
+        // Bandingkan token yang dihantar dengan yang disimpan
+        const isValidToken = await bcrypt.compare(token, user.resetPasswordToken);
+        if (!isValidToken) {
+            const error = new Error('Token tidak sah.');
+            error.statusCode = 400;
+            throw error;
+        }
+
+        // Hash password baharu
+        const hashedPassword = await bcrypt.hash(newPassword, this.saltRounds);
+
+        // Kemaskini password dan buang token
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+
+        return { message: 'Kata laluan berjaya ditukar. Sila log masuk.' };
     }
 
     /**

@@ -46,4 +46,7 @@ router.get('/profile', auth, authController.getProfile);
 // PUT /api/auth/change-password  -  Change user password
 router.put('/change-password', auth, authController.changePassword);
 
+router.post('/forgot-password', authController.forgotPassword);
+router.post('/reset-password', authController.resetPassword);
+
 module.exports = router;
