@@ -29,12 +29,19 @@ class PortfolioController {
     }
 
     /**
+/**
      * GET /all
-     * Retrieves every portfolio entry (public route).
+     * Retrieves every portfolio entry (public route) with Pagination.
      */
     async getAll(req, res) {
-        const portfolios = await this.portfolioService.getAll();
-        res.status(200).json(portfolios);
+        // Tangkap nombor page, limit, dan search dari URL Frontend
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 9;
+        const search = req.query.search || '';
+
+        // Hantar order ke Service
+        const result = await this.portfolioService.getAll(page, limit, search);
+        res.status(200).json(result);
     }
 
     /**

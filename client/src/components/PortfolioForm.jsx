@@ -42,7 +42,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     try {
       setLoading(true);
       const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
       const prompt = `Baiki dan jadikan ayat ini lebih profesional dan meyakinkan untuk pelabur bisnes. Jangan terlalu panjang, kekalkan poin utama: "${formData.description}"`;
       const result = await model.generateContent(prompt);
       setFormData({ ...formData, description: result.response.text() });

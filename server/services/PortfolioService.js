@@ -14,10 +14,36 @@ class PortfolioService {
      *
      * @returns {Promise<Array>} Array of portfolio documents
      */
-    async getAll() {
-        return Portfolio.find();
-    }
+    async getAll(page = 1, limit = 9, search = '') {
+        const skip = (page - 1) * limit;
+        let searchQuery = {};
 
+        if (search) {
+            searchQuery = {
+                $or: [
+                    { businessName: { $regex: search, $options: 'i' } },
+                    { 'businessBasics.type': { $regex: search, $options: 'i' } },
+                    { studentName: { $regex: search, $options: 'i' } }
+                ]
+            };
+        }
+
+        const portfolios = await Portfolio.find(searchQuery)
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        const total = await Portfolio.countDocuments(searchQuery);
+
+        return {
+            success: true,
+            count: portfolios.length,
+            total: total,
+            totalPages: Math.ceil(total / limit),
+            currentPage: page,
+            data: portfolios
+        };
+    }
     /**
      * Retrieve portfolios for dashboard based on user role
      */
