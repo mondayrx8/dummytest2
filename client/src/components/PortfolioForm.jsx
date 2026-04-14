@@ -20,7 +20,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     salesRevenue: { monthlyRevenue: '', paymentMethods: '', peakTimes: '' },
     challenges: { topChallenge: '', solution: '' },
     learningGrowth: { skillsGained: '', futurePlans: '' },
-    mediaProof: { mediaLinks: '', socialLinks: '' }
+    mediaProof: { mediaLinks: '', socialLinks: '' },
     whatsappNumber: '',
     monthlySalesData: [
       { month: 'Bulan 1', sales: '' },
