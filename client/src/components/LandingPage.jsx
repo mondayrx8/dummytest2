@@ -54,17 +54,17 @@ const LandingPage = () => {
                 <div className="hero-content-wrapper" ref={heroRef}>
                     <div className="badge animate-on-scroll">
                         <span className="badge-sparkle">✨</span>
-                        <span className="badge-text">SiswaNiaga 2.0 is Live</span>
+                        <span className="badge-text">SiswaNiaga is Live</span>
                     </div>
 
                     <h1 className="hero-title animate-on-scroll delay-1">
-                        Build Your <br/>
-                        <span className="text-gradient-primary">Business Empire</span> <br/>
+                        Build Your <br />
+                        <span className="text-gradient-primary">Business Empire</span> <br />
                         Starting from Campus
                     </h1>
 
                     <p className="hero-subtitle animate-on-scroll delay-2">
-                        The ultimate portfolio builder for student entrepreneurs. 
+                        The ultimate portfolio builder for student entrepreneurs.
                         Launch your digital presence, attract investors, and scale your ideas fast.
                     </p>
 
@@ -73,7 +73,7 @@ const LandingPage = () => {
                             Get Started Now
                             <svg className="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </Link>
-                        <Link to="/guest" className="cta-button secondary">
+                        <Link to="/investors" className="cta-button secondary">
                             Explore as Guest
                         </Link>
                     </div>
@@ -83,7 +83,7 @@ const LandingPage = () => {
             {/* Features Section */}
             <section className="features-section">
                 <div className="section-header animate-on-scroll">
-                    <h2 className="section-title">Everything you need to <span className="text-gradient-gold">stand out</span></h2>
+                    <h2 className="section-title">Everything you need to <span className="text-gradient-gold">showcase your startup</span></h2>
                     <p className="section-description">Crafted specifically for the modern student entrepreneur.</p>
                 </div>
 
@@ -98,7 +98,7 @@ const LandingPage = () => {
 
                     <div className="feature-card glass-card animate-on-scroll delay-2">
                         <div className="feature-icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
                         </div>
                         <h3 className="feature-card-title">Enterprise Aesthetics</h3>
                         <p className="feature-card-text">Leverage stunning UI components aligned with the formal UUM academic enterprise design, capturing professional and academic attention instantly.</p>
@@ -106,7 +106,7 @@ const LandingPage = () => {
 
                     <div className="feature-card glass-card animate-on-scroll delay-3">
                         <div className="feature-icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
                         </div>
                         <h3 className="feature-card-title">Digital Presence</h3>
                         <p className="feature-card-text">Easily publish and share your pitch decks or business links with classmates, mentors, and professors.</p>

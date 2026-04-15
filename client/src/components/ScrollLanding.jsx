@@ -107,7 +107,7 @@ const ScrollLanding = () => {
             <section className="features-section fade-in-section">
                 <div className="section-container">
                     <h2 className="section-title">Powerful Features</h2>
-                    <p className="section-subtitle">Everything you need to stand out</p>
+                    <p className="section-subtitle">Everything you need to showcase your startup</p>
 
                     <div className="features-grid">
                         <div className="feature-card" style={{ '--delay': '0.1s' }}>
