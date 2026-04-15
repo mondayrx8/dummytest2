@@ -86,6 +86,14 @@ const portfolioFields = {
         mediaLinks: z.array(z.string()).optional(),
         socialLinks: z.string().optional()
     }).optional()
+    whatsappNumber: z.string().optional(),
+    shopImages: z.array(z.string()).optional(),
+    monthlySalesData: z.array(
+        z.object({
+            month: z.string().optional(),
+            sales: z.union([z.number(), z.string()]).optional()
+        })
+    ).optional()
 };
 
 // ──────────────────────────────────────────────
@@ -106,6 +114,9 @@ const createPortfolioSchema = z.object({
     challenges: portfolioFields.challenges,
     learningGrowth: portfolioFields.learningGrowth,
     mediaProof: portfolioFields.mediaProof,
+    whatsappNumber: portfolioFields.whatsappNumber,
+    shopImages: portfolioFields.shopImages,
+    monthlySalesData: portfolioFields.monthlySalesData,
 });
 
 // ──────────────────────────────────────────────
