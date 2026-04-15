@@ -131,12 +131,15 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     });
   };
 
+  // 👇 1. Fungsi ubah jualan (Berdiri sendiri) 👇
+  const handleSalesChange = (index, field, value) => {
+    const newData = [...formData.monthlySalesData];
+    newData[index][field] = value;
+    setFormData({ ...formData, monthlySalesData: newData });
+  };
+
+  // 👇 2. Fungsi ubah fail/gambar utama (Berdiri sendiri) 👇
   const handleFileChange = (e) => {
-    const handleSalesChange = (index, field, value) => {
-      const newData = [...formData.monthlySalesData];
-      newData[index][field] = value;
-      setFormData({ ...formData, monthlySalesData: newData });
-    };
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -145,6 +148,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     if (file) reader.readAsDataURL(file);
   };
 
+  // 👇 3. Fungsi hantar borang (Berdiri sendiri) 👇
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
