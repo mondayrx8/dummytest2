@@ -36,19 +36,60 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  // 👇👇👇 1. FUNGSI AI COPYWRITER 👇👇👇
+  // 👇👇👇 1. FUNGSI AI COPYWRITER (VERSI JSON MODE) 👇👇👇
   const handleEnhanceWithAI = async () => {
     if (!formData.description) return alert("Sila taip sedikit idea asal sebelum tekan AI.");
     try {
       setLoading(true);
       const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-      const prompt = `Baiki dan jadikan ayat ini lebih profesional dan meyakinkan untuk pelabur bisnes. Jangan terlalu panjang, kekalkan poin utama: "${formData.description}"`;
+
+      // 🔒 KUNCI MULUT AI: Paksa dia keluarkan format JSON sahaja
+      const model = genAI.getGenerativeModel({
+        model: "gemini-2.5-flash",
+        generationConfig: {
+          responseMimeType: "application/json",
+        }
+      });
+
+      // 🎲 Putaran Gaya Bahasa: Klik banyak kali, dapat gaya berbeza
+      const styles = [
+        "Sangat profesional dan meyakinkan untuk pelabur",
+        "Kreatif, 'catchy', dan sangat menarik perhatian Gen-Z",
+        "Fokus kepada penyelesaian masalah (problem-solving) yang unik",
+        "Pendek, agresif, dan ala-ala slogan jenama antarabangsa",
+        "Santai, jujur, dan menggunakan gaya penceritaan (storytelling)"
+      ];
+      const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+
+      // 🧙‍♂️ Prompt Paksaan JSON
+      const prompt = `
+        Bertindak sebagai pakar copywriter bisnes.
+        Idea Asal: "${formData.description}"
+        Gaya Penulisan: ${randomStyle}
+        
+        Tugasan: Baiki idea asal menjadi SATU perenggan/slogan yang memukau mengikut gaya penulisan di atas.
+        
+        Keluarkan HANYA format JSON yang sah dengan struktur seperti ini:
+        {
+          "slogan": "ayat yang telah dibaiki letak di sini"
+        }
+      `;
+
       const result = await model.generateContent(prompt);
-      setFormData({ ...formData, description: result.response.text() });
+
+      // 🧹 Terjemah output AI dari teks JSON ke Objek JavaScript
+      const parsedData = JSON.parse(result.response.text());
+
+      if (parsedData && parsedData.slogan) {
+        // Terus masukkan ayat bersih ke dalam kotak borang
+        setFormData({ ...formData, description: parsedData.slogan });
+      } else {
+        throw new Error("AI tidak memberikan format JSON yang betul.");
+      }
+
     } catch (error) {
       console.error("AI Error:", error);
-      alert("Gagal panggil AI. Semak API Key.");
+      alert("Gagal memproses AI. Sila cuba tekan sekali lagi.");
     } finally {
       setLoading(false);
     }
@@ -139,13 +180,29 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   };
 
   // 👇 2. Fungsi ubah fail/gambar utama (Berdiri sendiri) 👇
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFormData({ ...formData, image: reader.result });
-    };
-    if (file) reader.readAsDataURL(file);
+    if (!file) return;
+
+    setLoading(true);
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+      uploadData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+      uploadData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        uploadData
+      );
+
+      setFormData({ ...formData, image: res.data.secure_url });
+    } catch (error) {
+      console.error("Cloudinary Main Image Error:", error);
+      alert("Gagal muat naik gambar utama ke Cloudinary.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // 👇 3. Fungsi hantar borang (Berdiri sendiri) 👇
