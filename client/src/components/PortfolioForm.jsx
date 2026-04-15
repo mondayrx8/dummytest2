@@ -222,7 +222,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       <div className="form-wrapper">
         <header className="form-header">
           <h1 className="form-title">
-            {currentPortfolio ? "Edit Business Pitch" : "Create Business Pitch"}
+            {currentPortfolio ? "Edit Business Portfolio" : "Create Business Portfolio"}
           </h1>
           <p className="form-subtitle">
             Complete the sections below to build a comprehensive presentation for your startup venture.
@@ -356,7 +356,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
             <div className="input-group">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <label className="input-label" style={{ margin: 0 }}>Overview*</label>
+                <label className="input-label" style={{ margin: 0 }}>Overview / Slogan*</label>
                 <button type="button" onClick={handleEnhanceWithAI} disabled={loading} style={{ backgroundColor: '#8b5cf6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
                   ✨ Kemaskan dengan AI
                 </button>
@@ -372,7 +372,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             <div className="input-group">
-              <label className="input-label">Main Items / Services Offered</label>
+              <label className="input-label">Main Products / Services Offered</label>
               <input
                 type="text"
                 name="mainItems"
@@ -478,7 +478,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
             <div className="form-grid">
               <div className="input-group">
-                <label className="input-label">Production Location</label>
+                <label className="input-label">HQ Location</label>
                 <input
                   type="text"
                   name="prepLocation"
@@ -490,7 +490,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               </div>
 
               <div className="input-group">
-                <label className="input-label">Total Team Size</label>
+                <label className="input-label">Team Size</label>
                 <input
                   type="number"
                   name="teamSize"
@@ -524,7 +524,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
             <div className="input-group" style={{ backgroundColor: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
               <label className="input-label" style={{ color: '#2563eb' }}>📈 Monthly Sales Traction (For Chart)</label>
-              <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '10px' }}>Masukkan anggaran jualan untuk 3 bulan terakhir. Biarkan kosong jika tiada data.</p>
+              <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '10px' }}>Enter your sales estimates for the last 3 months. Leave empty if you don't have the data.</p>
 
               <div className="form-grid" style={{ gap: '10px' }}>
                 {formData.monthlySalesData.map((data, index) => (
@@ -564,7 +564,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               </div>
 
               <div className="input-group">
-                <label className="input-label">Peak Sales Times</label>
+                <label className="input-label">Operating Times</label>
                 <input
                   type="text"
                   name="peakTimes"
@@ -718,10 +718,10 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           </section>
 
           <div className="upload-area mt-4" style={{ backgroundColor: '#f0f9ff', border: '2px dashed #0ea5e9' }}>
-            <label className="input-label" style={{ color: '#0369a1' }}>📸 Galeri Gambar Kedai / Produk (Multiple)</label>
+            <label className="input-label" style={{ color: '#0369a1' }}>📸 Shop & Product Gallery (Multiple)</label>
             <label htmlFor="shop-gallery-upload" className="upload-zone" style={{ minHeight: '80px' }}>
               <div className="upload-icon">➕</div>
-              <span className="upload-text">Klik untuk pilih banyak gambar serentak</span>
+              <span className="upload-text">Click to select multiple images</span>
               <input id="shop-gallery-upload" type="file" accept="image/*" multiple onChange={handleShopImageUpload} className="upload-input" />
             </label>
 

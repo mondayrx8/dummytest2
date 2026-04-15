@@ -134,7 +134,7 @@ const PortfolioDetails = () => {
 
                     {/* The Bento Grid */}
                     <div className="bento-grid">
-                        
+
                         {/* Card 1: Business Basics & Operations */}
                         <div className="bento-card">
                             <h3 className="card-title"><span className="icon">🏢</span> Operations & Info</h3>
@@ -181,15 +181,15 @@ const PortfolioDetails = () => {
                         <div className="bento-card">
                             <h3 className="card-title"><span className="icon">💎</span> Products & USP</h3>
                             <div className="info-group">
-                                <span className="info-label">Core Offering</span>
+                                <span className="info-label">Main Products</span>
                                 <span className="info-value">{productOffering?.mainItems || 'Not Specified'}</span>
                             </div>
                             <div className="info-group">
-                                <span className="info-label">Pricing Strategy</span>
+                                <span className="info-label">Price Range</span>
                                 <span className="info-value">{productOffering?.priceRange || 'Not Specified'}</span>
                             </div>
                             <div className="info-group">
-                                <span className="info-label">Unique Value Prop (USP)</span>
+                                <span className="info-label">Uniqueness</span>
                                 <span className="info-value">{productOffering?.uniqueness || 'Not Specified'}</span>
                             </div>
                             <div className="info-group">
@@ -200,15 +200,15 @@ const PortfolioDetails = () => {
 
                         {/* Card 4: Financials & Traction (Stands Out) */}
                         <div className="bento-card bento-col-span-2 card-financials">
-                            <h3 className="card-title"><span className="icon">📈</span> Financials & Traction</h3>
-                            
+                            <h3 className="card-title"><span className="icon">📈</span> Sales & Financials</h3>
+
                             <div className="financial-stats-row">
                                 <div className="fin-stat-box">
                                     <span className="fin-label">Estimated Monthly Revenue</span>
                                     <span className="fin-value">{salesRevenue?.monthlyRevenue || '-'}</span>
                                 </div>
                                 <div className="fin-stat-box">
-                                    <span className="fin-label">Peak Sales Periods</span>
+                                    <span className="fin-label">Operating Times</span>
                                     <span className="fin-value">{salesRevenue?.peakTimes || '-'}</span>
                                 </div>
                                 <div className="fin-stat-box">
@@ -216,15 +216,15 @@ const PortfolioDetails = () => {
                                     <span className="fin-value" style={{ fontSize: '1.25rem' }}>{salesRevenue?.paymentMethods || '-'}</span>
                                 </div>
                             </div>
-                            
+
                             <div className="chart-container">
                                 {monthlySalesData && monthlySalesData.length > 0 ? (
                                     <div style={{ width: '100%', height: '250px' }}>
                                         <ResponsiveContainer width="100%" height="100%">
                                             <LineChart data={monthlySalesData} margin={{ top: 15, right: 20, bottom: 5, left: 0 }}>
                                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 12}} dy={10} />
-                                                <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 12}} dx={-10} />
+                                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748B', fontSize: 12 }} dy={10} />
+                                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748B', fontSize: 12 }} dx={-10} />
                                                 <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #E2E8F0', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }} cursor={{ stroke: '#E0E8F2', strokeWidth: 2 }} />
                                                 <Line type="monotone" dataKey="sales" stroke="#0B2046" strokeWidth={3} dot={{ r: 4, strokeWidth: 2, fill: '#fff', stroke: '#0B2046' }} activeDot={{ r: 7, fill: '#FDB813', stroke: '#fff', strokeWidth: 2 }} />
                                             </LineChart>
