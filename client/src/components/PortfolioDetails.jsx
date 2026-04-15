@@ -180,17 +180,23 @@ const PortfolioDetails = () => {
 
                                 {/* --- GRAF TRACTION --- */}
                                 {monthlySalesData && monthlySalesData.length > 0 ? (
-                                    <div style={{ width: '100%', height: 220, marginTop: '15px', marginBottom: '20px' }}>
+                                    <div style={{ width: '100%', marginTop: '15px', marginBottom: '20px' }}>
                                         <h4 style={{ fontSize: '14px', marginBottom: '10px', color: '#64748b' }}>Monthly Sales Traction (RM)</h4>
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <LineChart data={monthlySalesData}>
-                                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                                                <XAxis dataKey="month" fontSize={12} stroke="#64748b" />
-                                                <YAxis fontSize={12} stroke="#64748b" />
-                                                <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }} />
-                                                <Line type="monotone" dataKey="sales" stroke="#2563eb" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
-                                            </LineChart>
-                                        </ResponsiveContainer>
+
+                                        {/* 👇👇 Kotak khas untuk elak ralat Recharts width/height -1 👇👇 */}
+                                        <div style={{ width: '100%', height: 220, minHeight: 220, minWidth: 0 }}>
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <LineChart data={monthlySalesData}>
+                                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                                                    <XAxis dataKey="month" fontSize={12} stroke="#64748b" />
+                                                    <YAxis fontSize={12} stroke="#64748b" />
+                                                    <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }} />
+                                                    <Line type="monotone" dataKey="sales" stroke="#2563eb" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                                                </LineChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                        {/* 👆👆 ---------------------------------------------------- 👆👆 */}
+
                                     </div>
                                 ) : (
                                     <p className="text-muted" style={{ fontSize: '13px', fontStyle: 'italic', marginBottom: '15px' }}>No traction data available yet.</p>
