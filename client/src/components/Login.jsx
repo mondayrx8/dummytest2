@@ -114,7 +114,7 @@ const Login = ({ setToken }) => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="student@siswa.edu.my"
+                    placeholder="student@gmail.com"
                     className="modern-input"
                     required={isRegistering}
                   />
