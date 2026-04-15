@@ -85,7 +85,7 @@ const portfolioFields = {
     mediaProof: z.object({
         mediaLinks: z.array(z.string()).optional(),
         socialLinks: z.string().optional()
-    }).optional()
+    }).optional(),
     whatsappNumber: z.string().optional(),
     shopImages: z.array(z.string()).optional(),
     monthlySalesData: z.array(
