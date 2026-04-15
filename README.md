@@ -59,14 +59,20 @@ Fully refactored to align with the formal **Universiti Utara Malaysia (UUM)** ac
 ```text
 📦 FYP1_Portfolio
  ┣ 📂 client                 # React frontend application
+ ┃ ┣ 📂 public             # Public static assets
  ┃ ┣ 📂 src               
  ┃ ┃ ┣ 📂 assets           # Static UI media
  ┃ ┃ ┣ 📂 components       # Modular React functional components
  ┃ ┃ ┃ ┣ 📜 Dashboard, Portfolio cards, Navbar, etc.
  ┃ ┃ ┣ 📜 App.jsx          # Entry application routing 
+ ┃ ┃ ┣ 📜 config.js        # Global configuration configurations
+ ┃ ┃ ┣ 📜 main.jsx         # React application entry point
+ ┃ ┃ ┣ 📜 scroll-landing.css # Landing page specific styling
  ┃ ┃ ┗ 📜 styles.css       # Core Design System CSS variables & utilities
- ┃ ┣ 📜 package.json
- ┃ ┗ 📜 vite.config.js
+ ┃ ┣ 📜 index.html         # Main HTML template
+ ┃ ┣ 📜 package.json       # Frontend dependency configurations
+ ┃ ┣ 📜 vercel.json        # Vercel deployment configurations
+ ┃ ┗ 📜 vite.config.js     # Vite configuration
  ┣ 📂 server                 # Express backend application
  ┃ ┣ 📂 config             # Environment and external resource setups
  ┃ ┣ 📂 controllers        # Route handlers and HTTP logic
@@ -76,8 +82,9 @@ Fully refactored to align with the formal **Universiti Utara Malaysia (UUM)** ac
  ┃ ┣ 📂 services           # Business logic and database operations
  ┃ ┣ 📂 utils              # Helper functions
  ┃ ┣ 📂 validations        # Zod validation schemas
+ ┃ ┣ 📜 .env               # Environment configuration file (not in repo)
  ┃ ┗ 📜 index.js           # Server entry point
- ┣ 📜 package.json           # Backend dependency configurations
+ ┣ 📜 package.json           # Backend & root dependency configurations
  ┗ 📜 README.md              # Project documentation
 ```
 
