@@ -38,7 +38,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
   // 👇👇👇 1. FUNGSI AI COPYWRITER (VERSI JSON MODE) 👇👇👇
   const handleEnhanceWithAI = async () => {
-    if (!formData.description) return alert("Sila taip sedikit idea asal sebelum tekan AI.");
+    if (!formData.description) return alert("Please type a little idea before pressing AI.");
     try {
       setLoading(true);
       const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
@@ -84,12 +84,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         // Terus masukkan ayat bersih ke dalam kotak borang
         setFormData({ ...formData, description: parsedData.slogan });
       } else {
-        throw new Error("AI tidak memberikan format JSON yang betul.");
+        throw new Error("AI not provide the correct JSON format.");
       }
 
     } catch (error) {
       console.error("AI Error:", error);
-      alert("Gagal memproses AI. Sila cuba tekan sekali lagi.");
+      alert("Failed to process AI. Please try pressing again.");
     } finally {
       setLoading(false);
     }
