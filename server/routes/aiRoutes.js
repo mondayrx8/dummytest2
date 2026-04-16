@@ -44,7 +44,14 @@ router.post('/enhance', async (req, res) => {
 
     } catch (error) {
         console.error("AI Backend Error:", error);
-        res.status(500).json({ error: "Gagal memproses AI" });
+
+        // Kalau Google tangkap spam (Rate Limit 429)
+        if (error.status === 429 || (error.message && error.message.includes('429'))) {
+            return res.status(429).json({ error: "AI System is busy due to too many requests. Please wait 1 minute and try again. 🛑" });
+        }
+
+        // Kalau error lain
+        res.status(500).json({ error: "Failed to process AI from Google server." });
     }
 });
 

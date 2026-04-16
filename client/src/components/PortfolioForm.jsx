@@ -50,7 +50,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       }
     } catch (error) {
       console.error("Frontend AI Error:", error);
-      alert("Gagal memproses AI dari server.");
+      // Baca mesej error spesifik dari Backend (contoh: mesej Rate Limit)
+      const errorMsg = error.response?.data?.error || "Failed to process AI from server.";
+      alert(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -375,8 +377,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             <div className="input-group">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                 <label className="input-label" style={{ margin: 0 }}>Overview / Slogan*</label>
-                <button type="button" onClick={handleEnhanceWithAI} disabled={loading} style={{ backgroundColor: '#8b5cf6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  ✨ Kemaskan dengan AI
+                <button type="button"
+                  onClick={handleEnhanceWithAI}
+                  disabled={loading}
+                  className={`ai-btn ${loading ? 'ai-loading' : ''}`}
+                  style={{ backgroundColor: '#8b5cf6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  {loading ? 'Thinking...' : '✨ Improve with AI'}
                 </button>
               </div>
               <textarea
