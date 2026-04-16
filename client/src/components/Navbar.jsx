@@ -76,7 +76,7 @@ const Navbar = ({ user, setToken }) => {
                     <Link to={user ? "/dashboard" : "/"} className="enterprise-brand" onClick={closeMobileMenu}>
                         <span className="enterprise-brand-icon">
                             <img
-                                src="/siswa-logo.png"
+                                src="/favicon-siswa-bg.png"
                                 alt="SiswaNiaga Logo"
                                 style={{ width: '82px', height: '82px', objectFit: 'contain' }}
                             />
