@@ -50,6 +50,11 @@ router.post('/enhance', async (req, res) => {
             return res.status(429).json({ error: "AI System is busy due to too many requests. Please wait 1 minute and try again. 🛑" });
         }
 
+        // 2. Tangkap kalau Server Google jem (503 High Demand)  <-- TAMBAH YANG NI
+        if (error.status === 503 || (error.message && error.message.includes('503'))) {
+            return res.status(503).json({ error: "AI System is full/crowded (High Demand). Please try again later. ⏳" });
+        }
+
         // Kalau error lain
         res.status(500).json({ error: "Failed to process AI from Google server." });
     }
