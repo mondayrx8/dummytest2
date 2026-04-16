@@ -36,60 +36,22 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  // 👇👇👇 1. FUNGSI AI COPYWRITER (VERSI JSON MODE) 👇👇👇
   const handleEnhanceWithAI = async () => {
-    if (!formData.description) return alert("Please type a little idea before pressing AI.");
+    if (!formData.description) return alert("Sila taip sedikit idea asal sebelum tekan AI.");
     try {
       setLoading(true);
-      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
-      // 🔒 KUNCI MULUT AI: Paksa dia keluarkan format JSON sahaja
-      const model = genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
-        generationConfig: {
-          responseMimeType: "application/json",
-        }
+      // Kita suruh Dapur (Backend) yang fikir dan panggil AI!
+      const res = await axios.post('https://api.siswaniaga.my/api/ai/enhance', {
+        text: formData.description
       });
 
-      // 🎲 Putaran Gaya Bahasa: Klik banyak kali, dapat gaya berbeza
-      const styles = [
-        "Sangat profesional dan meyakinkan untuk pelabur",
-        "Kreatif, 'catchy', dan sangat menarik perhatian Gen-Z",
-        "Fokus kepada penyelesaian masalah (problem-solving) yang unik",
-        "Pendek, agresif, dan ala-ala slogan jenama antarabangsa",
-        "Santai, jujur, dan menggunakan gaya penceritaan (storytelling)"
-      ];
-      const randomStyle = styles[Math.floor(Math.random() * styles.length)];
-
-      // 🧙‍♂️ Prompt Paksaan JSON
-      const prompt = `
-        Bertindak sebagai pakar copywriter bisnes.
-        Idea Asal: "${formData.description}"
-        Gaya Penulisan: ${randomStyle}
-        
-        Tugasan: Baiki idea asal menjadi SATU perenggan/slogan yang memukau mengikut gaya penulisan di atas.
-        
-        Keluarkan HANYA format JSON yang sah dengan struktur seperti ini:
-        {
-          "slogan": "ayat yang telah dibaiki letak di sini"
-        }
-      `;
-
-      const result = await model.generateContent(prompt);
-
-      // 🧹 Terjemah output AI dari teks JSON ke Objek JavaScript
-      const parsedData = JSON.parse(result.response.text());
-
-      if (parsedData && parsedData.slogan) {
-        // Terus masukkan ayat bersih ke dalam kotak borang
-        setFormData({ ...formData, description: parsedData.slogan });
-      } else {
-        throw new Error("AI not provide the correct JSON format.");
+      if (res.data && res.data.slogan) {
+        setFormData({ ...formData, description: res.data.slogan });
       }
-
     } catch (error) {
-      console.error("AI Error:", error);
-      alert("Failed to process AI. Please try pressing again.");
+      console.error("Frontend AI Error:", error);
+      alert("Gagal memproses AI dari server.");
     } finally {
       setLoading(false);
     }

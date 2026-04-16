@@ -71,10 +71,12 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 const portfolioRoutes = require('./routes/portfolioRoutes');
 const authRoutes = require('./routes/authRoutes');
 const statRoutes = require('./routes/statRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/stats', statRoutes);
+app.use('/api/ai', aiRoutes);
 
 // ──────────────────────────────────────────────
 // Global Error Handler (MUST be after all routes)
