@@ -13,6 +13,8 @@ import PortfolioDetails from './components/PortfolioDetails';
 import UserProfile from './components/UserProfile';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -143,6 +145,10 @@ const App = () => {
             <Route path="/profile" element={
               token ? <UserProfile /> : <Navigate to="/login" />
             } />
+
+            {/* Legal Pages */}
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
 
             {/* Catch-all redirect */}
             <Route path="*" element={<Navigate to="/" />} />
