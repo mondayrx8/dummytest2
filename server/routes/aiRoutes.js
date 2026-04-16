@@ -25,7 +25,7 @@ router.post('/enhance', async (req, res) => {
 
         const prompt = `
         Bertindak sebagai pakar copywriter bisnes.
-        Idea Asal: "${formData.description}"
+        Idea Asal: "${text}"
         Gaya Penulisan: ${randomStyle}
         
         Tugasan: Baiki idea asal menjadi SATU perenggan/slogan yang memukau mengikut gaya penulisan di atas.
