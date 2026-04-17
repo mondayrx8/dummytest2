@@ -380,8 +380,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 <button type="button"
                   onClick={handleEnhanceWithAI}
                   disabled={loading}
-                  className={`ai-btn ${loading ? 'ai-loading' : ''}`}
-                  style={{ backgroundColor: '#8b5cf6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  className={`ai-btn ${loading ? 'ai-loading' : ''}`}>
                   {loading ? 'Thinking...' : '✨ Improve with AI'}
                 </button>
               </div>
@@ -546,9 +545,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               <h2 className="card-title">Sales & Revenue</h2>
             </div>
 
-            <div className="input-group" style={{ backgroundColor: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-              <label className="input-label" style={{ color: '#2563eb' }}>📈 Monthly Sales Traction (For Chart)</label>
-              <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '10px' }}>Enter your sales estimates for the last 3 months. Leave empty if you don't have the data.</p>
+            <div className="input-group">
+              <label className="input-label">📈 Monthly Sales Traction (For Chart)</label>
+              <p className="upload-hint" style={{ marginBottom: '10px' }}>Enter your sales estimates for the last 3 months. Leave empty if you don't have the data.</p>
 
               <div className="form-grid" style={{ gap: '10px' }}>
                 {formData.monthlySalesData.map((data, index) => (
@@ -741,8 +740,8 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
           </section>
 
-          <div className="upload-area mt-4" style={{ backgroundColor: '#f0f9ff', border: '2px dashed #0ea5e9' }}>
-            <label className="input-label" style={{ color: '#0369a1' }}>📸 Shop & Product Gallery (Multiple)</label>
+          <div className="upload-area mt-4">
+            <label className="input-label">📸 Shop & Product Gallery (Multiple)</label>
             <label htmlFor="shop-gallery-upload" className="upload-zone" style={{ minHeight: '80px' }}>
               <div className="upload-icon">➕</div>
               <span className="upload-text">Click to select multiple images</span>
