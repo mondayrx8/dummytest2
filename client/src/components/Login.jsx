@@ -129,7 +129,7 @@ const Login = ({ setToken }) => {
                 </label>
                 {!isRegistering && (
                   <Link to="/forgot-password" style={{ fontSize: '12px', color: '#2563eb', textDecoration: 'none', fontWeight: '600' }}>
-                    Lupa Password?
+                    Forgot Password?
                   </Link>
                 )}
               </div>

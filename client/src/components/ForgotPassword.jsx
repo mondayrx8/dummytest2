@@ -17,9 +17,9 @@ const ForgotPassword = () => {
 
         try {
             const res = await axios.post('https://api.siswaniaga.my/api/auth/forgot-password', { email });
-            setMessage(res.data.message || "E-mel reset telah dihantar. Sila semak inbox anda.");
+            setMessage(res.data.message || "The reset email has been sent. Please check your inbox.");
         } catch (err) {
-            setError(err.response?.data?.message || "Gagal menghantar e-mel. Sila cuba lagi.");
+            setError(err.response?.data?.message || "Failed to send email. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -31,7 +31,7 @@ const ForgotPassword = () => {
                 <div className="auth-card">
                     <div className="card-header">
                         <h2 className="card-title">Forgot Password? 🔐</h2>
-                        <p className="card-subtitle">Masukkan e-mel pelajar anda untuk menerima pautan reset kata laluan.</p>
+                        <p className="card-subtitle">Please enter your email address to receive a password reset link.</p>
                     </div>
 
                     {message && <div className="error-banner" style={{ backgroundColor: '#dcfce7', color: '#166534', borderColor: '#bbf7d0' }}>✅ {message}</div>}
@@ -50,12 +50,12 @@ const ForgotPassword = () => {
                             />
                         </div>
                         <button type="submit" className="btn-submit" disabled={loading}>
-                            {loading ? "Menghantar..." : "Hantar Link Reset"}
+                            {loading ? "Sending..." : "Send Reset Link"}
                         </button>
                     </form>
 
                     <div className="card-footer" style={{ marginTop: '20px', textAlign: 'center' }}>
-                        <Link to="/" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: '500' }}>← Kembali ke Log Masuk</Link>
+                        <Link to="/" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: '500' }}>← Back to Log In</Link>
                     </div>
                 </div>
             </div>

@@ -29,14 +29,14 @@ const ResetPassword = () => {
             setMessage("Success! " + res.data.message);
             setTimeout(() => navigate('/'), 3000); // Bawa user ke page login lepas 3 saat
         } catch (err) {
-            setError(err.response?.data?.message || "Token tidak sah atau telah luput.");
+            setError(err.response?.data?.message || "Invalid or expired token.");
         } finally {
             setLoading(false);
         }
     };
 
     if (!token || !email) {
-        return <div className="login-page"><div className="error-banner">Pautan tidak sah. Sila mohon semula dari halaman Log Masuk.</div></div>;
+        return <div className="login-page"><div className="error-banner">Invalid link. Please request again from the login page.</div></div>;
     }
 
     return (
@@ -44,8 +44,8 @@ const ResetPassword = () => {
             <div className="login-container">
                 <div className="auth-card">
                     <div className="card-header">
-                        <h2 className="card-title">Cipta Kata Laluan Baharu 🔑</h2>
-                        <p className="card-subtitle">Sila masukkan kata laluan baharu anda untuk akaun {email}.</p>
+                        <h2 className="card-title">Create New Password 🔑</h2>
+                        <p className="card-subtitle">Please enter your new password for the {email} account.</p>
                     </div>
 
                     {message && <div className="error-banner" style={{ backgroundColor: '#dcfce7', color: '#166534', borderColor: '#bbf7d0' }}>✅ {message}</div>}
@@ -65,7 +65,7 @@ const ResetPassword = () => {
                             />
                         </div>
                         <button type="submit" className="btn-submit" disabled={loading}>
-                            {loading ? "Menyimpan..." : "Tukar Kata Laluan"}
+                            {loading ? "Resetting..." : "Reset Password"}
                         </button>
                     </form>
                 </div>

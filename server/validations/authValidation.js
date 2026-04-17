@@ -30,7 +30,7 @@ const registerSchema = z
         // 👇👇👇 TAMBAH PAS VIP EMAIL DI SINI 👇👇👇
         email: z
             .string({ required_error: 'Email is required' })
-            .email('Sila masukkan format e-mel yang sah'),
+            .email('Please enter a valid email address'),
         // 👆👆👆 ------------------------------- 👆👆👆
 
         password: z
@@ -59,7 +59,7 @@ const loginSchema = z.object({
 const updateEmailSchema = z.object({
     email: z
         .string({ required_error: 'Email is required' })
-        .email('Sila masukkan format e-mel yang sah'),
+        .email('Please enter a valid email address'),
 });
 
 module.exports = { registerSchema, loginSchema, updateEmailSchema };

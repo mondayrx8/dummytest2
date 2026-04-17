@@ -91,7 +91,7 @@ class AuthService {
         // Cari pengguna berdasarkan e-mel
         const user = await User.findOne({ email });
         if (!user) {
-            const error = new Error('Tiada akaun ditemui dengan e-mel tersebut.');
+            const error = new Error('User not found');
             error.statusCode = 404;
             throw error;
         }
@@ -115,21 +115,21 @@ class AuthService {
             await resend.emails.send({
                 from: 'SiswaNiaga Admin <admin@siswaniaga.my>',
                 to: email,
-                subject: 'SiswaNiaga - Reset Password Anda',
+                subject: 'SiswaNiaga - Reset Password',
                 html: `
-                    <h2>Permohonan Reset Kata Laluan</h2>
-                    <p>Hai ${user.username},</p>
-                    <p>Seseorang telah memohon untuk menukar kata laluan akaun anda.</p>
-                    <p>Klik butang di bawah untuk menetapkan kata laluan baharu:</p>
-                    <a href="${resetLink}" style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Kata Laluan</a>
-                    <p>Jika anda tidak membuat permohonan ini, sila abaikan e-mel ini.</p>
-                    <p>Pautan ini akan luput dalam masa 1 jam.</p>
+                    <h2>SiswaNiaga - Reset Password</h2>
+                    <p>Hi ${user.username},</p>
+                    <p>Someone requested to reset the password for your account.</p>
+                    <p>Click the button below to set a new password:</p>
+                    <a href="${resetLink}" style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Password</a>
+                    <p>If you did not request this, please ignore this email.</p>
+                    <p>This link will expire in 1 hour.</p>
                 `
             });
-            return { message: 'E-mel reset kata laluan telah dihantar!' };
+            return { message: 'The reset email has been sent. Please check your inbox.' };
         } catch (error) {
-            console.error("Gagal hantar e-mel:", error);
-            const err = new Error('Sistem e-mel sedang sibuk. Sila cuba sebentar lagi.');
+            console.error("Failed to send email:", error);
+            const err = new Error('The email system is busy. Please try again later.');
             err.statusCode = 500;
             throw err;
         }
@@ -143,7 +143,7 @@ class AuthService {
         });
 
         if (!user || !user.resetPasswordToken) {
-            const error = new Error('Token tidak sah atau telah luput. Sila mohon semula.');
+            const error = new Error('Invalid or expired token. Please request again.');
             error.statusCode = 400;
             throw error;
         }
@@ -151,7 +151,7 @@ class AuthService {
         // Bandingkan token yang dihantar dengan yang disimpan
         const isValidToken = await bcrypt.compare(token, user.resetPasswordToken);
         if (!isValidToken) {
-            const error = new Error('Token tidak sah.');
+            const error = new Error('Invalid token.');
             error.statusCode = 400;
             throw error;
         }
@@ -165,7 +165,7 @@ class AuthService {
         user.resetPasswordExpires = undefined;
         await user.save();
 
-        return { message: 'Kata laluan berjaya ditukar. Sila log masuk.' };
+        return { message: 'Password reset successfully. Please log in.' };
     }
 
     /**
@@ -182,7 +182,7 @@ class AuthService {
         }
         return {
             username: user.username,
-            email: user.email || 'Tiada E-mel', // ✅ Tambah ini
+            email: user.email || 'No Email', // ✅ Tambah ini
             role: user.role
         };
     }
@@ -199,7 +199,7 @@ class AuthService {
         // Semak kalau e-mel tu dah wujud dan dimiliki orang lain
         const existingEmail = await User.findOne({ email: newEmail });
         if (existingEmail && existingEmail._id.toString() !== userId.toString()) {
-            const error = new Error('E-mel ini telah didaftarkan oleh pengguna lain.');
+            const error = new Error('Email already registered by another user.');
             error.statusCode = 400;
             throw error;
         }
@@ -207,7 +207,7 @@ class AuthService {
         const user = await User.findById(userId);
         user.email = newEmail;
         await user.save();
-        return { message: 'E-mel berjaya dikemaskini!' };
+        return { message: 'Email has been updated successfully!' };
     }
 
     async changePassword(userId, oldPassword, newPassword) {
@@ -229,7 +229,7 @@ class AuthService {
         user.password = hashedPassword;
         await user.save();
 
-        return { message: 'Password updated successfully!' };
+        return { message: 'Password has been changed successfully!' };
     }
 }
 

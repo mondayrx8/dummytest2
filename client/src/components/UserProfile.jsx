@@ -64,7 +64,7 @@ const UserProfile = () => {
             console.error("Error updating email:", err);
             const errorMsg = err.response && err.response.data && err.response.data.message
                 ? err.response.data.message
-                : 'Gagal mengemaskini e-mel.';
+                : 'Failed to update email.';
             setEmailMessage({ type: 'error', text: errorMsg });
         } finally {
             setEmailLoading(false);
@@ -157,7 +157,7 @@ const UserProfile = () => {
                             <div className="info-group">
                                 <label>Email Address</label>
                                 <p className="info-value" style={{ textTransform: 'none' }}>
-                                    {profile?.email || 'Sila kemaskini e-mel anda'}
+                                    {profile?.email || 'Please update your email'}
                                 </p>
                             </div>
                             <div className="info-group">
@@ -182,7 +182,7 @@ const UserProfile = () => {
                                         value={newEmail}
                                         onChange={(e) => setNewEmail(e.target.value)}
                                         required
-                                        placeholder="Masukkan e-mel baharu"
+                                        placeholder="Enter your new email"
                                         style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
                                     />
                                 </div>
@@ -192,7 +192,7 @@ const UserProfile = () => {
                                     disabled={emailLoading}
                                     style={{ backgroundColor: '#0f172a', marginTop: '10px' }}
                                 >
-                                    {emailLoading ? 'Menyimpan...' : 'Simpan E-mel'}
+                                    {emailLoading ? 'Updating...' : 'Update Email'}
                                 </button>
                             </form>
                             {/* 👆👆👆 ----------------------------- 👆👆👆 */}
