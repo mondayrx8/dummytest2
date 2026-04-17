@@ -1,7 +1,7 @@
-/* ========== Premium Corporate Sidebar ========== */
+/* ========== Sidebar.css - Light Premium Theme ========== */
 
 .modern-sidebar {
-    background: var(--primary-color); /* Corporate Navy Blue */
+    background: #FFFFFF;
     position: fixed;
     top: 0;
     left: 0;
@@ -14,9 +14,9 @@
     padding: var(--space-lg) var(--space-md) 80px var(--space-md);
     z-index: 100;
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    box-shadow: var(--shadow-xl);
-    border: none;
-    font-family: var(--font-sans);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+    border-right: 1px solid #F1F5F9;
+    font-family: 'Inter', system-ui, sans-serif;
 }
 
 .modern-sidebar.collapsed {
@@ -30,14 +30,15 @@
     justify-content: flex-start;
     padding-left: var(--space-xs);
     margin-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid #F1F5F9;
 }
 
 .sidebar-brand {
     display: flex;
     align-items: center;
     gap: var(--space-md);
-    color: var(--bg-surface);
+    color: #0F172A;
+    font-family: 'Outfit', sans-serif;
     font-weight: 800;
     font-size: var(--text-xl);
     overflow: hidden;
@@ -45,7 +46,8 @@
 }
 
 .brand-icon {
-    color: var(--secondary-color);
+    color: #FBBF24; /* Gold */
+    filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.2));
 }
 
 .brand-text {
@@ -62,7 +64,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
+    gap: 0.5rem;
 }
 
 .menu-item {
@@ -70,38 +72,29 @@
     align-items: center;
     gap: var(--space-md);
     padding: 14px var(--space-md);
-    border-radius: var(--radius-md);
-    color: var(--text-light);
+    border-radius: 12px;
+    color: #64748B; /* Slate 500 */
     font-weight: 500;
-    font-size: var(--text-sm);
+    font-size: 0.95rem;
     position: relative;
     overflow: hidden;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     min-height: 48px;
     text-decoration: none;
     border: 1px solid transparent;
 }
 
 .menu-item:hover {
-    color: var(--bg-surface);
-    background: var(--primary-surface);
+    color: #0F172A; /* Slate 900 */
+    background: #F8FAFC; /* Slate 50 */
 }
 
 .menu-item.active {
-    color: var(--bg-surface);
-    background: var(--warning-bg);
-    border: 1px solid var(--warning);
-}
-
-.menu-item.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--secondary-color);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: #0B2046; /* UUM Navy */
+    background: #EFF6FF; /* Soft Blue */
+    font-weight: 600;
+    border: 1px solid #DBEAFE; /* Blue 200 */
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.05);
 }
 
 .menu-icon {
@@ -127,7 +120,7 @@
 
 .menu-divider {
     height: 1px;
-    background: var(--border-color);
+    background: #F1F5F9;
     margin: var(--space-md) 0;
 }
 
@@ -135,28 +128,35 @@
 .menu-item.logout-item {
     background: none;
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .collapse-toggle-item {
     margin-top: auto;
-    color: var(--text-light);
+    color: #64748B;
 }
 
 .collapse-toggle-item:hover {
-    color: var(--bg-surface);
+    color: #0F172A;
+    background: #F8FAFC;
+}
+
+.logout-item {
+    color: #64748B;
 }
 
 .logout-item:hover {
-    color: var(--danger) !important;
-    background: var(--danger-bg);
-    border-color: var(--danger);
+    color: #EF4444 !important; /* Elegant Pastel Red */
+    background: #FEF2F2; /* Red 50 */
+    border-color: #FEE2E2; /* Red 200 */
 }
 
 @media (max-width: 968px) {
     .modern-sidebar {
         transform: translateX(-100%);
         width: 280px !important;
-        box-shadow: var(--shadow-xl);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+        background: #FFFFFF;
     }
     
     .modern-sidebar.mobile-open {
@@ -170,8 +170,7 @@
     .mobile-backdrop {
         position: fixed;
         inset: 0;
-        background: var(--text-color);
-        opacity: 0.5;
+        background: rgba(15, 23, 42, 0.4);
         backdrop-filter: blur(4px);
         z-index: 99;
     }

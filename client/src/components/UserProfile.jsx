@@ -166,9 +166,9 @@ const UserProfile = () => {
                             </div>
 
                             {/* 👇👇👇 3. Borang Kemaskini Email 👇👇👇 */}
-                            <hr style={{ margin: '20px 0', borderColor: '#e2e8f0', borderStyle: 'solid', borderWidth: '1px 0 0 0' }} />
+                            <hr style={{ margin: '20px 0', borderColor: '#E2E8F0', borderStyle: 'solid', borderWidth: '1px 0 0 0' }} />
                             <form onSubmit={handleEmailChange} className="password-form" style={{ marginTop: '0' }}>
-                                <h3 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>Update Email</h3>
+                                <h3>Update Email</h3>
 
                                 {emailMessage.text && (
                                     <div className={`message-toast ${emailMessage.type}`}>
@@ -183,14 +183,12 @@ const UserProfile = () => {
                                         onChange={(e) => setNewEmail(e.target.value)}
                                         required
                                         placeholder="Enter your new email"
-                                        style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
                                     />
                                 </div>
                                 <button
                                     type="submit"
                                     className="btn-update-pwd"
                                     disabled={emailLoading}
-                                    style={{ backgroundColor: '#0f172a', marginTop: '10px' }}
                                 >
                                     {emailLoading ? 'Updating...' : 'Update Email'}
                                 </button>

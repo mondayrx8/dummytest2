@@ -66,7 +66,7 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                 <header className="enterprise-header">
                     <div>
                         <h1 className="enterprise-title">Dashboard</h1>
-                        <p style={{ color: 'var(--text-muted)', margin: '0.5rem 0 0 0' }}>Manage your university ventures.</p>
+                        <p className="enterprise-subtitle">Manage your university ventures.</p>
                     </div>
                     <button className="enterprise-btn-create" onClick={() => { setCurrentPortfolio(null); navigate('/create'); }}>
                         + New Portfolio
@@ -88,7 +88,7 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                 {/* Portfolio Grid */}
                 {dashboardPortfolios.length === 0 ? (
                     <div className="enterprise-empty-state">
-                        <h3 style={{ color: 'var(--text-color)', marginBottom: '0.5rem' }}>No Portfolios Found</h3>
+                        <h3>No Portfolios Found</h3>
                         <p>You haven't created any pitches yet. Start building your business portfolio today.</p>
                     </div>
                 ) : (
