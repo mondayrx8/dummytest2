@@ -36,7 +36,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const [showToast, setShowToast] = useState(false);
 
   const handleEnhanceWithAI = async () => {
-    if (!formData.description) return alert("Sila taip sedikit idea asal sebelum tekan AI.");
+    if (!formData.description) return alert("Please type a little original idea of the business first.");
     try {
       setLoading(true);
 
@@ -78,7 +78,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       setFormData({ ...formData, shopImages: uploadedUrls });
     } catch (error) {
       console.error("Cloudinary Error:", error);
-      alert("Gagal muat naik gambar ke Cloudinary.");
+      alert("Failed to upload image to Cloudinary.");
     } finally {
       setLoading(false);
     }
@@ -162,7 +162,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       setFormData({ ...formData, image: res.data.secure_url });
     } catch (error) {
       console.error("Cloudinary Main Image Error:", error);
-      alert("Gagal muat naik gambar utama ke Cloudinary.");
+      alert("Failed to upload main image to Cloudinary.");
     } finally {
       setLoading(false);
     }
@@ -309,7 +309,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 value={formData.whatsappNumber}
                 onChange={handleChange}
                 className="modern-input"
-                placeholder="e.g. 60123456789 (Mula dengan 60)"
+                placeholder="e.g. 60123456789 (Start with 60)"
               />
             </div>
 
@@ -449,7 +449,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 value={formData.marketSize}
                 onChange={handleChange}
                 className="modern-input"
-                placeholder="e.g. 20K University Students in Malaysia"
+                placeholder="e.g. 10K University Students in Malaysia"
                 required
               />
             </div>
@@ -509,7 +509,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   value={formData.operations.prepLocation}
                   onChange={(e) => handleNestedChange('operations', e)}
                   className="modern-input"
-                  placeholder="e.g. Home Kitchen, Rented Studio"
+                  placeholder="e.g. Home Kitchen, Rented Kitchen, Food Stall"
                 />
               </div>
 
@@ -694,7 +694,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             <div className="input-group">
-              <label className="input-label">Other Links (Press, Video, Menu)</label>
+              <label className="input-label">Other Links (Video, Menu, Poster, etc.)</label>
               <textarea
                 name="mediaLinks"
                 value={formData.mediaProof.mediaLinks}
