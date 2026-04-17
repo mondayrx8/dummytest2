@@ -5,6 +5,7 @@
     font-family: var(--font-sans);
     min-height: calc(100vh - var(--navbar-height));
     width: 100%;
+    margin-top: calc(-1 * var(--navbar-height));
 }
 
 .sticky-action-bar {
@@ -56,6 +57,7 @@
     background: transparent;
     color: var(--text-muted);
 }
+
 .btn-pitch-back:hover {
     color: var(--text-color);
 }
@@ -66,6 +68,7 @@
     border-color: var(--border-color);
     box-shadow: var(--shadow-sm);
 }
+
 .btn-pitch-pdf:hover {
     background: var(--primary-light);
     border-color: var(--primary-color);
@@ -76,6 +79,7 @@
     color: #fff;
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
+
 .btn-pitch-whatsapp:hover {
     background-color: #1EBE55;
     box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
@@ -105,7 +109,8 @@
     height: 100%;
     object-fit: cover;
     filter: blur(6px) brightness(0.5);
-    transform: scale(1.05); /* Prevent blurred edges */
+    transform: scale(1.05);
+    /* Prevent blurred edges */
     z-index: 1;
 }
 
@@ -148,7 +153,7 @@
     margin: 0 0 var(--space-xs);
     line-height: 1.1;
     color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
@@ -354,9 +359,11 @@
     .bento-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .bento-col-span-2 {
         grid-column: span 2;
     }
+
     .masonry-grid {
         column-count: 2;
     }
@@ -366,18 +373,23 @@
     .bento-grid {
         grid-template-columns: 1fr;
     }
+
     .bento-col-span-2 {
         grid-column: span 1;
     }
+
     .financial-stats-row {
         flex-direction: column;
     }
+
     .masonry-grid {
         column-count: 1;
     }
+
     .deck-content-wrapper {
         padding: var(--space-xl) var(--space-md);
     }
+
     .hero-content {
         padding: var(--space-xl) var(--space-md);
     }
@@ -406,6 +418,19 @@
 }
 
 @keyframes pulse-scale {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(1); opacity: 0; }
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .dossier-masonry {
+        column-count: 1;
+    }
 }
