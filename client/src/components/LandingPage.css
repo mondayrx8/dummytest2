@@ -188,48 +188,7 @@
     margin-bottom: 5rem;
 }
 
-.cta-btn-v2 {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 1rem 2rem;
-    font-size: 1.05rem;
-    font-weight: 700;
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    font-family: var(--font-sans);
-}
-
-.cta-primary-v2 {
-    background: var(--organic-primary);
-    color: var(--organic-primary-foreground);
-    box-shadow: var(--shadow-organic-soft);
-}
-
-.cta-primary-v2:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: var(--shadow-organic-hover);
-    color: var(--organic-primary-foreground);
-}
-
-.cta-secondary-v2 {
-    background: rgba(254, 254, 250, 0.8);
-    color: var(--text-color);
-    border: 1px solid var(--organic-border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: var(--shadow-sm);
-}
-
-.cta-secondary-v2:hover {
-    background: #FFFFFF;
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-organic-lift);
-    border-color: rgba(93, 112, 82, 0.25);
-    color: var(--organic-primary);
-}
+/* Using Global .btn-organic classes now */
 
 .cta-icon-wrapper {
     display: flex;
@@ -246,7 +205,7 @@
     height: 18px;
 }
 
-.cta-primary-v2:hover .cta-icon-wrapper {
+.btn-organic-primary:hover .cta-icon-wrapper {
     transform: translateX(4px);
     background: rgba(255,255,255,0.25);
 }
@@ -651,7 +610,7 @@
         max-width: 350px;
     }
     
-    .cta-btn-v2 { width: 100%; }
+    .hero-actions-v2 .btn-organic-base { width: 100%; padding: 1rem; }
     
     .glass-dashboard-mockup { height: 300px; }
     .mockup-sidebar { display: none; }

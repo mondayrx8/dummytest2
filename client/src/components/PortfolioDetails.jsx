@@ -42,7 +42,7 @@ const PortfolioDetails = () => {
             <div className="pitch-error">
                 <h2>Oops!</h2>
                 <p>{error}</p>
-                <button onClick={() => navigate(-1)} className="btn-pitch btn-pitch-pdf">Go Back</button>
+                <button onClick={() => navigate(-1)} className="btn-organic-base btn-organic-secondary">Go Back</button>
             </div>
         );
     }
@@ -98,15 +98,15 @@ const PortfolioDetails = () => {
 
             {/* Sticky Action Bar */}
             <div className="sticky-action-bar">
-                <button onClick={() => navigate(-1)} className="btn-pitch btn-pitch-back">
+                <button onClick={() => navigate(-1)} className="btn-organic-base btn-organic-ghost">
                     <span style={{ fontSize: '1.2rem' }}>&larr;</span> Back
                 </button>
                 <div className="action-buttons">
-                    <button onClick={handleDownloadPDF} className="btn-pitch btn-pitch-pdf">
+                    <button onClick={handleDownloadPDF} className="btn-organic-base btn-organic-secondary">
                         📥 Download PDF
                     </button>
                     {whatsappNumber && (
-                        <button onClick={handleWhatsApp} className="btn-pitch btn-pitch-whatsapp">
+                        <button onClick={handleWhatsApp} className="btn-organic-base btn-organic-primary">
                             💬 Direct Deal (WhatsApp)
                         </button>
                     )}

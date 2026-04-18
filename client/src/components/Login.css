@@ -376,34 +376,11 @@
     color: var(--organic-primary);
 }
 
-/* Primary Button */
-.btn-primary-v2 {
-    background: var(--organic-primary);
-    color: var(--organic-primary-foreground);
-    padding: 1rem;
-    border-radius: var(--radius-full);
-    font-size: 1.05rem;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: var(--shadow-organic-soft);
+/* Auth Form Specific Button Layout */
+.auth-submit-btn {
+    width: 100%;
     margin-top: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 56px;
-}
-
-.btn-primary-v2:hover:not(:disabled) {
-    transform: scale(1.02);
-    box-shadow: var(--shadow-organic-hover);
-}
-
-.btn-primary-v2:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    box-shadow: none;
 }
 
 /* Loader dots for button */

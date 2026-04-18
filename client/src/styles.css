@@ -212,6 +212,70 @@ button {
   font-family: inherit;
 }
 
+/* ============================================ */
+/* GLOBAL ORGANIC BUTTON SYSTEM                 */
+/* ============================================ */
+.btn-organic-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  line-height: 1.2;
+}
+
+.btn-organic-primary {
+  background: var(--organic-primary);
+  color: var(--organic-primary-foreground);
+  box-shadow: var(--shadow-organic-soft);
+}
+
+.btn-organic-primary:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-organic-hover);
+  color: var(--organic-primary-foreground);
+}
+
+.btn-organic-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-organic-secondary {
+  background: rgba(254, 254, 250, 0.8);
+  color: var(--text-color);
+  border: 1px solid var(--organic-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.btn-organic-secondary:hover:not(:disabled) {
+  background: #FFFFFF;
+  border-color: var(--organic-primary);
+  color: var(--organic-primary);
+}
+
+.btn-organic-ghost {
+  background: transparent;
+  border: 2px solid transparent;
+  color: var(--organic-muted-foreground);
+}
+
+.btn-organic-ghost:hover:not(:disabled) {
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.5);
+  border-color: var(--organic-border);
+}
+
 input,
 textarea,
 select {

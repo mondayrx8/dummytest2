@@ -80,56 +80,7 @@
     justify-content: center;
 }
 
-.btn-pitch {
-    padding: 0.6rem 1.2rem;
-    border-radius: var(--radius-full);
-    font-weight: 600;
-    font-size: var(--text-sm);
-    cursor: pointer;
-    transition: all 0.4s ease;
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-sans);
-}
-
-.btn-pitch:active {
-    transform: scale(0.95);
-}
-
-.btn-pitch-back {
-    background: transparent;
-    color: var(--organic-muted-foreground);
-    border: 2px solid transparent;
-}
-
-.btn-pitch-back:hover {
-    color: var(--text-color);
-    background: rgba(255, 255, 255, 0.5);
-    border-color: var(--organic-border);
-}
-
-.btn-pitch-pdf {
-    background: transparent;
-    color: var(--organic-secondary);
-    border: 2px solid var(--organic-secondary);
-}
-
-.btn-pitch-pdf:hover {
-    background: rgba(193, 140, 93, 0.1);
-}
-
-.btn-pitch-whatsapp {
-    background-color: var(--organic-primary);
-    color: var(--organic-primary-foreground);
-    box-shadow: var(--shadow-organic-soft);
-}
-
-.btn-pitch-whatsapp:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-organic-hover);
-}
+/* Using Global .btn-organic classes now */
 
 #pdf-export-area {
     width: 100%;

@@ -73,13 +73,13 @@ const LandingPage = () => {
                     </p>
 
                     <div className="hero-actions-v2 animate-on-scroll delay-3">
-                        <Link to="/login" className="cta-btn-v2 cta-primary-v2">
+                        <Link to="/login" className="btn-organic-base btn-organic-primary">
                             <span className="cta-text">Start Building Free</span>
                             <span className="cta-icon-wrapper">
                                 <svg className="arrow-icon-v2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                             </span>
                         </Link>
-                        <Link to="/investors" className="cta-btn-v2 cta-secondary-v2">
+                        <Link to="/investors" className="btn-organic-base btn-organic-secondary">
                             <span className="cta-text">View Portfolios</span>
                         </Link>
                     </div>
@@ -158,7 +158,7 @@ const LandingPage = () => {
                     <div className="cta-card-content">
                         <h2 className="cta-bottom-title">Ready to launch your campus startup?</h2>
                         <p className="cta-bottom-desc">Join thousands of student founders changing the world. Setup takes less than 5 minutes.</p>
-                        <Link to="/login" className="cta-btn-v2 cta-primary-v2">
+                        <Link to="/login" className="btn-organic-base btn-organic-primary">
                             <span className="cta-text">Create Your Portfolio</span>
                             <span className="cta-icon-wrapper">
                                 <svg className="arrow-icon-v2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>

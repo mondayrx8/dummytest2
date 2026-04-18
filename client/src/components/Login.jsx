@@ -180,7 +180,7 @@ const Login = ({ setToken }) => {
 
               <button
                 type="submit"
-                className="btn-primary-v2"
+                className="btn-organic-base btn-organic-primary auth-submit-btn"
                 disabled={loading}
               >
                 {loading ? (
