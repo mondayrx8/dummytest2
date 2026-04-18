@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { User, ShieldCheck } from 'lucide-react';
 import './UserProfile.css';
 
 const UserProfile = () => {
@@ -146,7 +147,7 @@ const UserProfile = () => {
                     {/* User Info Card */}
                     <div className="profile-card info-card">
                         <div className="card-header">
-                            <span className="card-icon">👤</span>
+                            <span className="card-icon"><User size={24} color="var(--organic-primary)" /></span>
                             <h2>Account Details</h2>
                         </div>
                         <div className="card-body">
@@ -201,7 +202,7 @@ const UserProfile = () => {
                     {/* Security Card */}
                     <div className="profile-card security-card">
                         <div className="card-header">
-                            <span className="card-icon">🛡️</span>
+                            <span className="card-icon"><ShieldCheck size={24} color="var(--organic-primary)" /></span>
                             <h2>Security Settings</h2>
                         </div>
                         <div className="card-body">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { CheckCircle, MessageCircle, Sparkles, TrendingUp, UploadCloud, Camera, PlusCircle } from 'lucide-react';
 import './PortfolioForm.css';
 
 const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
@@ -242,7 +243,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       {/* Toast Notification */}
       {showToast && (
         <div className="toast-notification">
-          <span className="toast-icon">✅</span>
+          <span className="toast-icon"><CheckCircle size={24} color="var(--success, #10B981)" /></span>
           <span>Portfolio Saved Successfully!</span>
         </div>
       )}
@@ -310,7 +311,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             <div className="input-group mt-4">
-              <label className="input-label">WhatsApp Number (For Direct Deal) 💬</label>
+              <label className="input-label">WhatsApp Number (For Direct Deal) <MessageCircle size={16} style={{ verticalAlign: 'text-bottom', marginLeft: '4px' }} /></label>
               <input
                 type="text"
                 name="whatsappNumber"
@@ -389,7 +390,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   onClick={handleEnhanceWithAI}
                   disabled={loading}
                   className={`ai-btn ${loading ? 'ai-loading' : ''}`}>
-                  {loading ? 'Thinking...' : '✨ Improve with AI'}
+                  {loading ? 'Thinking...' : <><Sparkles size={16} style={{ verticalAlign: 'text-bottom', marginRight: '4px' }} /> Improve with AI</>}
                 </button>
               </div>
               <textarea
@@ -554,7 +555,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             <div className="input-group">
-              <label className="input-label">📈 Monthly Sales Traction (For Chart)</label>
+              <label className="input-label"><TrendingUp size={16} style={{ verticalAlign: 'text-bottom', marginRight: '4px' }} /> Monthly Sales Traction (For Chart)</label>
               <p className="upload-hint" style={{ marginBottom: '10px' }}>Enter your sales estimates for the last 3 months. Leave empty if you don't have the data.</p>
 
               <div className="form-grid" style={{ gap: '10px' }}>
@@ -714,7 +715,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             <div className="upload-area mt-4">
               <label className="input-label">Main Business Photo *</label>
               <label htmlFor="file-upload" className="upload-zone">
-                <div className="upload-icon">📤</div>
+                <div className="upload-icon"><UploadCloud size={32} /></div>
                 <span className="upload-text">
                   {formData.image ? "Change Image" : "Click to Upload Photo"}
                 </span>
@@ -749,9 +750,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           </section>
 
           <div className="upload-area mt-4">
-            <label className="input-label">📸 Shop & Product Gallery (Multiple)</label>
+            <label className="input-label"><Camera size={16} style={{ verticalAlign: 'text-bottom', marginRight: '4px' }} /> Shop & Product Gallery (Multiple)</label>
             <label htmlFor="shop-gallery-upload" className="upload-zone" style={{ minHeight: '80px' }}>
-              <div className="upload-icon">➕</div>
+              <div className="upload-icon"><PlusCircle size={32} /></div>
               <span className="upload-text">Click to select multiple images</span>
               <input id="shop-gallery-upload" type="file" accept="image/*" multiple onChange={handleShopImageUpload} className="upload-input" />
             </label>

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import html2pdf from 'html2pdf.js';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Download, MessageCircle, Building2, Users, Gem, TrendingUp, Rocket, Smartphone, Camera } from 'lucide-react';
 import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
@@ -103,11 +104,11 @@ const PortfolioDetails = () => {
                 </button>
                 <div className="action-buttons">
                     <button onClick={handleDownloadPDF} className="btn-organic-base btn-organic-secondary">
-                        📥 Download PDF
+                        <Download size={18} className="lucide-icon" /> Download PDF
                     </button>
                     {whatsappNumber && (
                         <button onClick={handleWhatsApp} className="btn-organic-base btn-organic-primary">
-                            💬 Direct Deal (WhatsApp)
+                            <MessageCircle size={18} className="lucide-icon" /> Direct Deal (WhatsApp)
                         </button>
                     )}
                 </div>
@@ -141,7 +142,7 @@ const PortfolioDetails = () => {
 
                         {/* Card 1: Business Basics & Operations */}
                         <div className="bento-card">
-                            <h3 className="card-title"><span className="icon">🏢</span> Operations & Info</h3>
+                            <h3 className="card-title"><span className="icon"><Building2 size={24} color="var(--organic-primary)" /></span> Operations & Info</h3>
                             <div className="info-group">
                                 <span className="info-label">Team / Founders</span>
                                 <span className="info-value">{teamMembers || studentName || 'Not Specified'}</span>
@@ -162,7 +163,7 @@ const PortfolioDetails = () => {
 
                         {/* Card 2: Market & Customers */}
                         <div className="bento-card">
-                            <h3 className="card-title"><span className="icon">👥</span> Market & Customers</h3>
+                            <h3 className="card-title"><span className="icon"><Users size={24} color="var(--organic-primary)" /></span> Market & Customers</h3>
                             <div className="info-group">
                                 <span className="info-label">Overall Market Size</span>
                                 <span className="info-value">{marketSize || 'Not Specified'}</span>
@@ -183,7 +184,7 @@ const PortfolioDetails = () => {
 
                         {/* Card 3: Products & USP */}
                         <div className="bento-card">
-                            <h3 className="card-title"><span className="icon">💎</span> Products & USP</h3>
+                            <h3 className="card-title"><span className="icon"><Gem size={24} color="var(--organic-primary)" /></span> Products & USP</h3>
                             <div className="info-group">
                                 <span className="info-label">Main Products</span>
                                 <span className="info-value">{productOffering?.mainItems || 'Not Specified'}</span>
@@ -204,7 +205,7 @@ const PortfolioDetails = () => {
 
                         {/* Card 4: Financials & Traction (Stands Out) */}
                         <div className="bento-card bento-col-span-2 card-financials">
-                            <h3 className="card-title"><span className="icon">📈</span> Sales & Financials</h3>
+                            <h3 className="card-title"><span className="icon"><TrendingUp size={24} color="var(--organic-primary)" /></span> Sales & Financials</h3>
 
                             <div className="financial-stats-row">
                                 <div className="fin-stat-box">
@@ -244,7 +245,7 @@ const PortfolioDetails = () => {
 
                         {/* Card 5: Challenges & Future Plans */}
                         <div className="bento-card">
-                            <h3 className="card-title"><span className="icon">🚀</span> Vision & Growth</h3>
+                            <h3 className="card-title"><span className="icon"><Rocket size={24} color="var(--organic-primary)" /></span> Vision & Growth</h3>
                             <div className="info-group">
                                 <span className="info-label">Top Challenge</span>
                                 <span className="info-value">{challenges?.topChallenge || 'Not Specified'}</span>
@@ -268,7 +269,7 @@ const PortfolioDetails = () => {
                     {/* Media & Proof Links */}
                     {(mediaProof?.socialLinks || (mediaProof?.mediaLinks && mediaProof.mediaLinks.length > 0)) && (
                         <div className="bento-card" style={{ flexDirection: 'row', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-                            <h3 className="card-title" style={{ margin: 0, border: 'none', padding: 0 }}><span className="icon">📱</span> Media Presence:</h3>
+                            <h3 className="card-title" style={{ margin: 0, border: 'none', padding: 0 }}><span className="icon"><Smartphone size={24} color="var(--organic-primary)" /></span> Media Presence:</h3>
                             <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'center' }}>
                                 {mediaProof?.socialLinks && (
                                     <a href={mediaProof.socialLinks.startsWith('http') ? mediaProof.socialLinks : `https://${mediaProof.socialLinks}`} target="_blank" rel="noreferrer" style={{ color: '#0B2046', fontWeight: 600, textDecoration: 'underline' }}>Main Social Link</a>
@@ -283,7 +284,7 @@ const PortfolioDetails = () => {
                     {/* Gallery Section */}
                     {shopImages && shopImages.length > 0 && (
                         <div className="gallery-section">
-                            <h3 className="gallery-section-title">📸 Shop & Product Gallery</h3>
+                            <h3 className="gallery-section-title"><Camera size={24} color="var(--organic-primary)" style={{ verticalAlign: 'middle', marginRight: '8px' }} /> Shop & Product Gallery</h3>
                             <div className="masonry-grid">
                                 {shopImages.map((img, idx) => (
                                     <div key={idx} className="masonry-item">
