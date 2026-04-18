@@ -182,13 +182,17 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         : formData.mediaProof.mediaLinks;
 
       const submitData = {
-        ...formData, // Spread top level fields
-        // Ensure businessName at top level stays in sync
+        ...formData,
         businessName: formData.businessName || formData.businessBasics.name,
         mediaProof: {
           ...formData.mediaProof,
           mediaLinks: processedMediaLinks
-        }
+        },
+        // 👇 PENAPIS ZOD: Tukar semua null jadi string kosong sebelum hantar
+        monthlySalesData: formData.monthlySalesData.map(item => ({
+          month: item.month || "",
+          sales: item.sales !== null && item.sales !== undefined ? String(item.sales) : ""
+        }))
       };
 
       if (currentPortfolio) {

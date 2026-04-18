@@ -91,7 +91,7 @@ const portfolioFields = {
     monthlySalesData: z.array(
         z.object({
             month: z.string().optional(),
-            sales: z.union([z.number(), z.string()]).optional()
+            sales: z.union([z.number(), z.string()]).optional().nullable()
         })
     ).optional()
 };
