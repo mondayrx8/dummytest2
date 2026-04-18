@@ -235,6 +235,10 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
   return (
     <div className="form-page">
+      {/* Organic Background Blobs */}
+      <div className="organic-blob blob-1"></div>
+      <div className="organic-blob blob-2"></div>
+      
       {/* Toast Notification */}
       {showToast && (
         <div className="toast-notification">

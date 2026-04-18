@@ -1,59 +1,78 @@
-/* Footer.css - Enterprise Redesign */
+/* Footer.css - Organic / Natural Theme */
 .enterprise-footer {
-    background-color: var(--bg-surface);
-    border-top: 1px solid var(--border-color);
-    padding: 3rem 0;
+    background-color: var(--organic-muted); /* Stone */
+    border-top: 1px solid var(--organic-border);
+    padding: 4rem 0 2rem 0;
     margin-top: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Add a subtle noise overlay to the footer too */
+.enterprise-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .enterprise-footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 3rem;
+    gap: 4rem;
 }
 
 .footer-brand {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .footer-brand h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--text-color);
-    font-weight: 700;
+    font-weight: 800;
     margin: 0;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
+    font-family: var(--font-serif);
 }
 
 .footer-logo {
-    width: 24px;
-    height: 24px;
-    color: var(--primary-color);
+    width: 28px;
+    height: 28px;
+    color: var(--organic-primary);
 }
 
 .enterprise-footer-tagline {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    line-height: 1.6;
-    max-width: 300px;
+    color: var(--organic-accent-foreground);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    max-width: 320px;
     margin: 0;
+    font-family: var(--font-sans);
 }
 
 .enterprise-footer-heading {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--text-color);
-    margin: 0 0 1.25rem 0;
+    margin: 0 0 1.5rem 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-family: var(--font-sans);
 }
 
 .enterprise-footer-links {
@@ -62,39 +81,43 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .enterprise-footer-links a {
-    color: var(--text-muted);
-    font-size: 0.875rem;
+    color: var(--organic-muted-foreground);
+    font-size: 0.95rem;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.3s ease;
+    font-family: var(--font-sans);
+    display: inline-block;
 }
 
 .enterprise-footer-links a:hover {
-    color: var(--primary-color);
+    color: var(--organic-primary);
+    transform: translateX(4px);
 }
 
 .enterprise-footer-bottom {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-color);
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px dashed var(--organic-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .enterprise-copyright {
-    color: var(--text-light);
-    font-size: 0.75rem;
+    color: var(--organic-muted-foreground);
+    font-size: 0.85rem;
     margin: 0;
+    font-family: var(--font-sans);
 }
 
 @media (max-width: 768px) {
     .enterprise-footer-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
     }
     
     .enterprise-footer-bottom {

@@ -92,6 +92,10 @@ const PortfolioDetails = () => {
 
     return (
         <div className="pitch-deck-container">
+            {/* Organic Background Blobs */}
+            <div className="organic-blob blob-1"></div>
+            <div className="organic-blob blob-3"></div>
+
             {/* Sticky Action Bar */}
             <div className="sticky-action-bar">
                 <button onClick={() => navigate(-1)} className="btn-pitch btn-pitch-back">
@@ -222,11 +226,11 @@ const PortfolioDetails = () => {
                                     <div style={{ width: '100%', height: '250px' }}>
                                         <ResponsiveContainer width="100%" height="100%">
                                             <LineChart data={monthlySalesData} margin={{ top: 15, right: 20, bottom: 5, left: 0 }}>
-                                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748B', fontSize: 12 }} dy={10} />
-                                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748B', fontSize: 12 }} dx={-10} />
-                                                <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #E2E8F0', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }} cursor={{ stroke: '#E0E8F2', strokeWidth: 2 }} />
-                                                <Line type="monotone" dataKey="sales" stroke="#0B2046" strokeWidth={3} dot={{ r: 4, strokeWidth: 2, fill: '#fff', stroke: '#0B2046' }} activeDot={{ r: 7, fill: '#FDB813', stroke: '#fff', strokeWidth: 2 }} />
+                                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--organic-border)" />
+                                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: 'var(--organic-muted-foreground)', fontSize: 12, fontFamily: 'var(--font-sans)' }} dy={10} />
+                                                <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--organic-muted-foreground)', fontSize: 12, fontFamily: 'var(--font-sans)' }} dx={-10} />
+                                                <Tooltip contentStyle={{ borderRadius: '1rem', border: '1px solid var(--organic-border)', boxShadow: 'var(--shadow-organic-soft)', fontFamily: 'var(--font-sans)' }} cursor={{ stroke: 'var(--organic-muted)', strokeWidth: 2 }} />
+                                                <Line type="monotone" dataKey="sales" stroke="var(--organic-primary)" strokeWidth={3} dot={{ r: 4, strokeWidth: 2, fill: '#fff', stroke: 'var(--organic-primary)' }} activeDot={{ r: 7, fill: 'var(--organic-secondary)', stroke: '#fff', strokeWidth: 2 }} />
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </div>

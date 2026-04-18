@@ -1,0 +1,177 @@
+/* ============================================ */
+/* LEGAL PAGES - ORGANIC THEME */
+/* ============================================ */
+
+.legal-page {
+    min-height: calc(100vh - var(--navbar-height));
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    padding: 2rem 1.5rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Organic Background Texture */
+.legal-page::before {
+    content: "";
+    position: absolute;
+    top: 5%; left: -5%;
+    width: 600px; height: 600px;
+    background: var(--organic-muted);
+    filter: blur(80px);
+    border-radius: var(--radius-blob-1);
+    z-index: -1;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+}
+
+.legal-page::after {
+    content: "";
+    position: absolute;
+    bottom: 5%; right: -5%;
+    width: 500px; height: 500px;
+    background: rgba(193, 140, 93, 0.12); /* Terracotta */
+    filter: blur(80px);
+    border-radius: var(--radius-blob-3);
+    z-index: -1;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+}
+
+.legal-container {
+    max-width: 900px;
+    margin: 0 auto 6rem auto;
+    background: rgba(254, 254, 250, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--organic-border);
+    border-radius: var(--radius-blob-4);
+    padding: 4rem 3rem;
+    box-shadow: var(--shadow-organic-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Inner noise */
+.legal-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.legal-header {
+    text-align: left;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--organic-border);
+    position: relative;
+    z-index: 1;
+}
+
+.legal-title {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.legal-date {
+    font-size: 1.05rem;
+    color: var(--organic-muted-foreground);
+    font-style: italic;
+    margin: 0;
+}
+
+.legal-section {
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.legal-section-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0 0 1rem 0;
+}
+
+.legal-paragraph {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--organic-muted-foreground);
+    margin: 0 0 1rem 0;
+}
+
+.legal-list {
+    margin: 0 0 1rem 1.5rem;
+    color: var(--organic-muted-foreground);
+}
+
+.legal-list-item {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+.legal-list-item strong {
+    color: var(--text-color);
+}
+
+.legal-alert {
+    background: rgba(168, 84, 72, 0.1);
+    border: 1px solid rgba(168, 84, 72, 0.2);
+    border-left: 4px solid var(--organic-destructive);
+    padding: 1.5rem;
+    border-radius: var(--radius-2xl);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.legal-alert-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--organic-destructive);
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legal-alert p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.legal-box {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px dashed var(--organic-border);
+    padding: 1.5rem;
+    border-radius: var(--radius-2xl);
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+    .legal-container {
+        padding: 2.5rem 1.5rem;
+        border-radius: var(--radius-2xl);
+    }
+    
+    .legal-title {
+        font-size: 2.2rem;
+    }
+}

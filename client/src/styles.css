@@ -4,12 +4,12 @@
 /* ============================================ */
 
 /* Import Modern Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 :root {
   /* =========================================== */
-  /* PRIMARY BRAND (UUM Royal Navy Blue) */
-  /* Authoritative, academic, and prestigious */
+  /* LEGACY THEME (UUM Royal Navy Blue)          */
+  /* Kept for backward compatibility             */
   /* =========================================== */
   --primary-color: #0B2046; 
   --primary-hover: #081736;
@@ -18,10 +18,6 @@
   --primary-glow: 0 4px 14px rgba(11, 32, 70, 0.25);
   --primary-glow-hover: 0 6px 20px rgba(11, 32, 70, 0.35);
 
-  /* =========================================== */
-  /* ACCENT / SECONDARY (UUM Academic Gold) */
-  /* Prestigious accent color */
-  /* =========================================== */
   --secondary-color: #FDB813;
   --secondary-hover: #E6A60B;
   --secondary-light: #FFF5D6;
@@ -30,37 +26,18 @@
 
   --gradient-main: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   
-  /* =========================================== */
-  /* BACKGROUNDS & SURFACES */
-  /* Crisp, clean official portal layout */
-  /* =========================================== */
-  --bg-color: #F9FAFB; 
   --bg-surface: #FFFFFF;
   --glass-panel: rgba(255, 255, 255, 0.7);
   --glass-panel-solid: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(255, 255, 255, 0.5);
   --glass-border-strong: rgba(255, 255, 255, 0.8);
 
-  /* =========================================== */
-  /* TYPOGRAPHY (Dark Slate) */
-  /* Not pure black, for better readability */
-  /* =========================================== */
-  --text-color: #1E293B; 
   --text-muted: #64748B;
   --text-light: #94A3B8;
 
-  /* =========================================== */
-  /* BORDERS & SHADOWS */
-  /* =========================================== */
   --border-color: #E2E8F0;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
 
-  /* =========================================== */
-  /* STATUS COLORS */
-  /* =========================================== */
+  /* Status Colors */
   --success: #10B981;
   --success-bg: #D1FAE5;
   --danger: #EF4444;
@@ -71,28 +48,64 @@
   --info-bg: #DBEAFE;
 
   /* =========================================== */
-  /* BORDER RADIUS */
+  /* NEW ORGANIC / NATURAL THEME                 */
+  /* Wabi-sabi philosophy, tactile, warm         */
   /* =========================================== */
+  --bg-color: #FDFCF8; /* Rice Paper */
+  --text-color: #2C2C24; /* Deep Loam / Charcoal */
+  
+  --organic-primary: #5D7052; /* Moss Green */
+  --organic-primary-foreground: #F3F4F1; /* Pale Mist */
+  
+  --organic-secondary: #C18C5D; /* Terracotta / Clay */
+  --organic-secondary-foreground: #FFFFFF; 
+  
+  --organic-accent: #E6DCCD; /* Sand / Beige */
+  --organic-accent-foreground: #4A4A40; /* Bark */
+  
+  --organic-muted: #F0EBE5; /* Stone */
+  --organic-muted-foreground: #78786C; /* Dried Grass */
+  
+  --organic-border: #DED8CF; /* Raw Timber */
+  --organic-destructive: #A85448; /* Burnt Sienna */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+  --shadow-organic-soft: 0 4px 20px -2px rgba(93, 112, 82, 0.15); /* Moss tinted */
+  --shadow-organic-hover: 0 6px 24px -4px rgba(93, 112, 82, 0.25);
+  --shadow-organic-lift: 0 20px 40px -10px rgba(93, 112, 82, 0.15);
+  --shadow-organic-float: 0 10px 40px -10px rgba(193, 140, 93, 0.2); /* Clay tinted */
+
+  /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 9999px;
+  
+  /* Blob Radii (Organic Asymmetry) */
+  --radius-blob-1: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  --radius-blob-2: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  --radius-blob-3: 4rem 2rem 5rem 2rem;
+  --radius-blob-4: 2rem 4rem 2rem 5rem;
 
-  /* =========================================== */
-  /* TYPOGRAPHY SCALE */
-  /* =========================================== */
-  --font-sans: 'Poppins', sans-serif;
+  /* Typography */
+  --font-sans: 'Nunito', 'Quicksand', sans-serif;
+  --font-serif: 'Fraunces', serif;
+
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
   --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.5rem);
   --text-xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.5rem);
-  --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+  --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+  --text-3xl: clamp(2.5rem, 2rem + 3vw, 4.5rem);
 
-  /* =========================================== */
-  /* LAYOUT */
-  /* =========================================== */
+  /* Layout */
   --navbar-height: 72px;
   --space-xs: 8px;
   --space-sm: 12px;
@@ -100,6 +113,7 @@
   --space-lg: 24px;
   --space-xl: 32px;
   --space-2xl: 48px;
+  --space-3xl: 80px;
 }
 
 /* ========== Reset & Base ========== */
@@ -117,7 +131,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
@@ -125,6 +139,19 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  /* SVG noise background */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: multiply;
 }
 
 #root {
@@ -154,23 +181,17 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-serif);
   color: var(--text-color);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: var(--space-md);
+  letter-spacing: -0.01em;
 }
 
-h1 {
-  font-size: var(--text-2xl);
-}
-
-h2 {
-  font-size: var(--text-xl);
-}
-
-h3 {
-  font-size: var(--text-lg);
-}
+h1 { font-size: var(--text-3xl); font-weight: 800; }
+h2 { font-size: var(--text-2xl); font-weight: 700; }
+h3 { font-size: var(--text-xl); font-weight: 600; }
 
 p {
   color: var(--text-muted);
@@ -233,6 +254,24 @@ textarea::placeholder {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Organic utility classes */
+.blob-shape-1 { border-radius: var(--radius-blob-1); }
+.blob-shape-2 { border-radius: var(--radius-blob-2); }
+
+.bg-texture-local {
+  position: relative;
+}
+.bg-texture-local::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ========== Scrollbar Styling ========== */
