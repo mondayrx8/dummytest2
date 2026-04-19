@@ -44,21 +44,7 @@
     100% { transform: translate(50px, 30px) rotate(10deg) scale(1.05); }
 }
 
-/* Top Navigation Row (static, not sticky) */
-.top-navigation-row {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--space-md) var(--space-xl);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-@media (max-width: 768px) {
-    .top-navigation-row {
-        padding: var(--space-md);
-    }
-}
 
 /* Floating WhatsApp FAB */
 .floating-whatsapp-btn {

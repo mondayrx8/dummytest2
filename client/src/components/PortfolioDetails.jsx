@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import html2pdf from 'html2pdf.js';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Download, MessageCircle, Building2, Users, Gem, TrendingUp, Rocket, Smartphone, Camera } from 'lucide-react';
+import { MessageCircle, Building2, Users, Gem, TrendingUp, Rocket, Smartphone, Camera } from 'lucide-react';
 import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
@@ -28,6 +28,12 @@ const PortfolioDetails = () => {
 
         fetchPortfolio();
     }, [id]);
+
+    useEffect(() => {
+        const triggerDownload = () => handleDownloadPDF();
+        window.addEventListener('trigger-pdf-download', triggerDownload);
+        return () => window.removeEventListener('trigger-pdf-download', triggerDownload);
+    }, [portfolio]); // Ensure it uses the loaded portfolio data
 
     if (loading) {
         return (
@@ -97,15 +103,6 @@ const PortfolioDetails = () => {
             <div className="organic-blob blob-1"></div>
             <div className="organic-blob blob-3"></div>
 
-            {/* Top Navigation Row */}
-            <div className="top-navigation-row">
-                <button onClick={() => navigate(-1)} className="btn-organic-base btn-organic-ghost">
-                    <span style={{ fontSize: '1.2rem' }}>&larr;</span> Back
-                </button>
-                <button onClick={handleDownloadPDF} className="btn-organic-base btn-organic-secondary">
-                    <Download size={18} className="lucide-icon" /> Download PDF
-                </button>
-            </div>
 
             <div id="pdf-export-area">
                 {/* Hero Section */}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Download } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = ({ user, setToken }) => {
@@ -48,10 +49,15 @@ const Navbar = ({ user, setToken }) => {
     };
 
     const isActive = (path) => location.pathname === path;
+    const isPortfolioPage = location.pathname.startsWith('/portfolio/');
     const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
     const closeMobileMenu = () => {
         setMobileMenuOpen(false);
         setIsDropdownOpen(false);
+    };
+
+    const handleDownloadClick = () => {
+        window.dispatchEvent(new CustomEvent('trigger-pdf-download'));
     };
 
     // Get username from token
@@ -91,12 +97,24 @@ const Navbar = ({ user, setToken }) => {
                         <>
                             <Link to="/" className={`enterprise-nav-link ${isActive('/') ? 'active' : ''}`}>Home</Link>
                             <Link to="/investors" className={`enterprise-nav-link ${isActive('/investors') ? 'active' : ''}`}>Explore</Link>
+                            {isPortfolioPage && (
+                                <button onClick={handleDownloadClick} className="btn-organic-base btn-organic-secondary nav-pdf-btn">
+                                    <Download size={18} className="pdf-icon" />
+                                    <span className="pdf-text">Download PDF</span>
+                                </button>
+                            )}
                             <Link to="/login" className="enterprise-nav-btn primary">Sign In</Link>
                         </>
                     ) : (
                         <>
                             <Link to="/dashboard" className={`enterprise-nav-link ${isActive('/dashboard') ? 'active' : ''}`}>Dashboard</Link>
                             <Link to="/investors" className={`enterprise-nav-link ${isActive('/investors') ? 'active' : ''}`}>Explore</Link>
+                            {isPortfolioPage && (
+                                <button onClick={handleDownloadClick} className="btn-organic-base btn-organic-secondary nav-pdf-btn">
+                                    <Download size={18} className="pdf-icon" />
+                                    <span className="pdf-text">Download PDF</span>
+                                </button>
+                            )}
 
                             {/* Profile Dropdown Component */}
                             <div className="enterprise-user-dropdown-container" ref={dropdownRef}>
@@ -149,12 +167,22 @@ const Navbar = ({ user, setToken }) => {
                         <>
                             <Link to="/" className="mobile-nav-link" onClick={closeMobileMenu}>Home</Link>
                             <Link to="/investors" className="mobile-nav-link" onClick={closeMobileMenu}>Explore</Link>
+                            {isPortfolioPage && (
+                                <button onClick={() => { handleDownloadClick(); closeMobileMenu(); }} className="mobile-nav-link" style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <Download size={18} /> Download PDF
+                                </button>
+                            )}
                             <Link to="/login" className="enterprise-nav-btn primary" onClick={closeMobileMenu}>Sign In</Link>
                         </>
                     ) : (
                         <>
                             <Link to="/dashboard" className="mobile-nav-link" onClick={closeMobileMenu}>Dashboard</Link>
                             <Link to="/investors" className="mobile-nav-link" onClick={closeMobileMenu}>Explore</Link>
+                            {isPortfolioPage && (
+                                <button onClick={() => { handleDownloadClick(); closeMobileMenu(); }} className="mobile-nav-link" style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <Download size={18} /> Download PDF
+                                </button>
+                            )}
 
                             <div className="mobile-user-section">
                                 <span className="mobile-nav-link" style={{ color: 'var(--text-muted)' }}>

@@ -342,3 +342,29 @@
         z-index: 999;
     }
 }
+
+/* Navbar PDF Download Button */
+.nav-pdf-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.9rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.nav-pdf-btn .pdf-icon {
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .nav-pdf-btn .pdf-text {
+        display: none;
+    }
+
+    .nav-pdf-btn {
+        padding: 0.45rem 0.65rem;
+    }
+}
