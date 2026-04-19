@@ -97,21 +97,14 @@ const PortfolioDetails = () => {
             <div className="organic-blob blob-1"></div>
             <div className="organic-blob blob-3"></div>
 
-            {/* Sticky Action Bar */}
-            <div className="sticky-action-bar">
+            {/* Top Navigation Row */}
+            <div className="top-navigation-row">
                 <button onClick={() => navigate(-1)} className="btn-organic-base btn-organic-ghost">
                     <span style={{ fontSize: '1.2rem' }}>&larr;</span> Back
                 </button>
-                <div className="action-buttons">
-                    <button onClick={handleDownloadPDF} className="btn-organic-base btn-organic-secondary">
-                        <Download size={18} className="lucide-icon" /> Download PDF
-                    </button>
-                    {whatsappNumber && (
-                        <button onClick={handleWhatsApp} className="btn-organic-base btn-organic-primary">
-                            <MessageCircle size={18} className="lucide-icon" /> Direct Deal (WhatsApp)
-                        </button>
-                    )}
-                </div>
+                <button onClick={handleDownloadPDF} className="btn-organic-base btn-organic-secondary">
+                    <Download size={18} className="lucide-icon" /> Download PDF
+                </button>
             </div>
 
             <div id="pdf-export-area">
@@ -297,6 +290,13 @@ const PortfolioDetails = () => {
 
                 </div>
             </div>
+
+            {/* Floating WhatsApp Button */}
+            {whatsappNumber && (
+                <button onClick={handleWhatsApp} className="floating-whatsapp-btn" aria-label="Contact via WhatsApp">
+                    <MessageCircle size={28} />
+                </button>
+            )}
         </div>
     );
 };
