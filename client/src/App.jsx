@@ -15,6 +15,7 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
+import CookiesPolicy from './components/CookiesPolicy';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -149,6 +150,7 @@ const App = () => {
             {/* Legal Pages */}
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/cookies-policy" element={<CookiesPolicy />} />
 
             {/* Catch-all redirect */}
             <Route path="*" element={<Navigate to="/" />} />
