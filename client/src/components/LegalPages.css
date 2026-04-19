@@ -166,12 +166,33 @@
 }
 
 @media (max-width: 768px) {
+    .legal-page {
+        padding: 2rem 1rem 0;
+        overflow-x: hidden;
+    }
+
     .legal-container {
         padding: 2.5rem 1.5rem;
         border-radius: var(--radius-2xl);
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .legal-title {
         font-size: 2.2rem;
     }
+}
+
+/* Prevent long text from causing horizontal overflow */
+.legal-paragraph,
+.legal-list-item,
+.legal-box,
+.legal-alert p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.legal-box {
+    box-sizing: border-box;
 }
