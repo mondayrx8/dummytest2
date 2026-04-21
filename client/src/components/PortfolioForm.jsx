@@ -28,7 +28,14 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       { month: 'Bulan 2', sales: '' },
       { month: 'Bulan 3', sales: '' }
     ],
-    shopImages: []
+    shopImages: [],
+
+    landingPage: {
+      introduction: '', aboutUs: '', founder: '', missionVision: '',
+      keyProductsServices: '', targetMarket: '', ourTeam: '', ourGoals: '',
+      companyService: '', bestAchievement: '', futureOutlook: '',
+      contactInfo: { address: '', email: '', socialMedia: '' }
+    }
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -108,6 +115,24 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
         mediaProof: {
           mediaLinks: currentPortfolio.mediaProof?.mediaLinks ? currentPortfolio.mediaProof.mediaLinks.join('\n') : '',
           socialLinks: currentPortfolio.mediaProof?.socialLinks || ''
+        },
+        landingPage: {
+          introduction: currentPortfolio.landingPage?.introduction || '',
+          aboutUs: currentPortfolio.landingPage?.aboutUs || '',
+          founder: currentPortfolio.landingPage?.founder || '',
+          missionVision: currentPortfolio.landingPage?.missionVision || '',
+          keyProductsServices: currentPortfolio.landingPage?.keyProductsServices || '',
+          targetMarket: currentPortfolio.landingPage?.targetMarket || '',
+          ourTeam: currentPortfolio.landingPage?.ourTeam || '',
+          ourGoals: currentPortfolio.landingPage?.ourGoals || '',
+          companyService: currentPortfolio.landingPage?.companyService || '',
+          bestAchievement: currentPortfolio.landingPage?.bestAchievement || '',
+          futureOutlook: currentPortfolio.landingPage?.futureOutlook || '',
+          contactInfo: {
+            address: currentPortfolio.landingPage?.contactInfo?.address || '',
+            email: currentPortfolio.landingPage?.contactInfo?.email || '',
+            socialMedia: currentPortfolio.landingPage?.contactInfo?.socialMedia || ''
+          }
         }
       });
       setMessage('✏️ Editing Mode Enabled');
@@ -195,6 +220,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           sales: item.sales !== null && item.sales !== undefined ? String(item.sales) : ""
         }))
       };
+      console.log("DATA YANG AKAN DIHANTAR:", submitData);
 
       if (currentPortfolio) {
         await axios.put(`https://api.siswaniaga.my/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
@@ -239,7 +265,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       {/* Organic Background Blobs */}
       <div className="organic-blob blob-1"></div>
       <div className="organic-blob blob-2"></div>
-      
+
       {/* Toast Notification */}
       {showToast && (
         <div className="toast-notification">
@@ -681,6 +707,187 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               />
             </div>
           </section>
+
+          {/* 👇 TAMBAH SEKSYEN BARU INI UNTUK LANDING PAGE 👇 */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">LP</span>
+              <h2 className="card-title">Landing Page Content</h2>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Introduction</label>
+              <textarea
+                name="introduction"
+                value={formData.landingPage.introduction}
+                onChange={(e) => handleNestedChange('landingPage', e)}
+                className="modern-textarea"
+                placeholder="Short intro about the company"
+              />
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">About Us</label>
+                <textarea
+                  name="aboutUs"
+                  value={formData.landingPage.aboutUs}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-textarea"
+                  placeholder="The full story of your business"
+                />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Mission & Vision</label>
+                <textarea
+                  name="missionVision"
+                  value={formData.landingPage.missionVision}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-textarea"
+                  placeholder="Your long term goals and vision"
+                />
+              </div>
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Founder Details</label>
+                <input
+                  type="text"
+                  name="founder"
+                  value={formData.landingPage.founder}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-input"
+                  placeholder="e.g. John Doe - CEO"
+                />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Our Team</label>
+                <input
+                  type="text"
+                  name="ourTeam"
+                  value={formData.landingPage.ourTeam}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-input"
+                  placeholder="e.g. 5 dedicated staff members"
+                />
+              </div>
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Key Products & Services</label>
+                <textarea
+                  name="keyProductsServices"
+                  value={formData.landingPage.keyProductsServices}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-textarea"
+                  placeholder="What are your main offerings?"
+                />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Company Service</label>
+                <textarea
+                  name="companyService"
+                  value={formData.landingPage.companyService}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-textarea"
+                  placeholder="Any extra services provided?"
+                />
+              </div>
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Target Market</label>
+                <input
+                  type="text"
+                  name="targetMarket"
+                  value={formData.landingPage.targetMarket}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-input"
+                  placeholder="e.g. University Students"
+                />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Our Goals</label>
+                <input
+                  type="text"
+                  name="ourGoals"
+                  value={formData.landingPage.ourGoals}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-input"
+                  placeholder="Short term goals"
+                />
+              </div>
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Best Achievement</label>
+                <textarea
+                  name="bestAchievement"
+                  value={formData.landingPage.bestAchievement}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-textarea"
+                  placeholder="Awards, milestones, sales record"
+                />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Future Outlook</label>
+                <textarea
+                  name="futureOutlook"
+                  value={formData.landingPage.futureOutlook}
+                  onChange={(e) => handleNestedChange('landingPage', e)}
+                  className="modern-textarea"
+                  placeholder="Where are you heading next year?"
+                />
+              </div>
+            </div>
+
+            {/* --- CONTACT INFO SECTION --- */}
+            <div className="card-header" style={{ marginTop: '20px', borderTop: '1px solid #eee', paddingTop: '20px' }}>
+              <h3 className="card-title" style={{ fontSize: '1.2rem' }}>Contact Information</h3>
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Full Address</label>
+              <textarea
+                name="address"
+                value={formData.landingPage.contactInfo.address}
+                onChange={(e) => setFormData({ ...formData, landingPage: { ...formData.landingPage, contactInfo: { ...formData.landingPage.contactInfo, address: e.target.value } } })}
+                className="modern-textarea"
+                placeholder="HQ / Shop Address"
+              />
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.landingPage.contactInfo.email}
+                  onChange={(e) => setFormData({ ...formData, landingPage: { ...formData.landingPage, contactInfo: { ...formData.landingPage.contactInfo, email: e.target.value } } })}
+                  className="modern-input"
+                  placeholder="hello@company.com"
+                />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Social Media Handle</label>
+                <input
+                  type="text"
+                  name="socialMedia"
+                  value={formData.landingPage.contactInfo.socialMedia}
+                  onChange={(e) => setFormData({ ...formData, landingPage: { ...formData.landingPage, contactInfo: { ...formData.landingPage.contactInfo, socialMedia: e.target.value } } })}
+                  className="modern-input"
+                  placeholder="e.g. @mybusiness"
+                />
+              </div>
+            </div>
+
+          </section>
+          {/* 👆 TAMAT SEKSYEN LANDING PAGE 👆 */}
 
           {/* 8. Media Proof */}
           <section className="form-card">

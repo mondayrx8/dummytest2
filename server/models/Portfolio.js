@@ -80,6 +80,26 @@ const portfolioSchema = new mongoose.Schema({
         mediaLinks: [{ type: String }],
         socialLinks: { type: String }
     },
+
+    landingPage: {
+        introduction: { type: String },
+        aboutUs: { type: String },
+        founder: { type: String },
+        missionVision: { type: String },
+        keyProductsServices: { type: String },
+        targetMarket: { type: String },
+        ourTeam: { type: String },
+        ourGoals: { type: String },
+        companyService: { type: String },
+        bestAchievement: { type: String },
+        futureOutlook: { type: String },
+        contactInfo: {
+            address: { type: String },
+            email: { type: String },
+            socialMedia: { type: String }
+        }
+    },
+
     createdAt: {
         type: Date,
         default: Date.now

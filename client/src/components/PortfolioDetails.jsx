@@ -71,7 +71,8 @@ const PortfolioDetails = () => {
         mediaProof,
         whatsappNumber,
         monthlySalesData,
-        shopImages
+        shopImages,
+        landingPage
     } = portfolio;
 
     // --- WHATSAPP CLICK FUNCTION ---
@@ -128,133 +129,61 @@ const PortfolioDetails = () => {
                     )}
 
                     {/* The Bento Grid */}
-                    <div className="bento-grid">
 
-                        {/* Card 1: Business Basics & Operations */}
-                        <div className="bento-card">
-                            <h3 className="card-title"><span className="icon"><Building2 size={24} color="var(--organic-primary)" /></span> Operations & Info</h3>
-                            <div className="info-group">
-                                <span className="info-label">Team / Founders</span>
-                                <span className="info-value">{teamMembers || studentName || 'Not Specified'}</span>
+                    {/* 👇 PASTE DI SINI 👇 */}
+                    <div className="landing-section">
+                        <h2 className="section-heading">Welcome to {businessName}</h2>
+                        {landingPage?.introduction && <p className="landing-text lead">{landingPage.introduction}</p>}
+
+                        <div className="landing-grid-2">
+                            <div className="landing-box">
+                                <h3>About Us</h3>
+                                <p>{landingPage?.aboutUs || description}</p>
                             </div>
-                            <div className="info-group">
-                                <span className="info-label">Start Date</span>
-                                <span className="info-value">{businessBasics?.startDate ? new Date(businessBasics.startDate).toLocaleDateString() : 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">HQ Location</span>
-                                <span className="info-value">{businessBasics?.location || operations?.prepLocation || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Team Size</span>
-                                <span className="info-value">{operations?.teamSize || 'Not Specified'}</span>
+                            <div className="landing-box">
+                                <h3>Mission & Vision</h3>
+                                <p>{landingPage?.missionVision || "To be the best in the market."}</p>
                             </div>
                         </div>
-
-                        {/* Card 2: Market & Customers */}
-                        <div className="bento-card">
-                            <h3 className="card-title"><span className="icon"><Users size={24} color="var(--organic-primary)" /></span> Market & Customers</h3>
-                            <div className="info-group">
-                                <span className="info-label">Overall Market Size</span>
-                                <span className="info-value">{marketSize || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Target Audience</span>
-                                <span className="info-value">{customerMarket?.targetCustomers || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Traction (Cust. Count)</span>
-                                <span className="info-value">{customerMarket?.customerCount || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Acquisition Channels</span>
-                                <span className="info-value">{customerMarket?.acquisitionChannels || 'Not Specified'}</span>
-                            </div>
-                        </div>
-
-                        {/* Card 3: Products & USP */}
-                        <div className="bento-card">
-                            <h3 className="card-title"><span className="icon"><Gem size={24} color="var(--organic-primary)" /></span> Products & USP</h3>
-                            <div className="info-group">
-                                <span className="info-label">Main Products</span>
-                                <span className="info-value">{productOffering?.mainItems || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Price Range</span>
-                                <span className="info-value">{productOffering?.priceRange || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Uniqueness</span>
-                                <span className="info-value">{productOffering?.uniqueness || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Key Tools / Resources</span>
-                                <span className="info-value">{operations?.toolsUsed || 'Not Specified'}</span>
-                            </div>
-                        </div>
-
-                        {/* Card 4: Financials & Traction (Stands Out) */}
-                        <div className="bento-card bento-col-span-2 card-financials">
-                            <h3 className="card-title"><span className="icon"><TrendingUp size={24} color="var(--organic-primary)" /></span> Sales & Financials</h3>
-
-                            <div className="financial-stats-row">
-                                <div className="fin-stat-box">
-                                    <span className="fin-label">Estimated Monthly Revenue</span>
-                                    <span className="fin-value">{salesRevenue?.monthlyRevenue || '-'}</span>
-                                </div>
-                                <div className="fin-stat-box">
-                                    <span className="fin-label">Operating Times</span>
-                                    <span className="fin-value">{salesRevenue?.peakTimes || '-'}</span>
-                                </div>
-                                <div className="fin-stat-box">
-                                    <span className="fin-label">Payment Methods</span>
-                                    <span className="fin-value" style={{ fontSize: '1.25rem' }}>{salesRevenue?.paymentMethods || '-'}</span>
-                                </div>
-                            </div>
-
-                            <div className="chart-container">
-                                {monthlySalesData && monthlySalesData.length > 0 ? (
-                                    <div style={{ width: '100%', height: '250px' }}>
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <LineChart data={monthlySalesData} margin={{ top: 15, right: 20, bottom: 5, left: 0 }}>
-                                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--organic-border)" />
-                                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: 'var(--organic-muted-foreground)', fontSize: 12, fontFamily: 'var(--font-sans)' }} dy={10} />
-                                                <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--organic-muted-foreground)', fontSize: 12, fontFamily: 'var(--font-sans)' }} dx={-10} />
-                                                <Tooltip contentStyle={{ borderRadius: '1rem', border: '1px solid var(--organic-border)', boxShadow: 'var(--shadow-organic-soft)', fontFamily: 'var(--font-sans)' }} cursor={{ stroke: 'var(--organic-muted)', strokeWidth: 2 }} />
-                                                <Line type="monotone" dataKey="sales" stroke="var(--organic-primary)" strokeWidth={3} dot={{ r: 4, strokeWidth: 2, fill: '#fff', stroke: 'var(--organic-primary)' }} activeDot={{ r: 7, fill: 'var(--organic-secondary)', stroke: '#fff', strokeWidth: 2 }} />
-                                            </LineChart>
-                                        </ResponsiveContainer>
-                                    </div>
-                                ) : (
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', color: '#94A3B8' }}>
-                                        No traction data available yet.
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Card 5: Challenges & Future Plans */}
-                        <div className="bento-card">
-                            <h3 className="card-title"><span className="icon"><Rocket size={24} color="var(--organic-primary)" /></span> Vision & Growth</h3>
-                            <div className="info-group">
-                                <span className="info-label">Top Challenge</span>
-                                <span className="info-value">{challenges?.topChallenge || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Solution</span>
-                                <span className="info-value">{challenges?.solution || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Skills Gained</span>
-                                <span className="info-value">{learningGrowth?.skillsGained || 'Not Specified'}</span>
-                            </div>
-                            <div className="info-group">
-                                <span className="info-label">Future Expansion</span>
-                                <span className="info-value">{learningGrowth?.futurePlans || 'Not Specified'}</span>
-                            </div>
-                        </div>
-
                     </div>
+
+                    <div className="landing-section">
+                        <h2 className="section-heading">What We Do</h2>
+                        <div className="landing-grid-2">
+                            <div className="landing-box">
+                                <h3>Key Products & Services</h3>
+                                <p>{landingPage?.keyProductsServices || productOffering?.mainItems}</p>
+                            </div>
+                            <div className="landing-box">
+                                <h3>Target Market</h3>
+                                <p>{landingPage?.targetMarket || customerMarket?.targetCustomers}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="landing-section">
+                        <h2 className="section-heading">Who We Are</h2>
+                        <div className="landing-grid-3">
+                            <div className="landing-box">
+                                <h3>Founder</h3>
+                                <p>{landingPage?.founder || studentName}</p>
+                            </div>
+                            <div className="landing-box">
+                                <h3>Our Team</h3>
+                                <p>{landingPage?.ourTeam || teamMembers}</p>
+                            </div>
+                            <div className="landing-box">
+                                <h3>Best Achievement</h3>
+                                <p>{landingPage?.bestAchievement || "Still growing and achieving milestones."}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="landing-section bg-dark text-white">
+                        <h2 className="section-heading">Future Outlook</h2>
+                        <p className="landing-text">{landingPage?.futureOutlook || learningGrowth?.futurePlans}</p>
+                    </div>
+                    {/* 👆 TAMAT PASTE 👆 */}
 
                     {/* Media & Proof Links */}
                     {(mediaProof?.socialLinks || (mediaProof?.mediaLinks && mediaProof.mediaLinks.length > 0)) && (

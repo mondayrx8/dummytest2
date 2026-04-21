@@ -532,3 +532,84 @@
         opacity: 0.2;
     }
 }
+
+/* 👇 TAMBAH KAT BAWAH SEKALI 👇 */
+
+/* --- LANDING PAGE STYLES --- */
+.landing-section {
+    padding: 3rem 0;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--organic-primary);
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-family: var(--font-serif);
+}
+
+.landing-text.lead {
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: var(--organic-muted-foreground);
+    line-height: 1.6;
+}
+
+.landing-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.landing-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.landing-box {
+    background: rgba(254, 254, 250, 0.9);
+    padding: 25px;
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--organic-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.landing-box:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-organic-hover);
+}
+
+.landing-box h3 {
+    color: var(--organic-secondary);
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--organic-border);
+    padding-bottom: 10px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+}
+
+.landing-box p {
+    color: var(--text-color);
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Responsiveness untuk Landing Grid */
+@media (min-width: 768px) {
+    .landing-grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .landing-grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

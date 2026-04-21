@@ -93,7 +93,25 @@ const portfolioFields = {
             month: z.string().optional(),
             sales: z.union([z.number(), z.string()]).optional().nullable()
         })
-    ).optional()
+    ).optional(),
+    landingPage: z.object({
+        introduction: z.string().optional(),
+        aboutUs: z.string().optional(),
+        founder: z.string().optional(),
+        missionVision: z.string().optional(),
+        keyProductsServices: z.string().optional(),
+        targetMarket: z.string().optional(),
+        ourTeam: z.string().optional(),
+        ourGoals: z.string().optional(),
+        companyService: z.string().optional(),
+        bestAchievement: z.string().optional(),
+        futureOutlook: z.string().optional(),
+        contactInfo: z.object({
+            address: z.string().optional(),
+            email: z.string().optional(),
+            socialMedia: z.string().optional(),
+        }).optional(),
+    }).optional()
 };
 
 // ──────────────────────────────────────────────
@@ -117,6 +135,7 @@ const createPortfolioSchema = z.object({
     whatsappNumber: portfolioFields.whatsappNumber,
     shopImages: portfolioFields.shopImages,
     monthlySalesData: portfolioFields.monthlySalesData,
+    landingPage: portfolioFields.landingPage
 });
 
 // ──────────────────────────────────────────────
