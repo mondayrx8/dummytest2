@@ -153,6 +153,14 @@ const PortfolioDetails = () => {
                             <div className="landing-box">
                                 <h3>Key Products & Services</h3>
                                 <p>{landingPage?.keyProductsServices || productOffering?.mainItems}</p>
+
+                                {/* 👇 INI COMPANY SERVICE YANG HILANG 👇 */}
+                                {landingPage?.companyService && (
+                                    <div style={{ marginTop: '15px', paddingTop: '15px', borderTop: '1px solid #eee' }}>
+                                        <h4 style={{ color: 'var(--organic-secondary)', marginBottom: '5px', fontSize: '1rem' }}>Company Service</h4>
+                                        <p style={{ fontSize: '0.95rem' }}>{landingPage.companyService}</p>
+                                    </div>
+                                )}
                             </div>
                             <div className="landing-box">
                                 <h3>Target Market</h3>
@@ -165,23 +173,79 @@ const PortfolioDetails = () => {
                         <h2 className="section-heading">Who We Are</h2>
                         <div className="landing-grid-3">
                             <div className="landing-box">
-                                <h3>Founder</h3>
+                                <h3>Founder Details</h3>
                                 <p>{landingPage?.founder || studentName}</p>
                             </div>
                             <div className="landing-box">
                                 <h3>Our Team</h3>
                                 <p>{landingPage?.ourTeam || teamMembers}</p>
                             </div>
+                            {/* 👇 INI OUR GOALS YANG HILANG 👇 */}
                             <div className="landing-box">
+                                <h3>Our Goals</h3>
+                                <p>{landingPage?.ourGoals || "Striving for excellence."}</p>
+                            </div>
+                            <div className="landing-box" style={{ gridColumn: '1 / -1' }}>
                                 <h3>Best Achievement</h3>
                                 <p>{landingPage?.bestAchievement || "Still growing and achieving milestones."}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="landing-section bg-dark text-white">
-                        <h2 className="section-heading">Future Outlook</h2>
-                        <p className="landing-text">{landingPage?.futureOutlook || learningGrowth?.futurePlans}</p>
+                    {/* 👇 KEMBALIKAN GRAF JUALAN DI SINI 👇 */}
+                    <div className="landing-section" style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '30px', marginTop: '30px', border: '1px solid #eee' }}>
+                        <h2 className="section-heading">Sales & Traction</h2>
+
+                        <div className="financial-stats-row" style={{ display: 'flex', gap: '20px', marginBottom: '30px' }}>
+                            <div className="fin-stat-box" style={{ flex: 1, padding: '20px', background: '#f8fafc', borderRadius: '8px' }}>
+                                <span style={{ fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 'bold' }}>Monthly Revenue</span>
+                                <span style={{ display: 'block', fontSize: '1.8rem', color: '#0f172a', fontWeight: '800' }}>{salesRevenue?.monthlyRevenue || '-'}</span>
+                            </div>
+                            <div className="fin-stat-box" style={{ flex: 1, padding: '20px', background: '#f8fafc', borderRadius: '8px' }}>
+                                <span style={{ fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 'bold' }}>Payment Methods</span>
+                                <span style={{ display: 'block', fontSize: '1.2rem', color: '#0f172a', fontWeight: '600', marginTop: '10px' }}>{salesRevenue?.paymentMethods || '-'}</span>
+                            </div>
+                        </div>
+
+                        <div className="chart-container" style={{ height: '300px', width: '100%' }}>
+                            {monthlySalesData && monthlySalesData.length > 0 ? (
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={monthlySalesData} margin={{ top: 15, right: 20, bottom: 5, left: 0 }}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} />
+                                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} />
+                                        <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} />
+                                        <Line type="monotone" dataKey="sales" stroke="#22c55e" strokeWidth={3} dot={{ r: 4, fill: '#fff', stroke: '#22c55e' }} activeDot={{ r: 6 }} />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            ) : (
+                                <div style={{ textAlign: 'center', color: '#94A3B8', padding: '40px 0' }}>No traction data available yet.</div>
+                            )}
+                        </div>
+                    </div>
+                    {/* 👆 TAMAT GRAF JUALAN 👆 */}
+
+                    <div className="landing-section bg-dark text-white" style={{ backgroundColor: '#0B2046', color: 'white', borderRadius: '12px', padding: '40px', marginTop: '30px' }}>
+                        <h2 className="section-heading" style={{ color: '#ffffff' }}>Future Outlook</h2>
+                        <p className="landing-text" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 40px', fontSize: '1.1rem', opacity: 0.9 }}>
+                            {landingPage?.futureOutlook || learningGrowth?.futurePlans || "Expanding our horizons and achieving greater heights."}
+                        </p>
+
+                        {/* 👇 INI CONTACT INFO (ADDRESS, EMAIL, SOCIAL) YANG HILANG 👇 */}
+                        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '30px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '20px' }}>
+                            <div style={{ textAlign: 'center', flex: '1', minWidth: '200px' }}>
+                                <h4 style={{ color: '#94A3B8', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Location / Address</h4>
+                                <p>{landingPage?.contactInfo?.address || businessBasics?.location || "Not provided"}</p>
+                            </div>
+                            <div style={{ textAlign: 'center', flex: '1', minWidth: '200px' }}>
+                                <h4 style={{ color: '#94A3B8', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Email</h4>
+                                <p>{landingPage?.contactInfo?.email || "Not provided"}</p>
+                            </div>
+                            <div style={{ textAlign: 'center', flex: '1', minWidth: '200px' }}>
+                                <h4 style={{ color: '#94A3B8', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Social Media</h4>
+                                <p>{landingPage?.contactInfo?.socialMedia || mediaProof?.socialLinks || "Not provided"}</p>
+                            </div>
+                        </div>
                     </div>
                     {/* 👆 TAMAT PASTE 👆 */}
 

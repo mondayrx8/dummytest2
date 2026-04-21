@@ -220,7 +220,6 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           sales: item.sales !== null && item.sales !== undefined ? String(item.sales) : ""
         }))
       };
-      console.log("DATA YANG AKAN DIHANTAR:", submitData);
 
       if (currentPortfolio) {
         await axios.put(`https://api.siswaniaga.my/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
