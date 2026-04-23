@@ -1,0 +1,15 @@
+/* ============================================
+   Tailwind v4 — scoped (no preflight)
+   Only theme + utilities are loaded so that the
+   existing global styles in styles.css and the
+   per-component CSS files are not affected.
+   ============================================ */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+}

@@ -10,6 +10,7 @@ import Login from './components/Login';
 import GuestList from './components/GuestList';
 import LandingPage from './components/LandingPage';
 import PortfolioDetails from './components/PortfolioDetails';
+import InvestorPitchDeck from './components/InvestorPitchDeck';
 import UserProfile from './components/UserProfile';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
@@ -110,6 +111,9 @@ const App = () => {
 
             {/* Public Portfolio Details View */}
             <Route path="/portfolio/:id" element={<PortfolioDetails />} />
+
+            {/* Investor Pitch Deck — premium template (drop real portfolio data into the prop) */}
+            <Route path="/pitch" element={<InvestorPitchDeck />} />
 
             {/* Login / Register */}
             <Route path="/login" element={
