@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
     ArrowRight,
-    ArrowUpRight,
     Mail,
     MapPin,
     Share2,
@@ -20,6 +19,7 @@ import {
  * InvestorPitchDeck
  * ------------------------------------------------------------------
  * Ultra-premium, single-page scroll pitch deck for a student startup.
+ * LIGHT MODE · CLEAN & EXCLUSIVE · NO NAVBAR
  *
  * Drop your real data in by passing the `portfolio` prop, e.g.:
  *
@@ -88,107 +88,57 @@ const InvestorPitchDeck = ({ portfolio }) => {
         return () => io.disconnect();
     }, []);
 
-    // --- sticky nav shadow on scroll ---
-    const [scrolled, setScrolled] = useState(false);
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
-
     const handleContact = () => {
         const section = document.getElementById('pitch-contact');
         if (section) section.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
-        <div className="min-h-screen w-full bg-[#0A0F1E] text-slate-100 font-sans antialiased selection:bg-indigo-500/40 selection:text-white">
-            {/* ================================================================ */}
-            {/* STICKY GLASS NAV                                                  */}
-            {/* ================================================================ */}
-            <nav
-                className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-                    scrolled
-                        ? 'backdrop-blur-xl bg-[#0A0F1E]/70 border-b border-white/5'
-                        : 'bg-transparent'
-                }`}
-            >
-                <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-sky-400 shadow-lg shadow-indigo-500/30">
-                            <Sparkles className="h-4 w-4 text-white" strokeWidth={2.5} />
-                        </div>
-                        <span className="text-sm font-semibold tracking-tight text-white">
-                            {businessName}
-                        </span>
-                    </div>
-
-                    <div className="hidden items-center gap-8 md:flex">
-                        {['About', 'Market', 'Traction', 'Team', 'Gallery'].map((item) => (
-                            <a
-                                key={item}
-                                href={`#pitch-${item.toLowerCase()}`}
-                                className="text-sm text-slate-400 transition hover:text-white"
-                            >
-                                {item}
-                            </a>
-                        ))}
-                    </div>
-
-                    <button
-                        onClick={handleContact}
-                        className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-white backdrop-blur transition hover:border-white/20 hover:bg-white/10"
-                    >
-                        Contact
-                        <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </button>
-                </div>
-            </nav>
-
+        <div className="min-h-screen w-full bg-[#FAFAF9] text-slate-900 font-sans antialiased selection:bg-indigo-200 selection:text-slate-900">
             {/* ================================================================ */}
             {/* HERO                                                              */}
             {/* ================================================================ */}
-            <section className="relative isolate flex min-h-screen w-full items-end overflow-hidden">
+            <section className="relative isolate flex min-h-screen w-full items-end overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100">
                 {/* background image + overlay */}
                 <div className="absolute inset-0 -z-10">
                     {image ? (
                         <img
                             src={image}
                             alt={businessName}
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-cover opacity-20"
                             crossOrigin="anonymous"
                         />
                     ) : (
-                        <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_#1e293b_0%,_#0A0F1E_60%)]" />
+                        <div className="h-full w-full bg-[radial-gradient(ellipse_at_top,_#f1f5f9_0%,_#FAFAF9_60%)]" />
                     )}
-                    {/* cinematic gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1E]/60 via-[#0A0F1E]/70 to-[#0A0F1E]" />
+                    {/* soft gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-slate-50/70 to-slate-100/90" />
                     {/* soft colored accents */}
-                    <div className="absolute -top-40 -left-40 h-[28rem] w-[28rem] rounded-full bg-indigo-600/20 blur-3xl" />
-                    <div className="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full bg-sky-500/20 blur-3xl" />
+                    <div className="absolute -top-40 -left-40 h-[28rem] w-[28rem] rounded-full bg-indigo-300/20 blur-3xl" />
+                    <div className="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full bg-sky-300/20 blur-3xl" />
                 </div>
 
-                <div className="relative mx-auto w-full max-w-7xl px-4 pb-24 pt-36 sm:px-6 sm:pb-32 sm:pt-40 lg:px-8 lg:pb-40">
+                <div className="relative mx-auto w-full max-w-7xl px-4 pb-24 pt-32 sm:px-6 sm:pb-32 sm:pt-36 lg:px-8 lg:pb-40">
                     <div
                         data-reveal
                         className="max-w-4xl opacity-0 translate-y-6 transition-all duration-1000 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
                     >
-                        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 backdrop-blur">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
+                        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm backdrop-blur">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.6)]" />
                             Investor Pitch Deck · 2026
                         </div>
 
-                        <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl">
+                        <h1 className="text-balance text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl xl:text-8xl">
                             {businessName}
                         </h1>
 
-                        <p className="mt-6 max-w-2xl text-lg text-slate-300 sm:text-xl">
+                        <p className="mt-6 max-w-2xl text-lg text-slate-700 sm:text-xl">
                             Founded by{' '}
-                            <span className="font-medium text-white">{studentName}</span>
+                            <span className="font-semibold text-slate-900">{studentName}</span>
                         </p>
 
                         {description && (
-                            <p className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-slate-400 sm:text-lg">
+                            <p className="mt-8 max-w-2xl text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
                                 {description}
                             </p>
                         )}
@@ -196,16 +146,15 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         <div className="mt-12 flex flex-wrap items-center gap-4">
                             <button
                                 onClick={handleContact}
-                                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[#0A0F1E] shadow-2xl shadow-white/10 transition hover:shadow-white/20"
+                                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-slate-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:shadow-xl hover:shadow-slate-900/30"
                             >
                                 <span className="relative z-10">Contact Founder</span>
                                 <ArrowRight className="relative z-10 h-4 w-4 transition group-hover:translate-x-1" />
-                                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-indigo-400 to-sky-400 opacity-0 transition duration-500 group-hover:translate-x-0 group-hover:opacity-20" />
                             </button>
 
                             <a
                                 href="#pitch-about"
-                                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-white/25 hover:bg-white/10"
+                                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-900 shadow-sm backdrop-blur transition hover:border-slate-400 hover:bg-white"
                             >
                                 View Pitch
                             </a>
@@ -220,7 +169,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
             </section>
 
             {/* ================================================================ */}
-            {/* ABOUT US — BENTO                                                  */}
+            {/* ABOUT US — EDITORIAL LAYOUT (no bento)                            */}
             {/* ================================================================ */}
             <section
                 id="pitch-about"
@@ -230,56 +179,80 @@ const InvestorPitchDeck = ({ portfolio }) => {
 
                 <h2
                     data-reveal
-                    className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-white opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
+                    className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-900 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
                 >
                     Built with purpose.{' '}
-                    <span className="bg-gradient-to-r from-indigo-300 via-sky-300 to-teal-200 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-indigo-600 via-sky-600 to-teal-600 bg-clip-text text-transparent">
                         Scaled with vision.
                     </span>
                 </h2>
 
-                <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
-                    {/* Introduction — large */}
-                    <BentoCard
-                        className="md:col-span-4"
-                        eyebrow="Introduction"
-                        title={introduction || `Welcome to ${businessName}.`}
-                        body={aboutUs}
-                    />
-
-                    {/* Goals */}
-                    <BentoCard
-                        className="md:col-span-2 bg-gradient-to-br from-indigo-500/20 via-sky-500/10 to-transparent border-indigo-400/20"
-                        eyebrow="Our Goals"
-                        title={ourGoals || 'Expand reach, deepen impact, stay profitable.'}
-                        icon={<Target className="h-5 w-5 text-indigo-300" />}
-                    />
-
-                    {/* Mission */}
-                    <BentoCard
-                        className="md:col-span-3"
-                        eyebrow="Mission & Vision"
-                        title={missionVision || 'To be the leading brand regionally with global standards.'}
-                        icon={<Rocket className="h-5 w-5 text-sky-300" />}
-                    />
-
-                    {/* Image card */}
+                {/* Classic editorial layout: big text left, big image right */}
+                <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+                    {/* Left column — big clean text */}
                     <div
                         data-reveal
-                        className="relative md:col-span-3 overflow-hidden rounded-2xl border border-white/10 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
+                        className="flex flex-col gap-8 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
+                    >
+                        {/* Introduction */}
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600">
+                                Introduction
+                            </p>
+                            <h3 className="mt-3 text-pretty text-2xl font-semibold leading-snug text-slate-900 sm:text-3xl">
+                                {introduction || `Welcome to ${businessName}.`}
+                            </h3>
+                            {aboutUs && (
+                                <p className="mt-4 text-base leading-relaxed text-slate-600">
+                                    {aboutUs}
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Mission & Vision */}
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <Rocket className="h-5 w-5 text-sky-600" />
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600">
+                                    Mission & Vision
+                                </p>
+                            </div>
+                            <p className="mt-3 text-lg font-medium leading-relaxed text-slate-800">
+                                {missionVision || 'To be the leading brand regionally with global standards.'}
+                            </p>
+                        </div>
+
+                        {/* Our Goals */}
+                        <div className="rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50 to-transparent p-6 shadow-sm">
+                            <div className="flex items-center gap-2">
+                                <Target className="h-5 w-5 text-indigo-600" />
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600">
+                                    Our Goals
+                                </p>
+                            </div>
+                            <p className="mt-3 text-lg font-medium leading-relaxed text-slate-900">
+                                {ourGoals || 'Expand reach, deepen impact, stay profitable.'}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Right column — big beautiful image */}
+                    <div
+                        data-reveal
+                        className="relative overflow-hidden rounded-3xl shadow-2xl opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
                     >
                         {image ? (
                             <img
                                 src={image}
                                 alt={businessName}
-                                className="h-full w-full min-h-64 object-cover transition duration-700 hover:scale-105"
+                                className="h-full w-full min-h-[32rem] object-cover transition duration-700 hover:scale-105"
                                 crossOrigin="anonymous"
                             />
                         ) : (
-                            <div className="h-full min-h-64 w-full bg-gradient-to-br from-indigo-600/40 via-sky-500/30 to-teal-400/20" />
+                            <div className="h-full min-h-[32rem] w-full bg-gradient-to-br from-indigo-200 via-sky-200 to-teal-100" />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F1E] via-transparent" />
-                        <div className="absolute bottom-4 left-4 text-xs uppercase tracking-[0.18em] text-white/70">
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent" />
+                        <div className="absolute bottom-6 left-6 text-xs font-medium uppercase tracking-[0.18em] text-white">
                             {businessName}
                         </div>
                     </div>
@@ -291,7 +264,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* ================================================================ */}
             <section
                 id="pitch-market"
-                className="relative border-y border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent"
+                className="relative border-y border-slate-200 bg-white"
             >
                 <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
                     <div className="flex items-end justify-between gap-6">
@@ -302,7 +275,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             />
                             <h2
                                 data-reveal
-                                className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-white opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
+                                className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-900 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
                             >
                                 Product, market, and a clear edge.
                             </h2>
@@ -312,7 +285,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                     <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
                         {/* Products & Services */}
                         <FeatureCard
-                            accent="from-indigo-500/40 to-sky-500/20"
+                            accent="from-indigo-200 to-sky-100"
                             eyebrow="Key Products & Services"
                             icon={<Sparkles className="h-5 w-5" />}
                             title={keyProductsServices || 'Signature offerings crafted for the modern customer.'}
@@ -321,7 +294,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
 
                         {/* Target Market */}
                         <FeatureCard
-                            accent="from-amber-400/40 to-rose-500/20"
+                            accent="from-amber-200 to-rose-100"
                             eyebrow="Target Market"
                             icon={<Target className="h-5 w-5" />}
                             title={targetMarket || 'Young professionals & digital-first consumers.'}
@@ -342,7 +315,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
 
                 <h2
                     data-reveal
-                    className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-white opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
+                    className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-900 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
                 >
                     Numbers that speak.{' '}
                     <span className="text-slate-500">Momentum you can feel.</span>
@@ -374,20 +347,20 @@ const InvestorPitchDeck = ({ portfolio }) => {
                     data-reveal
                     className="mt-10 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
                 >
-                    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-10">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.18),_transparent_60%)]" />
+                    <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-10 shadow-lg">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.08),_transparent_60%)]" />
 
                         <div className="relative flex items-start justify-between">
                             <div>
-                                <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
                                     Monthly Sales Trend
                                 </p>
-                                <p className="mt-2 text-2xl font-semibold text-white">
+                                <p className="mt-2 text-2xl font-semibold text-slate-900">
                                     Live revenue visualization
                                 </p>
                             </div>
-                            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                                 Growing
                             </span>
                         </div>
@@ -395,13 +368,13 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         {/* Placeholder chart area — drop Recharts here later */}
                         <div
                             id="sales-chart-placeholder"
-                            className="relative mt-8 flex h-72 items-center justify-center rounded-2xl border border-dashed border-white/10 bg-[#070B17] sm:h-80"
+                            className="relative mt-8 flex h-72 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 sm:h-80"
                         >
                             <div className="text-center">
-                                <p className="text-sm font-medium text-slate-400">
+                                <p className="text-sm font-medium text-slate-600">
                                     Sales Chart Goes Here
                                 </p>
-                                <p className="mt-1 text-xs text-slate-600">
+                                <p className="mt-1 text-xs text-slate-400">
                                     (Mount your Recharts LineChart into this div)
                                 </p>
                             </div>
@@ -413,7 +386,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             >
                                 <defs>
                                     <pattern
-                                        id="grid"
+                                        id="grid-light"
                                         width="40"
                                         height="40"
                                         patternUnits="userSpaceOnUse"
@@ -421,12 +394,12 @@ const InvestorPitchDeck = ({ portfolio }) => {
                                         <path
                                             d="M 40 0 L 0 0 0 40"
                                             fill="none"
-                                            stroke="rgba(255,255,255,0.06)"
+                                            stroke="rgba(0,0,0,0.05)"
                                             strokeWidth="1"
                                         />
                                     </pattern>
                                 </defs>
-                                <rect width="100%" height="100%" fill="url(#grid)" />
+                                <rect width="100%" height="100%" fill="url(#grid-light)" />
                             </svg>
                         </div>
                     </div>
@@ -438,14 +411,14 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* ================================================================ */}
             <section
                 id="pitch-team"
-                className="relative border-y border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent"
+                className="relative border-y border-slate-200 bg-white"
             >
                 <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
                     <SectionLabel icon={<Users className="h-3.5 w-3.5" />} text="Team & Milestones" />
 
                     <h2
                         data-reveal
-                        className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-white opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
+                        className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-900 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
                     >
                         The people behind the product.
                     </h2>
@@ -454,25 +427,25 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         {/* Founder */}
                         <div
                             data-reveal
-                            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
+                            className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-lg opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
                         >
-                            <div className="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-indigo-500/20 blur-3xl transition group-hover:bg-indigo-500/30" />
+                            <div className="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-indigo-200/40 blur-3xl transition group-hover:bg-indigo-200/60" />
                             <div className="relative">
-                                <p className="text-xs font-medium uppercase tracking-[0.18em] text-indigo-300">
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600">
                                     Founder
                                 </p>
                                 <div className="mt-6 flex items-center gap-4">
-                                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-sky-400 text-xl font-semibold text-white">
+                                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-sky-400 text-xl font-semibold text-white shadow-md">
                                         {(founder || studentName || 'F').charAt(0).toUpperCase()}
                                     </div>
                                     <div>
-                                        <p className="text-xl font-semibold text-white">
+                                        <p className="text-xl font-semibold text-slate-900">
                                             {founder || studentName}
                                         </p>
-                                        <p className="text-sm text-slate-400">Chief Executive</p>
+                                        <p className="text-sm text-slate-600">Chief Executive</p>
                                     </div>
                                 </div>
-                                <p className="mt-6 text-sm leading-relaxed text-slate-400">
+                                <p className="mt-6 text-sm leading-relaxed text-slate-600">
                                     Leading vision, growth, and operations.
                                 </p>
                             </div>
@@ -481,13 +454,13 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         {/* Team */}
                         <div
                             data-reveal
-                            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 lg:col-span-1"
+                            className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-lg opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 lg:col-span-1"
                         >
-                            <p className="text-xs font-medium uppercase tracking-[0.18em] text-sky-300">
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600">
                                 Our Team
                             </p>
-                            <Users className="mt-6 h-6 w-6 text-sky-300" />
-                            <p className="mt-4 text-lg font-medium leading-relaxed text-white">
+                            <Users className="mt-6 h-6 w-6 text-sky-600" />
+                            <p className="mt-4 text-lg font-medium leading-relaxed text-slate-900">
                                 {ourTeam || 'A tight-knit, cross-functional team.'}
                             </p>
                         </div>
@@ -495,17 +468,17 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         {/* Best Achievement — highlighted trophy */}
                         <div
                             data-reveal
-                            className="relative overflow-hidden rounded-3xl border border-amber-300/30 bg-gradient-to-br from-amber-400/20 via-amber-500/10 to-transparent p-8 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
+                            className="relative overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-100 to-transparent p-8 shadow-lg opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
                         >
-                            <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-amber-300/20 blur-3xl" />
+                            <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-amber-200/40 blur-3xl" />
                             <div className="relative">
                                 <div className="flex items-center gap-2">
-                                    <Trophy className="h-5 w-5 text-amber-300" />
-                                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-amber-200">
+                                    <Trophy className="h-5 w-5 text-amber-600" />
+                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
                                         Best Achievement
                                     </p>
                                 </div>
-                                <p className="mt-6 text-xl font-semibold leading-snug text-white">
+                                <p className="mt-6 text-xl font-semibold leading-snug text-slate-900">
                                     {bestAchievement || 'Consistent growth across every quarter.'}
                                 </p>
                             </div>
@@ -526,7 +499,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
 
                     <h2
                         data-reveal
-                        className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-white opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
+                        className="mt-6 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-900 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:text-5xl"
                     >
                         A look inside.
                     </h2>
@@ -535,7 +508,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         {shopImages.map((img, idx) => (
                             <div
                                 key={idx}
-                                className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+                                className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
                             >
                                 <img
                                     src={img}
@@ -556,17 +529,17 @@ const InvestorPitchDeck = ({ portfolio }) => {
             <section id="pitch-contact" className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
                 <div
                     data-reveal
-                    className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-indigo-600/30 via-sky-500/20 to-teal-400/10 p-10 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:p-16"
+                    className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br from-indigo-100 via-sky-50 to-teal-50 p-10 shadow-xl opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 sm:p-16"
                 >
-                    <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-indigo-500/30 blur-3xl" />
-                    <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-sky-400/30 blur-3xl" />
+                    <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
+                    <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-sky-200/40 blur-3xl" />
 
                     <div className="relative grid grid-cols-1 items-end gap-8 lg:grid-cols-2">
                         <div>
-                            <p className="text-xs font-medium uppercase tracking-[0.18em] text-indigo-200">
+                            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-700">
                                 Future Outlook
                             </p>
-                            <h3 className="mt-3 text-balance text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
+                            <h3 className="mt-3 text-balance text-3xl font-semibold text-slate-900 sm:text-4xl lg:text-5xl">
                                 {futureOutlook || 'Expanding horizons. Compounding impact.'}
                             </h3>
                         </div>
@@ -574,14 +547,14 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         <div className="flex flex-wrap items-center gap-4 lg:justify-end">
                             <button
                                 onClick={handleContact}
-                                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[#0A0F1E] transition hover:bg-slate-100"
+                                className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800"
                             >
                                 Contact Founder
                                 <ArrowRight className="h-4 w-4" />
                             </button>
                             <a
                                 href="#pitch-about"
-                                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+                                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-900 backdrop-blur transition hover:bg-white"
                             >
                                 Re-read pitch
                             </a>
@@ -594,17 +567,17 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* FOOTER                                                            */}
             {/* ================================================================ */}
             <footer className="mx-auto mt-20 max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 gap-10 border-t border-white/5 pt-14 md:grid-cols-4">
+                <div className="grid grid-cols-1 gap-10 border-t border-slate-200 pt-14 md:grid-cols-4">
                     <div className="md:col-span-2">
                         <div className="flex items-center gap-2.5">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-sky-400">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-sky-400 shadow-md">
                                 <Sparkles className="h-4 w-4 text-white" strokeWidth={2.5} />
                             </div>
-                            <span className="text-sm font-semibold text-white">
+                            <span className="text-sm font-semibold text-slate-900">
                                 {businessName}
                             </span>
                         </div>
-                        <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-400">
+                        <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
                             {description ||
                                 `A company portfolio by ${studentName}. Built to be seen, measured, and invested in.`}
                         </p>
@@ -631,7 +604,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                     </div>
                 )}
 
-                <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-8 text-xs text-slate-500 sm:flex-row sm:items-center">
+                <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-8 text-xs text-slate-500 sm:flex-row sm:items-center">
                     <p>
                         © {new Date().getFullYear()} {businessName}. All rights reserved.
                     </p>
@@ -649,62 +622,42 @@ const InvestorPitchDeck = ({ portfolio }) => {
 const SectionLabel = ({ icon, text }) => (
     <div
         data-reveal
-        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-slate-300 backdrop-blur opacity-0 -translate-y-2 transition-all duration-500 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
+        className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 shadow-sm backdrop-blur opacity-0 -translate-y-2 transition-all duration-500 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
     >
-        <span className="text-indigo-300">{icon}</span>
+        <span className="text-indigo-600">{icon}</span>
         {text}
-    </div>
-);
-
-const BentoCard = ({ className = '', eyebrow, title, body, icon }) => (
-    <div
-        data-reveal
-        className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 hover:border-white/20 hover:bg-white/[0.05] ${className}`}
-    >
-        <div className="flex items-center justify-between">
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-                {eyebrow}
-            </p>
-            {icon}
-        </div>
-        <p className="mt-4 text-pretty text-lg font-medium leading-snug text-white sm:text-xl">
-            {title}
-        </p>
-        {body && (
-            <p className="mt-4 text-sm leading-relaxed text-slate-400">{body}</p>
-        )}
     </div>
 );
 
 const FeatureCard = ({ accent, eyebrow, icon, title, image }) => (
     <div
         data-reveal
-        className="group relative flex min-h-[22rem] flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
+        className="group relative flex min-h-[22rem] flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-lg opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
     >
         {image ? (
             <div className="absolute inset-0 -z-10">
                 <img
                     src={image}
                     alt={eyebrow}
-                    className="h-full w-full object-cover opacity-30 transition duration-700 group-hover:scale-105 group-hover:opacity-40"
+                    className="h-full w-full object-cover opacity-20 transition duration-700 group-hover:scale-105 group-hover:opacity-30"
                     crossOrigin="anonymous"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F1E] via-[#0A0F1E]/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-transparent" />
             </div>
         ) : (
             <div
                 className={`absolute inset-0 -z-10 bg-gradient-to-br ${accent}`}
             />
         )}
-        <div className="flex items-center gap-2 text-slate-300">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white">
+        <div className="flex items-center gap-2 text-slate-700">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white shadow-sm text-slate-900">
                 {icon}
             </span>
-            <span className="text-xs font-medium uppercase tracking-[0.18em]">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em]">
                 {eyebrow}
             </span>
         </div>
-        <p className="mt-6 text-pretty text-2xl font-semibold leading-snug text-white sm:text-3xl">
+        <p className="mt-6 text-pretty text-2xl font-semibold leading-snug text-slate-900 sm:text-3xl">
             {title}
         </p>
     </div>
@@ -713,25 +666,25 @@ const FeatureCard = ({ accent, eyebrow, icon, title, image }) => (
 const MetricTile = ({ label, value, hint, icon, highlight = false }) => (
     <div
         data-reveal
-        className={`group relative overflow-hidden rounded-3xl border p-7 opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 ${
+        className={`group relative overflow-hidden rounded-3xl border p-7 shadow-lg opacity-0 translate-y-6 transition-all duration-700 data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0 ${
             highlight
-                ? 'border-indigo-400/30 bg-gradient-to-br from-indigo-500/20 via-sky-500/10 to-transparent'
-                : 'border-white/10 bg-white/[0.03]'
+                ? 'border-indigo-200 bg-gradient-to-br from-indigo-100 to-transparent'
+                : 'border-slate-200 bg-white'
         }`}
     >
-        <div className="flex items-center gap-2 text-slate-400">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white">
+        <div className="flex items-center gap-2 text-slate-600">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white shadow-sm text-slate-900">
                 {icon}
             </span>
-            <span className="text-xs font-medium uppercase tracking-[0.18em]">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em]">
                 {label}
             </span>
         </div>
-        <p className="mt-6 text-balance text-3xl font-semibold leading-tight text-white sm:text-4xl">
+        <p className="mt-6 text-balance text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
             {value}
         </p>
         {hint && (
-            <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-slate-400">
+            <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-slate-600">
                 {hint}
             </p>
         )}
@@ -741,15 +694,15 @@ const MetricTile = ({ label, value, hint, icon, highlight = false }) => (
 const FooterCol = ({ icon, title, value, href }) => {
     const inner = (
         <>
-            <div className="flex items-center gap-2 text-slate-400">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white">
+            <div className="flex items-center gap-2 text-slate-600">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-slate-300 bg-white shadow-sm text-slate-900">
                     {icon}
                 </span>
-                <span className="text-xs font-medium uppercase tracking-[0.18em]">
+                <span className="text-xs font-semibold uppercase tracking-[0.18em]">
                     {title}
                 </span>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-slate-300">{value}</p>
+            <p className="mt-3 text-sm leading-relaxed text-slate-700">{value}</p>
         </>
     );
 
