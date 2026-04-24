@@ -59,6 +59,8 @@ const GuestList = () => {
                                 placeholder="Search by venture, founder..."
                                 value={searchTerm}
                                 onValueChange={(text) => setSearchTerm(text)}
+                                collapsedWidth={310} /* Lebar kotak masa bertenang (sebelum tekan) */
+                                expandedWidth={400}  /* Lebar kotak bila tengah menaip (selepas tekan) */
                             />
                         </div>
                     </div>
