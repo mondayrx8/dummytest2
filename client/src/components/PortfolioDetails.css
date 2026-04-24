@@ -58,8 +58,13 @@
 }
 
 @keyframes float {
-    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    100% { transform: translate(50px, 30px) rotate(10deg) scale(1.05); }
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    100% {
+        transform: translate(50px, 30px) rotate(10deg) scale(1.05);
+    }
 }
 
 /* --- 3. LOADING & ERROR STATES --- */
@@ -86,8 +91,15 @@
 }
 
 @keyframes pulse-scale {
-    0% { transform: scale(0.8) rotate(0deg); opacity: 0.8; }
-    100% { transform: scale(1.2) rotate(45deg); opacity: 0.2; }
+    0% {
+        transform: scale(0.8) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.2) rotate(45deg);
+        opacity: 0.2;
+    }
 }
 
 /* --- 4. HERO SECTION --- */
@@ -357,7 +369,7 @@
 
 /* --- 7. FUTURE OUTLOOK & FOOTER --- */
 .corp-footer-grid {
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 40px;
     display: flex;
     flex-wrap: wrap;
@@ -494,30 +506,72 @@
 }
 
 @keyframes whatsappPulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
 }
 
 /* --- 10. UTILITIES --- */
-.text-center { text-align: center; }
-.border-top-divider { border-top: 1px solid #e2e8f0; }
+.text-center {
+    text-align: center;
+}
+
+.border-top-divider {
+    border-top: 1px solid #e2e8f0;
+}
 
 /* --- 11. RESPONSIVE MEDIA QUERIES --- */
 @media (max-width: 1024px) {
-    .masonry-grid { column-count: 2; }
+    .masonry-grid {
+        column-count: 2;
+    }
 }
 
 @media (max-width: 992px) {
-    .corp-about-grid { grid-template-columns: 1fr; }
-    .corp-about-img { height: 350px; order: -1; }
+    .corp-about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .corp-about-img {
+        height: 350px;
+        order: -1;
+    }
 }
 
 @media (max-width: 768px) {
-    .financial-stats-row { flex-direction: column; }
-    .masonry-grid { column-count: 1; }
-    .deck-content-wrapper { padding: var(--space-xl) var(--space-md); }
-    .hero-content { padding: var(--space-xl) var(--space-md); }
-    .organic-blob { display: none; }
-    .media-presence-card { flex-direction: column; align-items: flex-start; }
+    .financial-stats-row {
+        flex-direction: column;
+    }
+
+    .masonry-grid {
+        column-count: 1;
+    }
+
+    .deck-content-wrapper {
+        padding: var(--space-xl) var(--space-md);
+    }
+
+    .hero-content {
+        padding: var(--space-xl) var(--space-md);
+    }
+
+    .organic-blob {
+        display: none;
+    }
+
+    .media-presence-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
