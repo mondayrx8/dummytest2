@@ -54,13 +54,13 @@ const GuestList = () => {
                     </p>
 
                     <div className="directory-search-wrapper flex justify-center w-full mt-8">
-                        <div className="w-full max-w-md"> {/* Kawal kelebaran input kat sini */}
+                        <div className="w-full max-w-md"> {/* control the width of the input here */}
                             <GooeyInput
                                 placeholder="Search by venture, founder..."
                                 value={searchTerm}
                                 onValueChange={(text) => setSearchTerm(text)}
-                                collapsedWidth={200} /* Lebar kotak masa bertenang (sebelum tekan) */
-                                expandedWidth={300}  /* Lebar kotak bila tengah menaip (selepas tekan) */
+                                collapsedWidth={200} /* width of the box when calm (before pressing) */
+                                expandedWidth={300}  /* width of the box when typing (after pressing) */
                             />
                         </div>
                     </div>
