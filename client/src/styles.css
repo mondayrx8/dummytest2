@@ -2,7 +2,9 @@
 /* GLOBAL DESIGN SYSTEM - DEPB 2026 */
 /* Single Source of Truth for Colors */
 /* ============================================ */
-
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 /* Import Modern Font */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
@@ -11,7 +13,7 @@
   /* LEGACY THEME (UUM Royal Navy Blue)          */
   /* Kept for backward compatibility             */
   /* =========================================== */
-  --primary-color: #0B2046; 
+  --primary-color: #0B2046;
   --primary-hover: #081736;
   --primary-light: #E0E8F2;
   --primary-surface: rgba(11, 32, 70, 0.08);
@@ -25,7 +27,7 @@
   --secondary-glow-hover: 0 6px 20px rgba(253, 184, 19, 0.4);
 
   --gradient-main: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  
+
   --bg-surface: #FFFFFF;
   --glass-panel: rgba(255, 255, 255, 0.7);
   --glass-panel-solid: rgba(255, 255, 255, 0.85);
@@ -51,33 +53,46 @@
   /* NEW ORGANIC / NATURAL THEME                 */
   /* Wabi-sabi philosophy, tactile, warm         */
   /* =========================================== */
-  --bg-color: #FDFCF8; /* Rice Paper */
-  --text-color: #2C2C24; /* Deep Loam / Charcoal */
-  
-  --organic-primary: #5D7052; /* Moss Green */
-  --organic-primary-foreground: #F3F4F1; /* Pale Mist */
-  
-  --organic-secondary: #C18C5D; /* Terracotta / Clay */
-  --organic-secondary-foreground: #FFFFFF; 
-  
-  --organic-accent: #E6DCCD; /* Sand / Beige */
-  --organic-accent-foreground: #4A4A40; /* Bark */
-  
-  --organic-muted: #F0EBE5; /* Stone */
-  --organic-muted-foreground: #78786C; /* Dried Grass */
-  
-  --organic-border: #DED8CF; /* Raw Timber */
-  --organic-destructive: #A85448; /* Burnt Sienna */
+  --bg-color: #FDFCF8;
+  /* Rice Paper */
+  --text-color: #2C2C24;
+  /* Deep Loam / Charcoal */
+
+  --organic-primary: #5D7052;
+  /* Moss Green */
+  --organic-primary-foreground: #F3F4F1;
+  /* Pale Mist */
+
+  --organic-secondary: #C18C5D;
+  /* Terracotta / Clay */
+  --organic-secondary-foreground: #FFFFFF;
+
+  --organic-accent: #E6DCCD;
+  /* Sand / Beige */
+  --organic-accent-foreground: #4A4A40;
+  /* Bark */
+
+  --organic-muted: #F0EBE5;
+  /* Stone */
+  --organic-muted-foreground: #78786C;
+  /* Dried Grass */
+
+  --organic-border: #DED8CF;
+  /* Raw Timber */
+  --organic-destructive: #A85448;
+  /* Burnt Sienna */
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
-  --shadow-organic-soft: 0 4px 20px -2px rgba(93, 112, 82, 0.15); /* Moss tinted */
+  --shadow-organic-soft: 0 4px 20px -2px rgba(93, 112, 82, 0.15);
+  /* Moss tinted */
   --shadow-organic-hover: 0 6px 24px -4px rgba(93, 112, 82, 0.25);
   --shadow-organic-lift: 0 20px 40px -10px rgba(93, 112, 82, 0.15);
-  --shadow-organic-float: 0 10px 40px -10px rgba(193, 140, 93, 0.2); /* Clay tinted */
+  --shadow-organic-float: 0 10px 40px -10px rgba(193, 140, 93, 0.2);
+  /* Clay tinted */
 
   /* Border Radius */
   --radius-sm: 8px;
@@ -86,7 +101,7 @@
   --radius-xl: 24px;
   --radius-2xl: 32px;
   --radius-full: 9999px;
-  
+
   /* Blob Radii (Organic Asymmetry) */
   --radius-blob-1: 60% 40% 30% 70% / 60% 30% 70% 40%;
   --radius-blob-2: 30% 70% 70% 30% / 30% 30% 70% 70%;
@@ -149,7 +164,10 @@ body {
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   pointer-events: none;
   z-index: 9999;
   /* SVG noise background */
@@ -197,9 +215,20 @@ h6 {
   letter-spacing: -0.01em;
 }
 
-h1 { font-size: var(--text-3xl); font-weight: 800; }
-h2 { font-size: var(--text-2xl); font-weight: 700; }
-h3 { font-size: var(--text-xl); font-weight: 600; }
+h1 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
 
 p {
   color: var(--text-muted);
@@ -329,16 +358,25 @@ textarea::placeholder {
 }
 
 /* Organic utility classes */
-.blob-shape-1 { border-radius: var(--radius-blob-1); }
-.blob-shape-2 { border-radius: var(--radius-blob-2); }
+.blob-shape-1 {
+  border-radius: var(--radius-blob-1);
+}
+
+.blob-shape-2 {
+  border-radius: var(--radius-blob-2);
+}
 
 .bg-texture-local {
   position: relative;
 }
+
 .bg-texture-local::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   opacity: 0.03;
   mix-blend-mode: multiply;
