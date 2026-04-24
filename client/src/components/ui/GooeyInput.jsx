@@ -122,7 +122,7 @@ export function GooeyInput({
     }, [searchText, setExpanded]);
 
     const surfaceClass =
-        "bg-foreground text-background shadow-sm ring-1 ring-border/60";
+        "bg-white text-slate-900 shadow-md border-2 border-slate-300 hover:border-slate-400 transition-colors";
 
     return (
         <div
