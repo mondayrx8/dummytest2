@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Footer from './Footer';
 import './GuestList.css';
+import { GooeyInput } from './ui/GooeyInput.jsx';
 
 const GuestList = () => {
     const navigate = useNavigate();
@@ -52,26 +53,13 @@ const GuestList = () => {
                         Discover and connect with the next generation of student-led enterprises. Explore pitch decks, business models, and innovative solutions.
                     </p>
 
-                    <div className="directory-search-wrapper">
-                        <div className="search-pill">
-                            <span className="search-icon-modern">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                </svg>
-                            </span>
-                            <input
-                                type="text"
-                                placeholder="Search by venture, founder, or keyword..."
+                    <div className="directory-search-wrapper flex justify-center w-full mt-8">
+                        <div className="w-full max-w-md"> {/* Kawal kelebaran input kat sini */}
+                            <GooeyInput
+                                placeholder="Search by venture, founder..."
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="search-input-modern"
+                                onValueChange={(text) => setSearchTerm(text)}
                             />
-                            {searchTerm && (
-                                <button className="clear-search-btn" onClick={() => setSearchTerm('')}>
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </button>
-                            )}
                         </div>
                     </div>
                 </div>
@@ -142,8 +130,8 @@ const GuestList = () => {
 
                         <div className="pagination-indicators">
                             {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                                <span 
-                                    key={page} 
+                                <span
+                                    key={page}
                                     className={`page-dot ${currentPage === page ? 'active' : ''}`}
                                     onClick={() => fetchPublicData(page, searchTerm)}
                                 ></span>
