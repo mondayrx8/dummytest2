@@ -807,4 +807,4 @@ const SectionBody = ({ text, placeholder, variant = 'default' }) => {
     );
 };
 
-export default InvestorPitchDeck;
+export default InvestorPitchDeck; 

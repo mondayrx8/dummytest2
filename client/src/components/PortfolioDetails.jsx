@@ -44,7 +44,7 @@ const PortfolioDetails = () => {
         );
     }
 
-    // Panggil component UI dari v0.dev dan suapkan data portfolio
+    // Call the UI component from v0.dev and supply portfolio data
     return <InvestorPitchDeck portfolio={portfolio} />;
 };
 
