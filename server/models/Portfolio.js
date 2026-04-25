@@ -1,105 +1,85 @@
 const mongoose = require('mongoose');
 
 const portfolioSchema = new mongoose.Schema({
-    studentName: {
-        type: String,
-        required: true
-    },
+    // WAJIB: Untuk hubungkan portfolio ni dengan user yang login
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    // --- NEW FIELD: TEAM MEMBERS ---
-    teamMembers: {
-        type: String, // e.g., "Ali (Marketing), Sarah (Tech)"
-        required: false // Optional, because some students are solo
-    },
-    // -------------------------------
+
+    // 0. Nama Bisnes / Company
     businessName: {
         type: String,
         required: true
     },
-    whatsappNumber: {
+
+    // 1. Slogan / Short Brief
+    slogan: {
         type: String,
-        required: false
-    },
-    monthlySalesData: [{
-        month: { type: String },
-        sales: { type: Number }
-    }],
-    shopImages: [{
-        type: String
-    }],
-    description: {
-        type: String,
-        required: true
-    },
-    marketSize: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String
-    },
-    businessBasics: {
-        name: { type: String },
-        type: { type: String, enum: ['Food', 'Beverage', 'Service', 'Hybrid', ''] },
-        startDate: { type: String },
-        location: { type: String }
-    },
-    productOffering: {
-        mainItems: { type: mongoose.Schema.Types.Mixed },
-        priceRange: { type: String },
-        uniqueness: { type: String }
-    },
-    customerMarket: {
-        targetCustomers: { type: String },
-        customerCount: { type: mongoose.Schema.Types.Mixed },
-        acquisitionChannels: { type: mongoose.Schema.Types.Mixed }
-    },
-    operations: {
-        prepLocation: { type: String },
-        teamSize: { type: mongoose.Schema.Types.Mixed },
-        toolsUsed: { type: mongoose.Schema.Types.Mixed }
-    },
-    salesRevenue: {
-        monthlyRevenue: { type: mongoose.Schema.Types.Mixed },
-        paymentMethods: { type: mongoose.Schema.Types.Mixed },
-        peakTimes: { type: String }
-    },
-    challenges: {
-        topChallenge: { type: String },
-        solution: { type: String }
-    },
-    learningGrowth: {
-        skillsGained: { type: mongoose.Schema.Types.Mixed },
-        futurePlans: { type: String }
-    },
-    mediaProof: {
-        mediaLinks: [{ type: String }],
-        socialLinks: { type: String }
+        default: ""
     },
 
-    landingPage: {
-        introduction: { type: String },
-        aboutUs: { type: String },
-        founder: { type: String },
-        missionVision: { type: String },
-        keyProductsServices: { type: String },
-        targetMarket: { type: String },
-        ourTeam: { type: String },
-        ourGoals: { type: String },
-        companyService: { type: String },
-        bestAchievement: { type: String },
-        futureOutlook: { type: String },
-        contactInfo: {
-            address: { type: String },
-            email: { type: String },
-            socialMedia: { type: String }
+    // 2. About Us / Who We Are
+    aboutUs: {
+        type: String,
+        default: ""
+    },
+
+    // 3. Mission & Vision
+    missionVision: {
+        mission: { type: String, default: "" },
+        vision: { type: String, default: "" },
+        graphicInfo: { type: String, default: "" } // Boleh simpan URL gambar
+    },
+
+    // 4. Our Team (Boleh tambah banyak member)
+    ourTeam: [{
+        name: { type: String },
+        role: { type: String },
+        image: { type: String } // URL gambar profile
+    }],
+
+    // 5. Our Services (Boleh tambah banyak servis)
+    ourServices: [{
+        serviceName: { type: String },
+        description: { type: String }
+    }],
+
+    // 6. Products (Banyak gambar)
+    products: [{
+        image: { type: String } // URL gambar produk
+    }],
+
+    // 7. Target Market
+    targetMarket: {
+        tam: { type: String, default: "" },
+        sam: { type: String, default: "" },
+        som: { type: String, default: "" }
+    },
+
+    // 8. Best Achievement / Performance
+    achievements: [{
+        description: { type: String },
+        image: { type: String } // URL gambar anugerah/pencapaian
+    }],
+
+    // 9. Contact Info & Socials
+    contactInfo: {
+        phone: { type: String, default: "" },
+        email: { type: String, default: "" },
+        address: { type: String, default: "" },
+        website: { type: String, default: "" },
+        socials: {
+            tiktok: { type: String, default: "" },
+            instagram: { type: String, default: "" },
+            twitter: { type: String, default: "" },
+            facebook: { type: String, default: "" },
+            threads: { type: String, default: "" }
         }
     },
 
+    // Tarikh dicipta
     createdAt: {
         type: Date,
         default: Date.now

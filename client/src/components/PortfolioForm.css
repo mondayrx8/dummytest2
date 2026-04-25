@@ -36,14 +36,20 @@
     right: -5%;
     width: 500px;
     height: 500px;
-    background-color: rgba(193, 140, 93, 0.2); /* Terracotta tint */
+    background-color: rgba(193, 140, 93, 0.2);
+    /* Terracotta tint */
     border-radius: var(--radius-blob-2);
     animation: float 25s infinite alternate-reverse ease-in-out;
 }
 
 @keyframes float {
-    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    100% { transform: translate(50px, 30px) rotate(10deg) scale(1.05); }
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    100% {
+        transform: translate(50px, 30px) rotate(10deg) scale(1.05);
+    }
 }
 
 .form-wrapper {
@@ -149,8 +155,15 @@
 }
 
 @keyframes slideInRight {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* Form Container & Cards */
@@ -161,13 +174,15 @@
 }
 
 .form-card {
-    background: rgba(254, 254, 250, 0.8); /* Light beige over off-white */
+    background: rgba(254, 254, 250, 0.8);
+    /* Light beige over off-white */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 2rem;
     padding: 2.5rem;
     box-shadow: var(--shadow-organic-soft);
-    border: 1px solid rgba(222, 216, 207, 0.5); /* Soft timber */
+    border: 1px solid rgba(222, 216, 207, 0.5);
+    /* Soft timber */
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -466,8 +481,13 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 768px) {
@@ -475,17 +495,39 @@
         grid-template-columns: 1fr;
         gap: 0;
     }
-    
+
     .form-card {
         padding: 1.5rem;
         border-radius: 1.5rem;
     }
-    
+
     .form-actions-card {
         flex-direction: column-reverse;
     }
-    
-    .btn-save, .btn-cancel {
+
+    .btn-save,
+    .btn-cancel {
         width: 100%;
     }
+}
+
+.btn-add-dynamic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    background-color: #f1f5f9;
+    color: #3b82f6;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 10px;
+}
+
+.btn-add-dynamic:hover {
+    background-color: #e0f2fe;
+    border-color: #3b82f6;
 }

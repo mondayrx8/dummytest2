@@ -1,40 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle, MessageCircle, Sparkles, TrendingUp, UploadCloud, Camera, PlusCircle } from 'lucide-react';
+import { CheckCircle, Sparkles, UploadCloud, PlusCircle, Trash2, Image as ImageIcon } from 'lucide-react';
 import './PortfolioForm.css';
 
 const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const navigate = useNavigate();
 
+  // ==========================================
+  // 1. STATE INITIALIZATION (Struktur Baru 0-9)
+  // ==========================================
   const initialFormState = {
-    studentName: '',
-    teamMembers: '',
-    businessName: '',
-    description: '',
-    marketSize: '',
-    image: '',
-    businessBasics: { name: '', type: '', startDate: '', location: '' },
-    productOffering: { mainItems: '', priceRange: '', uniqueness: '' },
-    customerMarket: { targetCustomers: '', customerCount: '', acquisitionChannels: '' },
-    operations: { prepLocation: '', teamSize: '', toolsUsed: '' },
-    salesRevenue: { monthlyRevenue: '', paymentMethods: '', peakTimes: '' },
-    challenges: { topChallenge: '', solution: '' },
-    learningGrowth: { skillsGained: '', futurePlans: '' },
-    mediaProof: { mediaLinks: '', socialLinks: '' },
-    whatsappNumber: '',
-    monthlySalesData: [
-      { month: 'Bulan 1', sales: '' },
-      { month: 'Bulan 2', sales: '' },
-      { month: 'Bulan 3', sales: '' }
-    ],
-    shopImages: [],
-
-    landingPage: {
-      introduction: '', aboutUs: '', founder: '', missionVision: '',
-      keyProductsServices: '', targetMarket: '', ourTeam: '', ourGoals: '',
-      companyService: '', bestAchievement: '', futureOutlook: '',
-      contactInfo: { address: '', email: '', socialMedia: '' }
+    businessName: '', // 0
+    slogan: '', // 1
+    aboutUs: '', // 2
+    missionVision: { mission: '', vision: '', graphicInfo: '' }, // 3
+    ourTeam: [], // 4. [{ name, role, image }]
+    ourServices: [], // 5. [{ serviceName, description }]
+    products: [], // 6. [{ image }]
+    targetMarket: { tam: '', sam: '', som: '' }, // 7
+    achievements: [], // 8. [{ description, image }]
+    contactInfo: { // 9
+      phone: '', email: '', address: '', website: '',
+      socials: { tiktok: '', instagram: '', twitter: '', facebook: '', threads: '' }
     }
   };
 
@@ -43,97 +31,22 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  const handleEnhanceWithAI = async () => {
-    if (!formData.description) return alert("Please type a little original idea of the business first.");
-    try {
-      setLoading(true);
-
-      // Kita suruh Dapur (Backend) yang fikir dan panggil AI!
-      const res = await axios.post('https://api.siswaniaga.my/api/ai/enhance', {
-        text: formData.description
-      });
-
-      if (res.data && res.data.slogan) {
-        setFormData({ ...formData, description: res.data.slogan });
-      }
-    } catch (error) {
-      console.error("Frontend AI Error:", error);
-      // Baca mesej error spesifik dari Backend (contoh: mesej Rate Limit)
-      const errorMsg = error.response?.data?.error || "Failed to process AI from server.";
-      alert(errorMsg);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 👇👇👇 2. FUNGSI UPLOAD GALERI (CLOUDINARY) 👇👇👇
-  const handleShopImageUpload = async (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length === 0) return;
-    setLoading(true);
-    const uploadedUrls = [...formData.shopImages];
-
-    try {
-      for (const file of files) {
-        const uploadData = new FormData();
-        uploadData.append("file", file);
-        uploadData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
-        uploadData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
-
-        const res = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`, uploadData);
-        uploadedUrls.push(res.data.secure_url);
-      }
-      setFormData({ ...formData, shopImages: uploadedUrls });
-    } catch (error) {
-      console.error("Cloudinary Error:", error);
-      alert("Failed to upload image to Cloudinary.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const removeShopImage = (indexToRemove) => {
-    setFormData({ ...formData, shopImages: formData.shopImages.filter((_, index) => index !== indexToRemove) });
-  };
-
+  // ==========================================
+  // 2. LIFECYCLE (Edit Mode)
+  // ==========================================
   useEffect(() => {
     if (currentPortfolio) {
       setFormData({
-        ...initialFormState,
-        ...currentPortfolio,
-        businessBasics: { ...initialFormState.businessBasics, ...(currentPortfolio.businessBasics || {}) },
-        productOffering: { ...initialFormState.productOffering, ...(currentPortfolio.productOffering || {}) },
-        customerMarket: { ...initialFormState.customerMarket, ...(currentPortfolio.customerMarket || {}) },
-        operations: { ...initialFormState.operations, ...(currentPortfolio.operations || {}) },
-        salesRevenue: { ...initialFormState.salesRevenue, ...(currentPortfolio.salesRevenue || {}) },
-        challenges: { ...initialFormState.challenges, ...(currentPortfolio.challenges || {}) },
-        learningGrowth: { ...initialFormState.learningGrowth, ...(currentPortfolio.learningGrowth || {}) },
-        whatsappNumber: currentPortfolio.whatsappNumber || '',
-        monthlySalesData: (currentPortfolio.monthlySalesData && currentPortfolio.monthlySalesData.length > 0)
-          ? currentPortfolio.monthlySalesData
-          : initialFormState.monthlySalesData,
-        mediaProof: {
-          mediaLinks: currentPortfolio.mediaProof?.mediaLinks ? currentPortfolio.mediaProof.mediaLinks.join('\n') : '',
-          socialLinks: currentPortfolio.mediaProof?.socialLinks || ''
-        },
-        landingPage: {
-          introduction: currentPortfolio.landingPage?.introduction || '',
-          aboutUs: currentPortfolio.landingPage?.aboutUs || '',
-          founder: currentPortfolio.landingPage?.founder || '',
-          missionVision: currentPortfolio.landingPage?.missionVision || '',
-          keyProductsServices: currentPortfolio.landingPage?.keyProductsServices || '',
-          targetMarket: currentPortfolio.landingPage?.targetMarket || '',
-          ourTeam: currentPortfolio.landingPage?.ourTeam || '',
-          ourGoals: currentPortfolio.landingPage?.ourGoals || '',
-          companyService: currentPortfolio.landingPage?.companyService || '',
-          bestAchievement: currentPortfolio.landingPage?.bestAchievement || '',
-          futureOutlook: currentPortfolio.landingPage?.futureOutlook || '',
-          contactInfo: {
-            address: currentPortfolio.landingPage?.contactInfo?.address || '',
-            email: currentPortfolio.landingPage?.contactInfo?.email || '',
-            socialMedia: currentPortfolio.landingPage?.contactInfo?.socialMedia || ''
-          }
-        }
+        businessName: currentPortfolio.businessName || '',
+        slogan: currentPortfolio.slogan || '',
+        aboutUs: currentPortfolio.aboutUs || '',
+        missionVision: currentPortfolio.missionVision || initialFormState.missionVision,
+        ourTeam: currentPortfolio.ourTeam || [],
+        ourServices: currentPortfolio.ourServices || [],
+        products: currentPortfolio.products || [],
+        targetMarket: currentPortfolio.targetMarket || initialFormState.targetMarket,
+        achievements: currentPortfolio.achievements || [],
+        contactInfo: currentPortfolio.contactInfo || initialFormState.contactInfo
       });
       setMessage('✏️ Editing Mode Enabled');
     } else {
@@ -143,58 +56,124 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     // eslint-disable-next-line
   }, [currentPortfolio]);
 
+  // ==========================================
+  // 3. EVENT HANDLERS (Perubahan Teks Biasa)
+  // ==========================================
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleNestedChange = (section, e) => {
+  const handleNestedChange = (section, field, value) => {
     setFormData({
       ...formData,
-      [section]: {
-        ...formData[section],
-        [e.target.name]: e.target.value
+      [section]: { ...formData[section], [field]: value }
+    });
+  };
+
+  const handleSocialChange = (platform, value) => {
+    setFormData({
+      ...formData,
+      contactInfo: {
+        ...formData.contactInfo,
+        socials: { ...formData.contactInfo.socials, [platform]: value }
       }
     });
   };
 
-  // 👇 1. Fungsi ubah jualan (Berdiri sendiri) 👇
-  const handleSalesChange = (index, field, value) => {
-    const newData = [...formData.monthlySalesData];
-    newData[index][field] = value;
-    setFormData({ ...formData, monthlySalesData: newData });
+  // ==========================================
+  // 4. EVENT HANDLERS (Dynamic Arrays - Tambah/Buang/Ubah)
+  // ==========================================
+  const handleArrayChange = (section, index, field, value) => {
+    const newArray = [...formData[section]];
+    newArray[index][field] = value;
+    setFormData({ ...formData, [section]: newArray });
   };
 
-  // 👇 2. Fungsi ubah fail/gambar utama (Berdiri sendiri) 👇
-  const handleFileChange = async (e) => {
+  const addArrayItem = (section, emptyItem) => {
+    setFormData({ ...formData, [section]: [...formData[section], emptyItem] });
+  };
+
+  const removeArrayItem = (section, index) => {
+    setFormData({ ...formData, [section]: formData[section].filter((_, i) => i !== index) });
+  };
+
+  // ==========================================
+  // 5. CLOUDINARY UPLOADER (Pusat Muat Naik)
+  // ==========================================
+  const uploadToCloudinary = async (file) => {
+    const uploadData = new FormData();
+    uploadData.append("file", file);
+    uploadData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+    uploadData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+
+    const res = await axios.post(
+      `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      uploadData
+    );
+    return res.data.secure_url;
+  };
+
+  const handleSingleImageUpload = async (e, section, field = null, arrayIndex = null) => {
     const file = e.target.files[0];
     if (!file) return;
 
     setLoading(true);
     try {
-      const uploadData = new FormData();
-      uploadData.append("file", file);
-      uploadData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
-      uploadData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+      const url = await uploadToCloudinary(file);
 
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        uploadData
-      );
-
-      setFormData({ ...formData, image: res.data.secure_url });
+      if (arrayIndex !== null) {
+        // Untuk array (Team, Achievements)
+        handleArrayChange(section, arrayIndex, field, url);
+      } else {
+        // Untuk object biasa (MissionVision Graphic)
+        handleNestedChange(section, field, url);
+      }
     } catch (error) {
-      console.error("Cloudinary Main Image Error:", error);
-      alert("Failed to upload main image to Cloudinary.");
+      console.error("Upload Error:", error);
+      alert("Gagal memuat naik gambar.");
     } finally {
       setLoading(false);
     }
   };
 
-  // 👇 3. Fungsi hantar borang (Berdiri sendiri) 👇
+  // Khas untuk upload Produk beramai-ramai
+  const handleMultipleProductsUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+    setLoading(true);
+
+    try {
+      const newProducts = [];
+      for (const file of files) {
+        const url = await uploadToCloudinary(file);
+        newProducts.push({ image: url });
+      }
+      setFormData({ ...formData, products: [...formData.products, ...newProducts] });
+    } catch (error) {
+      alert("Gagal memuat naik galeri produk.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ==========================================
+  // 6. AI & SUBMISSION
+  // ==========================================
+  const handleEnhanceWithAI = async () => {
+    if (!formData.slogan) return alert("Sila taip idea asas bisnes anda di ruangan slogan dahulu.");
+    try {
+      setLoading(true);
+      const res = await axios.post('https://api.siswaniaga.my/api/ai/enhance', { text: formData.slogan });
+      if (res.data && res.data.slogan) {
+        setFormData({ ...formData, slogan: res.data.slogan });
+      }
+    } catch (error) {
+      alert("Gagal memproses AI.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -203,35 +182,16 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     try {
       const config = { headers: { 'auth-token': token } };
 
-      const processedMediaLinks = typeof formData.mediaProof.mediaLinks === 'string'
-        ? formData.mediaProof.mediaLinks.split(/[\n,]+/).map(l => l.trim()).filter(l => l)
-        : formData.mediaProof.mediaLinks;
-
-      const submitData = {
-        ...formData,
-        businessName: formData.businessName || formData.businessBasics.name,
-        mediaProof: {
-          ...formData.mediaProof,
-          mediaLinks: processedMediaLinks
-        },
-        // 👇 PENAPIS ZOD: Tukar semua null jadi string kosong sebelum hantar
-        monthlySalesData: formData.monthlySalesData.map(item => ({
-          month: item.month || "",
-          sales: item.sales !== null && item.sales !== undefined ? String(item.sales) : ""
-        }))
-      };
-
       if (currentPortfolio) {
-        await axios.put(`https://api.siswaniaga.my/api/portfolio/update/${currentPortfolio._id}`, submitData, config);
+        await axios.put(`https://api.siswaniaga.my/api/portfolio/update/${currentPortfolio._id}`, formData, config);
         setCurrentPortfolio(null);
       } else {
-        await axios.post('https://api.siswaniaga.my/api/portfolio/add', submitData, config);
+        await axios.post('https://api.siswaniaga.my/api/portfolio/add', formData, config);
       }
 
       onSave();
       setShowToast(true);
       setTimeout(() => navigate('/dashboard'), 1500);
-
     } catch (error) {
       console.error(error);
       setMessage('❌ Error Saving Data. Please try again.');
@@ -240,753 +200,286 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     }
   };
 
-  const handleCancel = () => {
-    setCurrentPortfolio(null);
-    setFormData(initialFormState);
-    navigate('/dashboard');
-  };
-
-  const calculateProgress = () => {
-    let filled = 0;
-    const requiredChecks = [
-      formData.studentName, formData.businessName, formData.description, formData.marketSize,
-      formData.businessBasics.type, formData.productOffering.mainItems, formData.customerMarket.targetCustomers,
-      formData.salesRevenue.monthlyRevenue
-    ];
-    requiredChecks.forEach(field => {
-      if (field && field.toString().trim().length > 0) filled++;
-    });
-    return Math.min(Math.round((filled / requiredChecks.length) * 100), 100);
-  };
-
   return (
     <div className="form-page">
-      {/* Organic Background Blobs */}
       <div className="organic-blob blob-1"></div>
       <div className="organic-blob blob-2"></div>
 
-      {/* Toast Notification */}
       {showToast && (
         <div className="toast-notification">
-          <span className="toast-icon"><CheckCircle size={24} color="var(--success, #10B981)" /></span>
-          <span>Portfolio Saved Successfully!</span>
+          <span className="toast-icon"><CheckCircle size={24} color="#10B981" /></span>
+          <span>Landing Page Tercipta Berjaya!</span>
         </div>
       )}
 
       <div className="form-wrapper">
         <header className="form-header">
-          <h1 className="form-title">
-            {currentPortfolio ? "Edit Business Portfolio" : "Create Business Portfolio"}
-          </h1>
-          <p className="form-subtitle">
-            Complete the sections below to build a comprehensive presentation for your startup venture.
-          </p>
-
-          <div className="progress-wrapper">
-            <div className="progress-bar">
-              <div
-                className="progress-fill"
-                style={{ width: `${calculateProgress()}%` }}
-              ></div>
-            </div>
-            <span className="progress-text">{calculateProgress()}% Complete</span>
-          </div>
+          <h1 className="form-title">{currentPortfolio ? "Kemaskini Landing Page" : "Bina Landing Page Bisnes"}</h1>
+          <p className="form-subtitle">Lengkapkan maklumat di bawah untuk hasilkan laman web pitch deck bertaraf antarabangsa.</p>
         </header>
 
         <form onSubmit={handleSubmit} className="form-container">
-          {message && (
-            <div className={`status-message ${message.includes('❌') ? 'error' : 'info'}`}>
-              {message}
-            </div>
-          )}
 
-          {/* 1. Business Basics */}
+          {/* ==========================================
+              0 & 1: HERO SECTION
+          ========================================== */}
           <section className="form-card">
             <div className="card-header">
               <span className="card-number">1</span>
-              <h2 className="card-title">Business Basics</h2>
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Entrepreneur Name *</label>
-                <input
-                  type="text"
-                  name="studentName"
-                  value={formData.studentName}
-                  onChange={handleChange}
-                  className="modern-input"
-                  placeholder="e.g. Khairul Aming"
-                  required
-                />
-              </div>
-
-              <div className="input-group">
-                <label className="input-label">Business Name *</label>
-                <input
-                  type="text"
-                  name="businessName"
-                  value={formData.businessName}
-                  onChange={handleChange}
-                  className="modern-input"
-                  placeholder="e.g. Sambal Nyet"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="input-group mt-4">
-              <label className="input-label">WhatsApp Number (For Direct Deal) <MessageCircle size={16} style={{ verticalAlign: 'text-bottom', marginLeft: '4px' }} /></label>
-              <input
-                type="text"
-                name="whatsappNumber"
-                value={formData.whatsappNumber}
-                onChange={handleChange}
-                className="modern-input"
-                placeholder="e.g. 60123456789 (Start with 60)"
-              />
+              <h2 className="card-title">Pengenalan (Hero Section)</h2>
             </div>
 
             <div className="input-group">
-              <label className="input-label">Team Members (Optional)</label>
-              <input
-                type="text"
-                name="teamMembers"
-                value={formData.teamMembers}
-                onChange={handleChange}
-                className="modern-input"
-                placeholder="Co-founders, key partners..."
-              />
-            </div>
-
-            <div className="form-grid mt-4">
-              <div className="input-group">
-                <label className="input-label">Business Type</label>
-                <select
-                  name="type"
-                  value={formData.businessBasics.type}
-                  onChange={(e) => handleNestedChange('businessBasics', e)}
-                  className="modern-select"
-                >
-                  <option value="">Select a category</option>
-                  <option value="Food">Food</option>
-                  <option value="Beverage">Beverage</option>
-                  <option value="Service">Service</option>
-                  <option value="Hybrid">Hybrid</option>
-                </select>
-              </div>
-
-              <div className="input-group">
-                <label className="input-label">Start Date</label>
-                <input
-                  type="date"
-                  name="startDate"
-                  value={formData.businessBasics.startDate}
-                  onChange={(e) => handleNestedChange('businessBasics', e)}
-                  className="modern-input"
-                />
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Operating Location</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.businessBasics.location}
-                onChange={(e) => handleNestedChange('businessBasics', e)}
-                className="modern-input"
-                placeholder="Where does the business operate from?"
-              />
-            </div>
-          </section>
-
-          {/* 2. Product or Service Offering */}
-          <section className="form-card">
-            <div className="card-header">
-              <span className="card-number">2</span>
-              <h2 className="card-title">Product & Services</h2>
+              <label className="input-label">Nama Bisnes / Syarikat *</label>
+              <input type="text" name="businessName" value={formData.businessName} onChange={handleChange} className="modern-input" placeholder="Cth: SiswaNiaga Tech" required />
             </div>
 
             <div className="input-group">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <label className="input-label" style={{ margin: 0 }}>Overview / Slogan*</label>
-                <button type="button"
-                  onClick={handleEnhanceWithAI}
-                  disabled={loading}
-                  className={`ai-btn ${loading ? 'ai-loading' : ''}`}>
-                  {loading ? 'Thinking...' : <><Sparkles size={16} style={{ verticalAlign: 'text-bottom', marginRight: '4px' }} /> Improve with AI</>}
+                <label className="input-label" style={{ margin: 0 }}>Slogan / Pitch Ringkas</label>
+                <button type="button" onClick={handleEnhanceWithAI} disabled={loading} className={`ai-btn ${loading ? 'ai-loading' : ''}`}>
+                  {loading ? 'Berfikir...' : <><Sparkles size={16} style={{ marginRight: '4px' }} /> Perbaiki dgn AI</>}
                 </button>
               </div>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="modern-textarea"
-                placeholder="Describe what your business does and the problem you are solving..."
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Main Products / Services Offered</label>
-              <input
-                type="text"
-                name="mainItems"
-                value={formData.productOffering.mainItems}
-                onChange={(e) => handleNestedChange('productOffering', e)}
-                className="modern-input"
-                placeholder="e.g. Nasi Lemak, Iced Coffee, Sneaker Cleaning"
-              />
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Pricing Range</label>
-                <input
-                  type="text"
-                  name="priceRange"
-                  value={formData.productOffering.priceRange}
-                  onChange={(e) => handleNestedChange('productOffering', e)}
-                  className="modern-input"
-                  placeholder="e.g. RM 5.00 - RM 15.00"
-                />
-              </div>
-
-              <div className="input-group">
-                <label className="input-label">Uniqueness / USP</label>
-                <input
-                  type="text"
-                  name="uniqueness"
-                  value={formData.productOffering.uniqueness}
-                  onChange={(e) => handleNestedChange('productOffering', e)}
-                  className="modern-input"
-                  placeholder="What makes your product special?"
-                />
-              </div>
+              <textarea name="slogan" value={formData.slogan} onChange={handleChange} className="modern-textarea" placeholder="Ayat pemikat pelabur..." />
             </div>
           </section>
 
-          {/* 3. Customer & Market */}
+          {/* ==========================================
+              2 & 3: ABOUT US, MISSION & VISION
+          ========================================== */}
           <section className="form-card">
             <div className="card-header">
-              <span className="card-number">3</span>
-              <h2 className="card-title">Customer & Market</h2>
+              <span className="card-number">2</span>
+              <h2 className="card-title">Identiti Korporat</h2>
             </div>
 
             <div className="input-group">
-              <label className="input-label">Overall Market Size *</label>
-              <input
-                type="text"
-                name="marketSize"
-                value={formData.marketSize}
-                onChange={handleChange}
-                className="modern-input"
-                placeholder="e.g. 10K University Students in Malaysia"
-                required
-              />
+              <label className="input-label">Tentang Kami (About Us)</label>
+              <textarea name="aboutUs" value={formData.aboutUs} onChange={handleChange} className="modern-textarea" placeholder="Ceritakan sejarah dan kepakaran syarikat..." />
             </div>
 
-            <div className="form-grid">
+            <div className="form-grid mt-4">
               <div className="input-group">
-                <label className="input-label">Target Customers</label>
-                <input
-                  type="text"
-                  name="targetCustomers"
-                  value={formData.customerMarket.targetCustomers}
-                  onChange={(e) => handleNestedChange('customerMarket', e)}
-                  className="modern-input"
-                  placeholder="e.g. Students aged 18-24"
-                />
-              </div>
-
-              <div className="input-group">
-                <label className="input-label">Customer Count (Weekly/Monthly)</label>
-                <input
-                  type="text"
-                  name="customerCount"
-                  value={formData.customerMarket.customerCount}
-                  onChange={(e) => handleNestedChange('customerMarket', e)}
-                  className="modern-input"
-                  placeholder="e.g. 150 customers/week"
-                />
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Acquisition Channels</label>
-              <input
-                type="text"
-                name="acquisitionChannels"
-                value={formData.customerMarket.acquisitionChannels}
-                onChange={(e) => handleNestedChange('customerMarket', e)}
-                className="modern-input"
-                placeholder="How do you get customers? (e.g. TikTok, Words of mouth)"
-              />
-            </div>
-          </section>
-
-          {/* 4. Operations */}
-          <section className="form-card">
-            <div className="card-header">
-              <span className="card-number">4</span>
-              <h2 className="card-title">Operations</h2>
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">HQ Location</label>
-                <input
-                  type="text"
-                  name="prepLocation"
-                  value={formData.operations.prepLocation}
-                  onChange={(e) => handleNestedChange('operations', e)}
-                  className="modern-input"
-                  placeholder="e.g. Home Kitchen, Rented Kitchen, Food Stall"
-                />
-              </div>
-
-              <div className="input-group">
-                <label className="input-label">Team Size</label>
-                <input
-                  type="number"
-                  name="teamSize"
-                  value={formData.operations.teamSize}
-                  onChange={(e) => handleNestedChange('operations', e)}
-                  className="modern-input"
-                  placeholder="Number of staff or helpers"
-                />
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Tools & Equipment Used</label>
-              <input
-                type="text"
-                name="toolsUsed"
-                value={formData.operations.toolsUsed}
-                onChange={(e) => handleNestedChange('operations', e)}
-                className="modern-input"
-                placeholder="e.g. Oven, Espresso machine, Graphic tablet"
-              />
-            </div>
-          </section>
-
-          {/* 5. Sales & Revenue */}
-          <section className="form-card">
-            <div className="card-header">
-              <span className="card-number">5</span>
-              <h2 className="card-title">Sales & Revenue</h2>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label"><TrendingUp size={16} style={{ verticalAlign: 'text-bottom', marginRight: '4px' }} /> Monthly Sales Traction (For Chart)</label>
-              <p className="upload-hint" style={{ marginBottom: '10px' }}>Enter your sales estimates for the last 3 months. Leave empty if you don't have the data.</p>
-
-              <div className="form-grid" style={{ gap: '10px' }}>
-                {formData.monthlySalesData.map((data, index) => (
-                  <div key={index} style={{ display: 'flex', gap: '10px' }}>
-                    <input
-                      type="text"
-                      value={data.month}
-                      onChange={(e) => handleSalesChange(index, 'month', e.target.value)}
-                      className="modern-input"
-                      placeholder="Cth: Jan"
-                      style={{ flex: 1 }}
-                    />
-                    <input
-                      type="number"
-                      value={data.sales}
-                      onChange={(e) => handleSalesChange(index, 'sales', Number(e.target.value))}
-                      className="modern-input"
-                      placeholder="Cth: 1500"
-                      style={{ flex: 2 }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Monthly Revenue</label>
-                <input
-                  type="text"
-                  name="monthlyRevenue"
-                  value={formData.salesRevenue.monthlyRevenue}
-                  onChange={(e) => handleNestedChange('salesRevenue', e)}
-                  className="modern-input"
-                  placeholder="e.g. RM 3,500"
-                />
-              </div>
-
-              <div className="input-group">
-                <label className="input-label">Operating Times</label>
-                <input
-                  type="text"
-                  name="peakTimes"
-                  value={formData.salesRevenue.peakTimes}
-                  onChange={(e) => handleNestedChange('salesRevenue', e)}
-                  className="modern-input"
-                  placeholder="e.g. Weekends, 12PM - 2PM"
-                />
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Accepted Payment Methods</label>
-              <input
-                type="text"
-                name="paymentMethods"
-                value={formData.salesRevenue.paymentMethods}
-                onChange={(e) => handleNestedChange('salesRevenue', e)}
-                className="modern-input"
-                placeholder="e.g. Cash, QR Pay, Online Transfer"
-              />
-            </div>
-          </section>
-
-          {/* 6. Challenges & Solutions */}
-          <section className="form-card">
-            <div className="card-header">
-              <span className="card-number">6</span>
-              <h2 className="card-title">Challenges</h2>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Biggest Challenge</label>
-              <textarea
-                name="topChallenge"
-                value={formData.challenges.topChallenge}
-                onChange={(e) => handleNestedChange('challenges', e)}
-                className="modern-textarea"
-                placeholder="What is the hardest part about running this business?"
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">How are you solving it?</label>
-              <textarea
-                name="solution"
-                value={formData.challenges.solution}
-                onChange={(e) => handleNestedChange('challenges', e)}
-                className="modern-textarea"
-                placeholder="Your solution or adaptation strategy..."
-              />
-            </div>
-          </section>
-
-          {/* 7. Learning & Growth */}
-          <section className="form-card">
-            <div className="card-header">
-              <span className="card-number">7</span>
-              <h2 className="card-title">Learning & Growth</h2>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Key Skills Gained</label>
-              <input
-                type="text"
-                name="skillsGained"
-                value={formData.learningGrowth.skillsGained}
-                onChange={(e) => handleNestedChange('learningGrowth', e)}
-                className="modern-input"
-                placeholder="e.g. Digital Marketing, Inventory Management"
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Future Expansion Plans</label>
-              <textarea
-                name="futurePlans"
-                value={formData.learningGrowth.futurePlans}
-                onChange={(e) => handleNestedChange('learningGrowth', e)}
-                className="modern-textarea"
-                placeholder="Where do you see the business next year?"
-              />
-            </div>
-          </section>
-
-          {/* 👇 TAMBAH SEKSYEN BARU INI UNTUK LANDING PAGE 👇 */}
-          <section className="form-card">
-            <div className="card-header">
-              <span className="card-number">LP</span>
-              <h2 className="card-title">Landing Page Content</h2>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Introduction</label>
-              <textarea
-                name="introduction"
-                value={formData.landingPage.introduction}
-                onChange={(e) => handleNestedChange('landingPage', e)}
-                className="modern-textarea"
-                placeholder="Short intro about the company"
-              />
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">About Us</label>
-                <textarea
-                  name="aboutUs"
-                  value={formData.landingPage.aboutUs}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-textarea"
-                  placeholder="The full story of your business"
-                />
+                <label className="input-label">Misi</label>
+                <textarea value={formData.missionVision.mission} onChange={(e) => handleNestedChange('missionVision', 'mission', e.target.value)} className="modern-textarea" placeholder="Misi jangka masa pendek..." />
               </div>
               <div className="input-group">
-                <label className="input-label">Mission & Vision</label>
-                <textarea
-                  name="missionVision"
-                  value={formData.landingPage.missionVision}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-textarea"
-                  placeholder="Your long term goals and vision"
-                />
+                <label className="input-label">Visi</label>
+                <textarea value={formData.missionVision.vision} onChange={(e) => handleNestedChange('missionVision', 'vision', e.target.value)} className="modern-textarea" placeholder="Visi utama syarikat..." />
               </div>
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Founder Details</label>
-                <input
-                  type="text"
-                  name="founder"
-                  value={formData.landingPage.founder}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-input"
-                  placeholder="e.g. John Doe - CEO"
-                />
-              </div>
-              <div className="input-group">
-                <label className="input-label">Our Team</label>
-                <input
-                  type="text"
-                  name="ourTeam"
-                  value={formData.landingPage.ourTeam}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-input"
-                  placeholder="e.g. 5 dedicated staff members"
-                />
-              </div>
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Key Products & Services</label>
-                <textarea
-                  name="keyProductsServices"
-                  value={formData.landingPage.keyProductsServices}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-textarea"
-                  placeholder="What are your main offerings?"
-                />
-              </div>
-              <div className="input-group">
-                <label className="input-label">Company Service</label>
-                <textarea
-                  name="companyService"
-                  value={formData.landingPage.companyService}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-textarea"
-                  placeholder="Any extra services provided?"
-                />
-              </div>
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Target Market</label>
-                <input
-                  type="text"
-                  name="targetMarket"
-                  value={formData.landingPage.targetMarket}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-input"
-                  placeholder="e.g. University Students"
-                />
-              </div>
-              <div className="input-group">
-                <label className="input-label">Our Goals</label>
-                <input
-                  type="text"
-                  name="ourGoals"
-                  value={formData.landingPage.ourGoals}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-input"
-                  placeholder="Short term goals"
-                />
-              </div>
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Best Achievement</label>
-                <textarea
-                  name="bestAchievement"
-                  value={formData.landingPage.bestAchievement}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-textarea"
-                  placeholder="Awards, milestones, sales record"
-                />
-              </div>
-              <div className="input-group">
-                <label className="input-label">Future Outlook</label>
-                <textarea
-                  name="futureOutlook"
-                  value={formData.landingPage.futureOutlook}
-                  onChange={(e) => handleNestedChange('landingPage', e)}
-                  className="modern-textarea"
-                  placeholder="Where are you heading next year?"
-                />
-              </div>
-            </div>
-
-            {/* --- CONTACT INFO SECTION --- */}
-            <div className="card-header" style={{ marginTop: '20px', borderTop: '1px solid #eee', paddingTop: '20px' }}>
-              <h3 className="card-title" style={{ fontSize: '1.2rem' }}>Contact Information</h3>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Full Address</label>
-              <textarea
-                name="address"
-                value={formData.landingPage.contactInfo.address}
-                onChange={(e) => setFormData({ ...formData, landingPage: { ...formData.landingPage, contactInfo: { ...formData.landingPage.contactInfo, address: e.target.value } } })}
-                className="modern-textarea"
-                placeholder="HQ / Shop Address"
-              />
-            </div>
-
-            <div className="form-grid">
-              <div className="input-group">
-                <label className="input-label">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.landingPage.contactInfo.email}
-                  onChange={(e) => setFormData({ ...formData, landingPage: { ...formData.landingPage, contactInfo: { ...formData.landingPage.contactInfo, email: e.target.value } } })}
-                  className="modern-input"
-                  placeholder="hello@company.com"
-                />
-              </div>
-              <div className="input-group">
-                <label className="input-label">Social Media Handle</label>
-                <input
-                  type="text"
-                  name="socialMedia"
-                  value={formData.landingPage.contactInfo.socialMedia}
-                  onChange={(e) => setFormData({ ...formData, landingPage: { ...formData.landingPage, contactInfo: { ...formData.landingPage.contactInfo, socialMedia: e.target.value } } })}
-                  className="modern-input"
-                  placeholder="e.g. @mybusiness"
-                />
-              </div>
-            </div>
-
-          </section>
-          {/* 👆 TAMAT SEKSYEN LANDING PAGE 👆 */}
-
-          {/* 8. Media Proof */}
-          <section className="form-card">
-            <div className="card-header">
-              <span className="card-number">8</span>
-              <h2 className="card-title">Media & Proof</h2>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Social Media Links (Instagram/TikTok)</label>
-              <input
-                type="text"
-                name="socialLinks"
-                value={formData.mediaProof.socialLinks}
-                onChange={(e) => handleNestedChange('mediaProof', e)}
-                className="modern-input"
-                placeholder="e.g. https://instagram.com/mybusiness"
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">Other Links (Video, Menu, Poster, etc.)</label>
-              <textarea
-                name="mediaLinks"
-                value={formData.mediaProof.mediaLinks}
-                onChange={(e) => handleNestedChange('mediaProof', e)}
-                className="modern-textarea"
-                placeholder="Separate links by newline or comma..."
-              />
             </div>
 
             <div className="upload-area mt-4">
-              <label className="input-label">Main Business Photo *</label>
-              <label htmlFor="file-upload" className="upload-zone">
-                <div className="upload-icon"><UploadCloud size={32} /></div>
-                <span className="upload-text">
-                  {formData.image ? "Change Image" : "Click to Upload Photo"}
-                </span>
-                <span className="upload-hint">PNG, JPG, WebP up to 5MB</span>
-                <input
-                  id="file-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="upload-input"
-                />
+              <label className="input-label">Gambar/Infografik (Mission & Vision)</label>
+              <input type="file" accept="image/*" onChange={(e) => handleSingleImageUpload(e, 'missionVision', 'graphicInfo')} className="modern-input" />
+              {formData.missionVision.graphicInfo && (
+                <img src={formData.missionVision.graphicInfo} alt="Misi" style={{ width: '100px', marginTop: '10px', borderRadius: '8px' }} />
+              )}
+            </div>
+          </section>
+
+          {/* ==========================================
+              4: OUR TEAM (DYNAMIC)
+          ========================================== */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">3</span>
+              <h2 className="card-title">Ahli Pasukan</h2>
+            </div>
+
+            {formData.ourTeam.map((member, index) => (
+              <div key={index} style={{ border: '1px solid #e2e8f0', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
+                <button type="button" onClick={() => removeArrayItem('ourTeam', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}><Trash2 size={20} /></button>
+
+                <div className="form-grid">
+                  <div className="input-group">
+                    <label className="input-label">Nama</label>
+                    <input type="text" value={member.name} onChange={(e) => handleArrayChange('ourTeam', index, 'name', e.target.value)} className="modern-input" placeholder="Cth: Ali Bin Abu" />
+                  </div>
+                  <div className="input-group">
+                    <label className="input-label">Peranan (Role)</label>
+                    <input type="text" value={member.role} onChange={(e) => handleArrayChange('ourTeam', index, 'role', e.target.value)} className="modern-input" placeholder="Cth: Pengasas & CEO" />
+                  </div>
+                </div>
+
+                <div className="input-group mt-2">
+                  <label className="input-label">Gambar Profil</label>
+                  <input type="file" accept="image/*" onChange={(e) => handleSingleImageUpload(e, 'ourTeam', 'image', index)} className="modern-input" />
+                  {member.image && <img src={member.image} alt="Profil" style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', marginTop: '10px' }} />}
+                </div>
+              </div>
+            ))}
+
+            <button type="button" onClick={() => addArrayItem('ourTeam', { name: '', role: '', image: '' })} className="btn-add-dynamic">
+              <PlusCircle size={18} style={{ marginRight: '5px' }} /> Tambah Ahli Pasukan
+            </button>
+          </section>
+
+          {/* ==========================================
+              5: OUR SERVICES (DYNAMIC)
+          ========================================== */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">4</span>
+              <h2 className="card-title">Perkhidmatan Utama</h2>
+            </div>
+
+            {formData.ourServices.map((service, index) => (
+              <div key={index} style={{ border: '1px solid #e2e8f0', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
+                <button type="button" onClick={() => removeArrayItem('ourServices', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}><Trash2 size={20} /></button>
+
+                <div className="input-group">
+                  <label className="input-label">Nama Servis</label>
+                  <input type="text" value={service.serviceName} onChange={(e) => handleArrayChange('ourServices', index, 'serviceName', e.target.value)} className="modern-input" placeholder="Cth: Konsultasi IT" />
+                </div>
+                <div className="input-group mt-2">
+                  <label className="input-label">Penerangan Ringkas</label>
+                  <textarea value={service.description} onChange={(e) => handleArrayChange('ourServices', index, 'description', e.target.value)} className="modern-textarea" placeholder="Terangkan kelebihan servis ini..." />
+                </div>
+              </div>
+            ))}
+
+            <button type="button" onClick={() => addArrayItem('ourServices', { serviceName: '', description: '' })} className="btn-add-dynamic">
+              <PlusCircle size={18} style={{ marginRight: '5px' }} /> Tambah Perkhidmatan
+            </button>
+          </section>
+
+          {/* ==========================================
+              6: PRODUCTS (GALLERY)
+          ========================================== */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">5</span>
+              <h2 className="card-title">Galeri Produk</h2>
+            </div>
+
+            <div className="upload-area">
+              <label htmlFor="product-upload" className="upload-zone" style={{ minHeight: '80px' }}>
+                <div className="upload-icon"><ImageIcon size={32} /></div>
+                <span className="upload-text">Klik untuk pilih gambar produk (Boleh pilih banyak)</span>
+                <input id="product-upload" type="file" accept="image/*" multiple onChange={handleMultipleProductsUpload} className="upload-input" />
               </label>
 
-              {formData.image && (
-                <div className="preview-wrapper">
-                  <img
-                    src={formData.image}
-                    alt="Preview"
-                    className="preview-image"
-                  />
-                  <button
-                    type="button"
-                    className="remove-image"
-                    onClick={() => setFormData({ ...formData, image: '' })}
-                    aria-label="Remove image"
-                  >
-                    ✕
-                  </button>
+              {formData.products.length > 0 && (
+                <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', marginTop: '15px', padding: '10px 0' }}>
+                  {formData.products.map((prod, idx) => (
+                    <div key={idx} style={{ position: 'relative', minWidth: '100px' }}>
+                      <img src={prod.image} alt="Produk" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }} />
+                      <button type="button" onClick={() => removeArrayItem('products', idx)} style={{ position: 'absolute', top: '-5px', right: '-5px', background: 'red', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', cursor: 'pointer' }}>✕</button>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
           </section>
 
-          <div className="upload-area mt-4">
-            <label className="input-label"><Camera size={16} style={{ verticalAlign: 'text-bottom', marginRight: '4px' }} /> Shop & Product Gallery (Multiple)</label>
-            <label htmlFor="shop-gallery-upload" className="upload-zone" style={{ minHeight: '80px' }}>
-              <div className="upload-icon"><PlusCircle size={32} /></div>
-              <span className="upload-text">Click to select multiple images</span>
-              <input id="shop-gallery-upload" type="file" accept="image/*" multiple onChange={handleShopImageUpload} className="upload-input" />
-            </label>
-
-            {/* Tempat Preview Gambar Galeri */}
-            {formData.shopImages.length > 0 && (
-              <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', marginTop: '15px', padding: '10px 0' }}>
-                {formData.shopImages.map((img, idx) => (
-                  <div key={idx} style={{ position: 'relative', minWidth: '100px' }}>
-                    <img src={img} alt={`Gallery ${idx}`} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
-                    <button type="button" onClick={() => removeShopImage(idx)} style={{ position: 'absolute', top: '-5px', right: '-5px', background: 'red', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', cursor: 'pointer', fontSize: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>✕</button>
-                  </div>
-                ))}
+          {/* ==========================================
+              7: TARGET MARKET
+          ========================================== */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">6</span>
+              <h2 className="card-title">Pasaran Sasaran (Target Market)</h2>
+            </div>
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">TAM (Total Addressable Market)</label>
+                <input type="text" value={formData.targetMarket.tam} onChange={(e) => handleNestedChange('targetMarket', 'tam', e.target.value)} className="modern-input" placeholder="Cth: RM 1B (Seluruh Dunia)" />
               </div>
-            )}
-          </div>
+              <div className="input-group">
+                <label className="input-label">SAM (Serviceable Available Market)</label>
+                <input type="text" value={formData.targetMarket.sam} onChange={(e) => handleNestedChange('targetMarket', 'sam', e.target.value)} className="modern-input" placeholder="Cth: RM 100M (Asia Tenggara)" />
+              </div>
+              <div className="input-group">
+                <label className="input-label">SOM (Serviceable Obtainable Market)</label>
+                <input type="text" value={formData.targetMarket.som} onChange={(e) => handleNestedChange('targetMarket', 'som', e.target.value)} className="modern-input" placeholder="Cth: RM 1M (Tahun Pertama)" />
+              </div>
+            </div>
+          </section>
 
-          {/* Form Actions */}
+          {/* ==========================================
+              8: ACHIEVEMENTS (DYNAMIC)
+          ========================================== */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">7</span>
+              <h2 className="card-title">Pencapaian & Anugerah</h2>
+            </div>
+
+            {formData.achievements.map((achieve, index) => (
+              <div key={index} style={{ border: '1px solid #e2e8f0', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
+                <button type="button" onClick={() => removeArrayItem('achievements', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}><Trash2 size={20} /></button>
+
+                <div className="input-group">
+                  <label className="input-label">Penerangan Pencapaian</label>
+                  <input type="text" value={achieve.description} onChange={(e) => handleArrayChange('achievements', index, 'description', e.target.value)} className="modern-input" placeholder="Cth: Juara Inovasi Kebangsaan 2024" />
+                </div>
+
+                <div className="input-group mt-2">
+                  <label className="input-label">Gambar Bukti / Sijil</label>
+                  <input type="file" accept="image/*" onChange={(e) => handleSingleImageUpload(e, 'achievements', 'image', index)} className="modern-input" />
+                  {achieve.image && <img src={achieve.image} alt="Sijil" style={{ height: '80px', borderRadius: '8px', objectFit: 'cover', marginTop: '10px' }} />}
+                </div>
+              </div>
+            ))}
+
+            <button type="button" onClick={() => addArrayItem('achievements', { description: '', image: '' })} className="btn-add-dynamic">
+              <PlusCircle size={18} style={{ marginRight: '5px' }} /> Tambah Pencapaian
+            </button>
+          </section>
+
+          {/* ==========================================
+              9: CONTACT INFO & SOCIALS
+          ========================================== */}
+          <section className="form-card">
+            <div className="card-header">
+              <span className="card-number">8</span>
+              <h2 className="card-title">Hubungi Kami (Contact & Social)</h2>
+            </div>
+
+            <div className="form-grid">
+              <div className="input-group">
+                <label className="input-label">No. Telefon</label>
+                <input type="text" value={formData.contactInfo.phone} onChange={(e) => handleNestedChange('contactInfo', 'phone', e.target.value)} className="modern-input" placeholder="Cth: +60123456789" />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Emel Rasmi</label>
+                <input type="email" value={formData.contactInfo.email} onChange={(e) => handleNestedChange('contactInfo', 'email', e.target.value)} className="modern-input" placeholder="hello@syarikat.com" />
+              </div>
+            </div>
+
+            <div className="form-grid mt-4">
+              <div className="input-group">
+                <label className="input-label">Alamat Premis / HQ</label>
+                <textarea value={formData.contactInfo.address} onChange={(e) => handleNestedChange('contactInfo', 'address', e.target.value)} className="modern-textarea" placeholder="No 12, Jalan..." />
+              </div>
+              <div className="input-group">
+                <label className="input-label">Website Rasmi</label>
+                <input type="text" value={formData.contactInfo.website} onChange={(e) => handleNestedChange('contactInfo', 'website', e.target.value)} className="modern-input" placeholder="https://www..." />
+              </div>
+            </div>
+
+            <h3 className="mt-6 mb-2 font-semibold">Media Sosial (Pilihan)</h3>
+            <div className="form-grid">
+              {['tiktok', 'instagram', 'twitter', 'facebook', 'threads'].map((platform) => (
+                <div className="input-group" key={platform}>
+                  <label className="input-label capitalize">{platform}</label>
+                  <input type="text" value={formData.contactInfo.socials[platform]} onChange={(e) => handleSocialChange(platform, e.target.value)} className="modern-input" placeholder={`Link atau username @`} />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ==========================================
+              ACTIONS
+          ========================================== */}
           <div className="form-actions-card">
             <button type="submit" className="btn-save" disabled={loading}>
-              {loading ? (
-                <span className="spinner"></span>
-              ) : (
-                currentPortfolio ? "Update Business Pitch" : "Save Portfolio"
-              )}
+              {loading ? <span className="spinner"></span> : (currentPortfolio ? "Kemaskini Landing Page" : "Terbitkan Landing Page")}
             </button>
-            <button type="button" onClick={handleCancel} className="btn-cancel">
-              Cancel
+            <button type="button" onClick={() => navigate('/dashboard')} className="btn-cancel">
+              Batal
             </button>
           </div>
         </form>
