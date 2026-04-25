@@ -97,7 +97,7 @@ const PortfolioDetails = () => {
     // PAPARAN UTAMA (RENDER)
     // ==========================================
     return (
-        <div className="w-full relative bg-[#FAFAF9]">
+        <div className="w-full relative bg-slate-900">
 
             {/* HERO SECTION DYNAMIC */}
             {sourceImages.length > 0 ? (

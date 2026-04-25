@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"; // Pastikan framer-motion, bukan motion/react
-
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 export const HeroParallax = ({
     products,
     title,
@@ -56,11 +55,11 @@ export const HeroParallax = ({
 export const Header = ({ title, description }) => {
     return (
         <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
-            <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-                {title || "Projek Inovasi"} <br />
+            <h1 className="text-2xl md:text-7xl font-bold text-slate-900 dark:text-white">
+                {title || "Innovation Project"} <br />
             </h1>
-            <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-                {description || "Meneroka inovasi dan idea perniagaan masa depan. Kami membina produk yang menyelesaikan masalah dunia sebenar."}
+            <p className="max-w-2xl text-base md:text-xl mt-8 text-slate-800 dark:text-neutral-200">
+                {description || "Exploring future innovation and business ideas. We will deliver a product that solve real world problem"}
             </p>
         </div>
     );
