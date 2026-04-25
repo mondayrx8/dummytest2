@@ -18,7 +18,7 @@ const PortfolioDetails = () => {
                 setPortfolio(response.data);
             } catch (err) {
                 console.error(err);
-                setError('Failed to load portfolio details.');
+                setError('Gagal memuatkan butiran Landing Page.');
             } finally {
                 setLoading(false);
             }
@@ -29,65 +29,94 @@ const PortfolioDetails = () => {
 
     if (loading) {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#0A0F1E', color: 'white' }}>
-                <p>Loading Ultra-Premium Pitch Deck...</p>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#FAFAF9', color: '#0F172A' }}>
+                <p className="animate-pulse text-xl font-semibold">Memuatkan Laman Interaktif...</p>
             </div>
         );
     }
 
     if (error || !portfolio) {
         return (
-            <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#0A0F1E', color: 'white', height: '100vh' }}>
-                <h2>Oops!</h2>
-                <p>{error}</p>
-                <button onClick={() => navigate(-1)} style={{ padding: '10px 20px', backgroundColor: '#4F46E5', color: 'white', borderRadius: '5px', border: 'none', cursor: 'pointer', marginTop: '20px' }}>Go Back</button>
+            <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#FAFAF9', color: '#0F172A', height: '100vh' }}>
+                <h2 className="text-3xl font-bold mb-4">Ralat Ditemui!</h2>
+                <p className="mb-6">{error}</p>
+                <button onClick={() => navigate(-1)} style={{ padding: '10px 20px', backgroundColor: '#0F172A', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>Kembali</button>
             </div>
         );
     }
 
     // ==========================================
-    // LOGIK AUTO-CLONE GAMBAR UNTUK HERO PARALLAX
+    // ALGORITMA PENGEKSTRAKAN GAMBAR (SOLID LOGIC)
     // ==========================================
+    const extractAllImages = () => {
+        const images = [];
 
-    // 1. Kenal pasti kat mana gambar disimpan (ubah 'images' ikut database kau)
-    // Kalau user takde gambar langsung, kita bagi gambar default (placeholder)
-    const sourceImages = portfolio.images?.length > 0
-        ? portfolio.images
-        : [
-            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000",
-            "https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=1000",
-            "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1000"
-        ];
+        // 1. Ekstrak dari Produk
+        if (portfolio.products && portfolio.products.length > 0) {
+            portfolio.products.forEach((p, idx) => {
+                if (p.image) images.push({ title: `${portfolio.businessName} - Produk ${idx + 1}`, url: p.image });
+            });
+        }
+        // 2. Ekstrak dari Team
+        if (portfolio.ourTeam && portfolio.ourTeam.length > 0) {
+            portfolio.ourTeam.forEach(t => {
+                if (t.image) images.push({ title: `Pasukan: ${t.name}`, url: t.image });
+            });
+        }
+        // 3. Ekstrak dari Pencapaian
+        if (portfolio.achievements && portfolio.achievements.length > 0) {
+            portfolio.achievements.forEach((a, idx) => {
+                if (a.image) images.push({ title: a.description || `Pencapaian ${idx + 1}`, url: a.image });
+            });
+        }
+        // 4. Ekstrak dari Misi Visi Infografik
+        if (portfolio.missionVision?.graphicInfo) {
+            images.push({ title: `${portfolio.businessName} - Hala Tuju`, url: portfolio.missionVision.graphicInfo });
+        }
 
-    // 2. Klon gambar sampai cukup 15 ketul untuk Aceternity UI
-    const parallaxProducts = Array.from({ length: 15 }).map((_, index) => {
-        const imageToUse = sourceImages[index % sourceImages.length];
+        return images;
+    };
 
-        return {
-            // Ubah 'title' ni ikut nama field database kau (contoh: portfolio.projectName)
-            title: portfolio.title || portfolio.name || "Projek SiswaNiaga",
-            link: "#",
-            // Semak kalau data gambar bentuk URL terus atau objek
-            thumbnail: typeof imageToUse === 'string' ? imageToUse : imageToUse.url,
-        };
-    });
+    const sourceImages = extractAllImages();
+    const parallaxProducts = [];
+
+    // PROPER AUTO-CLONE (Hanya jalan jika ada sekurang-kurangnya 1 gambar dari user)
+    if (sourceImages.length > 0) {
+        for (let i = 0; i < 15; i++) {
+            const currentImg = sourceImages[i % sourceImages.length];
+            parallaxProducts.push({
+                // TAMBAH INDEX # supaya title sentiasa unik untuk React Key
+                title: `${currentImg.title} #${i + 1}`,
+                link: "#",
+                thumbnail: currentImg.url,
+            });
+        }
+    }
 
     // ==========================================
     // PAPARAN UTAMA (RENDER)
     // ==========================================
-
     return (
-        <div className="w-full relative bg-[#0A0F1E] dark:bg-black">
+        <div className="w-full relative bg-[#FAFAF9]">
 
-            {/* HERO SECTION - Aceternity Parallax */}
-            <HeroParallax
-                products={parallaxProducts}
-                title={portfolio.title || portfolio.name || "Portfolio Projek"}
-                description={portfolio.description || portfolio.short_description || "Menyelesaikan masalah dunia sebenar melalui inovasi pelajar."}
-            />
+            {/* HERO SECTION DYNAMIC */}
+            {sourceImages.length > 0 ? (
+                // Kalau ada gambar, panggil HeroParallax
+                <HeroParallax
+                    products={parallaxProducts}
+                    title={portfolio.businessName || "Syarikat Tanpa Nama"}
+                    description={portfolio.slogan || "Meneroka penyelesaian dan idea bisnes masa depan."}
+                />
+            ) : (
+                // Fallback Kritikal: Kalau user tak letak GAMBAR LANGSUNG, jangan panggil HeroParallax!
+                <div className="relative flex flex-col items-center justify-center h-[60vh] bg-slate-900 text-white px-6 text-center">
+                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">{portfolio.businessName}</h1>
+                    <p className="text-xl max-w-2xl text-slate-300">{portfolio.slogan}</p>
+                </div>
+            )}
 
-            {/* MAIN CONTENT - Pitch Deck asal kau */}
-            <div className="relative z-10 -mt-20 md:-mt-40 bg-[#0A0F1E] rounded-t-[3rem] w-full">
+            {/* MAIN CONTENT - The 0-9 Pitch Deck */}
+            <div className={`relative z-10 w-full ${sourceImages.length > 0 ? '-mt-20 md:-mt-40 rounded-t-[3rem] shadow-2xl' : 'mt-0'} bg-[#FAFAF9]`}>
                 <InvestorPitchDeck portfolio={portfolio} />
             </div>
 

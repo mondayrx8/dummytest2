@@ -89,32 +89,52 @@ const GuestList = () => {
                     </div>
                 ) : (
                     <div className="directory-grid">
-                        {portfolios.map((item) => (
-                            <article key={item._id} className="directory-card" onClick={() => navigate(`/portfolio/${item._id}`)}>
-                                <div className="card-image-wrapper">
-                                    {item.image ? (
-                                        <img src={item.image} alt={item.businessName} className="card-image" loading="lazy" />
-                                    ) : (
-                                        <div className="card-placeholder-modern">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                                        </div>
-                                    )}
-                                    <div className="card-overlay">
-                                        <span className="view-details-text">View Details →</span>
-                                    </div>
-                                </div>
+                        {portfolios.map((item) => {
+                            // 1. Ekstrak Thumbnail dari struktur 0-9
+                            let thumbnail = null;
+                            if (item.products && item.products.length > 0 && item.products[0].image) {
+                                thumbnail = item.products[0].image;
+                            } else if (item.ourTeam && item.ourTeam.length > 0 && item.ourTeam[0].image) {
+                                thumbnail = item.ourTeam[0].image;
+                            } else if (item.missionVision?.graphicInfo) {
+                                thumbnail = item.missionVision.graphicInfo;
+                            }
 
-                                <div className="card-content-modern">
-                                    <div className="card-header-modern">
-                                        <h3 className="business-name">{item.businessName}</h3>
-                                        <span className="founder-badge">{item.studentName}</span>
+                            // 2. Ekstrak Nama Founder
+                            const founderName = item.ourTeam && item.ourTeam.length > 0 && item.ourTeam[0].name
+                                ? item.ourTeam[0].name
+                                : "Founder";
+
+                            // 3. Ekstrak Slogan (fallback ke About Us kalau takde)
+                            const brief = item.slogan || item.aboutUs || "No business description provided for this venture.";
+
+                            return (
+                                <article key={item._id} className="directory-card" onClick={() => navigate(`/portfolio/${item._id}`)}>
+                                    <div className="card-image-wrapper">
+                                        {thumbnail ? (
+                                            <img src={thumbnail} alt={item.businessName} className="card-image" loading="lazy" />
+                                        ) : (
+                                            <div className="card-placeholder-modern">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                            </div>
+                                        )}
+                                        <div className="card-overlay">
+                                            <span className="view-details-text">View Details →</span>
+                                        </div>
                                     </div>
-                                    <p className="business-desc">
-                                        {item.description ? (item.description.length > 110 ? item.description.substring(0, 110) + '...' : item.description) : "No business description provided for this venture."}
-                                    </p>
-                                </div>
-                            </article>
-                        ))}
+
+                                    <div className="card-content-modern">
+                                        <div className="card-header-modern">
+                                            <h3 className="business-name">{item.businessName}</h3>
+                                            <span className="founder-badge">{founderName}</span>
+                                        </div>
+                                        <p className="business-desc">
+                                            {brief.length > 110 ? brief.substring(0, 110) + '...' : brief}
+                                        </p>
+                                    </div>
+                                </article>
+                            );
+                        })}
                     </div>
                 )}
 

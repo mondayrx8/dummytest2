@@ -1,27 +1,30 @@
 /* ============================================ */
-/* DASHBOARD PORTFOLIO LIST - ORGANIC THEME */
+/* DASHBOARD LANDING PAGE LIST - CLEAN THEME    */
 /* ============================================ */
+
 .dashboard-page {
     min-height: calc(100vh - var(--navbar-height));
     background-color: transparent;
-    font-family: var(--font-sans);
+    font-family: var(--font-sans, system-ui, sans-serif);
     padding: 2rem 1rem 0;
     position: relative;
     z-index: 1;
 }
 
-/* Background blob */
+/* Background Blob (Dikekalkan untuk seri moden) */
 .dashboard-page::before {
     content: "";
     position: absolute;
-    top: 10%; right: -10%;
-    width: 600px; height: 600px;
-    background: var(--organic-muted);
-    filter: blur(80px);
-    border-radius: var(--radius-blob-1);
+    top: 10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: #e0e7ff;
+    /* Tailwind Indigo-100 */
+    filter: blur(100px);
+    border-radius: 50%;
     z-index: -1;
-    opacity: 0.6;
-    mix-blend-mode: multiply;
+    opacity: 0.5;
 }
 
 .dashboard-container {
@@ -32,49 +35,55 @@
     padding-bottom: 4rem;
 }
 
+/* --- HEADER --- */
 .enterprise-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 3rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--organic-border);
+    border-bottom: 1px solid #e2e8f0;
+    /* Tailwind Slate-200 */
 }
 
 .enterprise-title {
-    font-family: var(--font-serif);
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--text-color);
+    color: #0f172a;
+    /* Tailwind Slate-900 */
     margin: 0 0 0.5rem 0;
 }
 
 .enterprise-subtitle {
     font-size: 1.1rem;
-    color: var(--organic-muted-foreground);
+    color: #64748b;
+    /* Tailwind Slate-500 */
     margin: 0;
 }
 
 .enterprise-btn-create {
-    background: var(--organic-primary);
-    color: var(--organic-primary-foreground);
+    background: #0f172a;
+    /* Tailwind Slate-900 */
+    color: #ffffff;
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-full);
+    border-radius: 9999px;
+    /* Pill shape */
     font-weight: 700;
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-organic-soft);
-    font-family: var(--font-sans);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .enterprise-btn-create:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-organic-hover);
+    background: #1e293b;
+    /* Tailwind Slate-800 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Statistics */
+/* --- STATISTICS --- */
 .enterprise-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -83,12 +92,12 @@
 }
 
 .stat-card-enterprise {
-    background: rgba(254, 254, 250, 0.7);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(222, 216, 207, 0.5);
-    border-radius: var(--radius-blob-2);
+    border: 1px solid #e2e8f0;
+    border-radius: 1.25rem;
     padding: 2rem;
-    box-shadow: var(--shadow-organic-soft);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -103,19 +112,19 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     font-weight: 700;
-    color: var(--organic-muted-foreground);
+    color: #64748b;
     margin: 0;
 }
 
 .stat-value {
-    font-family: var(--font-serif);
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--organic-primary);
+    color: #4f46e5;
+    /* Tailwind Indigo-600 */
     margin: 0;
 }
 
-/* Grid & Cards */
+/* --- GRID & CARDS --- */
 .enterprise-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -123,40 +132,41 @@
 }
 
 .enterprise-card {
-    background: rgba(254, 254, 250, 0.85);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
-    border: 1px solid var(--organic-border);
-    border-radius: var(--radius-blob-4);
+    border: 1px solid #e2e8f0;
+    border-radius: 1.25rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: var(--shadow-organic-soft);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    position: relative;
 }
 
 .enterprise-card:hover {
-    transform: translateY(-6px) rotate(0.5deg);
-    box-shadow: var(--shadow-organic-lift);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .enterprise-card-image {
     width: 100%;
-    height: 180px;
+    height: 200px;
+    /* Diperbesar sikit bagi visual lebih cantik */
     object-fit: cover;
-    border-bottom: 1px solid var(--organic-border);
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .card-placeholder {
     width: 100%;
-    height: 180px;
-    background: var(--organic-muted);
+    height: 200px;
+    background: #1e293b;
+    /* Tailwind Slate-800 */
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--organic-accent-foreground);
     font-weight: 600;
-    border-bottom: 1px solid var(--organic-border);
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .enterprise-card-content {
@@ -167,17 +177,17 @@
 }
 
 .enterprise-business-name {
-    font-family: var(--font-serif);
     font-size: 1.25rem;
     font-weight: 800;
-    color: var(--text-color);
+    color: #0f172a;
     margin: 0 0 0.25rem 0;
 }
 
 .enterprise-student-name {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--organic-primary);
+    color: #4f46e5;
+    /* Tailwind Indigo-600 */
     margin: 0 0 1rem 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -186,11 +196,13 @@
 .enterprise-description {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--organic-muted-foreground);
+    color: #475569;
+    /* Tailwind Slate-600 */
     margin: 0 0 1.5rem 0;
     flex: 1;
 }
 
+/* --- BUTTON ACTIONS --- */
 .enterprise-card-actions {
     display: flex;
     gap: 0.75rem;
@@ -200,50 +212,55 @@
 .enterprise-btn {
     flex: 1;
     background: transparent;
-    color: var(--organic-primary);
-    border: 1px solid var(--organic-border);
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    /* Tailwind Slate-300 */
     padding: 0.6rem;
-    border-radius: var(--radius-full);
+    border-radius: 9999px;
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: var(--font-sans);
 }
 
 .enterprise-btn:hover {
-    background: rgba(93, 112, 82, 0.05);
-    border-color: var(--organic-primary);
+    background: #f8fafc;
+    /* Tailwind Slate-50 */
+    border-color: #94a3b8;
 }
 
 .enterprise-btn.danger {
-    color: var(--organic-destructive);
+    color: #ef4444;
+    /* Tailwind Red-500 */
+    border-color: #fecaca;
 }
 
 .enterprise-btn.danger:hover {
-    background: rgba(168, 84, 72, 0.05);
-    border-color: var(--organic-destructive);
+    background: #fef2f2;
+    border-color: #ef4444;
 }
 
+/* --- EMPTY STATE --- */
 .enterprise-empty-state {
     text-align: center;
     padding: 6rem 2rem;
-    background: rgba(254, 254, 250, 0.6);
-    border: 1px dashed var(--organic-border);
-    border-radius: var(--radius-blob-1);
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px dashed #cbd5e1;
+    border-radius: 1.25rem;
 }
 
 .enterprise-empty-state h3 {
-    font-family: var(--font-serif);
     font-size: 1.5rem;
-    color: var(--text-color);
+    color: #0f172a;
     margin-bottom: 0.5rem;
+    font-weight: 800;
 }
 
 .enterprise-empty-state p {
-    color: var(--organic-muted-foreground);
+    color: #64748b;
 }
 
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .enterprise-header {
         flex-direction: column;
