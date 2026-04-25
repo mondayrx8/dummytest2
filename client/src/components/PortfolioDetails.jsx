@@ -18,7 +18,7 @@ const PortfolioDetails = () => {
                 setPortfolio(response.data);
             } catch (err) {
                 console.error(err);
-                setError('Gagal memuatkan butiran Landing Page.');
+                setError('Fail to load Landing Page details.');
             } finally {
                 setLoading(false);
             }
@@ -30,7 +30,7 @@ const PortfolioDetails = () => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#FAFAF9', color: '#0F172A' }}>
-                <p className="animate-pulse text-xl font-semibold">Memuatkan Laman Interaktif...</p>
+                <p className="animate-pulse text-xl font-semibold">Loading Landing Page...</p>
             </div>
         );
     }
@@ -38,9 +38,9 @@ const PortfolioDetails = () => {
     if (error || !portfolio) {
         return (
             <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#FAFAF9', color: '#0F172A', height: '100vh' }}>
-                <h2 className="text-3xl font-bold mb-4">Ralat Ditemui!</h2>
+                <h2 className="text-3xl font-bold mb-4">Error Found!</h2>
                 <p className="mb-6">{error}</p>
-                <button onClick={() => navigate(-1)} style={{ padding: '10px 20px', backgroundColor: '#0F172A', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>Kembali</button>
+                <button onClick={() => navigate(-1)} style={{ padding: '10px 20px', backgroundColor: '#0F172A', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>Back</button>
             </div>
         );
     }
@@ -51,27 +51,27 @@ const PortfolioDetails = () => {
     const extractAllImages = () => {
         const images = [];
 
-        // 1. Ekstrak dari Produk
+        // 1. Extract from Products
         if (portfolio.products && portfolio.products.length > 0) {
             portfolio.products.forEach((p, idx) => {
-                if (p.image) images.push({ title: `${portfolio.businessName} - Produk ${idx + 1}`, url: p.image });
+                if (p.image) images.push({ title: `${portfolio.businessName} - Product ${idx + 1}`, url: p.image });
             });
         }
-        // 2. Ekstrak dari Team
+        // 2. Extract from Team
         if (portfolio.ourTeam && portfolio.ourTeam.length > 0) {
             portfolio.ourTeam.forEach(t => {
-                if (t.image) images.push({ title: `Pasukan: ${t.name}`, url: t.image });
+                if (t.image) images.push({ title: `Team: ${t.name}`, url: t.image });
             });
         }
-        // 3. Ekstrak dari Pencapaian
+        // 3. Extract from Achievements
         if (portfolio.achievements && portfolio.achievements.length > 0) {
             portfolio.achievements.forEach((a, idx) => {
-                if (a.image) images.push({ title: a.description || `Pencapaian ${idx + 1}`, url: a.image });
+                if (a.image) images.push({ title: a.description || `Achievement ${idx + 1}`, url: a.image });
             });
         }
         // 4. Ekstrak dari Misi Visi Infografik
         if (portfolio.missionVision?.graphicInfo) {
-            images.push({ title: `${portfolio.businessName} - Hala Tuju`, url: portfolio.missionVision.graphicInfo });
+            images.push({ title: `${portfolio.businessName} - Vision & Mission`, url: portfolio.missionVision.graphicInfo });
         }
 
         return images;
@@ -80,12 +80,12 @@ const PortfolioDetails = () => {
     const sourceImages = extractAllImages();
     const parallaxProducts = [];
 
-    // PROPER AUTO-CLONE (Hanya jalan jika ada sekurang-kurangnya 1 gambar dari user)
+    // PROPER AUTO-CLONE (Only run if there is at least 1 image from user)
     if (sourceImages.length > 0) {
         for (let i = 0; i < 15; i++) {
             const currentImg = sourceImages[i % sourceImages.length];
             parallaxProducts.push({
-                // TAMBAH INDEX # supaya title sentiasa unik untuk React Key
+                // ADD INDEX # so title is always unique for React Key
                 title: `${currentImg.title} #${i + 1}`,
                 link: "#",
                 thumbnail: currentImg.url,
@@ -94,21 +94,21 @@ const PortfolioDetails = () => {
     }
 
     // ==========================================
-    // PAPARAN UTAMA (RENDER)
+    // MAIN CONTENT (RENDER)
     // ==========================================
     return (
         <div className="w-full relative bg-slate-900">
 
             {/* HERO SECTION DYNAMIC */}
             {sourceImages.length > 0 ? (
-                // Kalau ada gambar, panggil HeroParallax
+                // If there are images, call HeroParallax
                 <HeroParallax
                     products={parallaxProducts}
-                    title={portfolio.businessName || "Syarikat Tanpa Nama"}
-                    description={portfolio.slogan || "Meneroka penyelesaian dan idea bisnes masa depan."}
+                    title={portfolio.businessName || "Company Without Name"}
+                    description={portfolio.slogan || "Exploring future business solutions and ideas."}
                 />
             ) : (
-                // Fallback Kritikal: Kalau user tak letak GAMBAR LANGSUNG, jangan panggil HeroParallax!
+                // Fallback Kritikal: If the user doesn't upload any image, don't call HeroParallax!
                 <div className="relative flex flex-col items-center justify-center h-[60vh] bg-slate-900 text-white px-6 text-center">
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">{portfolio.businessName}</h1>
                     <p className="text-xl max-w-2xl text-slate-300">{portfolio.slogan}</p>

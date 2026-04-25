@@ -13,7 +13,7 @@ import {
 const InvestorPitchDeck = ({ portfolio }) => {
     // Tarik keluar struktur data 0-9 dengan selamat
     const {
-        businessName = 'Syarikat Kami',
+        businessName = 'Our Company',
         aboutUs = '',
         missionVision = {},
         ourTeam = [],
@@ -78,8 +78,8 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 1. ABOUT US (Editorial Zig-Zag)                                  */}
             {/* ================================================================ */}
             {aboutUs && (
-                <Section id="pitch-about" eyebrow="01 — Kenali Kami" title="Siapa Kami?">
-                    <EditorialRow reverse={false} image={getEditorialImage(0)} imageLabel="Sejarah Kami" accentTone="indigo">
+                <Section id="pitch-about" eyebrow="Who Are We?" title="About Us">
+                    <EditorialRow reverse={false} image={getEditorialImage(0)} imageLabel="Our History" accentTone="indigo">
                         <SectionBody text={aboutUs} />
                     </EditorialRow>
                 </Section>
@@ -89,12 +89,12 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 2. MISSION & VISION                                               */}
             {/* ================================================================ */}
             {(missionVision.mission || missionVision.vision) && (
-                <Section id="pitch-mission" eyebrow="02 — Misi & Visi" title="Hala Tuju" icon={<Compass className="h-5 w-5" />}>
-                    <EditorialRow reverse={true} image={missionVision.graphicInfo || getEditorialImage(1)} imageLabel="Bintang Utara" accentTone="teal">
+                <Section id="pitch-mission" eyebrow="Mission & Vision" title="Hala Tuju" icon={<Compass className="h-5 w-5" />}>
+                    <EditorialRow reverse={true} image={missionVision.graphicInfo || getEditorialImage(1)} imageLabel="Our Direction" accentTone="teal">
                         <div className="space-y-8">
                             {missionVision.mission && (
                                 <div className="border-l-2 border-teal-200 pl-6">
-                                    <h4 className="text-sm font-bold uppercase tracking-widest text-teal-600 mb-2">Misi</h4>
+                                    <h4 className="text-sm font-bold uppercase tracking-widest text-teal-600 mb-2">Mission</h4>
                                     <p className="font-serif text-2xl leading-relaxed text-slate-800">{missionVision.mission}</p>
                                 </div>
                             )}
@@ -113,7 +113,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 3. OUR TEAM                                                       */}
             {/* ================================================================ */}
             {ourTeam.length > 0 && (
-                <Section id="pitch-team" eyebrow="03 — Tulang Belakang" title="Pasukan Kami" icon={<Users className="h-5 w-5" />}>
+                <Section id="pitch-team" eyebrow="Our Team" title="Our Team" icon={<Users className="h-5 w-5" />}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
                         {ourTeam.map((member, idx) => (
                             <div key={idx} data-reveal className="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 ring-1 ring-slate-100 flex flex-col items-center text-center">
@@ -134,7 +134,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 4. OUR SERVICES                                                   */}
             {/* ================================================================ */}
             {ourServices.length > 0 && (
-                <Section id="pitch-services" eyebrow="04 — Tawaran Kami" title="Perkhidmatan Utama" icon={<Package className="h-5 w-5" />}>
+                <Section id="pitch-services" eyebrow="Our Services" title="Our Services" icon={<Package className="h-5 w-5" />}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                         {ourServices.map((service, idx) => (
                             <div key={idx} data-reveal className="relative overflow-hidden rounded-3xl bg-white p-8 shadow-xl shadow-slate-900/5 ring-1 ring-slate-200/80 hover:shadow-2xl transition duration-300">
@@ -150,7 +150,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 5. TARGET MARKET                                                  */}
             {/* ================================================================ */}
             {(targetMarket.tam || targetMarket.sam || targetMarket.som) && (
-                <Section id="pitch-market" eyebrow="05 — Sasaran" title="Potensi Pasaran" icon={<Target className="h-5 w-5" />}>
+                <Section id="pitch-market" eyebrow="Target Market" title="Target Market" icon={<Target className="h-5 w-5" />}>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                         {[
                             { label: 'TAM (Total Addressable)', value: targetMarket.tam, color: 'bg-slate-900 text-white', ring: 'ring-slate-800' },
@@ -182,10 +182,10 @@ const InvestorPitchDeck = ({ portfolio }) => {
                                             <Trophy className="h-12 w-12 text-white" aria-hidden="true" />
                                         </div>
                                         <p className="mt-6 text-xs font-semibold uppercase tracking-[0.3em] text-amber-700">
-                                            06 — Pencapaian
+                                            Achievements
                                         </p>
                                         <h3 className="mt-3 font-serif text-3xl sm:text-4xl font-semibold leading-tight tracking-tight text-slate-900">
-                                            Kejayaan Membanggakan.
+                                            Our Achievements.
                                         </h3>
                                     </div>
                                     <div className="lg:col-span-8">
@@ -212,8 +212,8 @@ const InvestorPitchDeck = ({ portfolio }) => {
                 <section id="pitch-gallery" className="bg-[#FAFAF9] py-28 sm:py-36">
                     <div className="mx-auto mb-14 max-w-7xl px-6 sm:px-10 lg:px-16">
                         <div data-reveal className="max-w-2xl">
-                            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-600">07 — Galeri Visual</p>
-                            <h2 className="mt-4 font-serif text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl">Produk & Inovasi.</h2>
+                            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-600">Our Product</p>
+                            <h2 className="mt-4 font-serif text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl">Product & Innovation.</h2>
                         </div>
                     </div>
                     <div data-reveal className="group relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%)' }}>
@@ -235,7 +235,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                 <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10 sm:py-28 lg:px-16">
                     <div data-reveal className="grid grid-cols-1 gap-14 lg:grid-cols-12">
                         <div className="lg:col-span-7">
-                            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-600">08 — Hubungi Kami</p>
+                            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-600">Contact Us</p>
                             <h2 className="mt-4 font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
                                 Let&apos;s build the future of <span className="italic text-indigo-600">{businessName}</span> together.
                             </h2>
@@ -245,31 +245,31 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             {address && (
                                 <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
                                     <div className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-white text-slate-700 shadow-sm ring-1 ring-slate-200"><MapPin className="h-5 w-5" /></div>
-                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Alamat</p><p className="mt-1 text-base leading-relaxed text-slate-800">{address}</p></div>
+                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Address</p><p className="mt-1 text-base leading-relaxed text-slate-800">{address}</p></div>
                                 </div>
                             )}
                             {phone && (
                                 <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
                                     <div className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-white text-slate-700 shadow-sm ring-1 ring-slate-200"><Smartphone className="h-5 w-5" /></div>
-                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Telefon / WhatsApp</p><p className="mt-1 text-base leading-relaxed text-slate-800">{phone}</p></div>
+                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Phone / WhatsApp</p><p className="mt-1 text-base leading-relaxed text-slate-800">{phone}</p></div>
                                 </div>
                             )}
                             {email && (
                                 <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
                                     <div className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-white text-slate-700 shadow-sm ring-1 ring-slate-200"><Mail className="h-5 w-5" /></div>
-                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Emel</p><a href={`mailto:${email}`} className="mt-1 block text-base font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-600">{email}</a></div>
+                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Email</p><a href={`mailto:${email}`} className="mt-1 block text-base font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-600">{email}</a></div>
                                 </div>
                             )}
                             {website && (
                                 <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
                                     <div className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-white text-slate-700 shadow-sm ring-1 ring-slate-200"><Globe className="h-5 w-5" /></div>
-                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Laman Web</p><a href={website} target="_blank" rel="noreferrer" className="mt-1 block text-base font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-600">{website}</a></div>
+                                    <div><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Website</p><a href={website} target="_blank" rel="noreferrer" className="mt-1 block text-base font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-600">{website}</a></div>
                                 </div>
                             )}
                             {socialList.length > 0 && (
                                 <div className="flex items-start gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
                                     <div className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-white text-slate-700 shadow-sm ring-1 ring-slate-200"><Share2 className="h-5 w-5" /></div>
-                                    <div className="flex-1"><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Media Sosial</p>
+                                    <div className="flex-1"><p className="text-xs font-semibold uppercase tracking-widest text-slate-500">Social Media</p>
                                         <div className="mt-3 flex flex-wrap gap-2">
                                             {socialList.map((s, i) => (
                                                 <a key={i} href={s.url.startsWith('http') ? s.url : `https://${s.url}`} target="_blank" rel="noreferrer" className="rounded-full bg-white px-4 py-1.5 text-sm font-medium text-slate-800 shadow-sm ring-1 ring-slate-200 hover:bg-slate-900 hover:text-white capitalize transition">
@@ -284,8 +284,8 @@ const InvestorPitchDeck = ({ portfolio }) => {
                     </div>
 
                     <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-8 sm:flex-row sm:items-center">
-                        <p className="text-sm text-slate-500">© {new Date().getFullYear()} {businessName}. Hak cipta terpelihara.</p>
-                        <p className="text-xs uppercase tracking-[0.3em] text-slate-400">SiswaNiaga Landing Page</p>
+                        <p className="text-sm text-slate-500">© {new Date().getFullYear()} {businessName}. All rights reserved.</p>
+                        <p className="text-xs uppercase tracking-[0.3em] text-slate-400">SiswaNiaga</p>
                     </div>
                 </div>
             </footer>
@@ -331,7 +331,7 @@ const EditorialRow = ({ reverse = false, image, imageLabel, accentTone = 'indigo
                         <img src={image} alt={imageLabel || 'Visual'} className="h-[30rem] w-full rounded-2xl object-cover" loading="lazy" crossOrigin="anonymous" />
                     ) : (
                         <div className={`flex h-[30rem] items-center justify-center rounded-2xl bg-gradient-to-br ${tone} text-slate-400`}>
-                            <span className="italic text-lg text-center px-4">Sila muat naik gambar di borang.</span>
+                            <span className="italic text-lg text-center px-4">Please upload the image in the form.</span>
                         </div>
                     )}
                     {imageLabel && (

@@ -36,7 +36,7 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
     }, []);
 
     const handleDelete = async (id) => {
-        if (window.confirm('Padam Landing Page ini? Tindakan ini tidak boleh diundurkan.')) {
+        if (window.confirm('Delete this Landing Page? This action cannot be undone.')) {
             setDeleting(id);
             try {
                 const token = localStorage.getItem('token');
@@ -46,7 +46,7 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                 fetchDashboardPortfolios();
             } catch (error) {
                 console.error("Error deleting portfolio:", error);
-                alert("Gagal memadam portfolio. Sila cuba lagi.");
+                alert("Failed to delete portfolio. Please try again.");
             } finally {
                 setDeleting(null);
             }
@@ -65,28 +65,28 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                 <header className="enterprise-header">
                     <div>
                         <h1 className="enterprise-title">Dashboard</h1>
-                        <p className="enterprise-subtitle">Uruskan Landing Page bisnes universiti anda.</p>
+                        <p className="enterprise-subtitle">Manage your university business Landing Page.</p>
                     </div>
                     <button className="enterprise-btn-create" onClick={() => { setCurrentPortfolio(null); navigate('/create'); }}>
-                        + Bina Landing Page
+                        + Create Landing Page
                     </button>
                 </header>
 
                 <section className="enterprise-stats">
                     <div className="stat-card-enterprise">
-                        <h3 className="stat-label">Jumlah Pengguna</h3>
+                        <h3 className="stat-label">Total Users</h3>
                         <p className="stat-value">{stats.totalUsers}</p>
                     </div>
                     <div className="stat-card-enterprise">
-                        <h3 className="stat-label">Jumlah Pelawat</h3>
+                        <h3 className="stat-label">Total Visits</h3>
                         <p className="stat-value">{stats.totalVisits}</p>
                     </div>
                 </section>
 
                 {dashboardPortfolios.length === 0 ? (
                     <div className="enterprise-empty-state">
-                        <h3>Tiada Landing Page Ditemui</h3>
-                        <p>Anda belum membina apa-apa lagi. Mulakan projek pertama anda hari ini.</p>
+                        <h3>No Landing Page Found</h3>
+                        <p>You haven't built anything yet. Start your first project today.</p>
                     </div>
                 ) : (
                     <section className="enterprise-grid">
@@ -110,20 +110,20 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                         <img src={thumbnail} alt={item.businessName} className="enterprise-card-image" loading="lazy" />
                                     ) : (
                                         <div className="card-placeholder" style={{ backgroundColor: '#1E293B', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '200px' }}>
-                                            Tiada Gambar Visual
+                                            No Visual Image
                                         </div>
                                     )}
 
                                     <div className="enterprise-card-content">
                                         <h3 className="enterprise-business-name">{item.businessName}</h3>
-                                        <p className="enterprise-student-name text-sm text-slate-500 mb-2">Oleh: {founderName}</p>
+                                        <p className="enterprise-student-name text-sm text-slate-500 mb-2">By: {founderName}</p>
                                         <p className="enterprise-description">
-                                            {item.slogan ? (item.slogan.length > 100 ? item.slogan.substring(0, 100) + '...' : item.slogan) : "Tiada slogan disediakan."}
+                                            {item.slogan ? (item.slogan.length > 100 ? item.slogan.substring(0, 100) + '...' : item.slogan) : "No slogan provided."}
                                         </p>
 
                                         <div className="enterprise-card-actions">
                                             <button className="enterprise-btn" onClick={() => navigate(`/portfolio/${item._id}`)}>
-                                                Lihat
+                                                View
                                             </button>
                                             {(currentUser?.role === 'admin' || currentUser?.id === item.userId) && (
                                                 <>
@@ -135,7 +135,7 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                                         onClick={() => handleDelete(item._id)}
                                                         disabled={deleting === item._id}
                                                     >
-                                                        {deleting === item._id ? 'Memadam...' : 'Padam'}
+                                                        {deleting === item._id ? 'Deleting...' : 'Delete'}
                                                     </button>
                                                 </>
                                             )}
