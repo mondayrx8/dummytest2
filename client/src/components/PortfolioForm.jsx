@@ -299,8 +299,19 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   </div>
                   <div className="input-group">
                     <label className="input-label">Role</label>
-                    <input type="text" value={member.role} onChange={(e) => handleArrayChange('ourTeam', index, 'role', e.target.value)} className="modern-input" placeholder="Cth: Pengasas & CEO" />
+                    <input type="text" value={member.role} onChange={(e) => handleArrayChange('ourTeam', index, 'role', e.target.value)} className="modern-input" placeholder="Cth: Founder & CEO" />
                   </div>
+                </div>
+
+                <div className="input-group mt-2">
+                  <label className="input-label">Description</label>
+                  <textarea
+                    value={member.description || ''}
+                    onChange={(e) => handleArrayChange('ourTeam', index, 'description', e.target.value)}
+                    className="modern-textarea"
+                    placeholder="Cth: Expert in digital printing field..."
+                    rows="3"
+                  />
                 </div>
 
                 <div className="input-group mt-2">
@@ -311,7 +322,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               </div>
             ))}
 
-            <button type="button" onClick={() => addArrayItem('ourTeam', { name: '', role: '', image: '' })} className="btn-add-dynamic">
+            <button type="button" onClick={() => addArrayItem('ourTeam', { name: '', role: '', image: '', description: '' })} className="btn-add-dynamic">
               <PlusCircle size={18} style={{ marginRight: '5px' }} /> Add Team Member
             </button>
           </section>

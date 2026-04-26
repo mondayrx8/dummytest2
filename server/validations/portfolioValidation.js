@@ -35,6 +35,7 @@ const portfolioFields = {
         z.object({
             name: z.string().optional(),
             role: z.string().optional(),
+            description: z.string().optional(),
             image: z.string().optional()
         })
     ).optional(),

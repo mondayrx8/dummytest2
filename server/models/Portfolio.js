@@ -37,6 +37,7 @@ const portfolioSchema = new mongoose.Schema({
     ourTeam: [{
         name: { type: String },
         role: { type: String },
+        description: { type: String },
         image: { type: String } // URL gambar profile
     }],
 
