@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import InvestorPitchDeck from './InvestorPitchDeck';
 import { HeroParallax } from "./ui/hero-parallax.jsx";
+import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
     const { id } = useParams();
@@ -29,18 +30,18 @@ const PortfolioDetails = () => {
 
     if (loading) {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#FAFAF9', color: '#0F172A' }}>
-                <p className="animate-pulse text-xl font-semibold">Loading Landing Page...</p>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#F5F2EC', color: '#1A1A1A' }}>
+                <p className="animate-pulse text-xl font-semibold" style={{ fontFamily: "'Nunito', sans-serif" }}>Loading Landing Page...</p>
             </div>
         );
     }
 
     if (error || !portfolio) {
         return (
-            <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#FAFAF9', color: '#0F172A', height: '100vh' }}>
-                <h2 className="text-3xl font-bold mb-4">Error Found!</h2>
-                <p className="mb-6">{error}</p>
-                <button onClick={() => navigate(-1)} style={{ padding: '10px 20px', backgroundColor: '#0F172A', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>Back</button>
+            <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#F5F2EC', color: '#1A1A1A', height: '100vh', fontFamily: "'Nunito', sans-serif" }}>
+                <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: '2rem', fontWeight: 600, marginBottom: '1rem' }}>Error Found!</h2>
+                <p style={{ marginBottom: '1.5rem', color: '#6B6B6B' }}>{error}</p>
+                <button onClick={() => navigate(-1)} style={{ padding: '12px 28px', backgroundColor: '#1A1A1A', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer', fontFamily: "'Nunito', sans-serif", fontWeight: 700 }}>Back</button>
             </div>
         );
     }
@@ -97,7 +98,7 @@ const PortfolioDetails = () => {
     // MAIN CONTENT (RENDER)
     // ==========================================
     return (
-        <div className="w-full relative bg-slate-900">
+        <div className="w-full relative" style={{ backgroundColor: '#1A1A1A' }}>
 
             {/* HERO SECTION DYNAMIC */}
             {sourceImages.length > 0 ? (
@@ -109,14 +110,14 @@ const PortfolioDetails = () => {
                 />
             ) : (
                 // Fallback Kritikal: If the user doesn't upload any image, don't call HeroParallax!
-                <div className="relative flex flex-col items-center justify-center h-[60vh] bg-slate-900 text-white px-6 text-center">
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">{portfolio.businessName}</h1>
-                    <p className="text-xl max-w-2xl text-slate-300">{portfolio.slogan}</p>
+                <div className="relative flex flex-col items-center justify-center h-[60vh] text-white px-6 text-center" style={{ backgroundColor: '#1A1A1A' }}>
+                    <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '1.5rem', color: '#FFFFFF' }}>{portfolio.businessName}</h1>
+                    <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.25rem', maxWidth: '36rem', color: 'rgba(255,255,255,0.6)' }}>{portfolio.slogan}</p>
                 </div>
             )}
 
             {/* MAIN CONTENT - The 0-9 Pitch Deck */}
-            <div className={`relative z-10 w-full ${sourceImages.length > 0 ? '-mt-20 md:-mt-40 rounded-t-[3rem] shadow-2xl' : 'mt-0'} bg-[#FAFAF9]`}>
+            <div className={`relative z-10 w-full ${sourceImages.length > 0 ? '-mt-20 md:-mt-40 rounded-t-[0rem] shadow-2xl' : 'mt-0'}`} style={{ backgroundColor: '#F5F2EC' }}>
                 <InvestorPitchDeck portfolio={portfolio} />
             </div>
 
