@@ -147,7 +147,7 @@ const UserProfile = () => {
                     {/* User Info Card */}
                     <div className="profile-card info-card">
                         <div className="card-header">
-                            <span className="card-icon"><User size={24} color="var(--organic-primary)" /></span>
+                            <span className="card-icon"><User size={24} color="#B8860B" /></span>
                             <h2>Account Details</h2>
                         </div>
                         <div className="card-body">
@@ -167,7 +167,7 @@ const UserProfile = () => {
                             </div>
 
                             {/* 👇👇👇 3. Borang Kemaskini Email 👇👇👇 */}
-                            <hr style={{ margin: '20px 0', borderColor: '#E2E8F0', borderStyle: 'solid', borderWidth: '1px 0 0 0' }} />
+                            <hr style={{ margin: '20px 0', borderColor: '#E0DBD3', borderStyle: 'solid', borderWidth: '1px 0 0 0' }} />
                             <form onSubmit={handleEmailChange} className="password-form" style={{ marginTop: '0' }}>
                                 <h3>Update Email</h3>
 
@@ -202,7 +202,7 @@ const UserProfile = () => {
                     {/* Security Card */}
                     <div className="profile-card security-card">
                         <div className="card-header">
-                            <span className="card-icon"><ShieldCheck size={24} color="var(--organic-primary)" /></span>
+                            <span className="card-icon"><ShieldCheck size={24} color="#B8860B" /></span>
                             <h2>Security Settings</h2>
                         </div>
                         <div className="card-body">

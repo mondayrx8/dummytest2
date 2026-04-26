@@ -614,3 +614,117 @@ html {
     color: var(--pd-accent);
     background: rgba(184, 134, 11, 0.1);
 }
+
+/* ── Mobile Responsiveness ─────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Reduce section padding on mobile */
+    .pitch-section {
+        padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 2rem);
+    }
+
+    /* About overlay goes full width */
+    .pitch-about-overlay {
+        position: relative;
+        width: 100%;
+        border-top-left-radius: 0;
+    }
+
+    /* Team cards — stack single column */
+    .pitch-team-card {
+        max-width: 100%;
+    }
+
+    .pitch-team-photo {
+        aspect-ratio: 16 / 9;
+        object-position: top center;
+    }
+
+    /* Services — tighten spacing */
+    .pitch-service-item {
+        grid-template-columns: auto 1fr;
+        gap: 0 1rem;
+    }
+
+    .pitch-service-ordinal {
+        min-width: 2.5rem;
+    }
+
+    /* Market bars — stack label above bar */
+    .pitch-market-tier {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+    }
+
+    .pitch-market-bar {
+        height: 3rem;
+        padding: 0 1rem;
+        font-size: 0.8rem;
+    }
+
+    .pitch-market-bar--sam,
+    .pitch-market-bar--som {
+        width: 100%;
+    }
+
+    /* Achievements — smaller cards */
+    .pitch-achieve-card {
+        flex: 0 0 85vw;
+    }
+
+    .pitch-achieve-img {
+        height: 10rem;
+    }
+
+    /* Gallery — smaller items */
+    .pitch-gallery-item {
+        width: 14rem;
+        height: 10rem;
+    }
+
+    .pitch-gallery-strip::before,
+    .pitch-gallery-strip::after {
+        width: 2rem;
+    }
+
+    /* Contact cards — full width stacking */
+    .pitch-contact-card {
+        flex-direction: row;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+    }
+
+    .pitch-contact-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .pitch-contact-label {
+        font-size: 0.6rem;
+    }
+
+    .pitch-contact-value {
+        font-size: 0.9rem;
+    }
+
+    /* Social links — smaller */
+    .pitch-social-link {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .pitch-service-item {
+        grid-template-columns: 1fr;
+    }
+
+    .pitch-service-ordinal {
+        font-size: 1.5rem;
+    }
+
+    .pitch-achieve-card {
+        flex: 0 0 90vw;
+    }
+}
