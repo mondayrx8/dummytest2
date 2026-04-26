@@ -54,7 +54,7 @@ const Login = ({ setToken }) => {
               </div>
               <span className="logo-text-v2">SiswaNiaga</span>
             </Link>
-            
+
             <div className="brand-messaging">
               <h2>{isRegistering ? "Join the Ecosystem" : "Welcome Back"}</h2>
               <p>
@@ -205,12 +205,12 @@ const Login = ({ setToken }) => {
                   {isRegistering ? "Sign In" : "Create Account"}
                 </button>
               </p>
-              
+
               <div className="divider-v2"><span>or</span></div>
-              
+
               <Link to="/investors" className="guest-action-link">
-                Continue as Guest Investor
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Continue as Guest
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </Link>
             </div>
           </div>
