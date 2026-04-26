@@ -1,11 +1,11 @@
 /* PortfolioDetails.css - Clean Premium Pitch Deck (Tailwind-Optimized) */
 
-/* 1. Smooth Scrolling untuk butang navigasi (Contoh: Explore the Deck) */
+/* 1. Smooth Scrolling for navigation buttons (Example: Explore the Deck) */
 html {
     scroll-behavior: smooth;
 }
 
-/* 2. Kesan highlight teks yang lebih elegan (Sesuai dengan tema Light Premium) */
+/* 2. Elegant text highlight effect (Suitable for Light Premium theme) */
 ::selection {
     background-color: #c7d2fe;
     /* Tailwind Indigo-200 */
@@ -18,7 +18,7 @@ html {
     color: #0f172a;
 }
 
-/* 3. Utility Kelas: Sorok scrollbar untuk elemen tertentu tapi masih boleh scroll */
+/* 3. Utility Classes: Hide scrollbar for certain elements but still scrollable */
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
@@ -30,8 +30,8 @@ html {
     /* Firefox */
 }
 
-/* NOTA KOMANDER: 
-   Semua rekaan UI lain (grid, warna, padding) kini diuruskan 100% 
-   oleh Tailwind CSS di dalam fail InvestorPitchDeck.jsx. 
+/* KOMANDER'S NOTE: 
+   All other UI designs (grid, color, padding) are now managed 100% 
+   by Tailwind CSS inside the InvestorPitchDeck.jsx file. 
    Fail ini sengaja dibiarkan kosong dari kod sampah! 🫡
 */

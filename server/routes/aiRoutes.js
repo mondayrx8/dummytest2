@@ -5,7 +5,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 router.post('/enhance', async (req, res) => {
     try {
         const { text } = req.body;
-        if (!text) return res.status(400).json({ error: "Sila berikan teks" });
+        if (!text) return res.status(400).json({ error: "Please provide text" });
 
         // Backend akan tarik kunci rahsia dari .env
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -15,47 +15,47 @@ router.post('/enhance', async (req, res) => {
         });
 
         const styles = [
-            "Sangat profesional dan meyakinkan untuk pelabur",
-            "Kreatif, 'catchy', dan sangat menarik perhatian Gen-Z",
-            "Fokus kepada penyelesaian masalah (problem-solving) yang unik",
-            "Pendek, agresif, dan ala-ala slogan jenama antarabangsa",
-            "Santai, jujur, dan menggunakan gaya penceritaan (storytelling)"
+            "Very professional and convincing for investors",
+            "Creative, 'catchy', and very attractive to Gen-Z",
+            "Focus on unique problem-solving",
+            "Short, aggressive, and ala-ala slogan of an international brand",
+            "Relaxed, honest, and uses storytelling style"
         ];
         const randomStyle = styles[Math.floor(Math.random() * styles.length)];
 
         const prompt = `
-        Bertindak sebagai pakar copywriter bisnes.
-        Idea Asal: "${text}"
-        Gaya Penulisan: ${randomStyle}
+        Act as a business copywriter.
+        Original Idea: "${text}"
+        Writing Style: ${randomStyle}
         
-        Tugasan: Baiki idea asal menjadi SATU perenggan/slogan yang memukau mengikut gaya penulisan di atas.
+        Task: Improve the original idea into ONE amazing paragraph/slogan according to the writing style above.
         
-        Keluarkan HANYA format JSON yang sah dengan struktur seperti ini:
+        Output ONLY the valid JSON format with this structure:
         {
-          "slogan": "ayat yang telah dibaiki letak di sini"
+          "slogan": "improved text goes here"
         }
       `;
 
         const result = await model.generateContent(prompt);
         const parsedData = JSON.parse(result.response.text());
 
-        // Hantar jawapan bersih ke Frontend
+        // send cleaned data to Frontend
         res.json(parsedData);
 
     } catch (error) {
         console.error("AI Backend Error:", error);
 
-        // Kalau Google tangkap spam (Rate Limit 429)
+        // If Google catch spam (Rate Limit 429)
         if (error.status === 429 || (error.message && error.message.includes('429'))) {
             return res.status(429).json({ error: "AI System is busy due to too many requests. Please wait 1 minute and try again. 🛑" });
         }
 
-        // 2. Tangkap kalau Server Google jem (503 High Demand)  <-- TAMBAH YANG NI
+        // If Google Server full (High Demand)
         if (error.status === 503 || (error.message && error.message.includes('503'))) {
             return res.status(503).json({ error: "AI System is full/crowded (High Demand). Please try again later. ⏳" });
         }
 
-        // Kalau error lain
+        // If other error
         res.status(500).json({ error: "Failed to process AI from Google server." });
     }
 });

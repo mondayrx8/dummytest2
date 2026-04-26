@@ -15,11 +15,11 @@ const express = require('express');
 const router = express.Router();
 const rateLimit = require('express-rate-limit');
 
-// 👇👇👇 PERISAI ANTI-SPAM (MAX 3 KALI SEJAM) 👇👇👇
+// 👇👇👇 ANTI-SPAM SHIELD (MAX 3 ATTEMPTS PER HOUR) 👇👇👇
 const forgotPasswordLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 jam
-    max: 3, // Hadkan 3 kali request sahaja per IP
-    message: { message: "Terlalu banyak percubaan. Sila cuba lagi selepas 1 jam." },
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 3, // Limit 3 requests only per IP
+    message: { message: "Too many attempts. Please try again after 1 hour." },
     standardHeaders: true,
     legacyHeaders: false,
 });

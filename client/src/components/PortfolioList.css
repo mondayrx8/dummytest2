@@ -11,7 +11,7 @@
     z-index: 1;
 }
 
-/* Background Blob (Dikekalkan untuk seri moden) */
+/* Background Blob (Kept for modern series) */
 .dashboard-page::before {
     content: "";
     position: absolute;

@@ -31,7 +31,7 @@ const GuestList = () => {
         }
     };
 
-    // Auto-fetch bila user menaip (delay 0.5s supaya server tak jem)
+    // Auto-fetch when user types (delay 0.5s so server doesn't crash)
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             fetchPublicData(1, searchTerm);

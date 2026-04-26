@@ -89,7 +89,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 2. MISSION & VISION                                               */}
             {/* ================================================================ */}
             {(missionVision.mission || missionVision.vision) && (
-                <Section id="pitch-mission" eyebrow="Mission & Vision" title="Hala Tuju" icon={<Compass className="h-5 w-5" />}>
+                <Section id="pitch-mission" eyebrow="Mission & Vision" title="Mission & Vision" icon={<Compass className="h-5 w-5" />}>
                     <EditorialRow reverse={true} image={missionVision.graphicInfo || getEditorialImage(1)} imageLabel="Our Direction" accentTone="teal">
                         <div className="space-y-8">
                             {missionVision.mission && (
@@ -100,7 +100,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             )}
                             {missionVision.vision && (
                                 <div className="border-l-2 border-indigo-200 pl-6">
-                                    <h4 className="text-sm font-bold uppercase tracking-widest text-indigo-600 mb-2">Visi</h4>
+                                    <h4 className="text-sm font-bold uppercase tracking-widest text-indigo-600 mb-2">Vision</h4>
                                     <p className="font-serif text-2xl leading-relaxed text-slate-800">{missionVision.vision}</p>
                                 </div>
                             )}
@@ -191,7 +191,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                                     <div className="lg:col-span-8">
                                         <div className="rounded-2xl bg-slate-50/80 p-8 ring-1 ring-slate-200 flex flex-col sm:flex-row items-center gap-6">
                                             {achieve.image && (
-                                                <img src={achieve.image} alt="Sijil" className="w-full sm:w-40 h-40 object-cover rounded-xl shadow-md" />
+                                                <img src={achieve.image} alt="Certificates" className="w-full sm:w-40 h-40 object-cover rounded-xl shadow-md" />
                                             )}
                                             <p className="font-serif text-2xl leading-relaxed text-slate-800 flex-1">
                                                 "{achieve.description}"
@@ -220,7 +220,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         <div className="pitch-marquee-track flex w-max gap-6">
                             {marqueeImages.map((src, i) => (
                                 <figure key={`marquee-${i}`} className="relative h-72 w-[22rem] flex-shrink-0 overflow-hidden rounded-3xl bg-white shadow-xl shadow-slate-900/5 ring-1 ring-slate-200 sm:h-80 sm:w-[26rem]">
-                                    <img src={src} alt={`Galeri ${i}`} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" crossOrigin="anonymous" />
+                                    <img src={src} alt={`Gallery ${i}`} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" crossOrigin="anonymous" />
                                 </figure>
                             ))}
                         </div>
