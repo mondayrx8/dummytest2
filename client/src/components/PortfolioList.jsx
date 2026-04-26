@@ -102,7 +102,7 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                             }
 
                             // CARI NAMA FOUNDER DARI ARRAY TEAM
-                            const founderName = item.ourTeam && item.ourTeam.length > 0 ? item.ourTeam[0].name : "Pengasas";
+                            const founderName = item.ourTeam && item.ourTeam.length > 0 ? item.ourTeam[0].name : "Founder";
 
                             return (
                                 <article key={item._id} className="enterprise-card">

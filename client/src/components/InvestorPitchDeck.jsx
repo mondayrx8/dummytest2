@@ -168,7 +168,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         </header>
 
                         {/* Grid Container */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
                             {ourTeam.map((member, idx) => (
                                 <div
                                     key={idx}
@@ -185,16 +185,16 @@ const InvestorPitchDeck = ({ portfolio }) => {
                                     </div>
 
                                     {/* 2. Content Area */}
-                                    <div className="flex-1 flex flex-col px-4 pb-8">
+                                    <div className="flex-1 flex flex-col px-4 pb-10">
                                         <h3 className="text-base font-bold text-white tracking-tight">
                                             {member.name}
                                         </h3>
 
-                                        <p className="text-zinc-200 text-sm mt-0">
+                                        <p className="text-zinc-200 text-sm mt-0 my-0">
                                             {member.role || "Innovator"}
                                         </p>
 
-                                        <div className="border-t border-dotted border-zinc-700/60 my-6 w-full"></div>
+                                        <div className="border-t border-dotted border-zinc-500/80 my-2 w-full"></div>
 
                                         {member.description && (
                                             <p className="text-zinc-200 text-sm leading-relaxed">
