@@ -10,6 +10,8 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
     const [stats, setStats] = useState({ totalUsers: 0, totalVisits: 0 });
     const [dashboardPortfolios, setDashboardPortfolios] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     const fetchDashboardPortfolios = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -22,17 +24,23 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
         }
     };
 
+    const fetchStats = async () => {
+        try {
+            const res = await axios.get('https://api.siswaniaga.my/api/stats');
+            setStats(res.data);
+        } catch (err) {
+            console.error("Error fetching stats", err);
+        }
+    };
+
+    // 👇 2. USE EFFECT DIUBAH UNTUK KAWAL LOADING
     useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const res = await axios.get('https://api.siswaniaga.my/api/stats');
-                setStats(res.data);
-            } catch (err) {
-                console.error("Error fetching stats", err);
-            }
+        const loadAllData = async () => {
+            setIsLoading(true);
+            await Promise.all([fetchStats(), fetchDashboardPortfolios()]);
+            setIsLoading(false);
         };
-        fetchStats();
-        fetchDashboardPortfolios();
+        loadAllData();
     }, []);
 
     const handleDelete = async (id) => {
@@ -83,15 +91,35 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                     </div>
                 </section>
 
-                {dashboardPortfolios.length === 0 ? (
+                {/* 👇 3. LOGIK RENDER SKELETON, KOSONG, ATAU DATA BERMULA DI SINI */}
+                {isLoading ? (
+                    // MASA TENGAH LOADING -> KELUARKAN KOTAK KELABU BERKELIP
+                    <section className="enterprise-grid">
+                        {[1, 2, 3].map((skel) => (
+                            <article key={skel} className="enterprise-card overflow-hidden">
+                                <div className="w-full h-[200px] bg-slate-200 animate-pulse"></div>
+                                <div className="enterprise-card-content flex flex-col gap-3 p-5">
+                                    <div className="h-6 w-3/4 bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="h-4 w-1/2 bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="h-12 w-full bg-slate-200 rounded animate-pulse mt-2"></div>
+                                    <div className="enterprise-card-actions mt-4 flex gap-2">
+                                        <div className="h-10 w-20 bg-slate-200 rounded-lg animate-pulse"></div>
+                                        <div className="h-10 w-20 bg-slate-200 rounded-lg animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
+                    </section>
+                ) : dashboardPortfolios.length === 0 ? (
+                    // LEPAS HABIS LOADING, TAPI DATA TAKDE (KOSONG)
                     <div className="enterprise-empty-state">
                         <h3>No Landing Page Found</h3>
                         <p>You haven't built anything yet. Start your first project today.</p>
                     </div>
                 ) : (
+                    // LEPAS HABIS LOADING, DAN DATA MEMANG ADA (TUNJUK KAD SEBENAR)
                     <section className="enterprise-grid">
                         {dashboardPortfolios.map((item) => {
-                            // AMBIL GAMBAR PERTAMA DARI PRODUK ATAU PASUKAN SEBAGAI THUMBNAIL
                             let thumbnail = null;
                             if (item.products && item.products.length > 0 && item.products[0].image) {
                                 thumbnail = item.products[0].image;
@@ -101,7 +129,6 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                 thumbnail = item.missionVision.graphicInfo;
                             }
 
-                            // CARI NAMA FOUNDER DARI ARRAY TEAM
                             const founderName = item.ourTeam && item.ourTeam.length > 0 ? item.ourTeam[0].name : "Founder";
 
                             return (

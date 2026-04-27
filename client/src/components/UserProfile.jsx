@@ -116,11 +116,67 @@ const UserProfile = () => {
         }
     };
 
+    // ==========================================
+    // 1. SKELETON LOADING UNTUK USER PROFILE
+    // ==========================================
     if (loading) {
         return (
-            <div className="profile-loading">
-                <div className="spinner"></div>
-                <p>Loading profile...</p>
+            <div className="profile-page">
+                <div className="profile-container">
+                    {/* Header Skeleton */}
+                    <header className="profile-header flex flex-col gap-3">
+                        <div className="h-10 w-48 bg-slate-200 rounded animate-pulse"></div>
+                        <div className="h-5 w-72 bg-slate-200 rounded animate-pulse"></div>
+                    </header>
+
+                    <div className="profile-grid">
+                        {/* Info Card Skeleton */}
+                        <div className="profile-card info-card">
+                            <div className="card-header flex items-center gap-3">
+                                <div className="h-8 w-8 bg-slate-200 rounded-full animate-pulse"></div>
+                                <div className="h-7 w-40 bg-slate-200 rounded animate-pulse"></div>
+                            </div>
+                            <div className="card-body flex flex-col gap-6 mt-6">
+                                <div className="flex flex-col gap-2">
+                                    <div className="h-4 w-24 bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="h-6 w-full bg-slate-200 rounded animate-pulse"></div>
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <div className="h-4 w-32 bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="h-6 w-full bg-slate-200 rounded animate-pulse"></div>
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <div className="h-4 w-16 bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="h-8 w-24 bg-slate-200 rounded-full animate-pulse"></div>
+                                </div>
+                                <hr style={{ margin: '10px 0', borderColor: '#E0DBD3' }} />
+                                <div className="flex flex-col gap-4">
+                                    <div className="h-6 w-32 bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="h-10 w-full bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="h-10 w-32 bg-slate-200 rounded animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Security Card Skeleton */}
+                        <div className="profile-card security-card">
+                            <div className="card-header flex items-center gap-3">
+                                <div className="h-8 w-8 bg-slate-200 rounded-full animate-pulse"></div>
+                                <div className="h-7 w-48 bg-slate-200 rounded animate-pulse"></div>
+                            </div>
+                            <div className="card-body flex flex-col gap-6 mt-6">
+                                <div className="h-6 w-40 bg-slate-200 rounded animate-pulse"></div>
+                                {[1, 2, 3].map(i => (
+                                    <div key={i} className="flex flex-col gap-2">
+                                        <div className="h-4 w-32 bg-slate-200 rounded animate-pulse"></div>
+                                        <div className="h-10 w-full bg-slate-200 rounded animate-pulse"></div>
+                                    </div>
+                                ))}
+                                <div className="h-10 w-40 bg-slate-200 rounded animate-pulse mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

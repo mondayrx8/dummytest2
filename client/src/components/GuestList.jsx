@@ -70,9 +70,33 @@ const GuestList = () => {
             {/* Main Content */}
             <main className="directory-main">
                 {loading ? (
-                    <div className="directory-loading">
-                        <div className="loader-ring"></div>
-                        <p>Curating investment opportunities...</p>
+                    // ==========================================
+                    // SKELETON LOADING UNTUK INVESTOR GRID
+                    // ==========================================
+                    <div className="directory-grid">
+                        {[1, 2, 3, 4, 5, 6].map((skel) => (
+                            <article key={skel} className="directory-card overflow-hidden bg-white">
+                                {/* Skeleton Gambar (Thumbnail) */}
+                                <div className="w-full h-[220px] bg-slate-200 animate-pulse"></div>
+
+                                {/* Skeleton Teks (Kandungan Bawah) */}
+                                <div className="card-content-modern p-6 flex flex-col gap-4">
+                                    <div className="flex justify-between items-center">
+                                        {/* Skeleton Nama Bisnes */}
+                                        <div className="h-6 w-1/2 bg-slate-300 rounded animate-pulse"></div>
+                                        {/* Skeleton Badge Founder */}
+                                        <div className="h-6 w-1/4 bg-slate-200 rounded-full animate-pulse"></div>
+                                    </div>
+
+                                    {/* Skeleton Description */}
+                                    <div className="flex flex-col gap-2 mt-2">
+                                        <div className="h-4 w-full bg-slate-200 rounded animate-pulse"></div>
+                                        <div className="h-4 w-5/6 bg-slate-200 rounded animate-pulse"></div>
+                                        <div className="h-4 w-2/3 bg-slate-200 rounded animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
                     </div>
                 ) : portfolios.length === 0 ? (
                     <div className="directory-empty">

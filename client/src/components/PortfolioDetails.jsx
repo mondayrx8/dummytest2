@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import InvestorPitchDeck from './InvestorPitchDeck';
 import { HeroParallax } from "./ui/hero-parallax.jsx";
+import TemplateSecond from './TemplateSecond';
 import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
@@ -28,10 +29,39 @@ const PortfolioDetails = () => {
         fetchPortfolio();
     }, [id]);
 
+    // ==========================================
+    // 1. SKELETON LOADING (PREMIUM UI)
+    // ==========================================
     if (loading) {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#F5F2EC', color: '#1A1A1A' }}>
-                <p className="animate-pulse text-xl font-semibold" style={{ fontFamily: "'Nunito', sans-serif" }}>Loading Landing Page...</p>
+            <div className="w-full min-h-screen bg-[#1A1A1A]">
+                {/* Hero Skeleton (Gelap macam Parallax) */}
+                <div className="w-full h-[60vh] bg-[#2A2A2A] animate-pulse flex flex-col items-center justify-center gap-6 px-6">
+                    <div className="w-3/4 md:w-1/2 h-12 md:h-16 bg-[#404040] rounded-xl"></div>
+                    <div className="w-full md:w-2/3 h-6 bg-[#404040] rounded-md"></div>
+                    <div className="w-2/3 md:w-1/3 h-6 bg-[#404040] rounded-md"></div>
+                </div>
+
+                {/* Content Skeleton (Cerah macam kertas) */}
+                <div className="relative z-10 w-full bg-[#FAFAF9] -mt-10 sm:-mt-20 shadow-2xl p-8 sm:p-16 lg:p-24 flex flex-col gap-16 rounded-t-[3rem] overflow-hidden">
+                    {/* Seksyen About Us Skeleton */}
+                    <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto w-full">
+                        <div className="w-32 h-4 bg-slate-200 rounded animate-pulse"></div>
+                        <div className="w-full h-12 bg-slate-200 rounded animate-pulse"></div>
+                        <div className="w-full h-32 bg-slate-200 rounded animate-pulse"></div>
+                    </div>
+
+                    {/* Seksyen Grid Skeleton */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto w-full">
+                        {[1, 2, 3, 4].map(i => (
+                            <div key={i} className="flex flex-col gap-4">
+                                <div className="w-full aspect-[3/4] bg-slate-200 rounded-2xl animate-pulse"></div>
+                                <div className="w-3/4 h-6 bg-slate-200 rounded animate-pulse"></div>
+                                <div className="w-1/2 h-4 bg-slate-200 rounded animate-pulse"></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -100,26 +130,34 @@ const PortfolioDetails = () => {
     return (
         <div className="w-full relative" style={{ backgroundColor: '#1A1A1A' }}>
 
-            {/* HERO SECTION DYNAMIC */}
-            {sourceImages.length > 0 ? (
-                // If there are images, call HeroParallax
-                <HeroParallax
-                    products={parallaxProducts}
-                    title={portfolio.businessName || "Company Without Name"}
-                    description={portfolio.slogan || "Exploring future business solutions and ideas."}
-                />
+            {portfolio.template === 'template2' ? (
+                // 🟢 BILA TEMPLATE 2 DIPILIH: Ia ambil alih 100% page, TIADA Hero Parallax
+                <TemplateSecond portfolio={portfolio} />
             ) : (
-                // Fallback Kritikal: If the user doesn't upload any image, don't call HeroParallax!
-                <div className="relative flex flex-col items-center justify-center h-[50vh] sm:h-[60vh] text-white px-4 sm:px-6 text-center" style={{ backgroundColor: '#1A1A1A' }}>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl" style={{ fontFamily: "'Fraunces', serif", fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '1.5rem', color: '#FFFFFF' }}>{portfolio.businessName}</h1>
-                    <p className="text-base sm:text-lg md:text-xl max-w-lg sm:max-w-2xl" style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(255,255,255,0.6)' }}>{portfolio.slogan}</p>
-                </div>
-            )}
+                // 🔵 BILA TEMPLATE 1 DIPILIH: Kekalkan Parallax + Pitch Deck
+                <>
+                    {/* HERO SECTION DYNAMIC */}
+                    {sourceImages.length > 0 ? (
+                        // If there are images, call HeroParallax
+                        <HeroParallax
+                            products={parallaxProducts}
+                            title={portfolio.businessName || "Company Without Name"}
+                            description={portfolio.slogan || "Exploring future business solutions and ideas."}
+                        />
+                    ) : (
+                        // Fallback Kritikal: If the user doesn't upload any image
+                        <div className="relative flex flex-col items-center justify-center h-[50vh] sm:h-[60vh] text-white px-4 sm:px-6 text-center" style={{ backgroundColor: '#1A1A1A' }}>
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl" style={{ fontFamily: "'Fraunces', serif", fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '1.5rem', color: '#FFFFFF' }}>{portfolio.businessName}</h1>
+                            <p className="text-base sm:text-lg md:text-xl max-w-lg sm:max-w-2xl" style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(255,255,255,0.6)' }}>{portfolio.slogan}</p>
+                        </div>
+                    )}
 
-            {/* MAIN CONTENT - The 0-9 Pitch Deck */}
-            <div className={`relative z-10 w-full ${sourceImages.length > 0 ? '-mt-10 sm:-mt-20 md:-mt-40 shadow-2xl' : 'mt-0'}`} style={{ backgroundColor: '#F5F2EC' }}>
-                <InvestorPitchDeck portfolio={portfolio} />
-            </div>
+                    {/* MAIN CONTENT - The 0-9 Pitch Deck */}
+                    <div className={`relative z-10 w-full ${sourceImages.length > 0 ? '-mt-10 sm:-mt-20 md:-mt-40 shadow-2xl' : 'mt-0'}`} style={{ backgroundColor: '#F5F2EC' }}>
+                        <InvestorPitchDeck portfolio={portfolio} />
+                    </div>
+                </>
+            )}
 
         </div>
     );
