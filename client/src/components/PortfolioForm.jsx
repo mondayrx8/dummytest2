@@ -166,6 +166,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
     try {
       setLoading(true);
       const res = await axios.post('https://api.siswaniaga.my/api/ai/enhance', { text: formData.aboutUs });
+      console.log("OUTPUT DARI BACKEND:", res.data);
       if (res.data && res.data.enhancedText) {
         setFormData({ ...formData, aboutUs: res.data.enhancedText });
       }

@@ -15,24 +15,23 @@ router.post('/enhance', async (req, res) => {
         });
 
         const styles = [
-            "Very professional and convincing for investors",
-            "Creative, 'catchy', and very attractive to Gen-Z",
-            "Focus on unique problem-solving",
-            "Short, aggressive, and ala-ala slogan of an international brand",
-            "Relaxed, honest, and uses storytelling style"
+            "Highly professional, authoritative, and convincing for angel investors",
+            "Corporate, articulate, and focuses on core mission and values",
+            "Sophisticated, clear, and highlights business expertise and innovation",
+            "Formal, polished, and structured for a B2B audience"
         ];
         const randomStyle = styles[Math.floor(Math.random() * styles.length)];
 
         const prompt = `
-        Act as a business copywriter.
-        Original Idea: "${text}"
+        Act as an expert corporate copywriter.
+        Original Draft: "${text}"
         Writing Style: ${randomStyle}
         
-        Task: Improve the original idea into ONE amazing paragraph/slogan according to the writing style above.
+        Task: Enhance and expand the original draft into a compelling and highly professional 'About Us' company description. Ensure impeccable grammar, clear structure, and an engaging corporate tone. Do not make it a short slogan; it should be a solid, well-written paragraph representing a serious business.
         
         Output ONLY the valid JSON format with this structure:
         {
-          "slogan": "improved text goes here"
+          "slogan": "improved 'About Us' text goes here"
         }
       `;
 
