@@ -4,7 +4,7 @@ import {
     Link2
 } from 'lucide-react';
 import {
-    FaInstagram, FaFacebook, FaTwitter, FaLinkedin, FaYoutube, FaGithub
+    FaInstagram, FaFacebook, FaTwitter, FaLinkedin, FaYoutube, FaGithub, FaWhatsapp
 } from 'react-icons/fa';
 import { FaTiktok, FaThreads } from 'react-icons/fa6';
 
@@ -78,6 +78,21 @@ const InvestorPitchDeck = ({ portfolio }) => {
         if (p.includes('tiktok')) return <FaTiktok className="h-5 w-5" />;
         if (p.includes('threads')) return <FaThreads className="h-5 w-5" />;
         return <Link2 className="h-5 w-5" />;
+    };
+
+    const getFullSocialLink = (platform, value) => {
+        if (!value) return "#";
+        if (value.startsWith('http')) return value;
+        const username = value.startsWith('@') ? value : `@${value}`;
+        const cleanUser = value.replace('@', '');
+        const links = {
+            tiktok: `https://www.tiktok.com/${username}`,
+            instagram: `https://www.instagram.com/${cleanUser}`,
+            twitter: `https://x.com/${cleanUser}`,
+            facebook: `https://www.facebook.com/${cleanUser}`,
+            threads: `https://www.threads.net/${username}`
+        };
+        return links[platform.toLowerCase()] || `https://${value}`;
     };
 
     // Pad ordinal: 1 → "01"
@@ -365,10 +380,16 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             )}
                             {phone && (
                                 <div className="pitch-contact-card">
-                                    <div className="pitch-contact-icon"><Smartphone className="h-5 w-5" /></div>
+                                    <div className="pitch-contact-icon bg-[#25D366] text-white border-transparent">
+                                        <FaWhatsapp className="h-5 w-5" />
+                                    </div>
                                     <div className="min-w-0">
-                                        <p className="pitch-contact-label">Direct Line</p>
-                                        <p className="pitch-contact-value break-words">{phone}</p>
+                                        <p className="pitch-contact-label">WhatsApp</p>
+                                        <p className="pitch-contact-value break-words">
+                                            <a href={`https://wa.me/${phone.replace(/[^0-9]/g, '').startsWith('6') ? phone.replace(/[^0-9]/g, '') : '6' + phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer" className="text-[#25D366] font-bold hover:underline">
+                                                Chat Founder
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                             )}
@@ -404,7 +425,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                                     {socialList.map((s, i) => (
                                         <a
                                             key={i}
-                                            href={s.url.startsWith('http') ? s.url : `https://${s.url}`}
+                                            href={getFullSocialLink(s.platform, s.url)}
                                             target="_blank"
                                             rel="noreferrer"
                                             className="pitch-social-link"

@@ -11,6 +11,8 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   // 1. STATE INITIALIZATION (Struktur Baru 0-9)
   // ==========================================
   const initialFormState = {
+    banner: '',
+    template: 'template1',
     businessName: '', // 0
     slogan: '', // 1
     aboutUs: '', // 2
@@ -160,12 +162,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   // 6. AI & SUBMISSION
   // ==========================================
   const handleEnhanceWithAI = async () => {
-    if (!formData.slogan) return alert("Please enter your basic business idea in the slogan section first.");
+    if (!formData.aboutUs) return alert("Please enter your basic business idea in the about us section first.");
     try {
       setLoading(true);
-      const res = await axios.post('https://api.siswaniaga.my/api/ai/enhance', { text: formData.slogan });
-      if (res.data && res.data.slogan) {
-        setFormData({ ...formData, slogan: res.data.slogan });
+      const res = await axios.post('https://api.siswaniaga.my/api/ai/enhance', { text: formData.aboutUs });
+      if (res.data && res.data.enhancedText) {
+        setFormData({ ...formData, aboutUs: res.data.enhancedText });
       }
     } catch (error) {
       alert("Failed to process AI.");
@@ -223,6 +225,22 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           {/* ==========================================
               0 & 1: HERO SECTION
           ========================================== */}
+          <div className="input-group">
+            <label className="input-label">Pilih Design Template</label>
+            <select name="template" value={formData.template} onChange={handleChange} className="modern-select">
+              <option value="template1">Template 1 (Ultra-Premium Dark)</option>
+              <option value="template2">Template 2 (Minimalist Professional - Coming Soon)</option>
+            </select>
+          </div>
+
+          {/* Bahagian Muat Naik Banner Khas */}
+          <div className="upload-area mt-4">
+            <label className="input-label">Banner Utama (Hero Image) *</label>
+            <input type="file" accept="image/*" onChange={(e) => handleSingleImageUpload(e, 'banner')} className="modern-input" />
+            <p className="text-xs text-zinc-500 mt-1">Gambar ini akan jadi latar belakang utama di bahagian atas skrin.</p>
+            {formData.banner && <img src={formData.banner} alt="Banner" className="mt-2 rounded-xl h-24 w-full object-cover" />}
+          </div>
+
           <section className="form-card">
             <div className="card-header">
               <span className="card-number">1</span>
@@ -237,9 +255,6 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             <div className="input-group">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                 <label className="input-label" style={{ margin: 0 }}>Slogan / Short Pitch</label>
-                <button type="button" onClick={handleEnhanceWithAI} disabled={loading} className={`ai-btn ${loading ? 'ai-loading' : ''}`}>
-                  {loading ? 'Thinking...' : <><Sparkles size={16} style={{ marginRight: '4px' }} /> Improve with AI</>}
-                </button>
               </div>
               <textarea name="slogan" value={formData.slogan} onChange={handleChange} className="modern-textarea" placeholder="Investor pitch..." />
             </div>
@@ -255,7 +270,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             <div className="input-group">
-              <label className="input-label">About Us</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <label className="input-label" style={{ margin: 0 }}>About Us</label>
+                <button type="button" onClick={handleEnhanceWithAI} disabled={loading} className={`ai-btn ${loading ? 'ai-loading' : ''}`}>
+                  {loading ? 'Thinking...' : <><Sparkles size={16} style={{ marginRight: '4px' }} /> Improve with AI</>}
+                </button>
+              </div>
               <textarea name="aboutUs" value={formData.aboutUs} onChange={handleChange} className="modern-textarea" placeholder="Tell us about your company's history and expertise..." />
             </div>
 
