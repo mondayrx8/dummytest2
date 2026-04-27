@@ -39,6 +39,8 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   useEffect(() => {
     if (currentPortfolio) {
       setFormData({
+        banner: currentPortfolio.banner || '',
+        template: currentPortfolio.template || 'template1',
         businessName: currentPortfolio.businessName || '',
         slogan: currentPortfolio.slogan || '',
         aboutUs: currentPortfolio.aboutUs || '',
@@ -126,9 +128,12 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       if (arrayIndex !== null) {
         // For arrays (Team, Achievements)
         handleArrayChange(section, arrayIndex, field, url);
-      } else {
-        // For ordinary objects (MissionVision Graphic)
+      } else if (field !== null) {
+        // For ordinary nested objects (MissionVision Graphic)
         handleNestedChange(section, field, url);
+      } else {
+        // For top level string like banner
+        setFormData({ ...formData, [section]: url });
       }
     } catch (error) {
       console.error("Upload Error:", error);

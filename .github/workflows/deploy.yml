@@ -11,7 +11,7 @@ jobs:
   # JOB 1: BUILD & DEPLOY FRONTEND (CLOUDFLARE)
   # ==========================================
   deploy-frontend:
-    name: Deploy Frontend ke Cloudflare Pages
+    name: Deploy Frontend to Cloudflare Pages
     runs-on: ubuntu-latest
     steps:
       - name: Download latest code
