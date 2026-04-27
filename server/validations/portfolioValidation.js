@@ -11,6 +11,9 @@ const { z } = require('zod');
 // ──────────────────────────────────────────────
 const portfolioFields = {
 
+    banner: z.string().optional(),
+    template: z.string().optional(),
+
     // 0. Business Name (Satu-satunya yang WAJIB)
     businessName: z
         .string({ required_error: 'Business name is required' })

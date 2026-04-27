@@ -8,6 +8,9 @@ const portfolioSchema = new mongoose.Schema({
         required: true
     },
 
+    banner: { type: String, default: "" },
+    template: { type: String, default: "template1" },
+
     // 0. Nama Bisnes / Company
     businessName: {
         type: String,
