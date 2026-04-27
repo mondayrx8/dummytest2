@@ -1,0 +1,61 @@
+name: Automasi CI/CD SiswaNiaga
+
+# This action will run every time I 'git push' to branch 'main'
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if your branch name is master
+
+jobs:
+  # ==========================================
+  # JOB 1: BUILD & DEPLOY FRONTEND (CLOUDFLARE)
+  # ==========================================
+  deploy-frontend:
+    name: Deploy Frontend ke Cloudflare Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download latest code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use stable Node version
+
+      - name: Install Dependencies (Client)
+        working-directory: ./client
+        run: npm install
+
+      - name: Build Project React (Vite)
+        working-directory: ./client
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          # IMPORTANT: Change 'nama-projek-kau' to your actual project name in Cloudflare Pages!
+          command: pages deploy client/dist --project-name siswaniaga-frontend
+
+  # ==========================================
+  # JOB 2: DEPLOY BACKEND TO VPS (PM2)
+  # ==========================================
+  deploy-backend:
+    name: Deploy Backend to VPS
+    runs-on: ubuntu-latest
+    needs: deploy-frontend # Backend will run after Frontend successfully deployed
+    steps:
+      - name: Connect to VPS & Restart Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_PRIVATE_KEY }}
+          # IMPORTANT: Change the path 'cd /var/www/projek-aku' to your actual folder location in VPS!
+          script: |
+            cd /home/ubuntu/dummytest2
+            git pull origin main
+            cd server
+            npm install
+            pm2 restart all
