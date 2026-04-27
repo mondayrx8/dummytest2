@@ -1,4 +1,4 @@
-name: Automasi CI/CD SiswaNiaga
+name: Automate CI/CD SiswaNiaga
 
 # This action will run every time I 'git push' to branch 'main'
 on:

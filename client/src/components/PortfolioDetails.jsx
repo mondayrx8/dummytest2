@@ -110,14 +110,14 @@ const PortfolioDetails = () => {
                 />
             ) : (
                 // Fallback Kritikal: If the user doesn't upload any image, don't call HeroParallax!
-                <div className="relative flex flex-col items-center justify-center h-[60vh] text-white px-6 text-center" style={{ backgroundColor: '#1A1A1A' }}>
-                    <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '1.5rem', color: '#FFFFFF' }}>{portfolio.businessName}</h1>
-                    <p style={{ fontFamily: "'Nunito', sans-serif", fontSize: '1.25rem', maxWidth: '36rem', color: 'rgba(255,255,255,0.6)' }}>{portfolio.slogan}</p>
+                <div className="relative flex flex-col items-center justify-center h-[50vh] sm:h-[60vh] text-white px-4 sm:px-6 text-center" style={{ backgroundColor: '#1A1A1A' }}>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl" style={{ fontFamily: "'Fraunces', serif", fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '1.5rem', color: '#FFFFFF' }}>{portfolio.businessName}</h1>
+                    <p className="text-base sm:text-lg md:text-xl max-w-lg sm:max-w-2xl" style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(255,255,255,0.6)' }}>{portfolio.slogan}</p>
                 </div>
             )}
 
             {/* MAIN CONTENT - The 0-9 Pitch Deck */}
-            <div className={`relative z-10 w-full ${sourceImages.length > 0 ? '-mt-20 md:-mt-40 rounded-t-[0rem] shadow-2xl' : 'mt-0'}`} style={{ backgroundColor: '#F5F2EC' }}>
+            <div className={`relative z-10 w-full ${sourceImages.length > 0 ? '-mt-10 sm:-mt-20 md:-mt-40 shadow-2xl' : 'mt-0'}`} style={{ backgroundColor: '#F5F2EC' }}>
                 <InvestorPitchDeck portfolio={portfolio} />
             </div>
 

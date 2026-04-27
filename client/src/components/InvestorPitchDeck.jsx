@@ -87,7 +87,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
         <div className="pitch-deck" style={{ fontFamily: "'Nunito', sans-serif" }}>
 
             {/* Spacer after hero */}
-            <div style={{ paddingTop: 'clamp(4rem, 6vw, 6rem)' }}></div>
+            <div className="pt-16 sm:pt-20 lg:pt-24"></div>
 
             {/* ================================================================ */}
             {/* 1. ABOUT US — Cinematic Image + Frosted Overlay                  */}
@@ -103,7 +103,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             />
                             <div className="pitch-about-overlay">
                                 <span className="pitch-eyebrow">Who We Are</span>
-                                <h2 className="pitch-heading" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+                                <h2 className="pitch-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                                     About Us
                                 </h2>
                                 <SectionBody text={aboutUs} />
@@ -117,35 +117,28 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 2. MISSION & VISION — Dark Editorial Pull-Quotes                 */}
             {/* ================================================================ */}
             {(missionVision.mission || missionVision.vision) && (
-                <section id="pitch-mission" className="pitch-section pitch-section--ink" style={{ overflow: 'hidden' }}>
+                <section id="pitch-mission" className="pitch-section pitch-section--ink overflow-hidden relative">
                     {/* Background image if available */}
                     {missionVision.graphicInfo && (
-                        <div style={{
-                            position: 'absolute', inset: 0,
-                            backgroundImage: `url(${missionVision.graphicInfo})`,
-                            backgroundSize: 'cover', backgroundPosition: 'center',
-                            opacity: 0.06, pointerEvents: 'none'
-                        }} />
+                        <div
+                            className="absolute inset-0 bg-cover bg-center opacity-[0.06] pointer-events-none"
+                            style={{ backgroundImage: `url(${missionVision.graphicInfo})` }}
+                        />
                     )}
 
-                    <div className="pitch-container" style={{ position: 'relative', zIndex: 1 }}>
+                    <div className="pitch-container relative z-[1]">
                         <div data-reveal>
                             <span className="pitch-eyebrow">Our Direction</span>
-                            <h2 className="pitch-heading pitch-heading--inverted" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '3rem' }}>
+                            <h2 className="pitch-heading pitch-heading--inverted text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-8 sm:mb-10 lg:mb-12">
                                 Mission & Vision
                             </h2>
                         </div>
 
-                        <div data-reveal style={{
-                            display: 'flex', flexDirection: 'column', gap: '3rem'
-                        }}>
-                            {/* Desktop: side-by-side. Mobile: stacked. Done via CSS media queries + flex */}
-                            <div style={{
-                                display: 'flex', gap: 'clamp(2rem, 4vw, 4rem)',
-                                flexWrap: 'wrap'
-                            }}>
+                        <div data-reveal className="flex flex-col gap-8 sm:gap-10 lg:gap-12">
+                            {/* Stacks vertically on mobile, side-by-side on lg */}
+                            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                                 {missionVision.mission && (
-                                    <div style={{ flex: '1 1 20rem' }}>
+                                    <div className="flex-1 min-w-0">
                                         <p className="pitch-mv-label">Mission</p>
                                         <p className="pitch-mv-quote">{missionVision.mission}</p>
                                     </div>
@@ -154,7 +147,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                                     <div className="pitch-mv-divider" />
                                 )}
                                 {missionVision.vision && (
-                                    <div style={{ flex: '1 1 20rem' }}>
+                                    <div className="flex-1 min-w-0">
                                         <p className="pitch-mv-label">Vision</p>
                                         <p className="pitch-mv-quote">{missionVision.vision}</p>
                                     </div>
@@ -171,23 +164,19 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {ourTeam.length > 0 && (
                 <section id="pitch-team" className="pitch-section pitch-section--paper">
                     <div className="pitch-container">
-                        <div data-reveal style={{ maxWidth: '44rem', marginBottom: 'clamp(2.5rem, 4vw, 4rem)' }}>
+                        <div data-reveal className="max-w-2xl mb-8 sm:mb-10 lg:mb-14">
                             <span className="pitch-eyebrow">The Team</span>
-                            <h2 className="pitch-heading" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+                            <h2 className="pitch-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                                 People who make it happen.
                             </h2>
-                            <p className="pitch-body" style={{ marginTop: '1rem' }}>
+                            <p className="pitch-body mt-3 sm:mt-4">
                                 Meet the people behind our mission — strategists, makers, and visionaries building something that matters.
                             </p>
                         </div>
 
                         <div
                             data-reveal-stagger
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 16rem), 1fr))',
-                                gap: '1.5rem'
-                            }}
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 lg:gap-6"
                         >
                             {ourTeam.map((member, idx) => (
                                 <div
@@ -196,7 +185,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                                     className="pitch-team-card"
                                     style={{ '--reveal-index': idx }}
                                 >
-                                    <div style={{ overflow: 'hidden' }}>
+                                    <div className="overflow-hidden">
                                         <img
                                             src={member.image || 'https://via.placeholder.com/400x500'}
                                             alt={member.name}
@@ -223,9 +212,9 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {ourServices.length > 0 && (
                 <section id="pitch-services" className="pitch-section pitch-section--chalk">
                     <div className="pitch-container">
-                        <div data-reveal style={{ marginBottom: 'clamp(2rem, 4vw, 3.5rem)' }}>
+                        <div data-reveal className="mb-8 sm:mb-10 lg:mb-14">
                             <span className="pitch-eyebrow">What We Do</span>
-                            <h2 className="pitch-heading" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+                            <h2 className="pitch-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                                 Our Services
                             </h2>
                         </div>
@@ -251,14 +240,14 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {(targetMarket.tam || targetMarket.sam || targetMarket.som) && (
                 <section id="pitch-market" className="pitch-section pitch-section--paper">
                     <div className="pitch-container">
-                        <div data-reveal style={{ marginBottom: 'clamp(2rem, 4vw, 3.5rem)' }}>
+                        <div data-reveal className="mb-8 sm:mb-10 lg:mb-14">
                             <span className="pitch-eyebrow">Market Potential</span>
-                            <h2 className="pitch-heading" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+                            <h2 className="pitch-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                                 Target Market
                             </h2>
                         </div>
 
-                        <div data-reveal style={{ maxWidth: '56rem' }}>
+                        <div data-reveal className="max-w-3xl">
                             {[
                                 { id: 'tam', code: 'TAM', label: 'Total Addressable Market', value: targetMarket.tam, barClass: 'pitch-market-bar--tam' },
                                 { id: 'sam', code: 'SAM', label: 'Serviceable Available Market', value: targetMarket.sam, barClass: 'pitch-market-bar--sam' },
@@ -266,7 +255,7 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             ].filter(m => !!m.value).map((m) => (
                                 <div key={m.id} className="pitch-market-tier">
                                     <div>
-                                        <p className="pitch-market-code" style={{ marginBottom: 0 }}>{m.code}</p>
+                                        <p className="pitch-market-code mb-0">{m.code}</p>
                                         <p className="pitch-market-label">{m.label}</p>
                                     </div>
                                     <div className={`pitch-market-bar ${m.barClass}`}>
@@ -285,9 +274,9 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {achievements.length > 0 && (
                 <section id="pitch-achievements" className="pitch-section pitch-section--chalk">
                     <div className="pitch-container">
-                        <div data-reveal style={{ textAlign: 'center', maxWidth: '36rem', margin: '0 auto', marginBottom: 'clamp(2rem, 4vw, 3.5rem)' }}>
-                            <span className="pitch-eyebrow" style={{ justifyContent: 'center' }}>Milestones</span>
-                            <h2 className="pitch-heading" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+                        <div data-reveal className="text-center max-w-lg mx-auto mb-8 sm:mb-10 lg:mb-14">
+                            <span className="pitch-eyebrow justify-center">Milestones</span>
+                            <h2 className="pitch-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                                 Our Achievements
                             </h2>
                         </div>
@@ -320,18 +309,18 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* 7. PRODUCT GALLERY — Clean Marquee                               */}
             {/* ================================================================ */}
             {products.length > 0 && (
-                <section id="pitch-gallery" className="pitch-section pitch-section--paper" style={{ paddingBottom: 0 }}>
-                    <div className="pitch-container" style={{ marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-                        <div data-reveal style={{ textAlign: 'center', maxWidth: '36rem', margin: '0 auto' }}>
-                            <span className="pitch-eyebrow" style={{ justifyContent: 'center' }}>Our Products</span>
-                            <h2 className="pitch-heading" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+                <section id="pitch-gallery" className="pitch-section pitch-section--paper pb-0">
+                    <div className="pitch-container mb-8 sm:mb-10 lg:mb-12">
+                        <div data-reveal className="text-center max-w-lg mx-auto">
+                            <span className="pitch-eyebrow justify-center">Our Products</span>
+                            <h2 className="pitch-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                                 Product & Innovation
                             </h2>
                         </div>
                     </div>
 
                     <div data-reveal className="pitch-gallery-strip">
-                        <div className="pitch-marquee-track" style={{ display: 'flex', gap: '1.5rem', width: 'max-content', padding: '0 1.5rem' }}>
+                        <div className="pitch-marquee-track flex gap-3 sm:gap-4 lg:gap-6 w-max px-3 sm:px-4 lg:px-6">
                             {marqueeImages.map((src, i) => (
                                 <figure key={`marquee-${i}`} className="pitch-gallery-item">
                                     <img src={src} alt={`Product ${i + 1}`} loading="lazy" crossOrigin="anonymous" />
@@ -345,59 +334,50 @@ const InvestorPitchDeck = ({ portfolio }) => {
             {/* ================================================================ */}
             {/* 8. CONTACT / FOOTER — Dark Editorial CTA                        */}
             {/* ================================================================ */}
-            <footer id="pitch-contact" className="pitch-section pitch-section--ink" style={{ borderRadius: 0 }}>
+            <footer id="pitch-contact" className="pitch-section pitch-section--ink rounded-none">
                 <div className="pitch-container">
-                    <div data-reveal style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr',
-                        gap: 'clamp(3rem, 5vw, 4rem)'
-                    }}>
+                    <div data-reveal className="grid grid-cols-1 gap-10 sm:gap-12 lg:gap-16">
                         {/* Left — CTA */}
-                        <div style={{ maxWidth: '48rem' }}>
+                        <div className="max-w-3xl">
                             <span className="pitch-eyebrow">Let's Connect</span>
                             <h2
-                                className="pitch-heading pitch-heading--inverted"
-                                style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)', marginBottom: '1.5rem' }}
+                                className="pitch-heading pitch-heading--inverted text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6"
                             >
                                 Ready to build the future of{' '}
-                                <span style={{ fontStyle: 'italic', color: '#B8860B' }}>{businessName}</span>{' '}
+                                <span className="italic" style={{ color: '#B8860B' }}>{businessName}</span>{' '}
                                 together?
                             </h2>
-                            <p className="pitch-body pitch-body--inverted" style={{ maxWidth: '36rem' }}>
+                            <p className="pitch-body pitch-body--inverted max-w-lg text-base sm:text-lg">
                                 We are always looking for visionary partners, investors, and clients. Reach out and let's start a conversation.
                             </p>
                         </div>
 
                         {/* Right — Contact Cards */}
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 20rem), 1fr))',
-                            gap: '1rem'
-                        }}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             {address && (
                                 <div className="pitch-contact-card">
                                     <div className="pitch-contact-icon"><MapPin className="h-5 w-5" /></div>
-                                    <div>
+                                    <div className="min-w-0">
                                         <p className="pitch-contact-label">Headquarters</p>
-                                        <p className="pitch-contact-value">{address}</p>
+                                        <p className="pitch-contact-value break-words">{address}</p>
                                     </div>
                                 </div>
                             )}
                             {phone && (
                                 <div className="pitch-contact-card">
                                     <div className="pitch-contact-icon"><Smartphone className="h-5 w-5" /></div>
-                                    <div>
+                                    <div className="min-w-0">
                                         <p className="pitch-contact-label">Direct Line</p>
-                                        <p className="pitch-contact-value">{phone}</p>
+                                        <p className="pitch-contact-value break-words">{phone}</p>
                                     </div>
                                 </div>
                             )}
                             {email && (
                                 <div className="pitch-contact-card">
                                     <div className="pitch-contact-icon"><Mail className="h-5 w-5" /></div>
-                                    <div>
+                                    <div className="min-w-0">
                                         <p className="pitch-contact-label">Email</p>
-                                        <p className="pitch-contact-value">
+                                        <p className="pitch-contact-value break-words">
                                             <a href={`mailto:${email}`}>{email}</a>
                                         </p>
                                     </div>
@@ -406,9 +386,9 @@ const InvestorPitchDeck = ({ portfolio }) => {
                             {website && (
                                 <div className="pitch-contact-card">
                                     <div className="pitch-contact-icon"><Globe className="h-5 w-5" /></div>
-                                    <div>
+                                    <div className="min-w-0">
                                         <p className="pitch-contact-label">Website</p>
-                                        <p className="pitch-contact-value">
+                                        <p className="pitch-contact-value break-words">
                                             <a href={website} target="_blank" rel="noreferrer">{website}</a>
                                         </p>
                                     </div>
@@ -419,8 +399,8 @@ const InvestorPitchDeck = ({ portfolio }) => {
                         {/* Socials */}
                         {socialList.length > 0 && (
                             <div data-reveal>
-                                <p className="pitch-contact-label" style={{ marginBottom: '1rem' }}>Follow Our Journey</p>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+                                <p className="pitch-contact-label mb-3 sm:mb-4">Follow Our Journey</p>
+                                <div className="flex flex-wrap gap-2 sm:gap-3">
                                     {socialList.map((s, i) => (
                                         <a
                                             key={i}
@@ -452,7 +432,7 @@ const SectionBody = ({ text }) => {
     const paragraphs = String(text).split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 
     return (
-        <div className="pitch-body" style={{ marginTop: '1rem' }}>
+        <div className="pitch-body mt-3 sm:mt-4">
             {paragraphs.map((p, i) => (
                 <p key={i} style={{ marginBottom: i < paragraphs.length - 1 ? '1rem' : 0 }}>{p}</p>
             ))}
