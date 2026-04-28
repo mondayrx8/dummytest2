@@ -232,18 +232,18 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               0 & 1: HERO SECTION
           ========================================== */}
           <div className="input-group">
-            <label className="input-label">Pilih Design Template</label>
+            <label className="input-label">Choose Template Design</label>
             <select name="template" value={formData.template} onChange={handleChange} className="modern-select">
-              <option value="template1">Template 1 (Ultra-Premium Dark)</option>
-              <option value="template2">Template 2 (Minimalist Professional - Coming Soon)</option>
+              <option value="template1">Template 1 (Premium)</option>
+              <option value="template2">Template 2 (Professional)</option>
             </select>
           </div>
 
           {/* Bahagian Muat Naik Banner Khas */}
           <div className="upload-area mt-4">
-            <label className="input-label">Banner Utama (Hero Image) *</label>
+            <label className="input-label">Upload Background Image</label>
             <input type="file" accept="image/*" onChange={(e) => handleSingleImageUpload(e, 'banner')} className="modern-input" />
-            <p className="text-xs text-zinc-500 mt-1">Gambar ini akan jadi latar belakang utama di bahagian atas skrin.</p>
+            <p className="text-xs text-zinc-500 mt-1">This image will be the background of the first section.</p>
             {formData.banner && <img src={formData.banner} alt="Banner" className="mt-2 rounded-xl h-24 w-full object-cover" />}
           </div>
 
@@ -255,7 +255,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
             <div className="input-group">
               <label className="input-label">Company Name *</label>
-              <input type="text" name="businessName" value={formData.businessName} onChange={handleChange} className="modern-input" placeholder="Cth: SiswaNiaga Tech" required />
+              <input type="text" name="businessName" value={formData.businessName} onChange={handleChange} className="modern-input" placeholder="Ex: SiswaNiaga Tech" required />
             </div>
 
             <div className="input-group">
@@ -321,11 +321,11 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                 <div className="form-grid">
                   <div className="input-group">
                     <label className="input-label">Name</label>
-                    <input type="text" value={member.name} onChange={(e) => handleArrayChange('ourTeam', index, 'name', e.target.value)} className="modern-input" placeholder="Cth: Ali Bin Abu" />
+                    <input type="text" value={member.name} onChange={(e) => handleArrayChange('ourTeam', index, 'name', e.target.value)} className="modern-input" placeholder="Ex: John Doe" />
                   </div>
                   <div className="input-group">
                     <label className="input-label">Role</label>
-                    <input type="text" value={member.role} onChange={(e) => handleArrayChange('ourTeam', index, 'role', e.target.value)} className="modern-input" placeholder="Cth: Founder & CEO" />
+                    <input type="text" value={member.role} onChange={(e) => handleArrayChange('ourTeam', index, 'role', e.target.value)} className="modern-input" placeholder="Ex: Founder & CEO" />
                   </div>
                 </div>
 
@@ -335,7 +335,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                     value={member.description || ''}
                     onChange={(e) => handleArrayChange('ourTeam', index, 'description', e.target.value)}
                     className="modern-textarea"
-                    placeholder="Cth: Expert in digital printing field..."
+                    placeholder="Ex: Expert in digital printing field..."
                     rows="3"
                   />
                 </div>
@@ -368,7 +368,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
                 <div className="input-group">
                   <label className="input-label">Service Name</label>
-                  <input type="text" value={service.serviceName} onChange={(e) => handleArrayChange('ourServices', index, 'serviceName', e.target.value)} className="modern-input" placeholder="Cth: IT Consultation" />
+                  <input type="text" value={service.serviceName} onChange={(e) => handleArrayChange('ourServices', index, 'serviceName', e.target.value)} className="modern-input" placeholder="Ex: IT Consultation" />
                 </div>
                 <div className="input-group mt-2">
                   <label className="input-label">Short Description</label>
@@ -422,15 +422,15 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             <div className="form-grid">
               <div className="input-group">
                 <label className="input-label">TAM (Total Addressable Market)</label>
-                <input type="text" value={formData.targetMarket.tam} onChange={(e) => handleNestedChange('targetMarket', 'tam', e.target.value)} className="modern-input" placeholder="Cth: RM 1B (Worldwide)" />
+                <input type="text" value={formData.targetMarket.tam} onChange={(e) => handleNestedChange('targetMarket', 'tam', e.target.value)} className="modern-input" placeholder="Ex: RM 1B (Worldwide)" />
               </div>
               <div className="input-group">
                 <label className="input-label">SAM (Serviceable Available Market)</label>
-                <input type="text" value={formData.targetMarket.sam} onChange={(e) => handleNestedChange('targetMarket', 'sam', e.target.value)} className="modern-input" placeholder="Cth: RM 100M (Southeast Asia)" />
+                <input type="text" value={formData.targetMarket.sam} onChange={(e) => handleNestedChange('targetMarket', 'sam', e.target.value)} className="modern-input" placeholder="Ex: RM 100M (Southeast Asia)" />
               </div>
               <div className="input-group">
                 <label className="input-label">SOM (Serviceable Obtainable Market)</label>
-                <input type="text" value={formData.targetMarket.som} onChange={(e) => handleNestedChange('targetMarket', 'som', e.target.value)} className="modern-input" placeholder="Cth: RM 1M (First Year)" />
+                <input type="text" value={formData.targetMarket.som} onChange={(e) => handleNestedChange('targetMarket', 'som', e.target.value)} className="modern-input" placeholder="Ex: RM 1M (First Year)" />
               </div>
             </div>
           </section>
@@ -450,7 +450,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
 
                 <div className="input-group">
                   <label className="input-label">Achievement Description</label>
-                  <input type="text" value={achieve.description} onChange={(e) => handleArrayChange('achievements', index, 'description', e.target.value)} className="modern-input" placeholder="Cth: National Innovation Champion 2024" />
+                  <input type="text" value={achieve.description} onChange={(e) => handleArrayChange('achievements', index, 'description', e.target.value)} className="modern-input" placeholder="Ex: National Innovation Champion 2024" />
                 </div>
 
                 <div className="input-group mt-2">
@@ -478,7 +478,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             <div className="form-grid">
               <div className="input-group">
                 <label className="input-label">Phone Number</label>
-                <input type="text" value={formData.contactInfo.phone} onChange={(e) => handleNestedChange('contactInfo', 'phone', e.target.value)} className="modern-input" placeholder="Cth: +60123456789" />
+                <input type="text" value={formData.contactInfo.phone} onChange={(e) => handleNestedChange('contactInfo', 'phone', e.target.value)} className="modern-input" placeholder="Ex: +60123456789" />
               </div>
               <div className="input-group">
                 <label className="input-label">Official Email</label>

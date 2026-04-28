@@ -273,22 +273,21 @@ export default function TemplateSecond({ portfolio }) {
                                 )}
 
                                 {/* Graphic / Quote block */}
-                                {portfolio.missionVision.graphicInfo && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 30 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, margin: "-50px" }}
-                                        transition={{ duration: 0.7, delay: 0.2 }}
-                                        className="lg:col-span-2 flex"
-                                    >
-                                        <div className="flex-1 rounded-2xl bg-zinc-900 text-white p-6 sm:p-7 flex flex-col justify-between min-h-[180px]">
-                                            <div className="text-4xl sm:text-5xl font-serif leading-none text-[#F97316]">&ldquo;</div>
-                                            <p className="text-sm sm:text-base leading-relaxed text-zinc-300 text-pretty">
-                                                {portfolio.missionVision.graphicInfo}
-                                            </p>
-                                        </div>
-                                    </motion.div>
-                                )}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.7, delay: 0.2 }}
+                                    className="lg:col-span-2 flex"
+                                >
+                                    <div className="flex-1 rounded-2xl bg-zinc-900 text-white p-6 sm:p-10 flex flex-col justify-center gap-4 min-h-[180px] hover:shadow-lg transition-shadow duration-300">
+                                        <div className="text-4xl sm:text-5xl font-serif leading-none text-[#F97316]">&ldquo;</div>
+                                        <p className="text-sm sm:text-base leading-relaxed text-zinc-300 text-pretty italic">
+                                            Less, but considered. Every line, every stitch, intentional.
+                                        </p>
+
+                                    </div>
+                                </motion.div>
 
                                 {/* Vision */}
                                 {portfolio.missionVision.vision && (
@@ -472,7 +471,7 @@ export default function TemplateSecond({ portfolio }) {
 
                         <div className="space-y-14 sm:space-y-20">
                             {achievements.map((a, i) => {
-                                const reverse = i % 2 === 1
+                                const reverse = i % 2 === 1;
                                 return (
                                     <motion.div
                                         key={i}
@@ -480,27 +479,27 @@ export default function TemplateSecond({ portfolio }) {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true, margin: "-80px" }}
                                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                                        className={
-                                            "grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center " +
-                                            (reverse ? "lg:[&>*:first-child]:order-2" : "")
-                                        }
+                                        className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center"
                                     >
-                                        <div className="lg:col-span-6">
+                                        {/* BAHAGIAN GAMBAR */}
+                                        <div className={`lg:col-span-6 ${reverse ? "lg:order-2 lg:col-start-7" : "lg:order-1"}`}>
                                             <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-zinc-100">
                                                 {a.image ? (
                                                     <motion.img
                                                         src={a.image || "/placeholder.svg"}
                                                         alt={a.description || "Achievement"}
-                                                        className="size-full object-cover"
+                                                        className="w-full h-full object-cover"
                                                         whileHover={{ scale: 1.04 }}
                                                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                                                     />
                                                 ) : (
-                                                    <div className="size-full bg-gradient-to-br from-zinc-100 to-zinc-200" />
+                                                    <div className="w-full h-full bg-gradient-to-br from-zinc-100 to-zinc-200" />
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="lg:col-span-5 lg:col-start-8">
+
+                                        {/* BAHAGIAN TEKS */}
+                                        <div className={`lg:col-span-5 ${reverse ? "lg:order-1 lg:col-start-1" : "lg:order-2 lg:col-start-8"}`}>
                                             <div className="flex items-baseline gap-3 sm:gap-4 mb-4 sm:mb-6">
                                                 <span className="text-5xl sm:text-6xl font-light text-[#F97316] tabular-nums">
                                                     {String(i + 1).padStart(2, "0")}
@@ -512,7 +511,7 @@ export default function TemplateSecond({ portfolio }) {
                                             </p>
                                         </div>
                                     </motion.div>
-                                )
+                                );
                             })}
                         </div>
                     </div>
