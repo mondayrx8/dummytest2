@@ -42,6 +42,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
       setFormData({
         banner: currentPortfolio.banner || '',
         template: currentPortfolio.template || 'template1',
+        category: currentPortfolio.category || '',
         businessName: currentPortfolio.businessName || '',
         slogan: currentPortfolio.slogan || '',
         aboutUs: currentPortfolio.aboutUs || '',

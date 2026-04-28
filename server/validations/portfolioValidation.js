@@ -13,6 +13,7 @@ const portfolioFields = {
 
     banner: z.string().optional(),
     template: z.string().optional(),
+    category: z.string().optional(),
 
     // 0. Business Name (Satu-satunya yang WAJIB)
     businessName: z

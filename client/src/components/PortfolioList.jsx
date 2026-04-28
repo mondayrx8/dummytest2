@@ -345,6 +345,9 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                     <th className="px-6 py-3.5 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider">
                                         Theme Template
                                     </th>
+                                    <th className="px-6 py-3.5 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+                                        Date Created
+                                    </th>
                                     <th className="px-6 py-3.5 text-right text-xs font-semibold text-zinc-500 uppercase tracking-wider">
                                         Actions
                                     </th>
@@ -367,8 +370,10 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                                 : 'Founder';
                                         const itemCategory = item.category || 'Other';
                                         const template = item.theme || item.template || item.themeTemplate || '—';
-                                        const canEdit =
-                                            currentUser?.role === 'admin' || currentUser?.id === item.userId;
+                                        // Betulkan cara baca ID sebab item.userId sekarang adalah Populated Object dari MongoDB
+                                        const itemOwnerId = item.userId?._id || item.userId;
+                                        const currentUserId = currentUser?.id || currentUser?._id;
+                                        const canEdit = currentUser?.role === 'admin' || String(currentUserId) === String(itemOwnerId);
 
                                         return (
                                             <tr key={item._id} className="hover:bg-zinc-50/60 transition-colors">
@@ -401,6 +406,15 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                                         <LayoutTemplate className="h-4 w-4 text-zinc-400" />
                                                         <span className="text-sm">{template}</span>
                                                     </div>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span className="text-sm text-zinc-500">
+                                                        {item.createdAt ? new Date(item.createdAt).toLocaleDateString('en-MY', {
+                                                            day: '2-digit',
+                                                            month: 'short',
+                                                            year: 'numeric'
+                                                        }) : 'N/A'}
+                                                    </span>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center justify-end gap-1">
@@ -526,8 +540,8 @@ const IconButton = ({ children, onClick, title, danger, disabled }) => (
         aria-label={title}
         disabled={disabled}
         className={`grid place-items-center h-8 w-8 rounded-lg ring-1 transition-colors ${danger
-                ? 'text-rose-600 ring-rose-200 hover:bg-rose-50 hover:ring-rose-300'
-                : 'text-zinc-600 ring-zinc-200 hover:bg-zinc-100 hover:text-zinc-900'
+            ? 'text-rose-600 ring-rose-200 hover:bg-rose-50 hover:ring-rose-300'
+            : 'text-zinc-600 ring-zinc-200 hover:bg-zinc-100 hover:text-zinc-900'
             } disabled:opacity-50 disabled:cursor-not-allowed`}
     >
         {children}
@@ -587,8 +601,8 @@ const PageIndicator = ({ page, totalPages, onSelect }) => {
                     key={p}
                     onClick={() => onSelect(p)}
                     className={`min-w-[32px] h-8 px-2 text-xs font-medium rounded-lg transition ${p === page
-                            ? 'bg-zinc-900 text-white ring-1 ring-zinc-900'
-                            : 'text-zinc-600 ring-1 ring-zinc-200 hover:bg-zinc-50 hover:ring-zinc-300'
+                        ? 'bg-zinc-900 text-white ring-1 ring-zinc-900'
+                        : 'text-zinc-600 ring-1 ring-zinc-200 hover:bg-zinc-50 hover:ring-zinc-300'
                         }`}
                 >
                     {p}
