@@ -4,6 +4,7 @@ import axios from 'axios';
 import InvestorPitchDeck from './InvestorPitchDeck';
 import { HeroParallax } from "./ui/hero-parallax.jsx";
 import TemplateSecond from './TemplateSecond';
+import TemplateThird from './TemplateThird';
 import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
@@ -130,11 +131,14 @@ const PortfolioDetails = () => {
     return (
         <div className="w-full relative" style={{ backgroundColor: '#1A1A1A' }}>
 
-            {portfolio.template === 'template2' ? (
-                // 🟢 BILA TEMPLATE 2 DIPILIH: Ia ambil alih 100% page, TIADA Hero Parallax
+            {portfolio.template === 'template3' ? (
+                // 🟠 WHEN TEMPLATE 3 SELECTED: Dark Luxe
+                <TemplateThird portfolio={portfolio} />
+            ) : portfolio.template === 'template2' ? (
+                // 🟢 WHEN TEMPLATE 2 SELECTED: Professional
                 <TemplateSecond portfolio={portfolio} />
             ) : (
-                // 🔵 BILA TEMPLATE 1 DIPILIH: Kekalkan Parallax + Pitch Deck
+                // 🔵 WHEN TEMPLATE 1 SELECTED: Keep Parallax + Pitch Deck
                 <>
                     {/* HERO SECTION DYNAMIC */}
                     {sourceImages.length > 0 ? (
@@ -145,7 +149,7 @@ const PortfolioDetails = () => {
                             description={portfolio.slogan || "Exploring future business solutions and ideas."}
                         />
                     ) : (
-                        // Fallback Kritikal: If the user doesn't upload any image
+                        // Fallback: If no image uploaded
                         <div className="relative flex flex-col items-center justify-center h-[50vh] sm:h-[60vh] text-white px-4 sm:px-6 text-center" style={{ backgroundColor: '#1A1A1A' }}>
                             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl" style={{ fontFamily: "'Fraunces', serif", fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '1.5rem', color: '#FFFFFF' }}>{portfolio.businessName}</h1>
                             <p className="text-base sm:text-lg md:text-xl max-w-lg sm:max-w-2xl" style={{ fontFamily: "'Nunito', sans-serif", color: 'rgba(255,255,255,0.6)' }}>{portfolio.slogan}</p>

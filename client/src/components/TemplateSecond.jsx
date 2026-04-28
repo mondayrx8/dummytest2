@@ -76,7 +76,7 @@ export default function TemplateSecond({ portfolio }) {
     const marqueeItems = products.length > 0 ? [...products, ...products] : []
 
     return (
-        <div className="relative min-h-screen bg-white text-zinc-900 font-sans antialiased overflow-x-hidden selection:bg-[#F97316] selection:text-white">
+        <div className="relative min-h-screen bg-white text-zinc-900 font-sans antialiased overflow-x-hidden w-full selection:bg-[#F97316] selection:text-white">
             {/* ---------- Top Nav ---------- */}
             <header className="fixed top-0 inset-x-0 z-50">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
@@ -833,7 +833,7 @@ function ContactItem({ icon, label, value, href }) {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group block"
+                className="group block min-h-[44px] py-1"
             >
                 {content}
                 <span className="mt-3 inline-block h-px w-6 bg-zinc-700 group-hover:w-12 group-hover:bg-[#F97316] transition-all duration-300" />
@@ -841,7 +841,7 @@ function ContactItem({ icon, label, value, href }) {
         )
     }
     return (
-        <div>
+        <div className="min-h-[44px] py-1">
             {content}
             <span className="mt-3 inline-block h-px w-6 bg-zinc-700" />
         </div>

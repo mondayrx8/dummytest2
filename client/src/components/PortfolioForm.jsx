@@ -234,8 +234,9 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           <div className="input-group">
             <label className="input-label">Choose Template Design</label>
             <select name="template" value={formData.template} onChange={handleChange} className="modern-select">
-              <option value="template1">Template 1 (Premium)</option>
+              <option value="template1">Template 1 (Premium - In Development)</option>
               <option value="template2">Template 2 (Professional)</option>
+              <option value="template3">Template 3 (Dark Luxe)</option>
             </select>
           </div>
 
