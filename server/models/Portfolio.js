@@ -8,6 +8,7 @@ const portfolioSchema = new mongoose.Schema({
         required: true
     },
 
+    category: { type: String, default: 'Other' },
     banner: { type: String, default: "" },
     template: { type: String, default: "template1" },
 

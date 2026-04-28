@@ -47,12 +47,52 @@ class PortfolioService {
     /**
      * Retrieve portfolios for dashboard based on user role
      */
-    async getDashboardPortfolios(userId, userRole) {
-        if (userRole === 'admin') {
-            return Portfolio.find().sort({ createdAt: -1 }); // Admin nampak semua
-        } else {
-            return Portfolio.find({ userId: userId }).sort({ createdAt: -1 }); // User nampak dia punya je
+    async getDashboardPortfolios(userId, userRole, queryParams = {}) {
+        const { page = 1, limit = 10, search = '', category = '', sort = 'newest' } = queryParams;
+
+        // 1. Asas query (Admin nampak semua, User biasa nampak dia punya je)
+        let query = {};
+        if (userRole !== 'admin') {
+            query.userId = userId;
         }
+
+        // 2. Search ikut nama bisnes
+        if (search) {
+            query.businessName = { $regex: search, $options: 'i' };
+        }
+
+        // 3. Filter ikut Kategori (F&B, Tech & IT, dll)
+        if (category && category !== 'All') {
+            query.category = category;
+        }
+
+        // 4. Susunan (Sort)
+        let sortOptions = {};
+        switch (sort) {
+            case 'oldest': sortOptions = { createdAt: 1 }; break;
+            case 'name-asc': sortOptions = { businessName: 1 }; break;
+            case 'name-desc': sortOptions = { businessName: -1 }; break;
+            case 'newest':
+            default: sortOptions = { createdAt: -1 }; break;
+        }
+
+        const skip = (page - 1) * limit;
+
+        // 5. Tembak database
+        const portfolios = await Portfolio.find(query)
+            .sort(sortOptions)
+            .skip(skip)
+            .limit(limit)
+            .populate('userId', 'username email'); // Tarik nama & email founder sekali
+
+        const total = await Portfolio.countDocuments(query);
+
+        return {
+            data: portfolios,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            total: total
+        };
     }
 
     /**

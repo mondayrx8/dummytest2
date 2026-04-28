@@ -46,10 +46,26 @@ class PortfolioController {
 
     /**
      * GET /dashboard-list
+     * Mendukung Search, Filter, Sort & Pagination untuk Smart Data Table Admin
      */
     async getDashboardList(req, res) {
-        const portfolios = await this.portfolioService.getDashboardPortfolios(req.user.id, req.user.role);
-        res.status(200).json(portfolios);
+        // Tangkap arahan dari Frontend
+        const queryParams = {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10,
+            search: req.query.search || '',
+            category: req.query.category || '', // F&B, Tech & IT, dll
+            sort: req.query.sort || 'newest'    // newest, oldest, name-asc, name-desc
+        };
+
+        // Hantar arahan ni ke Enjin Service
+        const result = await this.portfolioService.getDashboardPortfolios(
+            req.user.id,
+            req.user.role,
+            queryParams
+        );
+
+        res.status(200).json(result);
     }
 
     /**

@@ -11,6 +11,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   // 1. STATE INITIALIZATION (Struktur Baru 0-9)
   // ==========================================
   const initialFormState = {
+    category: '',
     banner: '',
     template: 'template1',
     businessName: '', // 0
@@ -237,6 +238,24 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               <option value="template1">Template 1 (Premium - In Development)</option>
               <option value="template2">Template 2 (Professional)</option>
               <option value="template3">Template 3 (Dark Luxe)</option>
+            </select>
+          </div>
+
+          {/* Dropdown Kategori */}
+          <div className="form-group">
+            <label className="form-label">Business Category <span style={{ color: 'red' }}>*</span></label>
+            <select
+              className="form-input"
+              value={formData.category}
+              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              required
+            >
+              <option value="" disabled>Select a category</option>
+              <option value="F&B">F&B (Food & Beverage)</option>
+              <option value="Tech & IT">Tech & IT</option>
+              <option value="Retail/Apparel">Retail/Apparel</option>
+              <option value="Services">Services</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
