@@ -1,63 +1,92 @@
 <div align="center">
 
 # 🎓 SiswaNiaga
-**Digital Entrepreneur Portfolio Builder for UUM Students**
+**Enterprise-grade University Student Business Portfolio System & Landing Page Builder**
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=for-the-badge&logo=framer&logoColor=blue)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)
 
-*An enterprise-grade profiling platform for student entrepreneurs to create investor-ready pitch decks.*
+*Empowering student entrepreneurs to generate high-fidelity, interactive pitch decks while providing administrators with a powerful command center for analytics and management.*
 
 </div>
 
-## 📖 About The Project
+---
 
-**SiswaNiaga** is a robust, full-stack web application designed specifically for university students (Universiti Utara Malaysia). Operating as a comprehensive **Pitch Deck Directory**, it bridges the gap between student entrepreneurs and potential investors or customers. The platform empowers users to craft professional business portfolios that highlight their products, traction, and business models with an elegant, responsive interface tailored to the academic enterprise aesthetic.
+## 📖 Project Overview
+
+**SiswaNiaga** is a robust, full-stack web application designed for university students. It operates as a comprehensive **Pitch Deck Directory and Landing Page Builder**, bridging the gap between student entrepreneurs and potential investors or customers. The platform empowers users to craft professional business portfolios with an elegant, responsive interface tailored to the academic enterprise aesthetic.
 
 ---
 
-## ✨ Key Features
+## ✨ Key Enterprise Features
 
-- **🔐 Secure Authentication:** Robust user authentication and authorization using JWT and `bcrypt`.
-- **📝 Comprehensive Pitch Deck Builder:** Easily input and manage business fundamentals, market size projections, and financial data.
-- **🤖 AI Copywriter Integration:** Powered by **Google Gemini 2.5 Flash** to automatically generate professional marketing slogans using structured JSON mode.
-- **🖼️ Advanced Image Management:** Seamless main cover and multiple gallery media uploads managed via **Cloudinary**.
-- **📈 Dynamic Traction Charts:** Highly interactive data visualizations and line charts built with **Recharts**.
-- **📥 Export & Share:** Instantly download portfolios as PDF or share via direct **WhatsApp** deal links.
-- **🌐 SEO Ready:** Fully optimized with dynamic Meta tags, automated sitemap generation, and `robots.txt` configuration.
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **Framework:** React (via Vite)
-- **Routing:** React Router
-- **Data Fetching:** Axios
-- **Visualization:** Recharts
-- **Validation:** Zod
-
-### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MongoDB (via Mongoose)
-- **Security:** JWT, bcryptjs
-
-### Cloud & External Services
-- **Image Hosting (CDN):** Cloudinary
-- **AI Integration:** Google Gemini API
-- **Deployment & Hosting:** 
-  - **Frontend:** Cloudflare Pages
-  - **Backend:** Oracle Cloud VPS (ARM Ampere) managed with PM2 & Nginx
+- **🚀 Dynamic Premium Landing Page Generation (3 Themes)**
+  - **Theme 1: Startup Pitch Deck** — Classic, Professional, Parallax scrolling.
+  - **Theme 2: Minimalist Modern** — Clean, fast, Bento-box aesthetic.
+  - **Theme 3: Maison Editorial** — Dark Luxe, cinematic, pinned-scroll animations.
+- **🛡️ Admin Command Center (Dashboard)**
+  - Built with a sleek, minimalist Tailwind UI.
+  - Real-time **MongoDB Aggregation Analytics** (Category Distribution, Template Popularity).
+  - Smart Data Table featuring Debounced Search, Category Filtering (F&B, Tech & IT, Retail/Apparel, Services), and Advanced Sorting.
+  - High-fidelity UX with Skeleton Loaders and customized Empty States.
+- **🌐 Investor Directory (Public Portal)**
+  - Public-facing directory showcasing student ventures.
+  - Server-side Pagination and Search.
+  - Smart thumbnail fallback system prioritizing business banners.
+- **🏗️ Advanced Backend Architecture**
+  - **Server-Side Pagination, Filtering, and Sorting** to handle large datasets seamlessly.
+  - **MongoDB Aggregation Pipelines** for lightning-fast dashboard analytics.
+  - **Strict Privacy Controls (RBAC):** Admins oversee all operations; Students manage only their own ventures.
+- **🤖 AI Copywriter Integration**
+  - Powered by **Google Gemini 2.5 Flash** to automatically generate professional marketing slogans.
+- **🖼️ Advanced Image Management**
+  - Seamless main cover and multiple gallery media uploads managed via **Cloudinary**.
 
 ---
 
-## 🚀 Getting Started / Local Installation
+## 📸 Showcase & Preview
 
-To get a local copy up and running, follow these simple steps.
+> **Note:** Replace the placeholder links below with actual screenshots or GIFs of your project.
+
+| Admin Command Center | Maison Editorial Theme | Minimalist Modern Theme |
+| :---: | :---: | :---: |
+| ![Command Center Dashboard](https://via.placeholder.com/400x250?text=Command+Center+Dashboard) | ![Maison Editorial Theme](https://via.placeholder.com/400x250?text=Maison+Editorial+Theme) | ![Minimalist Modern Theme](https://via.placeholder.com/400x250?text=Minimalist+Modern+Theme) |
+
+*Features sleek data tables, real-time analytics, and enterprise-grade UI.*
+
+---
+
+## 🧩 Project Architecture
+
+SiswaNiaga is built on the MERN stack and strictly follows the **Controller-Service Pattern** for maintainability and scalability.
+
+```text
+📦 siswaniaga
+ ┣ 📂 client (Vite + React)
+ ┃ ┣ 📂 src
+ ┃ ┃ ┣ 📂 components   # Reusable UI components & Theme Templates
+ ┃ ┃ ┣ 📂 pages        # Route pages (Dashboard, Directory, Editor)
+ ┃ ┃ ┗ 📜 App.jsx      # Main application router
+ ┃ ┗ 📜 tailwind.config.js
+ ┗ 📂 server (Node.js + Express)
+   ┣ 📂 controllers    # Request handlers (e.g., PortfolioController.js)
+   ┣ 📂 services       # Core business logic & database queries
+   ┣ 📂 models         # Mongoose Schemas
+   ┣ 📂 routes         # API endpoint definitions
+   ┣ 📂 validations    # Zod validation schemas
+   ┗ 📜 server.js      # Express application entry point
+```
+
+---
+
+## 🚀 Getting Started
+
+Follow these step-by-step instructions to get a local copy up and running.
 
 ### 1. Clone the Repository
 ```bash
@@ -66,7 +95,6 @@ cd siswaniaga
 ```
 
 ### 2. Install Dependencies
-You need to install dependencies for both the client and the server.
 
 **For Client:**
 ```bash
@@ -81,29 +109,9 @@ npm install
 ```
 
 ### 3. Setup Environment Variables
-Create `.env` files in both the `client` and `server` directories based on the required keys outlined in the **Environment Variables** section below.
+Create `.env` files in both the `client` and `server` directories based on the required keys outlined below.
 
-### 4. Run the Application
-**Run Server:**
-```bash
-cd server
-npm start
-# or npm run dev for nodemon
-```
-
-**Run Client:**
-```bash
-cd client
-npm run dev
-```
-
----
-
-## 🔐 Environment Variables
-
-Ensure you have the following environment variables set up locally in your `.env` files.
-
-### Server (`server/.env`)
+#### Server (`server/.env`)
 | Key | Description |
 |---|---|
 | `PORT` | The port the backend will run on (e.g., 5000) |
@@ -114,12 +122,42 @@ Ensure you have the following environment variables set up locally in your `.env
 | `CLOUDINARY_API_KEY` | Your Cloudinary API key |
 | `CLOUDINARY_API_SECRET`| Your Cloudinary API secret |
 
-### Client (`client/.env`)
+#### Client (`client/.env`)
 | Key | Description |
 |---|---|
 | `VITE_API_URL` | URL of your backend API |
 | `VITE_CLOUDINARY_CLOUD_NAME`| Cloudinary cloud name for frontend uploads |
 | `VITE_GEMINI_API_KEY` | Google Gemini API Key for the AI Copywriter |
+
+### 4. Run the Application
+
+**Run Backend Server:**
+```bash
+cd server
+npm run dev
+```
+
+**Run Frontend Client:**
+```bash
+cd client
+npm run dev
+```
+
+---
+
+## 🔌 API Endpoints Overview
+
+Here is a quick overview of the primary REST API endpoints available in the backend.
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :---: |
+| `POST` | `/api/auth/register` | Register a new student account | ❌ |
+| `POST` | `/api/auth/login` | Authenticate user and receive JWT | ❌ |
+| `GET` | `/api/portfolio/dashboard-list` | Fetch paginated portfolios with filtering | ✅ |
+| `GET` | `/api/portfolio/directory` | Fetch public directory (investor view) | ❌ |
+| `POST` | `/api/portfolio/create` | Create a new business portfolio | ✅ |
+| `GET` | `/api/stats/analytics` | Retrieve admin dashboard analytics | ✅ (Admin) |
+| `GET` | `/api/stats` | Retrieve global system statistics | ❌ |
 
 ---
 

@@ -115,13 +115,18 @@ const GuestList = () => {
                     <div className="directory-grid">
                         {portfolios.map((item) => {
                             // 1. Ekstrak Thumbnail dari struktur 0-9
-                            let thumbnail = null;
-                            if (item.products && item.products.length > 0 && item.products[0].image) {
-                                thumbnail = item.products[0].image;
-                            } else if (item.ourTeam && item.ourTeam.length > 0 && item.ourTeam[0].image) {
-                                thumbnail = item.ourTeam[0].image;
-                            } else if (item.missionVision?.graphicInfo) {
-                                thumbnail = item.missionVision.graphicInfo;
+                            // UTAMAKAN BANNER SEBAGAI PREVIEW UTAMA
+                            let thumbnail = item.banner || null;
+
+                            // Kalau user takde letak banner, baru kita cari gambar lain sebagai backup
+                            if (!thumbnail) {
+                                if (item.products && item.products.length > 0 && item.products[0].image) {
+                                    thumbnail = item.products[0].image;
+                                } else if (item.ourTeam && item.ourTeam.length > 0 && item.ourTeam[0].image) {
+                                    thumbnail = item.ourTeam[0].image;
+                                } else if (item.missionVision?.graphicInfo) {
+                                    thumbnail = item.missionVision.graphicInfo;
+                                }
                             }
 
                             // 2. Ekstrak Nama Founder
