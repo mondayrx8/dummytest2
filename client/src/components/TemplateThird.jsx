@@ -73,55 +73,98 @@ function CountUp({ value }) {
 }
 
 /* Pinned achievement panels — extracted so hooks are called in component scope */
-function AchievementImage({ progress, index, total, image, alt }) {
-    const start = index / total
-    const end = (index + 1) / total
-    const startOpacity = index === 0 ? 1 : 0;
-    const endOpacity = index === total - 1 ? 1 : 0;
-    const opacity = useTransform(
-        progress,
-        [Math.max(0, start - 0.05), start + 0.02, end - 0.02, Math.min(1, end + 0.05)],
-        [startOpacity, 1, 1, endOpacity],
-    )
-    const scale = useTransform(progress, [start, end], [1.08, 1])
-    return (
-        <motion.div style={{ opacity, scale }} className="absolute inset-0">
-            {image ? (
-                <img src={image} alt={alt} className="w-full h-full object-cover" />
-            ) : null}
-        </motion.div>
-    )
-}
+// Replace AchievementImage and AchievementText components with this:
 
-function AchievementText({ progress, index, total, description }) {
-    const start = index / total
-    const end = (index + 1) / total
-    const startOpacity = index === 0 ? 1 : 0;
-    const endOpacity = index === total - 1 ? 1 : 0;
-    const opacity = useTransform(
-        progress,
-        [Math.max(0, start - 0.05), start + 0.04, end - 0.04, Math.min(1, end + 0.05)],
-        [startOpacity, 1, 1, endOpacity],
-    )
-    const y = useTransform(progress, [start, end], [40, -40])
+function AchievementsDesktop({ achievements }) {
+    const [activeIndex, setActiveIndex] = useState(0)
+    const triggerRefs = useRef([])
+
+    useEffect(() => {
+        const observers = triggerRefs.current.map((el, i) => {
+            if (!el) return null
+            const obs = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) setActiveIndex(i)
+                },
+                { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+            )
+            obs.observe(el)
+            return obs
+        })
+        return () => observers.forEach(o => o?.disconnect())
+    }, [achievements])
+
     return (
-        <motion.div
-            style={{ opacity, y }}
-            className="absolute inset-0 flex flex-col justify-center gap-6"
-        >
-            <span className="font-serif text-8xl leading-none" style={{ color: ACCENT }}>
-                /0{index + 1}
-            </span>
-            <p className="font-serif text-3xl xl:text-4xl leading-tight text-zinc-100 text-pretty max-w-xl">
-                {description}
-            </p>
-            <div className="flex items-center gap-3 mt-2">
-                <span className="h-px w-12" style={{ backgroundColor: ACCENT }} />
-                <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-500">
-                    Chapter {index + 1} of {total}
-                </span>
+        <div className="relative">
+            {/* Sticky display panel — image + text */}
+            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+                <div className="mx-auto max-w-7xl w-full px-8 grid grid-cols-12 gap-12 items-center">
+                    {/* Image */}
+                    <div className="col-span-6 relative aspect-[4/5] overflow-hidden bg-zinc-900">
+                        {achievements.map((a, i) => (
+                            <motion.div
+                                key={i}
+                                className="absolute inset-0"
+                                animate={{ opacity: i === activeIndex ? 1 : 0, scale: i === activeIndex ? 1 : 1.05 }}
+                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                {a.image && (
+                                    <img
+                                        src={a.image}
+                                        alt={"Achievement " + (i + 1)}
+                                        className="w-full h-full object-cover"
+                                    />
+                                )}
+                            </motion.div>
+                        ))}
+                        <div
+                            className="absolute bottom-5 left-5 font-mono text-xs tracking-[0.25em] uppercase backdrop-blur-md bg-black/40 px-3 py-2"
+                            style={{ color: ACCENT }}
+                        >
+                            Chapter
+                        </div>
+                    </div>
+
+                    {/* Text */}
+                    <div className="col-span-6 relative h-[60vh]">
+                        {achievements.map((a, i) => (
+                            <motion.div
+                                key={i}
+                                className="absolute inset-0 flex flex-col justify-center gap-6"
+                                animate={{
+                                    opacity: i === activeIndex ? 1 : 0,
+                                    y: i === activeIndex ? 0 : (i < activeIndex ? -40 : 40),
+                                }}
+                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <span className="font-serif text-8xl leading-none" style={{ color: ACCENT }}>
+                                    /0{i + 1}
+                                </span>
+                                <p className="font-serif text-3xl xl:text-4xl leading-tight text-zinc-100 text-pretty max-w-xl">
+                                    {a.description}
+                                </p>
+                                <div className="flex items-center gap-3 mt-2">
+                                    <span className="h-px w-12" style={{ backgroundColor: ACCENT }} />
+                                    <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-500">
+                                        Chapter {i + 1} of {achievements.length}
+                                    </span>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
             </div>
-        </motion.div>
+
+            {/* Invisible trigger zones — one per achievement, each 100vh tall */}
+            {achievements.map((_, i) => (
+                <div
+                    key={i}
+                    ref={el => { triggerRefs.current[i] = el }}
+                    className="h-screen"
+                    aria-hidden="true"
+                />
+            ))}
+        </div>
     )
 }
 
@@ -197,12 +240,8 @@ export default function TemplateThird({ portfolio }) {
     const heroTextY = useTransform(heroProgress, [0, 1], ["0%", "-20%"])
     const heroOpacity = useTransform(heroProgress, [0, 0.85], [1, 0])
 
-    /* ---------- Achievements: pinned-image scroll ---------- */
-    const achievementsRef = useRef(null)
-    const { scrollYProgress: achProgress } = useScroll({
-        target: achievementsRef,
-        offset: ["start start", "end end"],
-    })
+    /* ---------- Achievements: IntersectionObserver state ---------- */
+
 
     /* ---------- Product columns parallax ---------- */
     const productsRef = useRef(null)
@@ -231,6 +270,22 @@ export default function TemplateThird({ portfolio }) {
     const address = contactInfo.address || ""
     const website = contactInfo.website || ""
     const socials = contactInfo.socials || {}
+
+    const [activeAchIndex, setActiveAchIndex] = useState(0)
+    const achTriggerRefs = useRef([])
+
+    useEffect(() => {
+        const observers = achTriggerRefs.current.map((el, i) => {
+            if (!el) return null
+            const obs = new IntersectionObserver(
+                ([entry]) => { if (entry.isIntersecting) setActiveAchIndex(i) },
+                { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+            )
+            obs.observe(el)
+            return obs
+        })
+        return () => observers.forEach(o => o?.disconnect())
+    }, [achievements])
 
     /* ---------- WhatsApp smart link ---------- */
     const cleanedPhone = phone.replace(/[^0-9]/g, "")
@@ -789,26 +844,32 @@ export default function TemplateThird({ portfolio }) {
                             />
                         </div>
 
-                        <div
-                            ref={achievementsRef}
-                            className="relative"
-                            style={{ height: achievements.length * 100 + "vh" }}
-                        >
+                        {/* ✅ NEW BLOCK: */}
+                        <div className="relative">
+                            {/* Sticky display panel */}
                             <div className="sticky top-0 h-screen flex items-center overflow-hidden">
                                 <div className="mx-auto max-w-7xl w-full px-8 grid grid-cols-12 gap-12 items-center">
-                                    {/* Left: image stack — only the active one is fully visible */}
+                                    {/* Left: image */}
                                     <div className="col-span-6 relative aspect-[4/5] overflow-hidden bg-zinc-900">
                                         {achievements.map((a, i) => (
-                                            <AchievementImage
+                                            <motion.div
                                                 key={i}
-                                                progress={achProgress}
-                                                index={i}
-                                                total={achievements.length}
-                                                image={a.image}
-                                                alt={"Achievement " + (i + 1)}
-                                            />
+                                                className="absolute inset-0"
+                                                animate={{
+                                                    opacity: i === activeAchIndex ? 1 : 0,
+                                                    scale: i === activeAchIndex ? 1 : 1.05,
+                                                }}
+                                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                            >
+                                                {a.image && (
+                                                    <img
+                                                        src={a.image}
+                                                        alt={"Achievement " + (i + 1)}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                )}
+                                            </motion.div>
                                         ))}
-                                        {/* counter */}
                                         <div
                                             className="absolute bottom-5 left-5 font-mono text-xs tracking-[0.25em] uppercase backdrop-blur-md bg-black/40 px-3 py-2"
                                             style={{ color: ACCENT }}
@@ -817,20 +878,45 @@ export default function TemplateThird({ portfolio }) {
                                         </div>
                                     </div>
 
-                                    {/* Right: text stack */}
+                                    {/* Right: text */}
                                     <div className="col-span-6 relative h-[60vh]">
                                         {achievements.map((a, i) => (
-                                            <AchievementText
+                                            <motion.div
                                                 key={i}
-                                                progress={achProgress}
-                                                index={i}
-                                                total={achievements.length}
-                                                description={a.description}
-                                            />
+                                                className="absolute inset-0 flex flex-col justify-center gap-6"
+                                                animate={{
+                                                    opacity: i === activeAchIndex ? 1 : 0,
+                                                    y: i === activeAchIndex ? 0 : i < activeAchIndex ? -40 : 40,
+                                                }}
+                                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                            >
+                                                <span className="font-serif text-8xl leading-none" style={{ color: ACCENT }}>
+                                                    /0{i + 1}
+                                                </span>
+                                                <p className="font-serif text-3xl xl:text-4xl leading-tight text-zinc-100 text-pretty max-w-xl">
+                                                    {a.description}
+                                                </p>
+                                                <div className="flex items-center gap-3 mt-2">
+                                                    <span className="h-px w-12" style={{ backgroundColor: ACCENT }} />
+                                                    <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-500">
+                                                        Chapter {i + 1} of {achievements.length}
+                                                    </span>
+                                                </div>
+                                            </motion.div>
                                         ))}
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Invisible scroll triggers — one 100vh zone per achievement */}
+                            {achievements.map((_, i) => (
+                                <div
+                                    key={i}
+                                    ref={el => { achTriggerRefs.current[i] = el }}
+                                    className="h-screen"
+                                    aria-hidden="true"
+                                />
+                            ))}
                         </div>
                     </div>
                 </section>
