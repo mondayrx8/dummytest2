@@ -76,10 +76,12 @@ function CountUp({ value }) {
 function AchievementImage({ progress, index, total, image, alt }) {
     const start = index / total
     const end = (index + 1) / total
+    const startOpacity = index === 0 ? 1 : 0;
+    const endOpacity = index === total - 1 ? 1 : 0;
     const opacity = useTransform(
         progress,
         [Math.max(0, start - 0.05), start + 0.02, end - 0.02, Math.min(1, end + 0.05)],
-        [0, 1, 1, 0],
+        [startOpacity, 1, 1, endOpacity],
     )
     const scale = useTransform(progress, [start, end], [1.08, 1])
     return (
@@ -94,10 +96,12 @@ function AchievementImage({ progress, index, total, image, alt }) {
 function AchievementText({ progress, index, total, description }) {
     const start = index / total
     const end = (index + 1) / total
+    const startOpacity = index === 0 ? 1 : 0;
+    const endOpacity = index === total - 1 ? 1 : 0;
     const opacity = useTransform(
         progress,
         [Math.max(0, start - 0.05), start + 0.04, end - 0.04, Math.min(1, end + 0.05)],
-        [0, 1, 1, 0],
+        [startOpacity, 1, 1, endOpacity],
     )
     const y = useTransform(progress, [start, end], [40, -40])
     return (
