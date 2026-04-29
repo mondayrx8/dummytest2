@@ -731,7 +731,6 @@ export default function TemplateThird({ portfolio }) {
           ============================================================ */}
             {achievements.length > 0 && (
                 <section
-                    ref={achievementsRef}
                     className="relative border-t border-white/5"
                 >
                     {/* mobile fallback (stacked) */}
@@ -791,6 +790,7 @@ export default function TemplateThird({ portfolio }) {
                         </div>
 
                         <div
+                            ref={achievementsRef}
                             className="relative"
                             style={{ height: achievements.length * 100 + "vh" }}
                         >
