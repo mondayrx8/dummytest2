@@ -87,7 +87,7 @@ function AchievementImage({ progress, index, total, image, alt }) {
     return (
         <motion.div style={{ opacity, scale }} className="absolute inset-0">
             {image ? (
-                <img src={image || "/placeholder.svg"} alt={alt} className="size-full object-cover" />
+                <img src={image} alt={alt} className="w-full h-full object-cover" />
             ) : null}
         </motion.div>
     )
@@ -269,7 +269,7 @@ export default function TemplateThird({ portfolio }) {
     ].filter((s) => s.value)
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] text-zinc-100 font-sans antialiased w-fullselection:bg-[#D4A574] selection:text-[#0A0A0A]">
+        <div className="min-h-screen bg-[#0A0A0A] text-zinc-100 font-sans antialiased w-full selection:bg-[#D4A574] selection:text-[#0A0A0A]">
             {/* ============================================================
           NAVIGATION
           ============================================================ */}
