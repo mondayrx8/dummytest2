@@ -5,6 +5,22 @@
 
 /* ── Page Shell ────────────────────────────── */
 .japandi-landing {
+    /* Local font override — Newsreader replaces Fraunces on landing */
+    --font-serif-landing: 'Newsreader', serif;
+
+    /* oklch-derived color tokens for harmonious depth */
+    --lp-moss: oklch(0.48 0.08 140);
+    --lp-moss-light: oklch(0.48 0.08 140 / 0.08);
+    --lp-moss-mist: oklch(0.48 0.08 140 / 0.04);
+    --lp-clay: oklch(0.60 0.12 60);
+    --lp-clay-light: oklch(0.60 0.12 60 / 0.10);
+    --lp-clay-mist: oklch(0.60 0.12 60 / 0.06);
+    --lp-sand: oklch(0.92 0.02 80);
+    --lp-stone: oklch(0.88 0.01 80);
+    --lp-surface: oklch(0.99 0.005 90 / 0.65);
+    --lp-surface-hover: oklch(0.99 0.005 90 / 0.85);
+    --lp-border: oklch(0.88 0.02 70 / 0.4);
+
     background-color: transparent;
     color: var(--text-color);
     font-family: var(--font-sans);
@@ -13,6 +29,8 @@
     overflow-x: clip;
     padding-top: var(--navbar-height);
     z-index: 1;
+    text-wrap: pretty;
+    container-type: inline-size;
 }
 
 /* ── Ambient Background ───────────────────── */
@@ -28,9 +46,9 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse 70% 50% at 15% 10%, rgba(93, 112, 82, 0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 60% at 85% 80%, rgba(193, 140, 93, 0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(230, 220, 205, 0.08) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 50% at 15% 10%, var(--lp-moss-mist) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 60% at 85% 80%, var(--lp-clay-mist) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, oklch(0.92 0.02 80 / 0.08) 0%, transparent 60%);
     filter: blur(80px);
 }
 
@@ -45,13 +63,13 @@
 .japandi-bg-orb--moss {
     width: 500px; height: 500px;
     top: -8%; left: -6%;
-    background: rgba(93, 112, 82, 0.08);
+    background: var(--lp-moss-light);
 }
 
 .japandi-bg-orb--clay {
     width: 450px; height: 400px;
     bottom: -5%; right: -4%;
-    background: rgba(193, 140, 93, 0.09);
+    background: var(--lp-clay-light);
     animation-delay: -12s;
     animation-direction: alternate-reverse;
 }
@@ -73,7 +91,12 @@
 .japandi-divider svg {
     width: 32px;
     height: 32px;
-    color: var(--organic-secondary);
+    color: var(--lp-clay);
+    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.japandi-divider.is-visible svg {
+    transform: rotate(180deg);
 }
 
 /* ============================================ */
@@ -97,7 +120,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    will-change: transform, opacity;
+    will-change: auto;
 }
 
 /* Status pill */
@@ -107,8 +130,8 @@
     gap: 10px;
     padding: 7px 18px;
     border-radius: var(--radius-full);
-    background: rgba(254, 254, 250, 0.65);
-    border: 1px solid var(--organic-border);
+    background: var(--lp-surface);
+    border: 1px solid var(--lp-border);
     box-shadow: var(--shadow-sm);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -123,14 +146,14 @@
 
 .japandi-hero__badge-dot {
     width: 7px; height: 7px;
-    background: var(--organic-primary);
+    background: var(--lp-moss);
     border-radius: 50%;
     animation: dotPulse 2.5s ease-in-out infinite;
 }
 
 @keyframes dotPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(93, 112, 82, 0.5); }
-    50%      { box-shadow: 0 0 0 8px rgba(93, 112, 82, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 oklch(0.48 0.08 140 / 0.5); }
+    50%      { box-shadow: 0 0 0 8px oklch(0.48 0.08 140 / 0); }
 }
 
 .japandi-hero__badge-text {
@@ -143,7 +166,7 @@
 
 /* Headline */
 .japandi-hero__title {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: clamp(2.8rem, 6.5vw, 5rem);
     font-weight: 700;
     line-height: 1.08;
@@ -163,7 +186,7 @@
     position: absolute;
     bottom: 2px; left: 0;
     width: 100%; height: 28%;
-    background: rgba(193, 140, 93, 0.2);
+    background: oklch(0.60 0.12 60 / 0.2);
     border-radius: var(--radius-full);
     z-index: -1;
     transition: height 0.4s ease;
@@ -175,7 +198,7 @@
 
 /* Subtitle */
 .japandi-hero__subtitle {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: clamp(1.05rem, 2vw, 1.2rem);
     line-height: 1.8;
     color: var(--organic-muted-foreground);
@@ -221,15 +244,15 @@
 
 .japandi-mockup-frame {
     width: 100%;
-    height: 420px;
-    background: rgba(254, 254, 250, 0.6);
-    border: 1px solid rgba(222, 216, 207, 0.45);
+    aspect-ratio: 16 / 9;
+    background: var(--lp-surface);
+    border: 1px solid var(--lp-border);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-radius: var(--radius-2xl);
     box-shadow:
-        0 1px 2px rgba(0,0,0,0.03),
-        0 8px 32px -8px rgba(93, 112, 82, 0.1);
+        0 1px 2px oklch(0.2 0 0 / 0.03),
+        0 8px 32px -8px oklch(0.48 0.08 140 / 0.1);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -254,19 +277,37 @@
 .japandi-hero__mockup:hover .japandi-mockup-frame {
     transform: rotateX(0) scale(1);
     box-shadow:
-        0 2px 4px rgba(0,0,0,0.03),
-        0 24px 64px -16px rgba(93, 112, 82, 0.14);
+        0 2px 4px oklch(0.2 0 0 / 0.03),
+        0 24px 64px -16px oklch(0.48 0.08 140 / 0.14);
 }
 
 .mockup-header {
     height: 38px;
-    background: rgba(255,255,255,0.35);
-    border-bottom: 1px solid var(--organic-border);
+    background: oklch(1 0 0 / 0.35);
+    border-bottom: 1px solid var(--lp-border);
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
+    gap: 12px;
     position: relative;
     z-index: 1;
+}
+
+.mockup-url-bar {
+    flex: 1;
+    max-width: 320px;
+    height: 22px;
+    background: oklch(0.96 0.005 80 / 0.6);
+    border-radius: 6px;
+    border: 1px solid var(--lp-border);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 0.65rem;
+    color: var(--organic-muted-foreground);
+    letter-spacing: 0.02em;
+    font-family: var(--font-sans);
+    user-select: none;
 }
 
 .mac-dots { display: flex; gap: 7px; }
@@ -291,7 +332,7 @@
 
 .mockup-sidebar {
     width: 18%;
-    background: rgba(93, 112, 82, 0.04);
+    background: var(--lp-moss-mist);
     border-radius: 10px;
 }
 
@@ -304,18 +345,18 @@
 
 .mockup-chart {
     height: 42%;
-    background: linear-gradient(135deg, rgba(193, 140, 93, 0.08), rgba(193, 140, 93, 0.02));
+    background: linear-gradient(135deg, var(--lp-clay-mist), oklch(0.60 0.12 60 / 0.02));
     border-radius: 10px;
-    border: 1px dashed rgba(193, 140, 93, 0.2);
+    border: 1px dashed oklch(0.60 0.12 60 / 0.2);
 }
 
 .mockup-cards { display: flex; gap: 0.8rem; height: 58%; }
 
 .mockup-cards span {
     flex: 1;
-    background: rgba(255,255,255,0.5);
+    background: oklch(1 0 0 / 0.5);
     border-radius: var(--radius-lg);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    box-shadow: 0 1px 3px oklch(0.2 0 0 / 0.03);
 }
 
 /* ============================================ */
@@ -336,12 +377,12 @@
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--organic-secondary);
+    color: var(--lp-clay);
     margin-bottom: 1.5rem;
 }
 
 .japandi-philosophy__heading {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-weight: 600;
     line-height: 1.25;
@@ -383,12 +424,12 @@
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--organic-secondary);
+    color: var(--lp-clay);
     margin-bottom: 1.2rem;
 }
 
 .japandi-features__title {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -411,8 +452,8 @@
 
 .japandi-feature-card {
     padding: 2.5rem 2rem;
-    background: rgba(254, 254, 250, 0.55);
-    border: 1px solid rgba(222, 216, 207, 0.4);
+    background: var(--lp-surface);
+    border: 1px solid var(--lp-border);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-2xl);
@@ -438,9 +479,9 @@
 .japandi-feature-card:hover {
     transform: translateY(-6px);
     box-shadow:
-        0 2px 4px rgba(0,0,0,0.02),
-        0 16px 48px -12px rgba(93, 112, 82, 0.12);
-    border-color: rgba(193, 140, 93, 0.3);
+        0 2px 4px oklch(0.2 0 0 / 0.02),
+        0 16px 48px -12px oklch(0.48 0.08 140 / 0.12);
+    border-color: oklch(0.60 0.12 60 / 0.3);
 }
 
 .japandi-feature-card__icon {
@@ -464,22 +505,22 @@
 }
 
 .japandi-feature-card__icon--moss {
-    background: rgba(93, 112, 82, 0.1);
-    color: var(--organic-primary);
+    background: var(--lp-moss-light);
+    color: var(--lp-moss);
 }
 
 .japandi-feature-card__icon--clay {
-    background: rgba(193, 140, 93, 0.12);
-    color: var(--organic-secondary);
+    background: var(--lp-clay-light);
+    color: var(--lp-clay);
 }
 
 .japandi-feature-card__icon--stone {
-    background: rgba(222, 216, 207, 0.5);
+    background: oklch(0.88 0.01 80 / 0.5);
     color: var(--organic-accent-foreground);
 }
 
 .japandi-feature-card__title {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 0.8rem;
@@ -511,8 +552,8 @@
     padding: 2.5rem 3rem;
     text-align: center;
     border-radius: var(--radius-2xl);
-    background: rgba(254, 254, 250, 0.5);
-    border: 1px solid rgba(222, 216, 207, 0.35);
+    background: var(--lp-surface);
+    border: 1px solid var(--lp-border);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
@@ -522,7 +563,7 @@
 }
 
 .japandi-trust__label {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: 1rem;
     font-style: italic;
     font-weight: 400;
@@ -534,22 +575,23 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 3.5rem;
-    opacity: 0.5;
-    filter: grayscale(1);
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.japandi-trust__logos:hover {
-    opacity: 0.9;
-    filter: grayscale(0);
 }
 
 .japandi-trust__logo {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--organic-primary);
+    color: var(--lp-moss);
     letter-spacing: -0.01em;
+    opacity: 0.45;
+    filter: grayscale(1);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.japandi-trust__logo:hover {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: translateY(-2px);
 }
 
 /* ============================================ */
@@ -568,11 +610,11 @@
     overflow: hidden;
     padding: 4.5rem 3rem;
     border-radius: var(--radius-2xl);
-    background: rgba(254, 254, 250, 0.7);
-    border: 1px solid rgba(222, 216, 207, 0.4);
+    background: var(--lp-surface-hover);
+    border: 1px solid var(--lp-border);
     box-shadow:
-        0 1px 3px rgba(0,0,0,0.03),
-        0 12px 40px -10px rgba(93, 112, 82, 0.1);
+        0 1px 3px oklch(0.2 0 0 / 0.03),
+        0 12px 40px -10px oklch(0.48 0.08 140 / 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -599,7 +641,7 @@
 }
 
 .japandi-cta__title {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-landing);
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     font-weight: 700;
     margin-bottom: 1rem;
@@ -622,7 +664,7 @@
     width: 350px;
     height: 350px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(193, 140, 93, 0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, oklch(0.60 0.12 60 / 0.12) 0%, transparent 70%);
     filter: blur(30px);
     z-index: 1;
     pointer-events: none;
@@ -647,6 +689,66 @@
 .japandi-delay-2 { transition-delay: 0.16s; }
 .japandi-delay-3 { transition-delay: 0.24s; }
 .japandi-delay-4 { transition-delay: 0.35s; }
+
+/* ============================================ */
+/* FOCUS-VISIBLE STATES                         */
+/* ============================================ */
+.japandi-landing .btn-organic-base:focus-visible {
+    outline: 2px solid var(--lp-moss);
+    outline-offset: 3px;
+}
+
+.japandi-landing a:focus-visible {
+    outline: 2px solid var(--lp-moss);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* ============================================ */
+/* CONTAINER QUERY — FEATURE GRID               */
+/* ============================================ */
+@container (max-width: 720px) {
+    .japandi-features__grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+}
+
+/* ============================================ */
+/* PREFERS REDUCED MOTION                       */
+/* ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    .japandi-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .japandi-bg-orb {
+        animation: none;
+    }
+
+    .japandi-hero__badge-dot {
+        animation: none;
+    }
+
+    .japandi-mockup-frame {
+        transform: none;
+        transition: none;
+    }
+
+    .japandi-feature-card,
+    .japandi-feature-card__icon,
+    .japandi-divider svg,
+    .japandi-trust__logo {
+        transition: none;
+    }
+
+    .japandi-hero__inner {
+        will-change: auto;
+    }
+}
 
 /* ============================================ */
 /* RESPONSIVE                                   */
@@ -676,8 +778,8 @@
         padding: 1rem;
     }
 
-    .japandi-mockup-frame { height: 280px; }
     .mockup-sidebar { display: none; }
+    .mockup-url-bar { display: none; }
 
     .japandi-cta__card {
         flex-direction: column;
@@ -701,5 +803,31 @@
 
     .japandi-trust__logo {
         font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .japandi-hero__title {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+    }
+
+    .japandi-hero__badge {
+        padding: 6px 14px;
+    }
+
+    .japandi-hero__badge-text {
+        font-size: 0.7rem;
+    }
+
+    .japandi-feature-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .japandi-cta__card {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .japandi-trust__card {
+        padding: 2rem 1.5rem;
     }
 }
