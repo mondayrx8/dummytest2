@@ -41,7 +41,7 @@ const Login = ({ setToken }) => {
   };
 
   return (
-    <div className="login-page-v2">
+    <main className="login-page-v2" aria-label="Authentication">
       <div className="login-split-container">
         {/* Left Side: Branding & Illustration */}
         <div className="login-brand-panel">
@@ -64,7 +64,7 @@ const Login = ({ setToken }) => {
               </p>
             </div>
 
-            <div className="brand-visual-wrapper">
+            <div className="brand-visual-wrapper" aria-hidden="true">
               {/* Abstract decorative elements to simulate an illustration */}
               <div className="glass-floating-card top-card">
                 <div className="card-skeleton line-short"></div>
@@ -91,8 +91,8 @@ const Login = ({ setToken }) => {
 
             {/* Error Toast */}
             {error && (
-              <div className="error-toast-v2">
-                <div className="error-icon">
+              <div className="error-toast-v2" role="alert" aria-live="polite">
+                <div className="error-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -216,7 +216,7 @@ const Login = ({ setToken }) => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

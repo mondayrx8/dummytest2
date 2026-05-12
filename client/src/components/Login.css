@@ -2,6 +2,21 @@
 /* LOGIN PAGE V2 - ORGANIC / NATURAL THEME */
 /* ============================================ */
 .login-page-v2 {
+    /* Local font override — Newsreader replaces Fraunces on login */
+    --font-serif-login: 'Newsreader', serif;
+
+    /* oklch-derived color tokens (shared palette with landing) */
+    --lp-moss: oklch(0.48 0.08 140);
+    --lp-moss-light: oklch(0.48 0.08 140 / 0.08);
+    --lp-moss-mist: oklch(0.48 0.08 140 / 0.04);
+    --lp-clay: oklch(0.60 0.12 60);
+    --lp-clay-light: oklch(0.60 0.12 60 / 0.10);
+    --lp-clay-mist: oklch(0.60 0.12 60 / 0.06);
+    --lp-surface: oklch(0.99 0.005 90 / 0.65);
+    --lp-surface-solid: oklch(0.99 0.005 90 / 0.8);
+    --lp-border: oklch(0.88 0.02 70 / 0.4);
+    --lp-border-solid: oklch(0.88 0.02 70 / 0.5);
+
     min-height: calc(100vh - var(--navbar-height));
     display: flex;
     align-items: center;
@@ -13,6 +28,7 @@
     margin-top: calc(-1 * var(--navbar-height));
     position: relative;
     z-index: 1;
+    text-wrap: pretty;
 }
 
 .login-split-container {
@@ -67,17 +83,17 @@
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    color: var(--organic-primary);
+    color: var(--lp-moss);
     margin-bottom: auto;
 }
 
 .logo-icon-v2 {
     width: 48px;
     height: 48px;
-    background: rgba(255, 255, 255, 0.4);
+    background: oklch(1 0 0 / 0.4);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid oklch(1 0 0 / 0.5);
     border-radius: var(--radius-blob-1);
     display: flex;
     align-items: center;
@@ -87,11 +103,11 @@
 .logo-icon-v2 svg {
     width: 24px;
     height: 24px;
-    color: var(--organic-primary);
+    color: var(--lp-moss);
 }
 
 .logo-text-v2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-login);
     font-size: 1.8rem;
     font-weight: 800;
     letter-spacing: -0.02em;
@@ -103,12 +119,12 @@
 }
 
 .brand-messaging h2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-login);
     font-size: 3rem;
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    color: var(--organic-primary);
+    color: var(--lp-moss);
 }
 
 .brand-messaging p {
@@ -132,17 +148,17 @@
     position: absolute;
     width: 150%;
     height: 150%;
-    background: radial-gradient(circle at 70% 30%, rgba(193, 140, 93, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(93, 112, 82, 0.1) 0%, transparent 50%);
+    background: radial-gradient(circle at 70% 30%, oklch(0.60 0.12 60 / 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, oklch(0.48 0.08 140 / 0.1) 0%, transparent 50%);
     filter: blur(60px);
     z-index: -1;
 }
 
 .glass-floating-card {
-    background: rgba(255, 255, 255, 0.5);
+    background: oklch(1 0 0 / 0.5);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid oklch(1 0 0 / 0.6);
     border-radius: var(--radius-blob-2); /* organic shape */
     padding: 2rem;
     position: absolute;
@@ -168,7 +184,7 @@
 }
 
 .card-skeleton {
-    background: rgba(93, 112, 82, 0.1); /* Moss tint */
+    background: var(--lp-moss-light);
     border-radius: var(--radius-full);
     margin-bottom: 1rem;
 }
@@ -213,12 +229,12 @@
 .form-panel-inner {
     width: 100%;
     max-width: 440px;
-    background: rgba(254, 254, 250, 0.8);
+    background: var(--lp-surface-solid);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 2rem;
     padding: 3rem;
-    border: 1px solid rgba(222, 216, 207, 0.5); /* Soft timber */
+    border: 1px solid var(--lp-border-solid);
     box-shadow: var(--shadow-organic-soft);
 }
 
@@ -242,7 +258,7 @@
 }
 
 .form-title-v2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-login);
     font-size: 2.5rem;
     font-weight: 800;
     color: var(--text-color);
@@ -259,8 +275,8 @@
 
 /* Error Toast */
 .error-toast-v2 {
-    background: rgba(168, 84, 72, 0.1);
-    border: 1px solid rgba(168, 84, 72, 0.2);
+    background: oklch(0.45 0.12 25 / 0.1);
+    border: 1px solid oklch(0.45 0.12 25 / 0.2);
     border-radius: var(--radius-2xl);
     padding: 1rem;
     display: flex;
@@ -322,13 +338,13 @@
 .forgot-password-link {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--organic-primary);
+    color: var(--lp-moss);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .forgot-password-link:hover {
-    color: var(--organic-secondary);
+    color: var(--lp-clay);
 }
 
 .input-wrapper-v2 {
@@ -351,7 +367,7 @@
 .premium-input {
     width: 100%;
     padding: 1rem 1rem 1rem 3rem;
-    background: rgba(255, 255, 255, 0.5);
+    background: oklch(1 0 0 / 0.5);
     border: 1px solid var(--organic-border);
     border-radius: var(--radius-full);
     font-size: 1rem;
@@ -367,8 +383,8 @@
 
 .premium-input:focus {
     background: #FFFFFF;
-    border-color: rgba(93, 112, 82, 0.3);
-    box-shadow: 0 0 0 2px rgba(93, 112, 82, 0.1);
+    border-color: oklch(0.48 0.08 140 / 0.3);
+    box-shadow: 0 0 0 2px oklch(0.48 0.08 140 / 0.1);
     outline: none;
 }
 
@@ -421,7 +437,7 @@
     border: none;
     padding: 0;
     margin-left: 8px;
-    color: var(--organic-primary);
+    color: var(--lp-moss);
     font-weight: 700;
     font-size: inherit;
     font-family: inherit;
@@ -430,7 +446,7 @@
 }
 
 .btn-text-link:hover {
-    color: var(--organic-secondary);
+    color: var(--lp-clay);
 }
 
 .divider-v2 {
@@ -467,7 +483,7 @@
 }
 
 .guest-action-link:hover {
-    color: var(--organic-primary);
+    color: var(--lp-moss);
 }
 
 .guest-action-link:hover svg {
@@ -489,5 +505,61 @@
     
     .form-panel-inner {
         padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-title-v2 {
+        font-size: 2rem;
+    }
+
+    .form-panel-inner {
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .premium-input {
+        padding: 0.85rem 0.85rem 0.85rem 2.8rem;
+    }
+
+    .auth-submit-btn {
+        height: 50px;
+    }
+}
+
+/* ============================================ */
+/* FOCUS-VISIBLE STATES                         */
+/* ============================================ */
+.login-page-v2 .premium-input:focus-visible {
+    outline: 2px solid var(--lp-moss);
+    outline-offset: 2px;
+}
+
+.login-page-v2 .btn-organic-base:focus-visible {
+    outline: 2px solid var(--lp-moss);
+    outline-offset: 3px;
+}
+
+.login-page-v2 a:focus-visible,
+.login-page-v2 .btn-text-link:focus-visible {
+    outline: 2px solid var(--lp-moss);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* ============================================ */
+/* PREFERS REDUCED MOTION                       */
+/* ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    .glass-floating-card {
+        animation: none;
+    }
+
+    .error-toast-v2 {
+        animation: none;
+    }
+
+    .loader-dots span {
+        animation: none;
     }
 }
