@@ -211,13 +211,13 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
   };
 
   return (
-    <div className="form-page">
-      <div className="organic-blob blob-1"></div>
-      <div className="organic-blob blob-2"></div>
+    <main className="form-page" aria-label="Portfolio Builder">
+      <div className="organic-blob blob-1" aria-hidden="true"></div>
+      <div className="organic-blob blob-2" aria-hidden="true"></div>
 
       {showToast && (
-        <div className="toast-notification">
-          <span className="toast-icon"><CheckCircle size={24} color="#B8860B" /></span>
+        <div className="toast-notification" role="alert" aria-live="polite">
+          <span className="toast-icon" aria-hidden="true"><CheckCircle size={24} color="currentColor" style={{ color: 'oklch(0.55 0.14 80)' }} /></span>
           <span>Portfolio Created Successfully!</span>
         </div>
       )}
@@ -336,8 +336,8 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             {formData.ourTeam.map((member, index) => (
-              <div key={index} style={{ border: '1px solid #E0DBD3', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
-                <button type="button" onClick={() => removeArrayItem('ourTeam', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: '#A85448', background: 'none', border: 'none', cursor: 'pointer' }}><Trash2 size={20} /></button>
+              <div key={index} style={{ border: '1px solid var(--fp-divider)', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
+                <button type="button" onClick={() => removeArrayItem('ourTeam', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: 'var(--fp-destructive)', background: 'none', border: 'none', cursor: 'pointer' }} aria-label={`Remove team member ${index + 1}`}><Trash2 size={20} /></button>
 
                 <div className="form-grid">
                   <div className="input-group">
@@ -384,8 +384,8 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             {formData.ourServices.map((service, index) => (
-              <div key={index} style={{ border: '1px solid #E0DBD3', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
-                <button type="button" onClick={() => removeArrayItem('ourServices', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: '#A85448', background: 'none', border: 'none', cursor: 'pointer' }}><Trash2 size={20} /></button>
+              <div key={index} style={{ border: '1px solid var(--fp-divider)', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
+                <button type="button" onClick={() => removeArrayItem('ourServices', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: 'var(--fp-destructive)', background: 'none', border: 'none', cursor: 'pointer' }} aria-label={`Remove service ${index + 1}`}><Trash2 size={20} /></button>
 
                 <div className="input-group">
                   <label className="input-label">Service Name</label>
@@ -424,7 +424,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
                   {formData.products.map((prod, idx) => (
                     <div key={idx} style={{ position: 'relative', minWidth: '100px' }}>
                       <img src={prod.image} alt="Produk" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }} />
-                      <button type="button" onClick={() => removeArrayItem('products', idx)} style={{ position: 'absolute', top: '-5px', right: '-5px', background: '#A85448', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', cursor: 'pointer' }}>✕</button>
+                      <button type="button" onClick={() => removeArrayItem('products', idx)} style={{ position: 'absolute', top: '-5px', right: '-5px', background: 'var(--fp-destructive)', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', cursor: 'pointer' }} aria-label={`Remove product ${idx + 1}`}>✕</button>
                     </div>
                   ))}
                 </div>
@@ -466,8 +466,8 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
             </div>
 
             {formData.achievements.map((achieve, index) => (
-              <div key={index} style={{ border: '1px solid #E0DBD3', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
-                <button type="button" onClick={() => removeArrayItem('achievements', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: '#A85448', background: 'none', border: 'none', cursor: 'pointer' }}><Trash2 size={20} /></button>
+              <div key={index} style={{ border: '1px solid var(--fp-divider)', padding: '15px', borderRadius: '8px', marginBottom: '15px', position: 'relative' }}>
+                <button type="button" onClick={() => removeArrayItem('achievements', index)} style={{ position: 'absolute', top: '10px', right: '10px', color: 'var(--fp-destructive)', background: 'none', border: 'none', cursor: 'pointer' }} aria-label={`Remove achievement ${index + 1}`}><Trash2 size={20} /></button>
 
                 <div className="input-group">
                   <label className="input-label">Achievement Description</label>
@@ -542,7 +542,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
           </div>
         </form>
       </div>
-    </div>
+    </main>
   );
 };
 
