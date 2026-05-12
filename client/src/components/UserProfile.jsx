@@ -121,39 +121,39 @@ const UserProfile = () => {
     // ==========================================
     if (loading) {
         return (
-            <div className="profile-page">
-                <div className="profile-container">
+            <main className="profile-page" aria-label="Loading Profile">
+                <div className="profile-container" aria-hidden="true">
                     {/* Header Skeleton */}
                     <header className="profile-header flex flex-col gap-3">
-                        <div className="h-10 w-48 bg-slate-200 rounded animate-pulse"></div>
-                        <div className="h-5 w-72 bg-slate-200 rounded animate-pulse"></div>
+                        <div className="skeleton-block" style={{ height: '2.5rem', width: '12rem', margin: '0 auto' }}></div>
+                        <div className="skeleton-block" style={{ height: '1.25rem', width: '18rem', margin: '0 auto' }}></div>
                     </header>
 
                     <div className="profile-grid">
                         {/* Info Card Skeleton */}
                         <div className="profile-card info-card">
                             <div className="card-header flex items-center gap-3">
-                                <div className="h-8 w-8 bg-slate-200 rounded-full animate-pulse"></div>
-                                <div className="h-7 w-40 bg-slate-200 rounded animate-pulse"></div>
+                                <div className="skeleton-block" style={{ height: '2rem', width: '2rem', borderRadius: '50%' }}></div>
+                                <div className="skeleton-block" style={{ height: '1.75rem', width: '10rem' }}></div>
                             </div>
                             <div className="card-body flex flex-col gap-6 mt-6">
                                 <div className="flex flex-col gap-2">
-                                    <div className="h-4 w-24 bg-slate-200 rounded animate-pulse"></div>
-                                    <div className="h-6 w-full bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="skeleton-block" style={{ height: '1rem', width: '6rem' }}></div>
+                                    <div className="skeleton-block" style={{ height: '1.5rem', width: '100%' }}></div>
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <div className="h-4 w-32 bg-slate-200 rounded animate-pulse"></div>
-                                    <div className="h-6 w-full bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="skeleton-block" style={{ height: '1rem', width: '8rem' }}></div>
+                                    <div className="skeleton-block" style={{ height: '1.5rem', width: '100%' }}></div>
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <div className="h-4 w-16 bg-slate-200 rounded animate-pulse"></div>
-                                    <div className="h-8 w-24 bg-slate-200 rounded-full animate-pulse"></div>
+                                    <div className="skeleton-block" style={{ height: '1rem', width: '4rem' }}></div>
+                                    <div className="skeleton-block" style={{ height: '2rem', width: '6rem', borderRadius: '9999px' }}></div>
                                 </div>
-                                <hr style={{ margin: '10px 0', borderColor: '#E0DBD3' }} />
+                                <hr style={{ margin: '10px 0', borderColor: 'var(--prof-divider)' }} />
                                 <div className="flex flex-col gap-4">
-                                    <div className="h-6 w-32 bg-slate-200 rounded animate-pulse"></div>
-                                    <div className="h-10 w-full bg-slate-200 rounded animate-pulse"></div>
-                                    <div className="h-10 w-32 bg-slate-200 rounded animate-pulse"></div>
+                                    <div className="skeleton-block" style={{ height: '1.5rem', width: '8rem' }}></div>
+                                    <div className="skeleton-block" style={{ height: '2.5rem', width: '100%' }}></div>
+                                    <div className="skeleton-block" style={{ height: '2.5rem', width: '8rem', borderRadius: '9999px' }}></div>
                                 </div>
                             </div>
                         </div>
@@ -161,38 +161,38 @@ const UserProfile = () => {
                         {/* Security Card Skeleton */}
                         <div className="profile-card security-card">
                             <div className="card-header flex items-center gap-3">
-                                <div className="h-8 w-8 bg-slate-200 rounded-full animate-pulse"></div>
-                                <div className="h-7 w-48 bg-slate-200 rounded animate-pulse"></div>
+                                <div className="skeleton-block" style={{ height: '2rem', width: '2rem', borderRadius: '50%' }}></div>
+                                <div className="skeleton-block" style={{ height: '1.75rem', width: '12rem' }}></div>
                             </div>
                             <div className="card-body flex flex-col gap-6 mt-6">
-                                <div className="h-6 w-40 bg-slate-200 rounded animate-pulse"></div>
+                                <div className="skeleton-block" style={{ height: '1.5rem', width: '10rem' }}></div>
                                 {[1, 2, 3].map(i => (
                                     <div key={i} className="flex flex-col gap-2">
-                                        <div className="h-4 w-32 bg-slate-200 rounded animate-pulse"></div>
-                                        <div className="h-10 w-full bg-slate-200 rounded animate-pulse"></div>
+                                        <div className="skeleton-block" style={{ height: '1rem', width: '8rem' }}></div>
+                                        <div className="skeleton-block" style={{ height: '2.5rem', width: '100%' }}></div>
                                     </div>
                                 ))}
-                                <div className="h-10 w-40 bg-slate-200 rounded animate-pulse mt-2"></div>
+                                <div className="skeleton-block" style={{ height: '2.5rem', width: '10rem', borderRadius: '9999px', marginTop: '0.5rem' }}></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         );
     }
 
     if (error && !profile) {
         return (
-            <div className="profile-error">
+            <main className="profile-error" aria-label="Error Loading Profile">
                 <h2>Oops!</h2>
                 <p>{error}</p>
                 <button onClick={() => navigate('/dashboard')} className="btn-back">Return to Dashboard</button>
-            </div>
+            </main>
         );
     }
 
     return (
-        <div className="profile-page">
+        <main className="profile-page" aria-label="User Profile">
             <div className="profile-container">
                 <header className="profile-header">
                     <h1>My Profile</h1>
@@ -203,7 +203,7 @@ const UserProfile = () => {
                     {/* User Info Card */}
                     <div className="profile-card info-card">
                         <div className="card-header">
-                            <span className="card-icon"><User size={24} color="#B8860B" /></span>
+                            <span className="card-icon" aria-hidden="true"><User size={24} color="currentColor" /></span>
                             <h2>Account Details</h2>
                         </div>
                         <div className="card-body">
@@ -223,12 +223,12 @@ const UserProfile = () => {
                             </div>
 
                             {/* 👇👇👇 3. Borang Kemaskini Email 👇👇👇 */}
-                            <hr style={{ margin: '20px 0', borderColor: '#E0DBD3', borderStyle: 'solid', borderWidth: '1px 0 0 0' }} />
+                            <hr style={{ margin: '20px 0', borderColor: 'var(--prof-divider)', borderStyle: 'solid', borderWidth: '1px 0 0 0' }} />
                             <form onSubmit={handleEmailChange} className="password-form" style={{ marginTop: '0' }}>
                                 <h3>Update Email</h3>
 
                                 {emailMessage.text && (
-                                    <div className={`message-toast ${emailMessage.type}`}>
+                                    <div className={`message-toast ${emailMessage.type}`} role="alert" aria-live="polite">
                                         {emailMessage.text}
                                     </div>
                                 )}
@@ -258,7 +258,7 @@ const UserProfile = () => {
                     {/* Security Card */}
                     <div className="profile-card security-card">
                         <div className="card-header">
-                            <span className="card-icon"><ShieldCheck size={24} color="#B8860B" /></span>
+                            <span className="card-icon" aria-hidden="true"><ShieldCheck size={24} color="currentColor" /></span>
                             <h2>Security Settings</h2>
                         </div>
                         <div className="card-body">
@@ -266,7 +266,7 @@ const UserProfile = () => {
                                 <h3>Change Password</h3>
 
                                 {pwdMessage.text && (
-                                    <div className={`message-toast ${pwdMessage.type}`}>
+                                    <div className={`message-toast ${pwdMessage.type}`} role="alert" aria-live="polite">
                                         {pwdMessage.text}
                                     </div>
                                 )}
@@ -314,7 +314,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

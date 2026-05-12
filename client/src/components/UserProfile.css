@@ -1,14 +1,29 @@
 /* ============================================ */
 /* USER PROFILE — Editorial Theme               */
-/* Aligned with pitch-deck palette:             */
-/*   Ink #1A1A1A · Paper #F5F2EC · Accent #B8860B */
-/*   Graphite #6B6B6B · Chalk #FFFFFF           */
-/*   Divider #E0DBD3                            */
+/* oklch palette · Newsreader headings          */
 /* ============================================ */
 
 .profile-page {
-    background-color: #F5F2EC;
-    color: #1A1A1A;
+    /* Local font override */
+    --font-serif-prof: 'Newsreader', serif;
+
+    /* oklch tokens */
+    --prof-ink: oklch(0.15 0.02 80);
+    --prof-paper: oklch(0.96 0.01 70);
+    --prof-accent: oklch(0.55 0.14 80);
+    --prof-accent-light: oklch(0.55 0.14 80 / 0.10);
+    --prof-accent-focus: oklch(0.55 0.14 80 / 0.08);
+    --prof-accent-border: oklch(0.55 0.14 80 / 0.4);
+    --prof-graphite: oklch(0.48 0.02 80);
+    --prof-chalk: oklch(1 0 0);
+    --prof-divider: oklch(0.89 0.01 70);
+    --prof-destructive: oklch(0.45 0.12 25);
+    --prof-placeholder: oklch(0.62 0.02 80);
+    --prof-shadow: oklch(0.15 0.02 80 / 0.06);
+    --prof-shadow-hover: oklch(0.15 0.02 80 / 0.10);
+
+    background-color: var(--prof-paper);
+    color: var(--prof-ink);
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - var(--navbar-height));
@@ -16,6 +31,7 @@
     font-family: 'Nunito', sans-serif;
     position: relative;
     z-index: 1;
+    text-wrap: pretty;
 }
 
 /* Subtle ambient glow */
@@ -26,7 +42,7 @@
     left: -8%;
     width: 450px;
     height: 450px;
-    background: radial-gradient(circle, rgba(184, 134, 11, 0.05) 0%, transparent 60%);
+    background: radial-gradient(circle, oklch(0.55 0.14 80 / 0.05) 0%, transparent 60%);
     filter: blur(80px);
     z-index: -1;
     pointer-events: none;
@@ -39,7 +55,7 @@
     right: -8%;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(184, 134, 11, 0.04) 0%, transparent 60%);
+    background: radial-gradient(circle, oklch(0.55 0.14 80 / 0.04) 0%, transparent 60%);
     filter: blur(80px);
     z-index: -1;
     pointer-events: none;
@@ -63,15 +79,15 @@
 /* ============================================ */
 .profile-header {
     text-align: center;
-    border-bottom: 1px solid #E0DBD3;
+    border-bottom: 1px solid var(--prof-divider);
     padding-bottom: 1.5rem;
 }
 
 .profile-header h1 {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-serif-prof);
     font-size: clamp(2rem, 4vw, 2.75rem);
     font-weight: 600;
-    color: #1A1A1A;
+    color: var(--prof-ink);
     margin: 0 0 0.4rem 0;
     letter-spacing: -0.025em;
     line-height: 1.1;
@@ -80,7 +96,7 @@
 .profile-header p {
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
-    color: #6B6B6B;
+    color: var(--prof-graphite);
     margin: 0;
 }
 
@@ -94,11 +110,11 @@
 /* PROFILE CARDS                                */
 /* ============================================ */
 .profile-card {
-    background: #FFFFFF;
-    border: 1px solid #E0DBD3;
+    background: var(--prof-chalk);
+    border: 1px solid var(--prof-divider);
     border-radius: 1.25rem;
     padding: 2.25rem;
-    box-shadow: 0 2px 16px -4px rgba(26, 26, 26, 0.06);
+    box-shadow: 0 2px 16px -4px var(--prof-shadow);
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
         box-shadow 0.4s ease;
     position: relative;
@@ -112,7 +128,7 @@
 
 .profile-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 28px -8px rgba(26, 26, 26, 0.1);
+    box-shadow: 0 8px 28px -8px var(--prof-shadow-hover);
 }
 
 .card-header {
@@ -121,7 +137,7 @@
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #E0DBD3;
+    border-bottom: 1px solid var(--prof-divider);
     position: relative;
     z-index: 1;
 }
@@ -132,17 +148,17 @@
     justify-content: center;
     width: 44px;
     height: 44px;
-    background-color: rgba(184, 134, 11, 0.08);
-    color: #B8860B;
+    background-color: var(--prof-accent-light);
+    color: var(--prof-accent);
     border-radius: 0.75rem;
     font-size: 1.2rem;
 }
 
 .card-header h2 {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-serif-prof);
     font-size: 1.4rem;
     font-weight: 600;
-    color: #1A1A1A;
+    color: var(--prof-ink);
     margin: 0;
 }
 
@@ -167,7 +183,7 @@
     font-family: 'Nunito', sans-serif;
     font-size: 0.7rem;
     font-weight: 800;
-    color: #6B6B6B;
+    color: var(--prof-graphite);
     text-transform: uppercase;
     letter-spacing: 0.15em;
 }
@@ -175,21 +191,21 @@
 .info-value {
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
-    color: #1A1A1A;
+    color: var(--prof-ink);
     font-weight: 600;
     margin: 0;
-    background: #F5F2EC;
+    background: var(--prof-paper);
     padding: 0.9rem 1.25rem;
     border-radius: 9999px;
-    border: 1px solid #E0DBD3;
+    border: 1px solid var(--prof-divider);
 }
 
 .role-badge {
     display: inline-flex;
     align-items: center;
     padding: 0.5rem 1.1rem;
-    background-color: rgba(184, 134, 11, 0.1);
-    color: #B8860B;
+    background-color: var(--prof-accent-light);
+    color: var(--prof-accent);
     border-radius: 9999px;
     font-family: 'Nunito', sans-serif;
     font-size: 0.75rem;
@@ -198,6 +214,20 @@
     letter-spacing: 0.1em;
     width: fit-content;
     border: none;
+}
+
+/* ============================================ */
+/* SKELETON                                     */
+/* ============================================ */
+.skeleton-block {
+    background: oklch(0.92 0.005 80);
+    border-radius: 0.25rem;
+    animation: skel-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skel-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
 /* ============================================ */
@@ -210,10 +240,10 @@
 }
 
 .password-form h3 {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-serif-prof);
     font-size: 1.2rem;
     font-weight: 600;
-    color: #1A1A1A;
+    color: var(--prof-ink);
     margin: 0;
 }
 
@@ -227,36 +257,36 @@
     font-family: 'Nunito', sans-serif;
     font-size: 0.85rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: var(--prof-ink);
 }
 
 .form-group input {
     width: 100%;
     padding: 0.85rem 1.25rem;
-    background-color: #F5F2EC;
-    border: 1px solid #E0DBD3;
+    background-color: var(--prof-paper);
+    border: 1px solid var(--prof-divider);
     border-radius: 9999px;
     font-size: 0.95rem;
     font-family: 'Nunito', sans-serif;
-    color: #1A1A1A;
+    color: var(--prof-ink);
     transition: all 0.25s ease;
     box-sizing: border-box;
 }
 
 .form-group input::placeholder {
-    color: #9B9B8F;
+    color: var(--prof-placeholder);
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: rgba(184, 134, 11, 0.4);
-    box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.08);
-    background-color: #FFFFFF;
+    border-color: var(--prof-accent-border);
+    box-shadow: 0 0 0 3px var(--prof-accent-focus);
+    background-color: var(--prof-chalk);
 }
 
 .btn-update-pwd {
-    background-color: #1A1A1A;
-    color: #FFFFFF;
+    background-color: var(--prof-ink);
+    color: var(--prof-chalk);
     border: none;
     padding: 0.85rem 1.5rem;
     border-radius: 9999px;
@@ -266,12 +296,12 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     margin-top: 0.5rem;
-    box-shadow: 0 2px 12px -4px rgba(26, 26, 26, 0.2);
+    box-shadow: 0 2px 12px -4px oklch(0.15 0.02 80 / 0.2);
 }
 
 .btn-update-pwd:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px -4px rgba(26, 26, 26, 0.25);
+    box-shadow: 0 8px 20px -4px oklch(0.15 0.02 80 / 0.25);
 }
 
 .btn-update-pwd:disabled {
@@ -297,27 +327,20 @@
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .message-toast.success {
-    background-color: rgba(184, 134, 11, 0.06);
-    color: #1A1A1A;
-    border: 1px solid rgba(184, 134, 11, 0.15);
+    background-color: var(--prof-accent-light);
+    color: var(--prof-ink);
+    border: 1px solid oklch(0.55 0.14 80 / 0.15);
 }
 
 .message-toast.error {
-    background-color: rgba(168, 84, 72, 0.08);
-    color: #A85448;
-    border: 1px solid rgba(168, 84, 72, 0.18);
+    background-color: oklch(0.45 0.12 25 / 0.08);
+    color: var(--prof-destructive);
+    border: 1px solid oklch(0.45 0.12 25 / 0.18);
 }
 
 /* ============================================ */
@@ -334,8 +357,8 @@
 }
 
 .spinner {
-    border: 3px solid #E0DBD3;
-    border-top: 3px solid #B8860B;
+    border: 3px solid var(--prof-divider);
+    border-top: 3px solid var(--prof-accent);
     border-radius: 50%;
     width: 48px;
     height: 48px;
@@ -344,15 +367,13 @@
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
 .btn-back {
     margin-top: 1.5rem;
-    background-color: #1A1A1A;
-    color: #FFFFFF;
+    background-color: var(--prof-ink);
+    color: var(--prof-chalk);
     border: none;
     padding: 0.85rem 1.5rem;
     border-radius: 9999px;
@@ -362,10 +383,43 @@
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 0 2px 12px -4px rgba(26, 26, 26, 0.2);
+    box-shadow: 0 2px 12px -4px oklch(0.15 0.02 80 / 0.2);
 }
 
 .btn-back:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px -4px rgba(26, 26, 26, 0.25);
+    box-shadow: 0 8px 20px -4px oklch(0.15 0.02 80 / 0.25);
+}
+
+/* ============================================ */
+/* FOCUS-VISIBLE                                */
+/* ============================================ */
+.profile-page input:focus-visible {
+    outline: 2px solid var(--prof-accent);
+    outline-offset: 2px;
+}
+
+.profile-page button:focus-visible {
+    outline: 2px solid var(--prof-accent);
+    outline-offset: 3px;
+}
+
+/* ============================================ */
+/* REDUCED MOTION                               */
+/* ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    .profile-page::before, .profile-page::after { animation: none; }
+    .message-toast { animation: none; }
+    .spinner, .skeleton-block { animation: none; }
+    .profile-card, .btn-update-pwd, .btn-back { transition: none; }
+}
+
+/* ============================================ */
+/* RESPONSIVE                                   */
+/* ============================================ */
+@media (max-width: 480px) {
+    .profile-container { padding: 2rem 1.25rem; }
+    .profile-card { padding: 1.5rem; }
+    .card-header h2 { font-size: 1.2rem; }
+    .profile-header h1 { font-size: 1.75rem; }
 }
