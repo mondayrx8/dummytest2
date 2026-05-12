@@ -2,25 +2,13 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
-    Plus,
-    Search,
-    Eye,
-    Pencil,
-    Trash2,
-    ChevronLeft,
-    ChevronRight,
-    Briefcase,
-    Users,
-    BarChart3,
-    LayoutTemplate,
-    Tag,
-    ArrowUpDown,
-    Filter,
-    Inbox,
-    Loader2,
-    TrendingUp,
+    Plus, Search, Eye, Pencil, Trash2,
+    ChevronLeft, ChevronRight, Briefcase, Users,
+    BarChart3, LayoutTemplate, Tag, ArrowUpDown,
+    Filter, Inbox, Loader2, TrendingUp,
 } from 'lucide-react';
 import Footer from './Footer';
+import './PortfolioList.css';
 
 const CATEGORY_OPTIONS = [
     { value: '', label: 'All Categories' },
@@ -38,12 +26,12 @@ const SORT_OPTIONS = [
     { value: 'name_desc', label: 'Name Z–A' },
 ];
 
-const CATEGORY_BADGE = {
-    'F&B': 'bg-amber-50 text-amber-700 ring-amber-200',
-    'Tech & IT': 'bg-sky-50 text-sky-700 ring-sky-200',
-    'Retail/Apparel': 'bg-rose-50 text-rose-700 ring-rose-200',
-    'Services': 'bg-emerald-50 text-emerald-700 ring-emerald-200',
-    'Other': 'bg-zinc-100 text-zinc-700 ring-zinc-200',
+const CATEGORY_BADGE_CLASS = {
+    'F&B': 'cat-badge--amber',
+    'Tech & IT': 'cat-badge--sky',
+    'Retail/Apparel': 'cat-badge--rose',
+    'Services': 'cat-badge--emerald',
+    'Other': 'cat-badge--zinc',
 };
 
 const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
@@ -162,88 +150,78 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
     const isAdmin = currentUser?.role === 'admin';
 
     return (
-        <div className="min-h-screen bg-zinc-50 text-zinc-900">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+        <main className="dashboard-page" aria-label="Dashboard">
+            <div className="dashboard-container">
                 {/* ───────────── Header ───────────── */}
-                <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+                <header className="dashboard-header">
                     <div>
-                        <div className="flex items-center gap-2 text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">
-                            <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="dashboard-live-badge">
+                            <span className="dashboard-live-dot" aria-hidden="true" />
                             Live Operations
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900">
-                            Command Center
-                        </h1>
-                        <p className="mt-1.5 text-sm text-zinc-500 max-w-xl">
+                        <h1 className="dashboard-title">Command Center</h1>
+                        <p className="dashboard-subtitle">
                             Monitor ventures, analyze performance, and manage university business landing pages from a single workspace.
                         </p>
                     </div>
-                    <button
-                        onClick={handleCreate}
-                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 px-5 py-3 text-sm font-medium text-white shadow-sm ring-1 ring-zinc-900/10 hover:bg-zinc-800 active:scale-[0.98] transition-all"
-                    >
-                        <Plus className="h-4 w-4" />
+                    <button onClick={handleCreate} className="dashboard-create-btn">
+                        <Plus />
                         Create Landing Page
                     </button>
                 </header>
 
                 {/* ───────────── Top Metrics ───────────── */}
-                <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <section className="metrics-grid" aria-label="Key metrics">
                     <MetricCard
-                        icon={<Briefcase className="h-5 w-5" />}
+                        icon={<Briefcase />}
                         label="Total Ventures"
                         value={analytics.totalVentures}
-                        accent="bg-zinc-900 text-white"
+                        iconClass="metric-card__icon--dark"
                     />
                     <MetricCard
-                        icon={<Users className="h-5 w-5" />}
+                        icon={<Users />}
                         label="Registered Students"
                         value={stats.totalUsers}
-                        accent="bg-sky-50 text-sky-700 ring-1 ring-sky-200"
+                        iconClass="metric-card__icon--sky"
                     />
                     <MetricCard
-                        icon={<TrendingUp className="h-5 w-5" />}
+                        icon={<TrendingUp />}
                         label="Total Visits"
                         value={stats.totalVisits}
-                        accent="bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200"
+                        iconClass="metric-card__icon--emerald"
                     />
                 </section>
 
                 {/* ───────────── Admin Analytics ───────────── */}
                 {isAdmin && (
-                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+                    <section className="analytics-grid" aria-label="Analytics">
                         {/* Category Distribution */}
-                        <div className="rounded-2xl bg-white ring-1 ring-zinc-200 p-6 shadow-sm">
-                            <div className="flex items-center justify-between mb-5">
-                                <div className="flex items-center gap-2.5">
-                                    <div className="grid place-items-center h-9 w-9 rounded-lg bg-zinc-900 text-white">
-                                        <BarChart3 className="h-4 w-4" />
-                                    </div>
-                                    <div>
-                                        <h2 className="text-sm font-semibold text-zinc-900">Category Distribution</h2>
-                                        <p className="text-xs text-zinc-500">Ventures grouped by industry</p>
-                                    </div>
+                        <div className="analytics-panel">
+                            <div className="analytics-panel__header">
+                                <div className="analytics-panel__icon" aria-hidden="true">
+                                    <BarChart3 />
+                                </div>
+                                <div>
+                                    <h2 className="analytics-panel__title">Category Distribution</h2>
+                                    <p className="analytics-panel__desc">Ventures grouped by industry</p>
                                 </div>
                             </div>
-                            <div className="space-y-4">
+                            <div>
                                 {(analytics.categoryDistribution || []).length === 0 ? (
-                                    <p className="text-sm text-zinc-400 italic">No category data available.</p>
+                                    <p className="analytics-empty">No category data available.</p>
                                 ) : (
                                     analytics.categoryDistribution.map((c) => {
                                         const name = c._id || c.name || c.category || 'Unknown';
                                         const count = Number(c.count) || 0;
                                         const pct = Math.round((count / categoryMax) * 100);
                                         return (
-                                            <div key={name}>
-                                                <div className="flex items-center justify-between text-sm mb-1.5">
-                                                    <span className="font-medium text-zinc-700">{name}</span>
-                                                    <span className="tabular-nums text-zinc-500">{count}</span>
+                                            <div key={name} className="analytics-bar">
+                                                <div className="analytics-bar__header">
+                                                    <span className="analytics-bar__name">{name}</span>
+                                                    <span className="analytics-bar__count">{count}</span>
                                                 </div>
-                                                <div className="h-2 w-full rounded-full bg-zinc-100 overflow-hidden">
-                                                    <div
-                                                        className="h-full rounded-full bg-gradient-to-r from-zinc-800 to-zinc-600 transition-all duration-500"
-                                                        style={{ width: `${pct}%` }}
-                                                    />
+                                                <div className="bar-track">
+                                                    <div className="bar-fill" style={{ width: `${pct}%` }} />
                                                 </div>
                                             </div>
                                         );
@@ -253,42 +231,32 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                         </div>
 
                         {/* Template Popularity */}
-                        <div className="rounded-2xl bg-white ring-1 ring-zinc-200 p-6 shadow-sm">
-                            <div className="flex items-center justify-between mb-5">
-                                <div className="flex items-center gap-2.5">
-                                    <div className="grid place-items-center h-9 w-9 rounded-lg bg-zinc-900 text-white">
-                                        <LayoutTemplate className="h-4 w-4" />
-                                    </div>
-                                    <div>
-                                        <h2 className="text-sm font-semibold text-zinc-900">Template Usage</h2>
-                                        <p className="text-xs text-zinc-500">Most popular themes across ventures</p>
-                                    </div>
+                        <div className="analytics-panel">
+                            <div className="analytics-panel__header">
+                                <div className="analytics-panel__icon" aria-hidden="true">
+                                    <LayoutTemplate />
+                                </div>
+                                <div>
+                                    <h2 className="analytics-panel__title">Template Usage</h2>
+                                    <p className="analytics-panel__desc">Most popular themes across ventures</p>
                                 </div>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div className="template-grid">
                                 {(analytics.templatePopularity || []).length === 0 ? (
-                                    <p className="text-sm text-zinc-400 italic col-span-full">No template data available.</p>
+                                    <p className="analytics-empty">No template data available.</p>
                                 ) : (
                                     analytics.templatePopularity.map((t) => {
                                         const name = t._id || t.name || t.template || 'Unknown';
                                         const count = Number(t.count) || 0;
                                         const pct = Math.round((count / templateMax) * 100);
                                         return (
-                                            <div
-                                                key={name}
-                                                className="rounded-xl ring-1 ring-zinc-200 bg-zinc-50/60 p-4 hover:ring-zinc-300 transition"
-                                            >
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-sm font-medium text-zinc-800 truncate">{name}</p>
-                                                    <span className="text-xs font-semibold tabular-nums text-zinc-900 bg-white ring-1 ring-zinc-200 rounded-md px-1.5 py-0.5">
-                                                        {count}
-                                                    </span>
+                                            <div key={name} className="template-card">
+                                                <div className="template-card__header">
+                                                    <p className="template-card__name">{name}</p>
+                                                    <span className="template-card__count">{count}</span>
                                                 </div>
-                                                <div className="h-1.5 w-full rounded-full bg-zinc-200 overflow-hidden">
-                                                    <div
-                                                        className="h-full rounded-full bg-zinc-900 transition-all duration-500"
-                                                        style={{ width: `${pct}%` }}
-                                                    />
+                                                <div className="bar-track bar-track--sm">
+                                                    <div className="bar-fill bar-fill--solid" style={{ width: `${pct}%` }} />
                                                 </div>
                                             </div>
                                         );
@@ -300,65 +268,58 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                 )}
 
                 {/* ───────────── Toolbar ───────────── */}
-                <div className="rounded-2xl bg-white ring-1 ring-zinc-200 shadow-sm p-4 sm:p-5 mb-4">
-                    <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-                        <div className="relative flex-1">
-                            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+                <div className="toolbar">
+                    <div className="toolbar__inner">
+                        <div className="toolbar-search">
+                            <span className="toolbar-search__icon" aria-hidden="true"><Search /></span>
                             <input
                                 type="text"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Search ventures by name, founder, or slogan…"
-                                className="w-full h-11 rounded-xl bg-zinc-50 ring-1 ring-zinc-200 pl-10 pr-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:ring-zinc-900 focus:outline-none transition"
+                                className="toolbar-search__input"
+                                aria-label="Search ventures"
                             />
                         </div>
 
-                        <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="toolbar-filters">
                             <SelectField
-                                icon={<Filter className="h-4 w-4 text-zinc-400" />}
+                                icon={<Filter />}
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                                 options={CATEGORY_OPTIONS}
+                                label="Filter by category"
                             />
                             <SelectField
-                                icon={<ArrowUpDown className="h-4 w-4 text-zinc-400" />}
+                                icon={<ArrowUpDown />}
                                 value={sort}
                                 onChange={(e) => setSort(e.target.value)}
                                 options={SORT_OPTIONS}
+                                label="Sort order"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* ───────────── Data Table ───────────── */}
-                <div className="rounded-2xl bg-white ring-1 ring-zinc-200 shadow-sm overflow-hidden">
-                    <div className="overflow-x-auto">
-                        <table className="min-w-full text-sm">
+                <div className="data-table-wrapper">
+                    <div className="data-table-scroll">
+                        <table className="data-table">
                             <thead>
-                                <tr className="bg-zinc-50/70 border-b border-zinc-200">
-                                    <th className="px-6 py-3.5 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider">
-                                        Venture Name
-                                    </th>
-                                    <th className="px-6 py-3.5 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider">
-                                        Category
-                                    </th>
-                                    <th className="px-6 py-3.5 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider">
-                                        Theme Template
-                                    </th>
-                                    <th className="px-6 py-3.5 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider">
-                                        Date Created
-                                    </th>
-                                    <th className="px-6 py-3.5 text-right text-xs font-semibold text-zinc-500 uppercase tracking-wider">
-                                        Actions
-                                    </th>
+                                <tr>
+                                    <th>Venture Name</th>
+                                    <th>Category</th>
+                                    <th>Theme Template</th>
+                                    <th>Date Created</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-zinc-100">
+                            <tbody>
                                 {isLoading ? (
                                     [...Array(6)].map((_, i) => <SkeletonRow key={i} />)
                                 ) : dashboardPortfolios.length === 0 ? (
                                     <tr>
-                                        <td colSpan={4}>
+                                        <td colSpan={5}>
                                             <EmptyState />
                                         </td>
                                     </tr>
@@ -376,39 +337,36 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                         const canEdit = currentUser?.role === 'admin' || String(currentUserId) === String(itemOwnerId);
 
                                         return (
-                                            <tr key={item._id} className="hover:bg-zinc-50/60 transition-colors">
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="grid place-items-center h-9 w-9 rounded-lg bg-zinc-100 ring-1 ring-zinc-200 text-zinc-600 font-semibold text-sm shrink-0">
+                                            <tr key={item._id}>
+                                                <td>
+                                                    <div className="venture-cell">
+                                                        <div className="venture-avatar">
                                                             {item.businessName?.charAt(0)?.toUpperCase() || 'V'}
                                                         </div>
-                                                        <div className="min-w-0">
-                                                            <p className="font-medium text-zinc-900 truncate">
+                                                        <div style={{ minWidth: 0 }}>
+                                                            <p className="venture-name">
                                                                 {item.businessName || 'Untitled Venture'}
                                                             </p>
-                                                            <p className="text-xs text-zinc-500 truncate">
+                                                            <p className="venture-founder">
                                                                 By {founderName}
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    <span
-                                                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${CATEGORY_BADGE[itemCategory] || CATEGORY_BADGE.Other
-                                                            }`}
-                                                    >
-                                                        <Tag className="h-3 w-3" />
+                                                <td>
+                                                    <span className={`cat-badge ${CATEGORY_BADGE_CLASS[itemCategory] || CATEGORY_BADGE_CLASS.Other}`}>
+                                                        <Tag />
                                                         {itemCategory}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="inline-flex items-center gap-2 text-zinc-700">
-                                                        <LayoutTemplate className="h-4 w-4 text-zinc-400" />
-                                                        <span className="text-sm">{template}</span>
+                                                <td>
+                                                    <div className="template-cell">
+                                                        <LayoutTemplate />
+                                                        <span>{template}</span>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    <span className="text-sm text-zinc-500">
+                                                <td>
+                                                    <span className="date-cell">
                                                         {item.createdAt ? new Date(item.createdAt).toLocaleDateString('en-MY', {
                                                             day: '2-digit',
                                                             month: 'short',
@@ -416,13 +374,13 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                                         }) : 'N/A'}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center justify-end gap-1">
+                                                <td>
+                                                    <div className="actions-cell">
                                                         <IconButton
                                                             title="View"
                                                             onClick={() => navigate(`/portfolio/${item._id}`)}
                                                         >
-                                                            <Eye className="h-4 w-4" />
+                                                            <Eye />
                                                         </IconButton>
                                                         {canEdit && (
                                                             <>
@@ -430,7 +388,7 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                                                     title="Edit"
                                                                     onClick={() => handleEditClick(item)}
                                                                 >
-                                                                    <Pencil className="h-4 w-4" />
+                                                                    <Pencil />
                                                                 </IconButton>
                                                                 <IconButton
                                                                     title="Delete"
@@ -439,9 +397,9 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                                                                     onClick={() => handleDelete(item._id)}
                                                                 >
                                                                     {deleting === item._id ? (
-                                                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                                                        <Loader2 className="animate-spin" />
                                                                     ) : (
-                                                                        <Trash2 className="h-4 w-4" />
+                                                                        <Trash2 />
                                                                     )}
                                                                 </IconButton>
                                                             </>
@@ -458,28 +416,25 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
 
                     {/* Pagination */}
                     {!isLoading && dashboardPortfolios.length > 0 && (
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-zinc-200 bg-zinc-50/40 px-6 py-4">
-                            <p className="text-xs text-zinc-500">
-                                Page <span className="font-semibold text-zinc-900">{page}</span> of{' '}
-                                <span className="font-semibold text-zinc-900">{totalPages}</span>
+                        <div className="pagination">
+                            <p className="pagination__info">
+                                Page <strong>{page}</strong> of <strong>{totalPages}</strong>
                             </p>
-                            <div className="flex items-center gap-2">
+                            <div className="pagination__controls">
                                 <button
                                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                                     disabled={page <= 1}
-                                    className="inline-flex items-center gap-1.5 rounded-lg bg-white ring-1 ring-zinc-200 px-3 py-2 text-xs font-medium text-zinc-700 hover:bg-zinc-50 hover:ring-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                                    className="page-btn"
                                 >
-                                    <ChevronLeft className="h-3.5 w-3.5" />
-                                    Previous
+                                    <ChevronLeft /> Previous
                                 </button>
                                 <PageIndicator page={page} totalPages={totalPages} onSelect={setPage} />
                                 <button
                                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                     disabled={page >= totalPages}
-                                    className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 ring-1 ring-zinc-900 px-3 py-2 text-xs font-medium text-white hover:bg-zinc-800 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                                    className="page-btn page-btn--dark"
                                 >
-                                    Next
-                                    <ChevronRight className="h-3.5 w-3.5" />
+                                    Next <ChevronRight />
                                 </button>
                             </div>
                         </div>
@@ -487,48 +442,41 @@ const PortfolioList = ({ setCurrentPortfolio, currentUser }) => {
                 </div>
             </div>
             <Footer />
-        </div>
+        </main>
     );
 };
 
 /* ───────────── Sub-components ───────────── */
 
-const MetricCard = ({ icon, label, value, accent }) => (
-    <div className="rounded-2xl bg-white ring-1 ring-zinc-200 p-5 shadow-sm hover:shadow-md hover:ring-zinc-300 transition-all">
-        <div className="flex items-start justify-between">
+const MetricCard = ({ icon, label, value, iconClass }) => (
+    <div className="metric-card">
+        <div className="metric-card__inner">
             <div>
-                <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">{label}</p>
-                <p className="mt-2 text-3xl font-semibold tracking-tight text-zinc-900 tabular-nums">
+                <p className="metric-card__label">{label}</p>
+                <p className="metric-card__value">
                     {Number(value || 0).toLocaleString()}
                 </p>
             </div>
-            <div className={`grid place-items-center h-10 w-10 rounded-xl ${accent}`}>{icon}</div>
+            <div className={`metric-card__icon ${iconClass}`}>{icon}</div>
         </div>
     </div>
 );
 
-const SelectField = ({ icon, value, onChange, options }) => (
-    <div className="relative">
-        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2">{icon}</span>
-        <select
-            value={value}
-            onChange={onChange}
-            className="appearance-none w-full sm:w-52 h-11 rounded-xl bg-zinc-50 ring-1 ring-zinc-200 pl-9 pr-9 text-sm text-zinc-900 focus:bg-white focus:ring-zinc-900 focus:outline-none transition cursor-pointer"
-        >
+const SelectField = ({ icon, value, onChange, options, label }) => (
+    <div className="toolbar-select">
+        <span className="toolbar-select__icon" aria-hidden="true">{icon}</span>
+        <select value={value} onChange={onChange} aria-label={label}>
             {options.map((o) => (
                 <option key={o.value} value={o.value}>
                     {o.label}
                 </option>
             ))}
         </select>
-        <svg
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-        >
-            <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 011.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clipRule="evenodd" />
-        </svg>
+        <span className="toolbar-select__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 011.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+            </svg>
+        </span>
     </div>
 );
 
@@ -539,71 +487,61 @@ const IconButton = ({ children, onClick, title, danger, disabled }) => (
         title={title}
         aria-label={title}
         disabled={disabled}
-        className={`grid place-items-center h-8 w-8 rounded-lg ring-1 transition-colors ${danger
-            ? 'text-rose-600 ring-rose-200 hover:bg-rose-50 hover:ring-rose-300'
-            : 'text-zinc-600 ring-zinc-200 hover:bg-zinc-100 hover:text-zinc-900'
-            } disabled:opacity-50 disabled:cursor-not-allowed`}
+        className={`action-btn ${danger ? 'action-btn--danger' : ''}`}
     >
         {children}
     </button>
 );
 
 const SkeletonRow = () => (
-    <tr className="animate-pulse">
-        <td className="px-6 py-4">
-            <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-lg bg-zinc-200" />
-                <div className="space-y-2">
-                    <div className="h-3 w-40 bg-zinc-200 rounded" />
-                    <div className="h-2.5 w-24 bg-zinc-100 rounded" />
+    <tr className="skeleton-row" aria-hidden="true">
+        <td>
+            <div className="venture-cell">
+                <div className="skeleton-block skeleton-avatar" />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div className="skeleton-block skeleton-line skeleton-line--w40" />
+                    <div className="skeleton-block skeleton-line--sm skeleton-line--w24" />
                 </div>
             </div>
         </td>
-        <td className="px-6 py-4">
-            <div className="h-6 w-20 bg-zinc-200 rounded-full" />
-        </td>
-        <td className="px-6 py-4">
-            <div className="h-3 w-32 bg-zinc-200 rounded" />
-        </td>
-        <td className="px-6 py-4">
-            <div className="flex items-center justify-end gap-1">
-                <div className="h-8 w-8 bg-zinc-200 rounded-lg" />
-                <div className="h-8 w-8 bg-zinc-200 rounded-lg" />
-                <div className="h-8 w-8 bg-zinc-200 rounded-lg" />
+        <td><div className="skeleton-block skeleton-badge" /></td>
+        <td><div className="skeleton-block skeleton-line skeleton-line--w32" /></td>
+        <td><div className="skeleton-block skeleton-line skeleton-line--w24" /></td>
+        <td>
+            <div className="actions-cell">
+                <div className="skeleton-block skeleton-action" />
+                <div className="skeleton-block skeleton-action" />
+                <div className="skeleton-block skeleton-action" />
             </div>
         </td>
     </tr>
 );
 
 const EmptyState = () => (
-    <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
-        <div className="grid place-items-center h-14 w-14 rounded-2xl bg-zinc-100 ring-1 ring-zinc-200 text-zinc-400 mb-4">
-            <Inbox className="h-6 w-6" />
+    <div className="empty-state">
+        <div className="empty-state__icon">
+            <Inbox />
         </div>
-        <h3 className="text-base font-semibold text-zinc-900">No ventures match your filters</h3>
-        <p className="mt-1 text-sm text-zinc-500 max-w-sm">
+        <h3 className="empty-state__title">No ventures match your filters</h3>
+        <p className="empty-state__desc">
             Try adjusting your search, category, or sort options — or create your first landing page to get started.
         </p>
     </div>
 );
 
 const PageIndicator = ({ page, totalPages, onSelect }) => {
-    // compact indicator: show up to 5 pages around current
     const pages = [];
     const start = Math.max(1, Math.min(page - 2, totalPages - 4));
     const end = Math.min(totalPages, start + 4);
     for (let i = start; i <= end; i++) pages.push(i);
 
     return (
-        <div className="hidden sm:flex items-center gap-1 mx-1">
+        <div className="page-indicators">
             {pages.map((p) => (
                 <button
                     key={p}
                     onClick={() => onSelect(p)}
-                    className={`min-w-[32px] h-8 px-2 text-xs font-medium rounded-lg transition ${p === page
-                        ? 'bg-zinc-900 text-white ring-1 ring-zinc-900'
-                        : 'text-zinc-600 ring-1 ring-zinc-200 hover:bg-zinc-50 hover:ring-zinc-300'
-                        }`}
+                    className={`page-indicator-btn ${p === page ? 'page-indicator-btn--active' : ''}`}
                 >
                     {p}
                 </button>

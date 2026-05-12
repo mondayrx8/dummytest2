@@ -42,10 +42,10 @@ const GuestList = () => {
     return (
         <div className="directory-page">
             {/* Hero Section */}
-            <div className="directory-hero">
+            <section className="directory-hero" aria-label="Investor Directory Hero">
                 <div className="directory-hero-content">
                     <div className="directory-badge">
-                        <span className="pulse-dot"></span>
+                        <span className="pulse-dot" aria-hidden="true"></span>
                         {totalVentures} Active Ventures
                     </div>
                     <h1 className="directory-title">Investor Directory</h1>
@@ -54,45 +54,35 @@ const GuestList = () => {
                     </p>
 
                     <div className="directory-search-wrapper flex justify-center w-full mt-8">
-                        <div className="w-full max-w-md"> {/* control the width of the input here */}
+                        <div className="w-full max-w-md">
                             <GooeyInput
                                 placeholder="Search by venture, founder..."
                                 value={searchTerm}
                                 onValueChange={(text) => setSearchTerm(text)}
-                                collapsedWidth={200} /* width of the box when calm (before pressing) */
-                                expandedWidth={300}  /* width of the box when typing (after pressing) */
+                                collapsedWidth={200}
+                                expandedWidth={300}
                             />
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Main Content */}
-            <main className="directory-main">
+            <main className="directory-main" aria-label="Venture listings">
                 {loading ? (
-                    // ==========================================
-                    // SKELETON LOADING UNTUK INVESTOR GRID
-                    // ==========================================
-                    <div className="directory-grid">
+                    <div className="directory-grid" aria-hidden="true">
                         {[1, 2, 3, 4, 5, 6].map((skel) => (
-                            <article key={skel} className="directory-card overflow-hidden bg-white">
-                                {/* Skeleton Gambar (Thumbnail) */}
-                                <div className="w-full h-[220px] bg-slate-200 animate-pulse"></div>
-
-                                {/* Skeleton Teks (Kandungan Bawah) */}
-                                <div className="card-content-modern p-6 flex flex-col gap-4">
-                                    <div className="flex justify-between items-center">
-                                        {/* Skeleton Nama Bisnes */}
-                                        <div className="h-6 w-1/2 bg-slate-300 rounded animate-pulse"></div>
-                                        {/* Skeleton Badge Founder */}
-                                        <div className="h-6 w-1/4 bg-slate-200 rounded-full animate-pulse"></div>
+                            <article key={skel} className="directory-card">
+                                <div className="skeleton-thumb"></div>
+                                <div className="skeleton-content">
+                                    <div className="skeleton-content__row">
+                                        <div className="skeleton-block skel-h6-half"></div>
+                                        <div className="skeleton-block skel-badge"></div>
                                     </div>
-
-                                    {/* Skeleton Description */}
-                                    <div className="flex flex-col gap-2 mt-2">
-                                        <div className="h-4 w-full bg-slate-200 rounded animate-pulse"></div>
-                                        <div className="h-4 w-5/6 bg-slate-200 rounded animate-pulse"></div>
-                                        <div className="h-4 w-2/3 bg-slate-200 rounded animate-pulse"></div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                        <div className="skeleton-block skel-line"></div>
+                                        <div className="skeleton-block skel-line-5-6"></div>
+                                        <div className="skeleton-block skel-line-2-3"></div>
                                     </div>
                                 </div>
                             </article>
@@ -100,7 +90,7 @@ const GuestList = () => {
                     </div>
                 ) : portfolios.length === 0 ? (
                     <div className="directory-empty">
-                        <div className="empty-icon-wrapper">
+                        <div className="empty-icon-wrapper" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         </div>
                         <h3>No Ventures Found</h3>
@@ -114,11 +104,8 @@ const GuestList = () => {
                 ) : (
                     <div className="directory-grid">
                         {portfolios.map((item) => {
-                            // 1. Ekstrak Thumbnail dari struktur 0-9
-                            // UTAMAKAN BANNER SEBAGAI PREVIEW UTAMA
                             let thumbnail = item.banner || null;
 
-                            // Kalau user takde letak banner, baru kita cari gambar lain sebagai backup
                             if (!thumbnail) {
                                 if (item.products && item.products.length > 0 && item.products[0].image) {
                                     thumbnail = item.products[0].image;
@@ -129,12 +116,10 @@ const GuestList = () => {
                                 }
                             }
 
-                            // 2. Ekstrak Nama Founder
                             const founderName = item.ourTeam && item.ourTeam.length > 0 && item.ourTeam[0].name
                                 ? item.ourTeam[0].name
                                 : "Founder";
 
-                            // 3. Ekstrak Slogan (fallback ke About Us kalau takde)
                             const brief = item.slogan || item.aboutUs || "No business description provided for this venture.";
 
                             return (
@@ -143,11 +128,11 @@ const GuestList = () => {
                                         {thumbnail ? (
                                             <img src={thumbnail} alt={item.businessName} className="card-image" loading="lazy" />
                                         ) : (
-                                            <div className="card-placeholder-modern">
+                                            <div className="card-placeholder-modern" aria-hidden="true">
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                                             </div>
                                         )}
-                                        <div className="card-overlay">
+                                        <div className="card-overlay" aria-hidden="true">
                                             <span className="view-details-text">View Details →</span>
                                         </div>
                                     </div>
@@ -169,7 +154,7 @@ const GuestList = () => {
 
                 {/* Pagination */}
                 {!loading && portfolios.length > 0 && totalPages > 1 && (
-                    <div className="directory-pagination">
+                    <nav className="directory-pagination" aria-label="Pagination">
                         <button
                             onClick={() => fetchPublicData(currentPage - 1, searchTerm)}
                             disabled={currentPage === 1}
@@ -185,6 +170,10 @@ const GuestList = () => {
                                     key={page}
                                     className={`page-dot ${currentPage === page ? 'active' : ''}`}
                                     onClick={() => fetchPublicData(page, searchTerm)}
+                                    role="button"
+                                    aria-label={`Go to page ${page}`}
+                                    tabIndex={0}
+                                    onKeyDown={(e) => e.key === 'Enter' && fetchPublicData(page, searchTerm)}
                                 ></span>
                             ))}
                         </div>
@@ -197,7 +186,7 @@ const GuestList = () => {
                             Next
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
                         </button>
-                    </div>
+                    </nav>
                 )}
             </main>
             <Footer />
