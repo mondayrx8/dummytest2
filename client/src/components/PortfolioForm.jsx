@@ -239,6 +239,7 @@ const PortfolioForm = ({ onSave, currentPortfolio, setCurrentPortfolio }) => {
               <option value="template1">Template 1 (Premium - In Development)</option>
               <option value="template2">Template 2 (Professional)</option>
               <option value="template3">Template 3 (Dark Luxe)</option>
+              <option value="template4">Template 4 (Maison de Saveur - F&B Light)</option>
             </select>
           </div>
 
