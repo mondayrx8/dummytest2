@@ -6,6 +6,7 @@ import { HeroParallax } from "./ui/hero-parallax.jsx";
 import TemplateSecond from './TemplateSecond';
 import TemplateThird from './TemplateThird';
 import TemplateFourth from './TemplateFourth';
+import TemplateFifth from './TemplateFifth';
 import './PortfolioDetails.css';
 
 const PortfolioDetails = () => {
@@ -132,7 +133,10 @@ const PortfolioDetails = () => {
     return (
         <div className="w-full relative" style={{ backgroundColor: '#1A1A1A' }}>
 
-            {portfolio.template === 'template4' ? (
+            {portfolio.template === 'template5' ? (
+                // 🟣 WHEN TEMPLATE 5 SELECTED: NEXUS Cybernetic (Tech/IT)
+                <TemplateFifth portfolio={portfolio} />
+            ) : portfolio.template === 'template4' ? (
                 // 🔴 WHEN TEMPLATE 4 SELECTED: Maison de Saveur (F&B Light)
                 <TemplateFourth portfolio={portfolio} />
             ) : portfolio.template === 'template3' ? (
