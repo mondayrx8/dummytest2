@@ -25,10 +25,16 @@
 
 ## ✨ Key Enterprise Features
 
-- **🚀 Dynamic Premium Landing Page Generation (3 Themes)**
+- **🚀 Dynamic Premium Landing Page Generation (5 Themes)**
   - **Theme 1: Startup Pitch Deck** — Classic, Professional, Parallax scrolling.
   - **Theme 2: Minimalist Modern** — Clean, fast, Bento-box aesthetic.
-  - **Theme 3: Maison Editorial** — Dark Luxe, cinematic, pinned-scroll animations.
+  - **Theme 3: Maison Editorial** — Dark Luxe, cinematic, pinned-scroll animations, featuring semantic CSS architecture (`oklch` color tokens), Newsreader typography, and enterprise-grade accessibility.
+  - **Theme 4: Maison de Saveur** — Elegant F&B light theme with Artisan warmth, refined typography, and smooth hover interactions.
+  - **Theme 5: NEXUS / Cybernetic** — Dark, futuristic tech aesthetic with cybernetic accents, terminal typing effects, and modular layouts for SaaS/IT ventures.
+- **📱 High-Fidelity Responsive Design**
+  - Fluid typography and seamless mobile user experiences across all views.
+  - Optimized Framer Motion scroll-based interactions with strict accessibility-focused touch targets.
+  - Refined parallax animations and layouts for flawless cross-device rendering.
 - **🛡️ Admin Command Center (Dashboard)**
   - Built with a sleek, minimalist Tailwind UI.
   - Real-time **MongoDB Aggregation Analytics** (Category Distribution, Template Popularity).
@@ -63,7 +69,7 @@
 
 ## 🧩 Project Architecture
 
-SiswaNiaga is built on the MERN stack and strictly follows the **Controller-Service Pattern** for maintainability and scalability.
+SiswaNiaga is built on the MERN stack and strictly follows the **Controller-Service Pattern** for maintainability and scalability. The platform leverages a highly refined design system, utilizing semantic CSS architectures and modern typography for a strict "Corporate Professional" aesthetic.
 
 ```text
 📦 siswaniaga
